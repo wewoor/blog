@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>编程 on 让美的事情发生</title>
-    <link>./tags/%E7%BC%96%E7%A8%8B/</link>
+    <link>wewoor.github.io/tags/%E7%BC%96%E7%A8%8B/</link>
     <description>Recent content in 编程 on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>2014-2020.</copyright>
     <lastBuildDate>Fri, 23 Nov 2018 17:24:48 +0000</lastBuildDate>
     
-	<atom:link href="./tags/%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="wewoor.github.io/tags/%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>【译】理解 Javascript 中常用的一些设计模式</title>
-      <link>./posts/2018/%E8%AF%91%E7%90%86%E8%A7%A3-javascript-%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <link>wewoor.github.io/posts/2018/%E8%AF%91%E7%90%86%E8%A7%A3-javascript-%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Fri, 23 Nov 2018 17:24:48 +0000</pubDate>
       
-      <guid>./posts/2018/%E8%AF%91%E7%90%86%E8%A7%A3-javascript-%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <guid>wewoor.github.io/posts/2018/%E8%AF%91%E7%90%86%E8%A7%A3-javascript-%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
       <description>原文地址: Understanding Design Patterns in JavaScript
  当我们开始一个新的项目的时候，通常不会立刻开始实际编码的工作，而是首先会理清楚项目的一些需求、问题和目标。在我们可以开始编写代码后， 或者如果你正在处理的是一个更复杂的项目的话，那么我们应该考虑去选择一种最适合项目的设计模式去帮助我们完成工作。
 如何理解设计模式 在软件工程中，设计模式是一种用来解决软件设计中一些共通问题的解决方案。设计模式往往是开发工程师最佳实践后的经验总结。通常我们可以把一个设计模式理解为是一个编程模板。

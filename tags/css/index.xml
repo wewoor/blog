@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>CSS on 让美的事情发生</title>
-    <link>./tags/css/</link>
+    <link>wewoor.github.io/tags/css/</link>
     <description>Recent content in CSS on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>2014-2020.</copyright>
     <lastBuildDate>Sun, 17 Apr 2016 20:27:24 +0000</lastBuildDate>
     
-	<atom:link href="./tags/css/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="wewoor.github.io/tags/css/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>CSS3 实现自定义 Checkbox</title>
-      <link>./posts/2016/css3-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-checkbox/</link>
+      <link>wewoor.github.io/posts/2016/css3-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-checkbox/</link>
       <pubDate>Sun, 17 Apr 2016 20:27:24 +0000</pubDate>
       
-      <guid>./posts/2016/css3-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-checkbox/</guid>
+      <guid>wewoor.github.io/posts/2016/css3-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-checkbox/</guid>
       <description>之前我写了一篇自定义 checkbox 的文章，通过 css3 实现自定义的 checkbox，并没有使用当今流行的 Reactjs, 或者 Vuejs 之类的进行组件化。但是很显然，这样封装的 checkbox 组件复用的时候非常麻烦。如果在新项目中使用的话，可能需要同时拷贝 css 和 html 文件进行整合。从 html 语义角度上讲，代码的易读性也不是很强，显然这样的组件显然不利于维护。
 其实 Web Component 是前端界一直非常热衷的一个领域，因为原生的 HTML 在维护复杂网页应用时，实在是太差了。所以才出现了诸如 Google 的Ploymer、Facebook 的Reactjs等等。而且很多MVVM的框架也自带组件化的方案,例如Angularjs的指令，但貌似ng的这个用起来太复杂。用第三方组件化的框架去实现的话，你需要依赖框架本身很多东西，很多时候我们只是简单的几个组件，不是很大，也不是很多，所以为了保证组件的轻量，简单,其实这个时候我们并不想采用第三方的框架。接下来我会介绍使用Shadow DOM和registerElement的方式去实现组件化。
 先看看实现后的调用方式：

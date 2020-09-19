@@ -21,7 +21,7 @@
 public static String doPostFile(String url, Part[] parts){ String response = null; PostMethod postMethod = new PostMethod(url); try{ //设置请求实体  postMethod.setRequestEntity(new MultipartRequestEntity(parts,postMethod.getParams())); HttpClient client = new HttpClient(); //设置连接超时限度  client.getHttpConnectionManager().getParams().setConnectionTimeout(5000); client.executeMethod(postMethod); if(postMethod.getStatusCode() == HttpStatus.SC_OK){ response = new String(postMethod.getResponseBodyAsString().getBytes(&#34;utf-8&#34;)); } } catch(Exception e){ LOGGER.error(&#34;HttpServiceSender.doPostFile()&#34;,e.getMessage()); } finally { postMethod.releaseConnection(); } return response; } 调用此方法的代码，注意参数的传递方式
 public String uploadImage(File file,String id,String name){ String result = null; try{ //文件part,new FilePart添加的是File类型的文件，后面StringPart则为字符串参数  Part[] parts = { new FilePart(&#34;file&#34;, file), new StringPart(&#34;id&#34;, id), new StringPart(&#34;id&#34;,name)}; result = HttpServiceSender." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="./posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" />
+<meta property="og:url" content="wewoor.github.io/posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" />
 <meta property="article:published_time" content="2013-08-07T17:13:00+00:00" />
 <meta property="article:modified_time" content="2013-08-07T17:13:00+00:00" /><meta property="og:site_name" content="My Blog" />
 
@@ -41,26 +41,26 @@ public String uploadImage(File file,String id,String name){ String result = null
 
 
 
-<script src="/vendor/js/jquery.min.js" ></script>
-<script src="/vendor/js/popper.min.js" ></script>
-<script src="/vendor/js/bootstrap.min.js" ></script>
-<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
-<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
-<script src="/vendor/js/vue.min.js" ></script>
+<script src="/wewoor.github.io/vendor/js/jquery.min.js" ></script>
+<script src="/wewoor.github.io/vendor/js/popper.min.js" ></script>
+<script src="/wewoor.github.io/vendor/js/bootstrap.min.js" ></script>
+<script src="/wewoor.github.io/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/wewoor.github.io/vendor/css/bootstrap.min.css">
+<script src="/wewoor.github.io/vendor/js/vue.min.js" ></script>
 
 
 
 
 
 
-<link rel="stylesheet" href="/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+<link rel="stylesheet" href="/wewoor.github.io/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
 
 
 
-<link rel="stylesheet" href="/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
+<link rel="stylesheet" href="/wewoor.github.io/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
 
 
-<script src=".//js/loadCSS.js"></script>
+<script src="wewoor.github.io/js/loadCSS.js"></script>
 <script>
   loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
 </script>
@@ -69,7 +69,7 @@ public String uploadImage(File file,String id,String name){ String result = null
 
 
   
-    <script src=".//js/toc-collapse.js"></script>
+    <script src="wewoor.github.io/js/toc-collapse.js"></script>
   
 
 
@@ -86,7 +86,7 @@ public String uploadImage(File file,String id,String name){ String result = null
 </head><body>
     	<div id="app"><div ref="sideContainer" class="side-container">
     
-    <a class="a-block nav-head false" href="./">
+    <a class="a-block nav-head false" href="wewoor.github.io">
     
         <div class="nav-title">
             让美的事情发生
@@ -108,7 +108,7 @@ public String uploadImage(File file,String id,String name){ String result = null
             
             
             
-            <a class="a-block nav-link-item active" href="posts">
+            <a class="a-block nav-link-item active" href="wewoor.github.io/posts">
                 归档
             </a>
             
@@ -118,7 +118,7 @@ public String uploadImage(File file,String id,String name){ String result = null
             
             
             
-            <a class="a-block nav-link-item false" href="categories">
+            <a class="a-block nav-link-item false" href="wewoor.github.io/categories">
                 分类
             </a>
             
@@ -128,7 +128,7 @@ public String uploadImage(File file,String id,String name){ String result = null
             
             
             
-            <a class="a-block nav-link-item false" href="tags">
+            <a class="a-block nav-link-item false" href="wewoor.github.io/tags">
                 标签
             </a>
             
@@ -138,7 +138,7 @@ public String uploadImage(File file,String id,String name){ String result = null
             
             
             
-            <a class="a-block nav-link-item false" href="index.xml">
+            <a class="a-block nav-link-item false" href="wewoor.github.io/index.xml">
                 RSS Feed
             </a>
             
@@ -199,7 +199,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item active" href="posts">
+                <a class="a-block drawer-menu-item active" href="wewoor.github.io/posts">
                     归档
                 </a>
                 
@@ -209,7 +209,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="categories">
+                <a class="a-block drawer-menu-item false" href="wewoor.github.io/categories">
                     分类
                 </a>
                 
@@ -219,7 +219,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="tags">
+                <a class="a-block drawer-menu-item false" href="wewoor.github.io/tags">
                     标签
                 </a>
                 
@@ -229,7 +229,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="index.xml">
+                <a class="a-block drawer-menu-item false" href="wewoor.github.io/index.xml">
                     RSS Feed
                 </a>
                 
@@ -254,7 +254,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 menu
             </i>
         </button>
-        <a ref="navTitle" class="navbar-brand" href="./">
+        <a ref="navTitle" class="navbar-brand" href="wewoor.github.io">
             让美的事情发生
         </a>
         
@@ -271,7 +271,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 </nav>
 <div class="single-column-header-container" ref="pageHead"
      v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
-    <a href="./">
+    <a href="wewoor.github.io">
         <div class="single-column-header-title">让美的事情发生</div>
         
         <div class="single-column-header-subtitle">—— Ziv小威</div>
@@ -302,7 +302,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 
                         
                             <i class="material-icons" style="">folder</i>
-                                <a href="/categories/">[计算机科学]</a>
+                                <a href="/wewoor.github.io/categories/">[计算机科学]</a>
                                 &nbsp;
                         
 
@@ -368,13 +368,13 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="./posts/2013/jquery%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/">
+                <a class="newer-posts" href="wewoor.github.io/posts/2013/jquery%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/">
 			下回<br>jquery 实现文件异步上传
                 </a>
                 
                 
                 
-                <a class="older-posts" href="./posts/2013/javascript%E7%9A%84%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E6%8B%86%E8%A7%A3%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1/">
+                <a class="older-posts" href="wewoor.github.io/posts/2013/javascript%E7%9A%84%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E6%8B%86%E8%A7%A3%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1/">
 			上回<br>Javascript 的字面量对象以及如何拆解字面量对象
                 </a>
                 
@@ -511,6 +511,6 @@ app = new Vue({
 });
 </script>
 
-<script src=".//js/journal.js"></script>
+<script src="wewoor.github.io/js/journal.js"></script>
     </body>
 </html>
