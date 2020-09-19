@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Javascript on 让美的事情发生</title>
-    <link>wewoor.github.io/categories/javascript/</link>
+    <link>https://wewoor.github.io/categories/javascript/</link>
     <description>Recent content in Javascript on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>2014-2020.</copyright>
     <lastBuildDate>Mon, 30 Jun 2014 14:48:56 +0000</lastBuildDate>
     
-	<atom:link href="wewoor.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://wewoor.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>利用 JS 跨域做一个简单的页面访问统计系统</title>
-      <link>wewoor.github.io/posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/</link>
+      <link>https://wewoor.github.io/posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/</link>
       <pubDate>Mon, 30 Jun 2014 14:48:56 +0000</pubDate>
       
-      <guid>wewoor.github.io/posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/</guid>
+      <guid>https://wewoor.github.io/posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/</guid>
       <description>其实在大部分互联网 web 产品中，我们通常会用百度统计或者谷歌统计分析系统，通过在程序中引入特定的 JS 脚本，然后便可以在这些统计系统中看到自己网站页面具体的访问情况。但是有些时候，由于一些特殊情况，我们需要自己来设计统计系统。由于前段时间公司的业务需求，我也是自己尝试了下，本文提供的是一个基本思路，统计系统也比较简单。
 几个基本统计需求： 1.统计 web 每个页面用户访问量 2.统计用户访问者的和 IP 地址信息 3.页面之间的跳转情况 4.访问高峰时间段
 服务器结构： 数据库表设计：
@@ -32,10 +32,10 @@ JS 跨域：
     
     <item>
       <title>HTML5 实现图片文件异步上传</title>
-      <link>wewoor.github.io/posts/2014/html5%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/</link>
+      <link>https://wewoor.github.io/posts/2014/html5%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/</link>
       <pubDate>Mon, 26 May 2014 15:31:58 +0000</pubDate>
       
-      <guid>wewoor.github.io/posts/2014/html5%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/</guid>
+      <guid>https://wewoor.github.io/posts/2014/html5%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/</guid>
       <description>利用 HTML5 的新特点做文件异步上传非常简单方便，本文主要展示 JS 部分，html 结构。下面的代码并未使用第三发库，如果有参照，请注意一些未展现出来的代码片段。我这边的效果预览：
 1.文件未选择 2.文件已选择
 HTML 代码部分： 思路：下面代码中我利用 css 的 z-index 属性将 input=&amp;quot;file”标签隐藏在了 id=btnSelect 元素下面，通过触发 a 标签的点击后，弹出文件选择框。下面的 masklayer 用于点击确认按钮后的弹出层，避免用户重复点击确认按钮。
@@ -48,10 +48,10 @@ false,满足以上 3 个条件后，在 dom 中生成图片预览，添加 img �
     
     <item>
       <title>Mysql 编写定时任务事件</title>
-      <link>wewoor.github.io/posts/2014/mysql%E7%BC%96%E5%86%99%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E4%BA%8B%E4%BB%B6/</link>
+      <link>https://wewoor.github.io/posts/2014/mysql%E7%BC%96%E5%86%99%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E4%BA%8B%E4%BB%B6/</link>
       <pubDate>Tue, 13 May 2014 18:26:26 +0000</pubDate>
       
-      <guid>wewoor.github.io/posts/2014/mysql%E7%BC%96%E5%86%99%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E4%BA%8B%E4%BB%B6/</guid>
+      <guid>https://wewoor.github.io/posts/2014/mysql%E7%BC%96%E5%86%99%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E4%BA%8B%E4%BB%B6/</guid>
       <description>场景：
 　例如：某系统，用户每天只能拥有一次的抽奖机会，抽过后当天就不可再抽，但是过了 24：00 点后用户就重新拥有一次抽奖机会。像这种需要数据库定时对某个字段进行更新操作的任务，完全可以通过数据库本身的事件机制进行操作，而服务器端也不需要用额外的代码进行这种监控定时的操作。
 Mysql:
@@ -63,10 +63,10 @@ Mysql:
     
     <item>
       <title>匿名函数块级作用域以及在 JQuery 中的应用</title>
-      <link>wewoor.github.io/posts/2014/%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%BB%A5%E5%8F%8A%E5%9C%A8jquery%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/</link>
+      <link>https://wewoor.github.io/posts/2014/%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%BB%A5%E5%8F%8A%E5%9C%A8jquery%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/</link>
       <pubDate>Fri, 21 Feb 2014 10:59:00 +0000</pubDate>
       
-      <guid>wewoor.github.io/posts/2014/%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%BB%A5%E5%8F%8A%E5%9C%A8jquery%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/</guid>
+      <guid>https://wewoor.github.io/posts/2014/%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%BB%A5%E5%8F%8A%E5%9C%A8jquery%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/</guid>
       <description>最近经常回在群里面看到有些朋友问如下这样的 js 写法该如何理解的的问题,虽然可能对匿名函数有些理解，但是有时候看到 JQuery 源码或者其他 JS 库中同样的写法时，就有点不理解了，今天再次分享下这方面的知识点。
 (function(){ })(JQuery); 对以上写法的理解：
 　上面的这种写法通常叫做“块级作用域”，块级作用域的好处就是可以将匿名方法内部的变量进行私有化，当程序运行结束之后便将一些变量自动销毁。第一个（）号表示次函数为一个函数表达式，其中包含了一个匿名函数，后面的一个（）则表示执行这个函数表达式中的匿名方法，而 JQuery 则作为这个匿名函数的一个参数。

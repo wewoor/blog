@@ -1,24 +1,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>让美的事情发生</title>
-    <link>wewoor.github.io/</link>
+    <link>https://wewoor.github.io/</link>
     <description>Recent content on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>2014-2020.</copyright>
     <lastBuildDate>Tue, 14 Jan 2020 10:28:51 +0000</lastBuildDate>
     
-        <atom:link href="wewoor.github.io/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://wewoor.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     
         <item>
         <title>完整的学习和使用 CSS 动画【翻译】</title>
-        <link>wewoor.github.io/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/</link>
+        <link>https://wewoor.github.io/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/</link>
         <pubDate>Sat, 25 Feb 2017 19:30:23 +0000</pubDate>
         
-        <guid>wewoor.github.io/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/</guid>
-        <description>让美的事情发生 wewoor.github.io/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/ -&lt;p&gt;一直以来，因为团队项目迭代节奏很快，每次发布的更新日志和版本更新都是通过人肉来完成的。有时候实在忙的团团转，对于手动的写这些更新信息就显得力不从心了。对于团队新来的小伙伴，有时候遇到些紧急情况，就更显的乱糟糟，还是得麻烦团队资深的同学。显然这些工作，用自动化工具再适合不过了。&lt;/p&gt;
+        <guid>https://wewoor.github.io/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/</guid>
+        <description>让美的事情发生 https://wewoor.github.io/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/ -&lt;p&gt;一直以来，因为团队项目迭代节奏很快，每次发布的更新日志和版本更新都是通过人肉来完成的。有时候实在忙的团团转，对于手动的写这些更新信息就显得力不从心了。对于团队新来的小伙伴，有时候遇到些紧急情况，就更显的乱糟糟，还是得麻烦团队资深的同学。显然这些工作，用自动化工具再适合不过了。&lt;/p&gt;
 &lt;p&gt;本文是一篇项目自动化方面的使用教程，社区里面针对四类问题的解决方案很多，今天这里主要介绍的是 onventional-changelog 方案相关的内容。 如果你正在思考或者试图解决这方面的问题的话，不妨了解一下。&lt;/p&gt;
 &lt;p&gt;conventional-changelog
 conventional-changelog 是一款可以根据项目的 commit 和 metadata 信息自动生成 changelogs 和 release notes 的系列工具，并且在辅助 standard-version 工具的情况下，可以自动帮你完成生成 version、打 tag, 生成 CHANGELOG 等系列过程。&lt;/p&gt;
@@ -148,18 +148,18 @@ echo &amp;ldquo;Release finished.&amp;rdquo;
 &lt;p&gt;最后
 项目的工程化是一件很有意思的事情，通过自动化的工具，可以有效提升项目可维护性和质量，并且避免很多不确定因素。如果你工作中发现了这些问题，而不想继续通过人肉的方法解决这些问题的话，那就赶紧试试~&lt;/p&gt;
 &lt;p&gt;原文地址：&lt;a href=&#34;http://imziv.com/blog/article/index.htm&#34;&gt;http://imziv.com/blog/article/index.htm&lt;/a&gt;&lt;/p&gt;
-- wewoor.github.io/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/ - 2014-2020.</description>
+- https://wewoor.github.io/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>常用的 Linux Shell 命令</title>
-        <link>wewoor.github.io/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/</link>
+        <link>https://wewoor.github.io/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/</link>
         <pubDate>Wed, 08 Feb 2017 17:21:03 +0000</pubDate>
         
-        <guid>wewoor.github.io/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/</guid>
-        <description>让美的事情发生 wewoor.github.io/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/ -&lt;p&gt;自己平时有可能会用到的 Shell 命令，之前用 Evenote 记录的比较零散，重新整理了下，以后慢慢补充。&lt;/p&gt;
+        <guid>https://wewoor.github.io/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/</guid>
+        <description>让美的事情发生 https://wewoor.github.io/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/ -&lt;p&gt;自己平时有可能会用到的 Shell 命令，之前用 Evenote 记录的比较零散，重新整理了下，以后慢慢补充。&lt;/p&gt;
 &lt;h2 id=&#34;文件操作&#34;&gt;文件操作&lt;/h2&gt;
 &lt;h5 id=&#34;查看文件所属用户&#34;&gt;查看文件所属用户&lt;/h5&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ls -al
@@ -214,18 +214,18 @@ $ su ziv
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mysqldump -u root -p dbname&amp;gt;/home/backup_20170208.sql
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;导入-sql-脚本&#34;&gt;导入 Sql 脚本&lt;/h5&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ &lt;span style=&#34;color:#658b00&#34;&gt;source&lt;/span&gt; /home/backup.sql
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- wewoor.github.io/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/ - 2014-2020.</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- https://wewoor.github.io/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>Web 前端的状态管理（State Management）</title>
-        <link>wewoor.github.io/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/</link>
+        <link>https://wewoor.github.io/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/</link>
         <pubDate>Sun, 08 Jan 2017 22:38:01 +0000</pubDate>
         
-        <guid>wewoor.github.io/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/</guid>
-        <description>让美的事情发生 wewoor.github.io/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/ -&lt;h3 id=&#34;背景&#34;&gt;背景&lt;/h3&gt;
+        <guid>https://wewoor.github.io/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/</guid>
+        <description>让美的事情发生 https://wewoor.github.io/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/ -&lt;h3 id=&#34;背景&#34;&gt;背景&lt;/h3&gt;
 &lt;p&gt;我相信很多朋友跟我一样，初次听到什么&lt;a href=&#34;https://facebook.github.io/flux/&#34;&gt;Flux&lt;/a&gt;, &lt;a href=&#34;http://cn.redux.js.org/&#34;&gt;Redux&lt;/a&gt;， &lt;a href=&#34;https://vuex.vuejs.org/zh-cn/intro.html&#34;&gt;Vuex&lt;/a&gt;，&lt;code&gt;状态管理&lt;/code&gt;的时候是一脸懵逼的。因为在外面之前前端大部分开发的时候，根本没有那么多的概念。自从 ReactJS 火爆后，什么&lt;code&gt;Flux, Redux，React全家桶&lt;/code&gt;是一套一套接踵而来。搞的很多开发者甚是头大。所谓的 ReactJS 全家桶即&lt;code&gt;ReactJS + Redux + Webpack&lt;/code&gt;，
 当然其中的 Redux 可以用其他例如&lt;a href=&#34;https://github.com/mobxjs/mobx&#34;&gt;Mobx&lt;/a&gt;之类的替换。原本可能只是很简单的一些数据展示需求，当想用尝试使用 ReactJS 时，去 Google 搜索了一些教程，突然发现怎么用个 React 需要这么多东西。正如今年比较有名的一篇文章里面描述的那样 — &lt;a href=&#34;https://www.v2ex.com/t/310767?from=singlemessage&amp;amp;isappinstalled=0&#34;&gt;”在 2016 年学习前端是怎样一种体验&amp;rdquo;&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;很显然，时代在进步，技术在进步，Web 业务需求在进步，浏览器性能的大幅度提升，促使 JS 能处理越来越多的事情。为了满足越来越复杂、丰富的&lt;code&gt;WebApp&lt;/code&gt;需求，越来越多的原本后端处理的业务逻辑开始转移到前端来处理，同时更多复杂的前端业务在浏览器上面催生，原有的很多技术体系、解决方案已经不能很好的支撑这些越来越复杂的需求了。所以当我们在面临各种业务需求的时候，必定会出现各种各样的适合不同业务需求的技术解决方案。&lt;/p&gt;
@@ -251,18 +251,18 @@ $ su ziv
 &lt;p&gt;总而言之，并不是所有的 Web 应用和使用场景都需要添加状态管理，很多时候服务端渲染任然是更好的选择，而是否需要添加状态管理框架，是用 Redux，还是 Mobx, 我们可以根据自己的业务实际情况和技术团队的偏好而添加，而有些情况下，自己创建一个全局对象可能是更适合的选择。有的人可能觉得 Redux 这种函数式编程的方式让人难以理解，那么你也可以选择 Mobx 这种面向对象编程思维的状态管理框架。如果你觉得 React 这种骑术门槛太高，适应能力差，我觉得 VueJS, Vuex 可能是更适合你的选择。&lt;/p&gt;
 &lt;p&gt;说了这么多，希望自己能解释清楚前端状态管理是怎么一回事。&lt;/p&gt;
 &lt;h5 id=&#34;原文地址httpimzivcomblogarticlereadhtmid80httpimzivcomblogarticlereadhtmid80&#34;&gt;原文地址&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=80&#34;&gt;http://imziv.com/blog/article/read.htm?id=80&lt;/a&gt;&lt;/h5&gt;
-- wewoor.github.io/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/ - 2014-2020.</description>
+- https://wewoor.github.io/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>《明朝那些事》读后感</title>
-        <link>wewoor.github.io/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</link>
+        <link>https://wewoor.github.io/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</link>
         <pubDate>Tue, 03 Jan 2017 00:23:08 +0000</pubDate>
         
-        <guid>wewoor.github.io/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</guid>
-        <description>让美的事情发生 wewoor.github.io/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/ -&lt;p&gt;拿起这本书的时候是 2016 年十一的时候，正好缝上放假回家，为了减轻旅途中的无聊，就在 Kindle 上下载了这本书。这本书火起来的时候，我还是个高中生，而对历史书集的印象只是停留在历史课本的层次。我不得不承认的是，那时的历史课对我而言是相对乏味的，所以一直以来，我对历史相关的读物的兴趣是不大的，而且对于很多历史人物的认知是只知其名，不知其事。&lt;/p&gt;
+        <guid>https://wewoor.github.io/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</guid>
+        <description>让美的事情发生 https://wewoor.github.io/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/ -&lt;p&gt;拿起这本书的时候是 2016 年十一的时候，正好缝上放假回家，为了减轻旅途中的无聊，就在 Kindle 上下载了这本书。这本书火起来的时候，我还是个高中生，而对历史书集的印象只是停留在历史课本的层次。我不得不承认的是，那时的历史课对我而言是相对乏味的，所以一直以来，我对历史相关的读物的兴趣是不大的，而且对于很多历史人物的认知是只知其名，不知其事。&lt;/p&gt;
 &lt;p&gt;也不知是什么原因，今年看了好几都讲历史相关的本书，也不知道是不是年纪越来越大的原因 0.0。明朝这书火的时候虽然我没看，但是我对他印象还是很深的。因为高中那会玩过新浪微博，而&lt;code&gt;当年明月&lt;/code&gt;的新浪博客和这本书当时的影响力已经十分大了。所以今年在列书单的时候，看到在豆瓣评价如此之高的情况下，最终我把它装到了我的 Kindle 里。正好在元旦假期把它给看完了。不管如何，看了这么久，读后感还是要写的。&lt;/p&gt;
 &lt;h3 id=&#34;古人很单纯&#34;&gt;古人很单纯&lt;/h3&gt;
 &lt;p&gt;通过历史读物，我认识到，原来几百年前年前的古人原来一点都不单纯（看怎么理解了）！除去当今社会的科学文化的发展外，古人的智力和情商，技术和手段丝毫不比现今社会差。常常会产生种错觉，80 年代的人可能会觉得 70 年代比较单纯，90 年代的人可能会觉得 80 年代的人比较单纯，嗯，也有可能 00 后觉得 90 后比较单纯。这让我忽然想起朝鲜民众见到他们伟大的领袖&lt;code&gt;金正恩&lt;/code&gt;同志时总是热泪盈眶一样的场景，经常感叹，哇，他们好单纯。话说回来，大家身处的环境不同而已，很多事情要相对的看。而人生存始终要和人交织在一起的，而有人的地方，就有江湖，有江湖就有利益，有利益就会有斗争。&lt;/p&gt;
@@ -290,29 +290,29 @@ $ su ziv
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;之前从其他渠道看到过这句话，今天也算是知道出处了~&lt;/p&gt;
 &lt;p&gt;总而言之，言而总之，用现在时髦的话说就是：“去做你想做的事，去成为你想成为的人”。&lt;/p&gt;
 &lt;h5 id=&#34;原文地址httpimzivcomblogarticlereadhtmid79httpimzivcomblogarticlereadhtmid79&#34;&gt;原文地址：&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=79&#34;&gt;http://imziv.com/blog/article/read.htm?id=79&lt;/a&gt;&lt;/h5&gt;
-- wewoor.github.io/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/ - 2014-2020.</description>
+- https://wewoor.github.io/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>而惑之年</title>
-        <link>wewoor.github.io/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/</link>
+        <link>https://wewoor.github.io/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/</link>
         <pubDate>Sat, 31 Dec 2016 23:55:56 +0000</pubDate>
         
-        <guid>wewoor.github.io/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/</guid>
-        <description>让美的事情发生 wewoor.github.io/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/ -- wewoor.github.io/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/ - 2014-2020.</description>
+        <guid>https://wewoor.github.io/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/</guid>
+        <description>让美的事情发生 https://wewoor.github.io/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/ -- https://wewoor.github.io/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>写作给我带来的益处</title>
-        <link>wewoor.github.io/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/</link>
+        <link>https://wewoor.github.io/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/</link>
         <pubDate>Thu, 20 Oct 2016 16:38:52 +0000</pubDate>
         
-        <guid>wewoor.github.io/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/</guid>
-        <description>让美的事情发生 wewoor.github.io/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/ -&lt;p&gt;刚刚进入工作那会儿， 经常通过搜索引擎搜索到各种大牛的博客，会在里面发现他们写的各种技术文章，人生经历，思考，旅行，人文等等。各种类型的文章。自己平时工作中遇到的问题，也尝尝是从这些文章中获益。所以从那时候自己也开始去培养写博客的习惯。&lt;/p&gt;
+        <guid>https://wewoor.github.io/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/</guid>
+        <description>让美的事情发生 https://wewoor.github.io/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/ -&lt;p&gt;刚刚进入工作那会儿， 经常通过搜索引擎搜索到各种大牛的博客，会在里面发现他们写的各种技术文章，人生经历，思考，旅行，人文等等。各种类型的文章。自己平时工作中遇到的问题，也尝尝是从这些文章中获益。所以从那时候自己也开始去培养写博客的习惯。&lt;/p&gt;
 &lt;p&gt;刚开始写博客那会，写的大部分内容主要是技术文章，什么算法啊，Java 语言等等方面的知识。最近有回头去看看以前写的东西，从最基本的内容排版，文章内容结构去重新审视，比较粗糙。但是通过近 3 年来自己的断断续续的坚持，发现在写东西方面还是有一些进步。从最开始的写技术，到现在我会写写自己对业界的见闻和看法，会写旅行日记，会写一些思考。技术文章也比以前更有章法，内容组织的也更好。&lt;/p&gt;
 &lt;p&gt;这么久的坚持，我是深深感受到了坚持写作中的受益是巨大的。我就简单的罗列几条。&lt;/p&gt;
 &lt;p&gt;一、增强了自身的语言表达能力&lt;!-- raw HTML omitted --&gt;
@@ -322,18 +322,18 @@ $ su ziv
 &lt;p&gt;三、思考沉淀的好方式
 有很多人有些日记，笔记的习惯。而这些都是写作的一种。通过这种写作的方式，与自我对话，与自己内心对话的方式，可以更好的总结，反思，重新认识自己。能让我们队自身有更好的认知。&lt;/p&gt;
 &lt;p&gt;以上是我简单的罗列好处，其实写作的好处简直太多，就不在此一一列举了。希望自己能坚持，坚持到老！&lt;/p&gt;
-- wewoor.github.io/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/ - 2014-2020.</description>
+- https://wewoor.github.io/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>又见南京 - JSConf 之行</title>
-        <link>wewoor.github.io/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/</link>
+        <link>https://wewoor.github.io/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/</link>
         <pubDate>Tue, 06 Sep 2016 00:22:28 +0000</pubDate>
         
-        <guid>wewoor.github.io/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/</guid>
-        <description>让美的事情发生 wewoor.github.io/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/ -&lt;p&gt;杭州因为这几天要举办&lt;a href=&#34;http://www.g20.org/&#34;&gt;G20&lt;/a&gt;峰会，所以杭州掀起了出行潮，为大会腾空间。在放假的前天我其实都未决定要离开杭州，准备留杭州泡泡图书馆什么的。而在一顿中午饭过后，得知能聚集人的地方都得关门，我便匆忙的在 12306APP 上购买了回武汉的车票，决定回家。因为票买的太晚，显然这个时候回武汉的车票早已售罄，我便买了一张杭州出发到南京南，然后准备从南京南转车回武汉。&lt;/p&gt;
+        <guid>https://wewoor.github.io/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/</guid>
+        <description>让美的事情发生 https://wewoor.github.io/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/ -&lt;p&gt;杭州因为这几天要举办&lt;a href=&#34;http://www.g20.org/&#34;&gt;G20&lt;/a&gt;峰会，所以杭州掀起了出行潮，为大会腾空间。在放假的前天我其实都未决定要离开杭州，准备留杭州泡泡图书馆什么的。而在一顿中午饭过后，得知能聚集人的地方都得关门，我便匆忙的在 12306APP 上购买了回武汉的车票，决定回家。因为票买的太晚，显然这个时候回武汉的车票早已售罄，我便买了一张杭州出发到南京南，然后准备从南京南转车回武汉。&lt;/p&gt;
 &lt;p&gt;记得在放假前几天我在公司群里跟小伙伴分享了&lt;a href=&#34;http://2016.jsconf.cn/&#34;&gt;JSConf&lt;/a&gt;在南京举办的消息，并且正好在&lt;a href=&#34;http://www.g20.org/&#34;&gt;G20&lt;/a&gt;我们放假期间。并且我们开发组尊崇的&lt;a href=&#34;http://vuejs.org/&#34;&gt;Vuejs&lt;/a&gt;的作者&lt;code&gt;尤雨溪&lt;/code&gt;大神也会过来，分享关于&lt;code&gt;Vuejs2.0&lt;/code&gt;相关的主题。然而&lt;a href=&#34;http://2016.jsconf.cn/&#34;&gt;JSConf&lt;/a&gt;官网上的门票已经早早卖完了。所以当时也并没有多想了。而且由于过去的一些参会经历，我对这种会议并没有太多好的印象。所以当时并未太想参与。&lt;/p&gt;
 &lt;p&gt;当我乘上动车，在抵达南京前，看到几个技术圈里面都在讲明天再南京举办的&lt;a href=&#34;http://2016.jsconf.cn/&#34;&gt;JSConf&lt;/a&gt;的事情，而我想想我回武汉后只能呆在我姐家中，也并没有什么事情可做。所以遂想既然我都要到南京了，就不回去了吧，反正这座城市我也不陌生，不如就去参加&lt;a href=&#34;http://2016.jsconf.cn/&#34;&gt;JSConf&lt;/a&gt;吧，顺便见见老同学，老朋友。没有门票，我想，总会有办法的。&lt;/p&gt;
 &lt;p&gt;一切都来得太突然，从中午我突然决定买票回家，然后并在回家的途中，又突然决定在南京停留。这 2 次突然的决定我自己都决定有点随性。不过所幸的是，我突然联系在南京的同学，将可能在他那边宿留的消息告诉他后，并得到了肯定肯定的回答。而第二天，我又幸运的从一位因病不能参会的 JSER 手中获得了一张早鸟票（只有 300 元，其他的票都 4 到 5 百左右）.一切都太突然，而一切又如此顺理成章。&lt;/p&gt;
@@ -341,18 +341,18 @@ $ su ziv
 &lt;p&gt;JSConf 还是比我想象中的要好的，还是挺有收获的。不管是干货还是湿货，我觉得这次 JSConf 之行对我而言是次挺难忘的经历。具体的技术点梳理，知乎已经有很多不错的回答了。而且这次来此 Facebook 的分享嘉宾&lt;a href=&#34;http://thejameskyle.com/&#34;&gt;James Kyle&lt;/a&gt;的 Presentation 着实把大家的研究给辣瞎了。本身也在知乎上回复了关于自己 Presentation 的看法(&lt;a href=&#34;https://www.zhihu.com/question/50244455&#34;&gt;详情可以点击&lt;/a&gt;)。参加 JSConf 前，我也就参加过 D2 前端论坛，基本上其他大大小小的也参与过，也看过不少视频，很多的感觉并不是太好。但是这次我还是看到了很多不同东西，看到了很多分享嘉宾大老远从地球的一端飞过来，而给我们分享的内容也就那么几十分钟，其实这一切都挺不易的。具体的技术内容我就不讲了，嘉宾各具特色，精美的 PPT, 各类的开发者，有高中生，还有类似医生转开发者的，还有拖家带口的，例如朴灵大大，当然还有在大会上直接点评甚至喷嘉宾的那位童鞋，等等。很多的因素，让我除了技术上的收获外，更多的是体会到了这个社区很多不一样的一面，很多东西变得更立体，更鲜活。&lt;/p&gt;
 &lt;p&gt;另外这次也跟很多开发者也相互交流过自己所在做的东西，所用到的技术，然后相互获取一些灵感。我觉得这种大会除去一些干货以外，更多的是提供一种平台，促成许多面对面的交流，然后认识一些新的朋友。毕竟线上和现实还是有区别的。&lt;/p&gt;
 &lt;p&gt;嗯，最后希望 JSConf 越办越好， 南京，再见。&lt;/p&gt;
-- wewoor.github.io/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/ - 2014-2020.</description>
+- https://wewoor.github.io/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>不要给自己制造过多的心理包袱</title>
-        <link>wewoor.github.io/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/</link>
+        <link>https://wewoor.github.io/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/</link>
         <pubDate>Mon, 01 Aug 2016 00:38:08 +0000</pubDate>
         
-        <guid>wewoor.github.io/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/</guid>
-        <description>让美的事情发生 wewoor.github.io/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/ -&lt;p&gt;一直以来，因为团队项目迭代节奏很快，每次发布的更新日志和版本更新都是通过人肉来完成的。有时候实在忙的团团转，对于手动的写这些更新信息就显得力不从心了。对于团队新来的小伙伴，有时候遇到些紧急情况，就更显的乱糟糟，还是得麻烦团队资深的同学。显然这些工作，用自动化工具再适合不过了。&lt;/p&gt;
+        <guid>https://wewoor.github.io/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/</guid>
+        <description>让美的事情发生 https://wewoor.github.io/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/ -&lt;p&gt;一直以来，因为团队项目迭代节奏很快，每次发布的更新日志和版本更新都是通过人肉来完成的。有时候实在忙的团团转，对于手动的写这些更新信息就显得力不从心了。对于团队新来的小伙伴，有时候遇到些紧急情况，就更显的乱糟糟，还是得麻烦团队资深的同学。显然这些工作，用自动化工具再适合不过了。&lt;/p&gt;
 &lt;p&gt;本文是一篇项目自动化方面的使用教程，社区里面针对四类问题的解决方案很多，今天这里主要介绍的是 onventional-changelog 方案相关的内容。 如果你正在思考或者试图解决这方面的问题的话，不妨了解一下。&lt;/p&gt;
 &lt;p&gt;conventional-changelog
 conventional-changelog 是一款可以根据项目的 commit 和 metadata 信息自动生成 changelogs 和 release notes 的系列工具，并且在辅助 standard-version 工具的情况下，可以自动帮你完成生成 version、打 tag, 生成 CHANGELOG 等系列过程。&lt;/p&gt;
@@ -482,18 +482,18 @@ echo &amp;ldquo;Release finished.&amp;rdquo;
 &lt;p&gt;最后
 项目的工程化是一件很有意思的事情，通过自动化的工具，可以有效提升项目可维护性和质量，并且避免很多不确定因素。如果你工作中发现了这些问题，而不想继续通过人肉的方法解决这些问题的话，那就赶紧试试~&lt;/p&gt;
 &lt;p&gt;原文地址：&lt;a href=&#34;http://imziv.com/blog/article/index.htm&#34;&gt;http://imziv.com/blog/article/index.htm&lt;/a&gt;&lt;/p&gt;
-- wewoor.github.io/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/ - 2014-2020.</description>
+- https://wewoor.github.io/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>实现图片的异步加载</title>
-        <link>wewoor.github.io/posts/2016/%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD/</link>
+        <link>https://wewoor.github.io/posts/2016/%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD/</link>
         <pubDate>Mon, 27 Jun 2016 11:01:48 +0000</pubDate>
         
-        <guid>wewoor.github.io/posts/2016/%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD/</guid>
-        <description>让美的事情发生 wewoor.github.io/posts/2016/%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD/ -&lt;p&gt;图片异步加载功能是现在 web 中非常常见的一个针对 web 做优化的方法。尤其是在移动端，面对大量的图片列表的时候，如果没有做相应的优化，会直接导致页面滑动和加载的卡顿，而且用户会莫名的发现当前应用占用的流量会很大，因为他可能都没有浏览到很多图片，而程序就自动加载了所以的图片，对于一个流量吃紧的人来讲，这个也是很讨厌的。所以实现按浏览需求加载时十分有必要的。&lt;/p&gt;
+        <guid>https://wewoor.github.io/posts/2016/%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD/</guid>
+        <description>让美的事情发生 https://wewoor.github.io/posts/2016/%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD/ -&lt;p&gt;图片异步加载功能是现在 web 中非常常见的一个针对 web 做优化的方法。尤其是在移动端，面对大量的图片列表的时候，如果没有做相应的优化，会直接导致页面滑动和加载的卡顿，而且用户会莫名的发现当前应用占用的流量会很大，因为他可能都没有浏览到很多图片，而程序就自动加载了所以的图片，对于一个流量吃紧的人来讲，这个也是很讨厌的。所以实现按浏览需求加载时十分有必要的。&lt;/p&gt;
 &lt;p&gt;其实实现图片异步加载的核心思路十分简单，就是通过判断当图片元素是否出现在视窗范围内后，则去加载图片资源，否则不加载。所以我们需要首先解决判断 img 元素是否处于视图范围内的这个核心问题。让我们看看下面的图：&lt;/p&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;通过抓取 img 元素，js 提供了相应的方法让我们可以获取到 img 元素距离视图 top，和 left 的距离，viewport 的高度和宽度等数据。然后通过监听窗口滚动事件，当页面滚动的时候，我们就去动态检测 img 元素的 top 和 left 值，与视窗的高度和宽度作比较，从而判断当前的 img 是否处于视窗范围。计算如下：&lt;/p&gt;
@@ -536,18 +536,18 @@ echo &amp;ldquo;Release finished.&amp;rdquo;
     }, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;);
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;总结&#34;&gt;总结&lt;/h4&gt;
 &lt;p&gt;以上就是图片异步加载的主要代码了。当然里面可以进行跟多的性能优化，例如我这里每次都需要重新遍历图片列表，只是通过单独的加载标记来确认图片是否加载过，我们当然可以用不同的数组列表分别装载加载过和未加载的图片元素，从而降低遍历次数等等。另外也可以给图片添加过度的 loading 动画等等，让这个异步加载插件更完善。我这里有个较为完整的异步加载的代码，有兴趣的朋友可以查看：&lt;a href=&#34;https://github.com/wewoor/sloth&#34;&gt;https://github.com/wewoor/sloth&lt;/a&gt;&lt;/p&gt;
-- wewoor.github.io/posts/2016/%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD/ - 2014-2020.</description>
+- https://wewoor.github.io/posts/2016/%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>Cordova 开发总结(插件篇）</title>
-        <link>wewoor.github.io/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/</link>
+        <link>https://wewoor.github.io/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/</link>
         <pubDate>Fri, 24 Jun 2016 14:57:57 +0000</pubDate>
         
-        <guid>wewoor.github.io/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/</guid>
-        <description>让美的事情发生 wewoor.github.io/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/ -&lt;p&gt;最近刚刚做完一个用 Cordova 开发了一款电子商务的应用。在选用 Cordova 前，我有考察过，国内的 Appcan, Apicloud 等等的解决方案。其实 Appcan，ApiCloud 的混合方案挺完整的，从开发，框架，到打包测试，数据统计都包含了，但是我还是更倾向于开源的 Cordova, 我相信开源社区的力量应该更强大，所以最终选择了 Cordova 作为解决方案。事实上，我用 Cordova 开发遇到目前所以需要的插件都是可以通过 Google 查找到的。在此总结下我用到的插件。&lt;/p&gt;
+        <guid>https://wewoor.github.io/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/</guid>
+        <description>让美的事情发生 https://wewoor.github.io/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/ -&lt;p&gt;最近刚刚做完一个用 Cordova 开发了一款电子商务的应用。在选用 Cordova 前，我有考察过，国内的 Appcan, Apicloud 等等的解决方案。其实 Appcan，ApiCloud 的混合方案挺完整的，从开发，框架，到打包测试，数据统计都包含了，但是我还是更倾向于开源的 Cordova, 我相信开源社区的力量应该更强大，所以最终选择了 Cordova 作为解决方案。事实上，我用 Cordova 开发遇到目前所以需要的插件都是可以通过 Google 查找到的。在此总结下我用到的插件。&lt;/p&gt;
 &lt;h4 id=&#34;crosswalkhttpscrosswalk-projectorg&#34;&gt;&lt;a href=&#34;https://crosswalk-project.org/&#34;&gt;Crosswalk&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;这是一个单独定制的 Webview 插件，包含了大部分最新的 HTML5 特性。Crosswork Cordova 插件目前只支持 Android, iOS 需要自己手动的集成。在如今安卓机这种测试机可以装一箱子都不止的情况下，使用统一的 Webview 是十分有必要的。可以避免大部分的兼容性问题，而且可以保持不错的性能。当然有个弊端就是添加这个插件，打包的 apk 会增加 20MB 左右。&lt;/p&gt;
 &lt;h4 id=&#34;极光推送jpushhttpsgithubcomjpushjpush-phonegap-plugin&#34;&gt;&lt;a href=&#34;https://github.com/jpush/jpush-phonegap-plugin&#34;&gt;极光推送(JPush)&lt;/a&gt;&lt;/h4&gt;
@@ -560,7 +560,7 @@ echo &amp;ldquo;Release finished.&amp;rdquo;
 &lt;p&gt;做移动应用肯定少不了支付，支付宝的 Cordova 插件其实很多，但我搜索了一圈还是这个比较好使~&lt;/p&gt;
 &lt;h4 id=&#34;总结&#34;&gt;总结&lt;/h4&gt;
 &lt;p&gt;以上是我用的几个主要插件，因为 Cordova 里面像&lt;code&gt;Camera&lt;/code&gt;, &lt;code&gt;File&lt;/code&gt;, 其他类型的插件太多太多了。完全可以根据自己的喜好来选择。总而言之，Cordova 本身由于这么多年时间的积累，造就了它在插件等等资源上的很多的优势。另外，微软刚刚开源的&lt;a href=&#34;https://www.xamarin.com/&#34;&gt;Xamarin&lt;/a&gt;据说也是个非常不错的混合开发方案，用 C#编写源码， 有机会试试~&lt;/p&gt;
-- wewoor.github.io/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/ - 2014-2020.</description>
+- https://wewoor.github.io/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/ - 2014-2020.</description>
         </item>
     
     

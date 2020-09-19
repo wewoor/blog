@@ -27,7 +27,7 @@
 　在拿到 wsdl 地址后先分析清楚 xml 文件的一些参数，然后再动手写代码，例如 service 名称，targetNamespace,请求 operation 的名称，要传入的参数类型，返回结果类型等等。具体的代码参考如下：
 1 package com.joysee.account.service.impl; 2 3 4 import java.rmi.RemoteException; 5 6 import javax.xml.namespace.QName; 7 import javax.xml.rpc.ParameterMode; 8 import javax.xml.rpc.ServiceException; 9 10 import org.apache.axis.client.Call; 11 import org.apache.axis.client.Service; 12 13 14 public class Test { 15 16 /** 17 * @param args 18 * @throws ServiceException 19 * @throws MalformedURLException 20 * @throws RemoteException 21 */ 22 public static void main(String[] args) throws ServiceException, RemoteException { 23 24 //WSDL地址 25 String wsdlUrl =&#34;http://IP:PORT/ExampleWebService?" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="wewoor.github.io/posts/2014/java%E5%88%A9%E7%94%A8axis%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8webservice%E6%8E%A5%E5%8F%A3-/" />
+<meta property="og:url" content="https://wewoor.github.io/posts/2014/java%E5%88%A9%E7%94%A8axis%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8webservice%E6%8E%A5%E5%8F%A3-/" />
 <meta property="article:published_time" content="2014-03-26T17:28:40+00:00" />
 <meta property="article:modified_time" content="2014-03-26T17:28:40+00:00" /><meta property="og:site_name" content="My Blog" />
 
@@ -53,26 +53,26 @@
 
 
 
-<script src="/wewoor.github.io/vendor/js/jquery.min.js" ></script>
-<script src="/wewoor.github.io/vendor/js/popper.min.js" ></script>
-<script src="/wewoor.github.io/vendor/js/bootstrap.min.js" ></script>
-<script src="/wewoor.github.io/vendor/js/smooth-scroll.polyfills.min.js" ></script>
-<link type="text/css" rel="stylesheet" href="/wewoor.github.io/vendor/css/bootstrap.min.css">
-<script src="/wewoor.github.io/vendor/js/vue.min.js" ></script>
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
 
 
 
 
 
 
-<link rel="stylesheet" href="/wewoor.github.io/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+<link rel="stylesheet" href="https://wewoor.github.io/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
 
 
 
-<link rel="stylesheet" href="/wewoor.github.io/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
+<link rel="stylesheet" href="https://wewoor.github.io/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
 
 
-<script src="wewoor.github.io/js/loadCSS.js"></script>
+<script src="https://wewoor.github.io//js/loadCSS.js"></script>
 <script>
   loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
 </script>
@@ -81,7 +81,7 @@
 
 
   
-    <script src="wewoor.github.io/js/toc-collapse.js"></script>
+    <script src="https://wewoor.github.io//js/toc-collapse.js"></script>
   
 
 
@@ -98,7 +98,7 @@
 </head><body>
     	<div id="app"><div ref="sideContainer" class="side-container">
     
-    <a class="a-block nav-head false" href="wewoor.github.io">
+    <a class="a-block nav-head false" href="https://wewoor.github.io/">
     
         <div class="nav-title">
             让美的事情发生
@@ -120,7 +120,7 @@
             
             
             
-            <a class="a-block nav-link-item active" href="wewoor.github.io/posts">
+            <a class="a-block nav-link-item active" href="/posts">
                 归档
             </a>
             
@@ -130,7 +130,7 @@
             
             
             
-            <a class="a-block nav-link-item false" href="wewoor.github.io/categories">
+            <a class="a-block nav-link-item false" href="/categories">
                 分类
             </a>
             
@@ -140,7 +140,7 @@
             
             
             
-            <a class="a-block nav-link-item false" href="wewoor.github.io/tags">
+            <a class="a-block nav-link-item false" href="/tags">
                 标签
             </a>
             
@@ -150,7 +150,7 @@
             
             
             
-            <a class="a-block nav-link-item false" href="wewoor.github.io/index.xml">
+            <a class="a-block nav-link-item false" href="/index.xml">
                 RSS Feed
             </a>
             
@@ -211,7 +211,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item active" href="wewoor.github.io/posts">
+                <a class="a-block drawer-menu-item active" href="/posts">
                     归档
                 </a>
                 
@@ -221,7 +221,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="wewoor.github.io/categories">
+                <a class="a-block drawer-menu-item false" href="/categories">
                     分类
                 </a>
                 
@@ -231,7 +231,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="wewoor.github.io/tags">
+                <a class="a-block drawer-menu-item false" href="/tags">
                     标签
                 </a>
                 
@@ -241,7 +241,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="wewoor.github.io/index.xml">
+                <a class="a-block drawer-menu-item false" href="/index.xml">
                     RSS Feed
                 </a>
                 
@@ -266,7 +266,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 menu
             </i>
         </button>
-        <a ref="navTitle" class="navbar-brand" href="wewoor.github.io">
+        <a ref="navTitle" class="navbar-brand" href="https://wewoor.github.io/">
             让美的事情发生
         </a>
         
@@ -283,7 +283,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 </nav>
 <div class="single-column-header-container" ref="pageHead"
      v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
-    <a href="wewoor.github.io">
+    <a href="https://wewoor.github.io/">
         <div class="single-column-header-title">让美的事情发生</div>
         
         <div class="single-column-header-subtitle">—— Ziv小威</div>
@@ -314,7 +314,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 
                         
                             <i class="material-icons" style="">folder</i>
-                                <a href="/wewoor.github.io/categories/">[计算机科学]</a>
+                                <a href="/categories/">[计算机科学]</a>
                                 &nbsp;
                         
 
@@ -409,13 +409,13 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="wewoor.github.io/posts/2014/nodejs%E7%A4%BA%E4%BE%8B%E5%BC%82%E6%AD%A5%E5%BC%8Fasynchronousio%E4%B8%8E%E5%90%8C%E6%AD%A5%E5%BC%8Fsynchronousio/">
+                <a class="newer-posts" href="https://wewoor.github.io/posts/2014/nodejs%E7%A4%BA%E4%BE%8B%E5%BC%82%E6%AD%A5%E5%BC%8Fasynchronousio%E4%B8%8E%E5%90%8C%E6%AD%A5%E5%BC%8Fsynchronousio/">
 			下回<br>NodeJS 示例异步式(Asynchronous)IO 与同步式 Synchronous)IO
                 </a>
                 
                 
                 
-                <a class="older-posts" href="wewoor.github.io/posts/2014/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8Ebean%E5%AF%B9%E8%B1%A1%E4%BA%92%E8%BD%AC%E8%A7%A3%E6%9E%90/">
+                <a class="older-posts" href="https://wewoor.github.io/posts/2014/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8Ebean%E5%AF%B9%E8%B1%A1%E4%BA%92%E8%BD%AC%E8%A7%A3%E6%9E%90/">
 			上回<br>Java JSON、XML 文件/字符串与 Bean 对象互转解析
                 </a>
                 
@@ -552,6 +552,6 @@ app = new Vue({
 });
 </script>
 
-<script src="wewoor.github.io/js/journal.js"></script>
+<script src="https://wewoor.github.io//js/journal.js"></script>
     </body>
 </html>
