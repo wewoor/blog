@@ -1,0 +1,668 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>让美的事情发生</title>
+    <link>./</link>
+    <description>Recent content on 让美的事情发生</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>2014-2020.</copyright>
+    <lastBuildDate>Tue, 14 Jan 2020 10:28:51 +0000</lastBuildDate>
+    
+        <atom:link href="./index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>利用 javascript 和 WebGL 绘制地球 【翻译】</title>
+        <link>./posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/</link>
+        <pubDate>Sun, 22 Mar 2015 01:43:59 +0000</pubDate>
+        
+        <guid>./posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/</guid>
+        <description>让美的事情发生 ./posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/ -&lt;p&gt;原翻译：&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=59&#34;&gt;利用 javascript 和 WebGL 绘制地球 【翻译】&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在我们所有已知的 HTML5API 中，&lt;a href=&#34;https://www.khronos.org/webgl/&#34;&gt;WebGL&lt;/a&gt;可能是最有意思的一个，利用这个 API 我们能够在浏览器中创造出炫酷 3D 场景的能力。本文将完整的向你展示一些炫酷是如何实现的。&lt;/p&gt;
+&lt;p&gt;需要特别指出的是，这篇教程我们将会构建一个地球行星模型，这个模型可以像一个兴奋的人一样环绕的旋转，另外，它可能使我们可以获得一些其他程序员的称赞，好吧，就这么多了。&lt;/p&gt;
+&lt;h2 id=&#34;准备&#34;&gt;准备&lt;/h2&gt;
+&lt;p&gt;这篇教程我们将会用到一个令人着迷的&lt;a href=&#34;https://www.khronos.org/webgl/&#34;&gt;WebGL&lt;/a&gt;插件:&lt;a href=&#34;http://threejs.org/&#34;&gt;three.js&lt;/a&gt;. 这个插件跟 JQuery 有点像，不过它是针对&lt;a href=&#34;https://www.khronos.org/webgl/&#34;&gt;WebGL&lt;/a&gt;的，它将很多复杂的原生 API 访问接口进行了抽象，从而让我们可以更轻易的利用&lt;a href=&#34;https://www.khronos.org/webgl/&#34;&gt;WebGL&lt;/a&gt;的特性。&lt;/p&gt;
+&lt;p&gt;在 HTML 中，我们的可以通过正常的 script 标签引入这个插件，如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;script&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;src=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;//cdnjs.cloudflare.com/ajax/libs/three.js/r63/three.min.js&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;此处我们引用的是 CDN 版本，如果你有必要，可以使用本地的方法引入。然后我们需要确保&lt;a href=&#34;https://www.khronos.org/webgl/&#34;&gt;WebGL&lt;/a&gt;有东西可以在上面进行渲染。这里我们有个灵活的做法：我们可以直接将一般的 Div 或者 Canvas 写到 HTML 中，或者我们可以另外用 JS 创建并且追加 canvas 元素到 Dom 里后再去渲染。这里我们采用第一种容易点的方法，如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;div&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;container&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;script&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;src=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;earth.js&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;添加完&lt;strong&gt;script&lt;/strong&gt;标签连接到 Dom 中后，我们的 HTML 部分差不多就完成了。&lt;/p&gt;
+&lt;h2 id=&#34;下一步&#34;&gt;下一步&lt;/h2&gt;
+&lt;p&gt;Tree.js 本身是趋向把东西做的非常接近真实的 3D 桌面程序的。我们拥有一个场景，有一些东西现场直播，然后通过摄像机去浏览，然后有些灯光，特效，渲染在整场景上面，当然他们自身也全都是 3D 对象。这个场景的元素列表似乎有点吓人，在我们的&lt;strong&gt;earth.js&lt;/strong&gt;文件里，所有的这些元素都可以当成形状变量，&lt;strong&gt;Javascript&lt;/strong&gt;文件如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; scene,
+    camera,
+    light,
+    renderer,
+    earthObject;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; WIDTH = &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.innerWidth - &lt;span style=&#34;color:#b452cd&#34;&gt;30&lt;/span&gt;,
+    HEIGHT = &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.innerHeight - &lt;span style=&#34;color:#b452cd&#34;&gt;30&lt;/span&gt;;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; angle = &lt;span style=&#34;color:#b452cd&#34;&gt;45&lt;/span&gt;,
+    aspect = WIDTH / HEIGHT,
+    near = &lt;span style=&#34;color:#b452cd&#34;&gt;0.1&lt;/span&gt;,
+    far = &lt;span style=&#34;color:#b452cd&#34;&gt;3000&lt;/span&gt;;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;有些额外的变量也定义在这里了，WIDTH,HEIGHT 变量用来获取我们画布的宽与高，下面的其他变量之后将会用来设置我们相机的位置。对于几乎所有的 3D 对象来说，所有这些元素都是共通的，无论是平台还是环境，所以在这里我们习惯性的将这些家伙写到一起。然而利用 Three.js 我们可以轻松的实现，我们将看看所有这些元素是如何在同一时刻融合到项目中的。&lt;/p&gt;
+&lt;h2 id=&#34;环境&#34;&gt;环境&lt;/h2&gt;
+&lt;p&gt;首先，我们需要启用新变量并初始化他们，从而使我们的地球模型可以展示的更炫。我们可以先设置每个处理环境因素的变量：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; container = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.getElementById(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;container&amp;#39;&lt;/span&gt;);
+
+camera = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; THREE.PerspectiveCamera(angle, aspect, near, far);
+camera.position.set(&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+scene = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; THREE.Scene();
+
+light = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; THREE.SpotLight(&lt;span style=&#34;color:#b452cd&#34;&gt;0xFFFFFF&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#658b00&#34;&gt;Math&lt;/span&gt;.PI / &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;);
+light.position.set(&lt;span style=&#34;color:#b452cd&#34;&gt;4000&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;4000&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;1500&lt;/span&gt;);
+light.target.position.set (&lt;span style=&#34;color:#b452cd&#34;&gt;1000&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;3800&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;1000&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;下面是针对上面代码执行情况的描述：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在我们的 HTMl 中抓取&lt;strong&gt;container&lt;/strong&gt;对象&lt;/li&gt;
+&lt;li&gt;我们用之前声明的变量设置&lt;strong&gt;camera&lt;/strong&gt;对象（更多关于&lt;strong&gt;cameras&lt;/strong&gt;是如何在 3D 中工作的信息，可以点击&lt;a href=&#34;https://www.youtube.com/watch?v=EWY-SaHnxkM&#34;&gt;这里&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;通过&lt;code&gt;position.set&lt;/code&gt;方法设置&lt;strong&gt;camera&lt;/strong&gt;的位置， 这个方法需要携带一个维度（x, y, z)参数对象, 可能你已经想到了， 我们将会使用这个 camera 去定位我们的 3D 对象，本教程中的 3D 对象就是我们的地球模型。&lt;/li&gt;
+&lt;li&gt;接下来设置我们的 light 对象。如果没有 light 对象做渲染的话，那么整个模型出来的效果将会是一片漆黑，所以我们必须细心的注意这一步骤。Three.js 的&lt;a href=&#34;http://threejs.org/docs/#Reference/Lights/SpotLight&#34;&gt;SpotLight object&lt;/a&gt;对象拥有与我们的 camera 对象大致相同的参数，只不过这个对象的第一个参数 colour 必须为十六进制的值，然后剩余的其他参数与 camera 基本相同。&lt;/li&gt;
+&lt;li&gt;最后，我们需要设置我们的画布对象 renderer.另外一个需要确保的点则是：我们需要提前将画布对象完整的渲染到了屏幕上，再次强调，如果没有完成这一步，那么整个画布将会什么也看不见，一片漆黑。我们给画布添加了去锯齿效果，并且将这个效果作为 Dom 元素添加到我们的原始容器中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;现在我们需要通过将整个地球粘贴在网上一样的方式来构建自身整个模型。代码如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; earthGeo = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; THREE.SphereGeometry (&lt;span style=&#34;color:#b452cd&#34;&gt;30&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;40&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;400&lt;/span&gt;),
+earthMat = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; THREE.MeshPhongMaterial();
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; earthMesh = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; THREE.Mesh(earthGeo, earthMat); earthMesh.position.set(-&lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+earthMesh.rotation.y=&lt;span style=&#34;color:#b452cd&#34;&gt;5&lt;/span&gt;;
+
+scene.add(earthMesh);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在这里我们创建了一个网状（Mesh)对象,这个网状是一种可以被用来装扮并看起来像地球形状的对象，然后给这个对象添加一些几何结构，外观包装，或者一些有质感的材料来包裹这个网状体。我们同样会将这个对象设置适当的在位置，与其他参数对象一样，我们会并且将 Mesh 对象添加到我们的场景（scene）中。&lt;/p&gt;
+&lt;p&gt;如下有个样例。这里面有些额外的渲染效果，稍后我们将会讲解。这个样例看起来离我们想要的越来越近了。&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h2 id=&#34;蓝色星球&#34;&gt;蓝色星球&lt;/h2&gt;
+&lt;p&gt;接下来有趣的部分是给这个家伙制作皮肤。首先我们将会使用一张漫反射贴图，它会让这个家伙看起来更像个地图。你可以像下面的方式一样添加：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// diffuse map
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;earthMat.map = THREE.ImageUtils.loadTexture(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;images/earthmap1k.jpg&amp;#39;&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果你想要质感更好些的话，你可以尝试用&lt;a href=&#34;https://github.com/BHouwens/SolarSim/blob/master/images/earthmap1k.jpg&#34;&gt;这个&lt;/a&gt;图片，或者你可以去 google 搜索一张你想要的图片都行。高分辨率的图都可以。&lt;/p&gt;
+&lt;p&gt;现在这个模型看起来没那么糟糕了，但是我们仍然可以通过引用一点地形描绘的方式，使整个模型看起来更真实些。这个地球有一些高山，为了确保区分太阳系的其他星球，我们需要使用&lt;a href=&#34;https://en.wikipedia.org/wiki/Bump_mapping&#34;&gt;凹凸地图（bump map）&lt;/a&gt;, 在 3D 模型中, 凹凸地图是黑白图，使用鲜明的白色去凸显图像凹凸不平的部分（例如我们示例中的：山脉）。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// bump map
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;earthMat.bumpMap = THREE.ImageUtils.loadTexture(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;images/elev_bump_16ka.jpg&amp;#39;&lt;/span&gt;);
+earthMat.bumpScale = &lt;span style=&#34;color:#b452cd&#34;&gt;8&lt;/span&gt;;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;使用上面的图片我们差不多达到了效果，再次强调，使用过 Google 搜索“Earth bump map”会获得大量的选择，但是如果你感觉都不好的话，你可以点击这个&lt;a href=&#34;https://github.com/BHouwens/SolarSim/blob/master/images/elev_bump_16ka.jpg&#34;&gt;连接&lt;/a&gt;。
+运行了以上的代码，我们将会看到如下效果：&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h2 id=&#34;让它转起来&#34;&gt;让它转起来&lt;/h2&gt;
+&lt;p&gt;接下来剩余的事情就是我们给这个地球模型添加一些动画效果，为此，我们需要两个新的方法，我们命名为&lt;code&gt;render()&lt;/code&gt;和&lt;code&gt;animate()&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; animate() {
+   requestAnimationFrame(animate);
+   render();
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我们的&lt;code&gt;animate()&lt;/code&gt;方法并不是很复杂，通过自身递归连续的调用&lt;code&gt;requestAnimationFrame()&lt;/code&gt;方法，&lt;code&gt;anmiate()&lt;/code&gt;会请求我们的&lt;code&gt;render()&lt;/code&gt;方法,让我们看看&lt;code&gt;render()&lt;/code&gt;方法的代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; render() {
+   &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; clock = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; THREE.Clock(),
+       delta = clock.getDelta();
+
+   earthMesh.rotation.y += rotationSpeed * delta;
+   renderer.render(scene, camera);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我们看看上面的代码做了些什么工作。每次&lt;code&gt;render()&lt;/code&gt;方法被请求，它便会让地球模型在 y 轴上缓缓的转动起来（此处你可以选择设置任意的转动次数，我们在这里利用&lt;code&gt;getDelta()&lt;/code&gt;方法构建一个时钟对象来控制转动次数，当然你可以不使用这种方法）。然后&lt;code&gt;render()&lt;/code&gt;方法会执行清理画布操作，这是防止画布乱掉很重要的步骤，最后它会渲染我们的场景（以及场景对象中的其他所有对象）和我们的 camera 对象。&lt;/p&gt;
+&lt;h2 id=&#34;最后&#34;&gt;最后&lt;/h2&gt;
+&lt;p&gt;当然，拥有拖拽操作会让我们的地球模型的体验更好，&lt;a href=&#34;https://gist.github.com/mrflix/8351020&#34;&gt;OrbitControls.js&lt;/a&gt;是一个可以为我们地球模型提供鼠标驱动旋转效果能力的脚本，并且它为我们的平流层里添加一些星星或者云作为地球模型的背景同样也并不困难，如果你并不嫌麻烦的话，你甚至可以利用 WebGL 的着色器（shaders）为你的星球添加一个平流层。&lt;/p&gt;
+&lt;p&gt;运行代码，你可以看到一个样例，在 CodePen 中最终的 Demo 如下：&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;通过按住鼠标拖动和滚动鼠标滑轮来查看效果（或者点击此处&lt;a href=&#34;http://codepen.io/SitePoint/full/wBERzm/&#34;&gt;demo&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;结尾&#34;&gt;结尾&lt;/h2&gt;
+&lt;p&gt;WebGL 和 Three.js 变得越发的具有挑战性，因为他们偶尔会要求我们要像 3D 艺术家一样，利用场景，画布，camera 去完成我们的工作，最终的结果就是做出了一些加令人印象深刻的东西。如果你专注于在这个技术上的话，你可以通过在浏览器中使用 3D 特性创造出一些有趣的可能性。如果坚持它，相信不久你就很可能获取一些非凡的成绩。&lt;/p&gt;
+&lt;p&gt;原文地址：&lt;a href=&#34;http://www.sitepoint.com/building-earth-with-webgl-javascript/?utm_source=html5weekly&amp;amp;utm_medium=email&#34;&gt;Building the Earth with WebGL and JavaScript&lt;/a&gt;&lt;/p&gt;
+- ./posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>随笔-家</title>
+        <link>./posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/</link>
+        <pubDate>Sat, 24 Jan 2015 21:56:59 +0000</pubDate>
+        
+        <guid>./posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/</guid>
+        <description>让美的事情发生 ./posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/ -&lt;p&gt;全屏功能是浏览器很早就支持的一项功能了，可以让你页面中的 video, image ,div 等等子元素实现全屏浏览，从而带来更好的视觉体验，来看看怎么使用吧。先来看看有哪些 API 和事件支持。&lt;/p&gt;
+&lt;h3 id=&#34;api&#34;&gt;API&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;
+&lt;span style=&#34;color:#228b22&#34;&gt;// 元素请求全屏显示  
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;element.requestFullscreen()
+
+&lt;span style=&#34;color:#228b22&#34;&gt;// 检测文档的当前状态是否允许执行全屏操作
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.fullscreenEnabled()
+
+&lt;span style=&#34;color:#228b22&#34;&gt;//当前显示的元素是否处于全屏状态，如果处于，则返回为非空对象，否则返回null
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.fullscreenElement()
+
+&lt;span style=&#34;color:#228b22&#34;&gt;//元素退出全屏显示
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.exitFullscreen()
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上面除了&lt;code&gt;RequestFullscreen()&lt;/code&gt;是支持&lt;code&gt;element&lt;/code&gt; 对象以外，其他 3 个都只是支持&lt;code&gt;document&lt;/code&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;event&#34;&gt;Event&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;fullscreenchange   &lt;span style=&#34;color:#228b22&#34;&gt;// 全屏状态更改时触发
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+fullscreenerror  &lt;span style=&#34;color:#228b22&#34;&gt;//  执行全屏错误时触发
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;由于每个浏览器实现的方式不一样，所以我们实际的调用中还不能直接这样写，需要针对不同的浏览器做支持检测，下面跟着详细的例子看下具体兼容代码。&lt;/p&gt;
+&lt;h5 id=&#34;html&#34;&gt;html&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;img&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;imgFS&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;src&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;/&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btnFS&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;href&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;javascript:;&amp;#34;&lt;/span&gt;&amp;gt; FullScreen &amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;a&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;javascript&#34;&gt;javascript&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; fullScreen = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.getElementById(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;btnFS&amp;#39;&lt;/span&gt;);
+fullScreen.addEventListener(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;click&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(){
+
+ &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; status = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.fullscreenEnabled ||
+  &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.webkitFullscreenEnabled ||
+  &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.mozFullscreenEnabled ||
+  &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.msFullscrrenEnabled;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (status) {
+   &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; img = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.getElementById(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;imgFS&amp;#34;&lt;/span&gt;);
+   &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (img.requestFullscreen) {
+    img.requestFullscreen();
+   } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (img.msRequestFullscreen) { &lt;span style=&#34;color:#228b22&#34;&gt;// IE
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    img.msRequestFUllscreen();
+   } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (img.mozRequestFullscreen) { &lt;span style=&#34;color:#228b22&#34;&gt;// Firefox (Gecko)
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    img.mozRequestFullscreen();
+   } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (img.webkitRequestFullscreen) { &lt;span style=&#34;color:#228b22&#34;&gt;// Webkit
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    img.webkitRequestFullscreen();
+   }
+  } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; {
+   alert(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;The document not allowed to fullscreen.&amp;#34;&lt;/span&gt;);
+  }
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以上代码针对一个图片元素进行了全屏操作的例子，上文中的全屏触发是通过监听一个按钮来实现的，这个地方需要&lt;strong&gt;注意&lt;/strong&gt;的是，假如你想在页面载入后就触发全屏，这个事件是不会触发执行全屏显示的。只有通过例如&lt;code&gt;click, keydown&lt;/code&gt;等触发事件，才可以启用全屏显示的功能。&lt;/p&gt;
+&lt;h4 id=&#34;监听键盘按钮触发&#34;&gt;监听键盘按钮触发&lt;/h4&gt;
+&lt;p&gt;下面的代码示例通过按键&lt;strong&gt;F12&lt;/strong&gt;来触发启用或者关闭的操作，主要是利用了&lt;code&gt;element.fullscreenElement&lt;/code&gt; 方法来判断当前的文档状态，来进行切换的，具体代码如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.addEventListener(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;keydown&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(e){
+ console.log(e.keyCode);
+ &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (e.keyCode == &lt;span style=&#34;color:#b452cd&#34;&gt;123&lt;/span&gt;) { &lt;span style=&#34;color:#228b22&#34;&gt;// keypress fn + F12 for Mac
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  fullscreen();
+ }
+});
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; fullscreen() {
+ &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; body = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.body;
+ &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; status = !&lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.fullscreenElement &amp;amp;&amp;amp;  &lt;span style=&#34;color:#228b22&#34;&gt;// get the screen status
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  !&lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.msFullscreenElement &amp;amp;&amp;amp;
+  !&lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.mozFullscreenElement &amp;amp;&amp;amp;
+  !&lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.webkitFullscreenElement;
+
+ &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (status) {
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (body.requestFullscreen) {
+   body.requestFullscreen();
+  } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (body.mozRequestFullscreen) {
+   body.mozRequestFullscreen();
+  } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (body.webkitRequestFullscreen) {
+   body.webkitRequestFullscreen();
+  } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (body.msRequestFullscreen) {
+   body.msRequestFUllscreen();
+  }
+ } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; {
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.exitFullscreen) {
+   &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.exitFullscreen();
+  } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.mozExitFullscreen) {
+   &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.mozExitFullscreen();
+  } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.webkitExitFullscreen) {
+   &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.webkitExitFullscreen();
+  } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.msExitFullscreen) {
+   &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.msExitFullscreen();
+  }
+ }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;全屏样式&#34;&gt;全屏样式&lt;/h4&gt;
+&lt;p&gt;全屏效果下，可以启用针对该状态下的特定样式，从而达到更好的浏览效果。样式定义如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;:&lt;span style=&#34;color:#707a7c&#34;&gt;-webkit-full-screen&lt;/span&gt; { &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;Webkit&lt;/span&gt;
+}
+
+:&lt;span style=&#34;color:#707a7c&#34;&gt;-moz-full-screen&lt;/span&gt; {  &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;Gecko&lt;/span&gt;
+}
+
+:&lt;span style=&#34;color:#707a7c&#34;&gt;-ms-fullscreen&lt;/span&gt; { &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;IE&lt;/span&gt;
+}
+
+:&lt;span style=&#34;color:#707a7c&#34;&gt;fullscreen&lt;/span&gt; {
+}
+
+// &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;调用示例&lt;/span&gt;
+
+#&lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;elementID&lt;/span&gt; :&lt;span style=&#34;color:#707a7c&#34;&gt;fullscreen&lt;/span&gt; {
+ &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;width&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;;
+ &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;height&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;;
+}
+
+:&lt;span style=&#34;color:#707a7c&#34;&gt;fullscreen&lt;/span&gt;::&lt;span style=&#34;color:#707a7c&#34;&gt;backdrop&lt;/span&gt; {  &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;背光&lt;/span&gt;
+}
+
+// &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;全屏背光&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;，&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;这是一个新的样式属性&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;，&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;但是目前浏览器支持的的都不太好&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;，&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;在IE11中被支持&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;，&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;另外下面提到的Opera12&lt;/span&gt;.&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;使用了&lt;/span&gt;:&lt;span style=&#34;color:#707a7c&#34;&gt;fullscreen-ancestor&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;，&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;调用方法如下&lt;/span&gt;
+
+:&lt;span style=&#34;color:#707a7c&#34;&gt;-ms-fullscreen&lt;/span&gt;::&lt;span style=&#34;color:#707a7c&#34;&gt;-ms-backdrop&lt;/span&gt; {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;background-color&lt;/span&gt;: &lt;span style=&#34;color:#b452cd&#34;&gt;#000&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在这个地方需要注意的是，Gecko 和 Webkit 在全屏状态下显示是有差异的，Gecko 会默认把指定的全屏元素进行&lt;code&gt;width:100%;height:100%&lt;/code&gt;,而 Webkit 则是显示一片黑色，所以这个地方就需要针对全屏的元素进行样式调整了，参考以上代码示例。&lt;/p&gt;
+&lt;h4 id=&#34;浏览器兼容情况&#34;&gt;浏览器兼容情况&lt;/h4&gt;
+&lt;p&gt;参考地址：&lt;a href=&#34;http://caniuse.com/#search=fullscreen&#34;&gt;Caniuse&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;另外上面有说道下面几个问题，可以注意下。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;IE11 全屏状态下是不允许滚动的&lt;/li&gt;
+&lt;li&gt;IE11 并不允许通过&lt;code&gt;keydown or pointerdown&lt;/code&gt;事件来触发&lt;code&gt;msRequestFullscreen()&lt;/code&gt;，&lt;code&gt;keypress 和click&lt;/code&gt;没有问题&lt;/li&gt;
+&lt;li&gt;IE11 对 iframe 中使用全屏支持的并不是很好&lt;/li&gt;
+&lt;li&gt;在全屏模式中 Safari 阻塞了 keyboard 事件（出于安全考虑），&lt;code&gt;但是我上面代码中，在Yosmite中，通过监听F12，Safari是可以正常工作的&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Opera 12.1 使用老的标准&lt;code&gt;:fullscreen-ancestor&lt;/code&gt; 伪类替代了 &lt;code&gt;::backdrop&lt;/code&gt; 伪元素&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;总结&#34;&gt;总结&lt;/h4&gt;
+&lt;p&gt;总之全屏是一个非常棒的特性，它可以让我们的 Web 拥有像原生应用一样体验，在以后的项目中会多尝试下这个特性。&lt;/p&gt;
+&lt;h4 id=&#34;本文参考&#34;&gt;本文参考&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Using_full_screen_mode&#34;&gt;Using fullscreen mode&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://fullscreen.spec.whatwg.org/&#34;&gt;Fullscreen API
+Living Standard&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.sitepoint.com/use-html5-full-screen-api/&#34;&gt;How to Use the HTML5 Full-Screen API (Again)&lt;/a&gt;&lt;/p&gt;
+- ./posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>随笔-家</title>
+        <link>./posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/</link>
+        <pubDate>Mon, 12 Jan 2015 23:07:08 +0000</pubDate>
+        
+        <guid>./posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/</guid>
+        <description>让美的事情发生 ./posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/ -&lt;p&gt;最近大家都又开始在 12306 上面开始抢火车票，不禁又提醒我 2014 年已经恰恰流逝。而春节又马上临近，是时候开始买回家的车票了。&lt;/p&gt;
+&lt;p&gt;突然发觉不知从何时起，我变成了一个不那么爱回家的人了。记得初中那会儿，由于学校离家比较远，我们就开始寄宿学校了，初一初二的时候每周回家 2 次，到初三的时候基本就只能周五回家一次，每次从家补寄下周的粮食。那时候经常和同学下自习 8，9 点后骑自行车回家，穿梭在山边的公路上，伴着一点点月光，虽然路上很漆黑，但是还是会冒着黑夜回家。每次周五放学，都是迫不及待，飞奔着跑向宿舍，拿起行李就跑出了学校。&lt;/p&gt;
+&lt;p&gt;上高中了，这次离家更远了，到了市里的一所高中，每次一个月才能回家一次。前一年我跟初中的时候一样，每逢放假的时候，人都是飞奔出教室的，然后跑进宿舍楼，然后飞出校门，飞进汽车站。后来大二开始，母亲和父亲一同外出打工后，我就开始很少回家了。后来是每次放假，我也不着急了，站在教学楼上看着放假后那些兴奋回家的同学们，直到操场上面寥寥几个人。每次暑假，也就回老家短暂的住上三，二日，便开始了暑假打工的生活。事实上暑期打工从我初中一毕业就开始了，一直到我大学毕业正式参加工作。&lt;/p&gt;
+&lt;p&gt;后来上大学了，相较于那些跨省上学的同学来说，我离家还是比较近的，但是由于父母常年不在老家，所以我也只是像清明节或者其他假期才会回老家住上几晚。这样算下来一年也回不了几次家，算上春节，也就一个月的左右。而每次我发现我对家的依恋的感觉都变得越来越淡。&lt;/p&gt;
+&lt;p&gt;这几年感觉自己就像飘在外面一样，身上染上了很多坏毛病，不喜欢与父母交流，越是亲密的人我可能越是说话刻薄。有时候会很讨厌自己。有时候想改变，但是却不知道怎么改变，想去多关心关心父母，朋友，但是告诫过自己的，临场时确又回到了原点。&lt;/p&gt;
+&lt;p&gt;如今已经离开学校一年左右了，我从一陌生的城市来到了另外一座陌生的城市，曾经有想过回去，但是不知道为什么总有些力量吸引我继续这样的日子，也许是好奇心，也行是我太年轻。&lt;/p&gt;
+- ./posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>NodeJS CSV 导出文件名和内容乱码解决</title>
+        <link>./posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/</link>
+        <pubDate>Tue, 04 Nov 2014 15:29:19 +0000</pubDate>
+        
+        <guid>./posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/</guid>
+        <description>让美的事情发生 ./posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ -&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 解决不同浏览器下载文件名称乱码
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; userAgent = (req.headers[&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;user-agent&amp;#39;&lt;/span&gt;]||&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;).toLowerCase();
+res.set(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;Content-Type&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;application/octet-stream;charset=utf-8&amp;#39;&lt;/span&gt;);
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(userAgent.indexOf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;msie&amp;#39;&lt;/span&gt;) &amp;gt;= &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; || userAgent.indexOf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;chrome&amp;#39;&lt;/span&gt;) &amp;gt;= &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;) {
+   res.setHeader(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;Content-Disposition&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;attachment; filename=&amp;#39;&lt;/span&gt; +
+   &lt;span style=&#34;color:#658b00&#34;&gt;encodeURIComponent&lt;/span&gt;(filename));
+} &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(userAgent.indexOf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;firefox&amp;#39;&lt;/span&gt;) &amp;gt;= &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;) {
+   res.setHeader(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;Content-Disposition&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;attachment; filename*=&amp;#34;utf8\&amp;#39;\&amp;#39;&amp;#39;&lt;/span&gt; +
+   &lt;span style=&#34;color:#658b00&#34;&gt;encodeURIComponent&lt;/span&gt;(filename)+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;&amp;#34;&amp;#39;&lt;/span&gt;);
+} &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; {
+   res.setHeader(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;Content-Disposition&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;attachment; filename=&amp;#39;&lt;/span&gt; +
+   &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Buffer(filename).toString(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;binary&amp;#39;&lt;/span&gt;));
+}
+
+&lt;span style=&#34;color:#228b22&#34;&gt;// 解决excel打开内容乱码
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; dataBuffer = Buffer.concat([&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Buffer(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;\xEF\xBB\xBF&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;binary&amp;#39;&lt;/span&gt;), &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Buffer(data)]);
+res.send(dataBuffer);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- ./posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>Hybird App ( 混合模式移动应用)开发初体验</title>
+        <link>./posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/</link>
+        <pubDate>Tue, 28 Oct 2014 18:27:06 +0000</pubDate>
+        
+        <guid>./posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/</guid>
+        <description>让美的事情发生 ./posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/ -&lt;p&gt;最近 1，2 个月一直都尝试开发一款 hybird app，遇到了很多问题，谈谈自己的体会。&lt;/p&gt;
+&lt;p&gt;Hybird app (混合模式移动应用），它利用例如安卓端 webview 组件+HTML5 内嵌的方式混合的方式开发的移动应用，
+好处显而易见，由于内嵌的是 Html5, 所以跨平台，扩展性，开发成本都是很不错的优势。&lt;/p&gt;
+&lt;p&gt;Hybird App 拥有很多从开发工具到打包发布的解决方案，比较出名的是来自 Adobe 的 phonegap, 国内有 AppCan,这 2 种解决方案都有比较好的工具平台。这次我采用的的是 Appcan, 需要注意的是 Appcan 的开发工具只有 windows 平台的，另外不得不吐槽的是，方案里面集成的 js 插件脚本，bug 很多。&lt;/p&gt;
+&lt;p&gt;我采用的技术架构，如图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./posts/2014/img/hybird.png&#34; alt=&#34;hybird&#34;&gt;&lt;/p&gt;
+&lt;p&gt;其中利用 Appcan 作为应用的打包平台，通过其内置的 JS 组件进行数据请求，请求得到的数据利用 JS 做些业务逻辑处理后，使用 Angular 进行绑定渲染，UI 组件的东西则用的 GMU.js,而 gmu 内置了 zepto.js 和 scroll.js 等等, 页面则是 h5+css3。可以看到的是与传统的 web 相比，其中多了不少 js 框架和库的应用，毕竟把数据的调用和业务处理都移到了 JS 端，所以在这里提醒大家，可以考虑加入 js 模块管理的框架，例如 seajs。数据绑定这块感觉 Angular 真的很棒，写好绑定后，只需要专注后端 JS 数据的业务处理即可，提升了不少开发效率。&lt;/p&gt;
+&lt;p&gt;在编码阶段遇到了不少问题，例如并不能利用 url 像平时那样进行参数传递，发现抓取不到页面跳转后的参数。为了减少请求次数，也尝试采用 LocalStorage 缓存 json。通过 Manifest cache 缓存 html,css,js 文件，来提升界面的响应速度。通过 css3 替代 js 做动画效果，但是效果并不理想，感觉还是没有 js 来的流畅。页面跳转白屏，数据加载的延迟等等状况，加载动画体验需要做的更好，而且尽量减少页面的跳转，把一些功能集中到单个 html 文件。&lt;/p&gt;
+&lt;p&gt;总而言之，采取了很多优化方法，但是显然这种 hybird app 在性能体验等方面还是问题很多，但是例如一些交互简单的 app 话，用这种方案还是可以考虑的。&lt;/p&gt;
+- ./posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>NodeJs 按行读取文件</title>
+        <link>./posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/</link>
+        <pubDate>Tue, 02 Sep 2014 15:56:41 +0000</pubDate>
+        
+        <guid>./posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/</guid>
+        <description>让美的事情发生 ./posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/ -&lt;p&gt;次中方法非依赖第三方 package, 当然你可以用。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;line-reader&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;直接上代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; fs = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;fs&amp;#39;&lt;/span&gt;),
+    readline = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;readline&amp;#39;&lt;/span&gt;);
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; rd = readline.createInterface({
+    input: fs.createReadStream(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;./test.txt&amp;#39;&lt;/span&gt;),
+    output: process.stdout,
+    terminal: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;
+});
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+rd.on(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;line&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(line) {
+    console.log(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;第&amp;#39;&lt;/span&gt;+ i +&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;行：&amp;#39;&lt;/span&gt;+ line);
+    write(line);
+    i++;
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- ./posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>2014 年 8 月 9 日我离开了南京</title>
+        <link>./posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/</link>
+        <pubDate>Sat, 23 Aug 2014 14:53:16 +0000</pubDate>
+        
+        <guid>./posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/</guid>
+        <description>让美的事情发生 ./posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/ -&lt;p&gt;2012 年 11 月份，我一人来到了南京这座陌生的城市。&lt;/p&gt;
+&lt;p&gt;2014 年 8 月 9 日，我离开了这座美丽的城市，只身来到杭州。&lt;/p&gt;
+&lt;p&gt;i love you more when i&amp;rsquo;m missing you.&lt;/p&gt;
+- ./posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>细说 static 关键字及其应用</title>
+        <link>./posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</link>
+        <pubDate>Sat, 19 Jul 2014 12:59:48 +0000</pubDate>
+        
+        <guid>./posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</guid>
+        <description>让美的事情发生 ./posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/ -&lt;h2 id=&#34;场景&#34;&gt;场景&lt;/h2&gt;
+&lt;p&gt;先看段代码，考虑以下场景，其运行结果是什么？&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;Test&lt;/span&gt; {
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = 8;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;printI&lt;/span&gt;() {
+        &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = 88;
+        System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;i&lt;/span&gt;);
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;(String arg[]) {
+        Test t = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Test();
+        t.&lt;span style=&#34;color:#658b00&#34;&gt;printI&lt;/span&gt;();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最后的运行结果是：8&lt;/p&gt;
+&lt;p&gt;如果把 this 关键字去掉的话，则结果是 88 ，当然这里有一些对关于 this 关键字的考察。&lt;/p&gt;
+&lt;h2 id=&#34;static-关键字&#34;&gt;static 关键字&lt;/h2&gt;
+&lt;p&gt;包含了使用 static 关键字声明的变量或者方法与包含它的类实例对象是没有关联的。因为静态化的域或者方法在类实例化前就已经加载入内存当中了，而并非是需要实例化该类声明的对象后，内存中才会为其分配内存。让我们再看看下面的代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;Test&lt;/span&gt; {
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = 8;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;printI&lt;/span&gt;() {
+        System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;i:&amp;#34;&lt;/span&gt;+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;i&lt;/span&gt;);
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;(String arg[]) {
+        System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(Test.&lt;span style=&#34;color:#658b00&#34;&gt;i&lt;/span&gt;);
+        Test.&lt;span style=&#34;color:#658b00&#34;&gt;test&lt;/span&gt;();
+
+        Test.&lt;span style=&#34;color:#658b00&#34;&gt;i&lt;/span&gt;++; &lt;span style=&#34;color:#228b22&#34;&gt;// 自增i
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        Test a = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Test(); &lt;span style=&#34;color:#228b22&#34;&gt;//声明测试对象a
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        a.&lt;span style=&#34;color:#658b00&#34;&gt;printI&lt;/span&gt;();
+        a.&lt;span style=&#34;color:#658b00&#34;&gt;i&lt;/span&gt;++; &lt;span style=&#34;color:#228b22&#34;&gt;// 自增i
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+        Test b = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Test();&lt;span style=&#34;color:#228b22&#34;&gt;//声明测试对象b
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        b.&lt;span style=&#34;color:#658b00&#34;&gt;printI&lt;/span&gt;();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行结果：&lt;/p&gt;
+&lt;p&gt;8&lt;/p&gt;
+&lt;p&gt;i:9&lt;/p&gt;
+&lt;p&gt;i:10&lt;/p&gt;
+&lt;p&gt;正如上面所说的，变量 i 脱离于对象实例化而存在，即使我们在分别声明对象 a 和对象 b ,当我们对 a 对象的 i 进行自增操作后，后面的 b 对象却打印 9，因为对象 a 和 b 是共用变量 i 的。&lt;/p&gt;
+&lt;h2 id=&#34;静态方法&#34;&gt;静态方法&lt;/h2&gt;
+&lt;p&gt;静态方法不可以调用非静态的方法或者变量，反之非静态方法是可以调用静态方法的。例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; j = 10;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;test&lt;/span&gt;() {
+    System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;j：&amp;#34;&lt;/span&gt;+ j);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;会发现编译器提示这样的错误：Cannot make a static reference to the non-static field j 而我们很容易写出这样的代码。显然静态方法给我们编写代码时带来了非常大的便利，我们无须在调用其方法时需要实例化其对象，我们在封装我们的 Utils 工具类时经常这样做，因为这样做既方便又可提升程序的性能。《Effective Java》中有详细讲到 static 工厂方法。&lt;/p&gt;
+&lt;h2 id=&#34;static-之单例应用&#34;&gt;static 之单例应用&lt;/h2&gt;
+&lt;p&gt;正如上面代码片段 2 中所看到的实例一样，静态变量无须实例化便可调用，且被修饰的域是静态处于内存中的，所以对于那些被频繁实例化的对象，为了避免多次重复的实例化，我们可以通过静态化该对象，从而实现对程序的性能优化。例如我们经常会在 Web 项目里面静态化 JDBC 链接对象，或者业务逻辑层 中的对象,，或者封装工厂方法，然后写个工厂单例类。当然我们已经有了 Spring ，通过利用反射机制，统一管理这些 Bean 对象，实现自动的按需注入。在 Playframework 这个快速开发 Web 的框架中，其 Controller 中的方法都被声明为了静态方法。声明单例的方法有很多种，请看下面的代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;Singleton&lt;/span&gt; {
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;final&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; Singleton INSTANCE = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Singleton();
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;Singleton&lt;/span&gt;() {}
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; Singleton &lt;span style=&#34;color:#008b45&#34;&gt;getInstance&lt;/span&gt;() {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; INSTANCE;
+}
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;test&lt;/span&gt;() {
+    System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;this is a test method.&amp;#34;&lt;/span&gt;);
+}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;该类的构造方法被 private 关键字修饰，意味着该对象不可用 new 关键字进行实例化了，当然我们已经在此类中提供了静态方法 getInstance 通过这个方法获取该类的静态实例对象。由于该对象实例后被保存在了静态变量 INSTANCE 中，所以调用者每次调用的都是这个实例对象。调用示例：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;Singleton c = Singleton.&lt;span style=&#34;color:#658b00&#34;&gt;getInstance&lt;/span&gt;();
+c.&lt;span style=&#34;color:#658b00&#34;&gt;test&lt;/span&gt;(); &lt;span style=&#34;color:#228b22&#34;&gt;// 调用test方法
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- ./posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>利用 JS 跨域做一个简单的页面访问统计系统</title>
+        <link>./posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/</link>
+        <pubDate>Mon, 30 Jun 2014 14:48:56 +0000</pubDate>
+        
+        <guid>./posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/</guid>
+        <description>让美的事情发生 ./posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/ -&lt;p&gt;其实在大部分互联网 web 产品中，我们通常会用百度统计或者谷歌统计分析系统，通过在程序中引入特定的 JS 脚本，然后便可以在这些统计系统中看到自己网站页面具体的访问情况。但是有些时候，由于一些特殊情况，我们需要自己来设计统计系统。由于前段时间公司的业务需求，我也是自己尝试了下，本文提供的是一个基本思路，统计系统也比较简单。&lt;/p&gt;
+&lt;p&gt;几个基本统计需求：
+1.统计 web 每个页面用户访问量
+2.统计用户访问者的和 IP 地址信息
+3.页面之间的跳转情况
+4.访问高峰时间段&lt;/p&gt;
+&lt;p&gt;服务器结构：
+&lt;img src=&#34;./posts/2014/img/statistic-system.png&#34; alt=&#34;statistic-system&#34;&gt;
+数据库表设计：&lt;/p&gt;
+&lt;p&gt;以上只是我简单列举的需求，这边简单的就一张统计表，而这张统计表能满足的需求是不仅仅只是上面四个基本的需求的，可以看需求情况再做相应的业务处理。&lt;/p&gt;
+&lt;p&gt;tb_visit_count_log&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;ID&lt;/th&gt;
+&lt;th&gt;ip (varchar)&lt;/th&gt;
+&lt;th&gt;IP 地址&lt;/th&gt;
+&lt;th&gt;title（varchar）标题&lt;/th&gt;
+&lt;th&gt;cur_page(varchar) 当前页面&lt;/th&gt;
+&lt;th&gt;from_page(varchar) 源页面&lt;/th&gt;
+&lt;th&gt;time（datetime）日期时间&lt;/th&gt;
+&lt;th&gt;app(varchar) 应用&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;/table&gt;
+&lt;p&gt;数据采集:&lt;/p&gt;
+&lt;p&gt;我们提交编写一个 JS 脚本，用来抓取当前页面中我们需要的数据，然后通过跨域请求道我们的 Statistics Server 进行存储，便于之后的统计分析业务的操作。&lt;/p&gt;
+&lt;p&gt;JS 跨域：&lt;/p&gt;
+&lt;p&gt;我们都知道在开发 web 应用的时候，我们经常利用&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;去请求其它服务器内的脚本资源，src 是 source 的缩写，指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置。所以利用这一点，我们可以通过 JS 动态创建&lt;!-- raw HTML omitted --&gt;标签，并抓取页面相关的信息后，设置该标签 src 地址为远程 Statistics 服务器地址，将其添加到当前文档中，该标签便会自动将请求发送到指定服务器，而服务器便可解析改请求中的参数和请求信息，将其存储入库。
+　　
+示例代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; title = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.getElementsByTagName(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;title&amp;#34;&lt;/span&gt;)[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;].innerHTML, &lt;span style=&#34;color:#228b22&#34;&gt;// 页面标题
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            url = &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.location.href, &lt;span style=&#34;color:#228b22&#34;&gt;// 当前请求路径名称
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        site = &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.location.host, &lt;span style=&#34;color:#228b22&#34;&gt;// 站点host
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;// 此处为从header获取 Refere参数，具体获取看当前的web程序
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            ref = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39; &amp;lt;%=request.getHeader( &amp;#34;Referer&amp;#34;) %&amp;gt;&amp;#39;&lt;/span&gt;,
+            param = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;?title=&amp;#34;&lt;/span&gt;+title+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; &amp;amp;url=&amp;#34;&lt;/span&gt;+url+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; &amp;amp;ref=&amp;#34;&lt;/span&gt;+ref ,     &lt;span style=&#34;color:#228b22&#34;&gt;// 引用页地址
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        script = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;script&amp;#34;&lt;/span&gt;);
+    script.src = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;http://example.com/analysis&amp;#34;&lt;/span&gt;+param;
+    &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.getElementsByTagName(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;head&amp;#34;&lt;/span&gt;)[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;].appendChild(script);
+})();
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;注意：上示例代码中用了一个 JSP 标签，从 header 中获取了 Referer 参数。&lt;/p&gt;
+&lt;p&gt;服务器端：
+本示例服务器框架采用的是 SpringMVC，但是获取参数都是一样的。获取参数：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* 记录站点统计信息
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* @param request
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
+&lt;span style=&#34;color:#707a7c&#34;&gt;@RequestMapping&lt;/span&gt;( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;/analysis&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#707a7c&#34;&gt;@ResponseBody&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;visitorLogger&lt;/span&gt;(HttpServletRequest request) {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;try&lt;/span&gt; {
+        WebsiteVisitCount visitor = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; WebsiteVisitCount();
+        visitor.&lt;span style=&#34;color:#658b00&#34;&gt;setUrl&lt;/span&gt;(request.&lt;span style=&#34;color:#658b00&#34;&gt;getParameter&lt;/span&gt;( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;url&amp;#34;&lt;/span&gt;));
+        String title = request.&lt;span style=&#34;color:#658b00&#34;&gt;getParameter&lt;/span&gt;( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;title&amp;#34;&lt;/span&gt;);
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (title != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt;) {
+                visitor.&lt;span style=&#34;color:#658b00&#34;&gt;setTitle&lt;/span&gt;( &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; String(title.&lt;span style=&#34;color:#658b00&#34;&gt;getBytes&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;ISO-8859-1&amp;#34;&lt;/span&gt; ),
+                            &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;utf-8&amp;#34;&lt;/span&gt;));
+        }
+            &lt;span style=&#34;color:#228b22&#34;&gt;// 用户IP
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        visitor.&lt;span style=&#34;color:#658b00&#34;&gt;setFromUrl&lt;/span&gt;(request.&lt;span style=&#34;color:#658b00&#34;&gt;getParameter&lt;/span&gt;( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;ref&amp;#34;&lt;/span&gt;));
+        visitor.&lt;span style=&#34;color:#658b00&#34;&gt;setUserIp&lt;/span&gt;(getRemortIP(request));
+        visitor.&lt;span style=&#34;color:#658b00&#34;&gt;setApp&lt;/span&gt;(request.&lt;span style=&#34;color:#658b00&#34;&gt;getParameter&lt;/span&gt;( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;site&amp;#34;&lt;/span&gt;));
+            &lt;span style=&#34;color:#228b22&#34;&gt;// 存储数据
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            websiteVisitCountService.&lt;span style=&#34;color:#658b00&#34;&gt;addVisitor&lt;/span&gt;(visitor);
+    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt; (Exception e) {
+            LOGGER.&lt;span style=&#34;color:#658b00&#34;&gt;error&lt;/span&gt;( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;WebsiteVisitCountController.visitorLogger():&amp;#34;&lt;/span&gt;
+                    +request.&lt;span style=&#34;color:#658b00&#34;&gt;getRequestURI&lt;/span&gt;(), e.&lt;span style=&#34;color:#658b00&#34;&gt;getMessage&lt;/span&gt;());
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以上代码中并没有响应给客户端任何可执行的 JS 脚本，当然如果需要，这个是完全没有问题的，在跨域其他需求的时候，完全可以响应服务器 JS 执行脚本。&lt;/p&gt;
+&lt;p&gt;获取访问 IP：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* 获取客户端IP地址
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* @param request
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* @return
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;getRemortIP&lt;/span&gt;(HttpServletRequest request) {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (request.&lt;span style=&#34;color:#658b00&#34;&gt;getHeader&lt;/span&gt;( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;x-forwarded-for&amp;#34;&lt;/span&gt; ) == &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt; ) {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; request.&lt;span style=&#34;color:#658b00&#34;&gt;getRemoteAddr&lt;/span&gt;();
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; request.&lt;span style=&#34;color:#658b00&#34;&gt;getHeader&lt;/span&gt;( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;x-forwarded-for&amp;#34;&lt;/span&gt; );
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以上则是统计的核心代码部分，数据入库后便可以对其进行相应业务上的处理，获取想了解的数据。部署时只需要把 JS 采集脚本添加到要监控的页面即可。&lt;/p&gt;
+- ./posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>HTML5 实现图片文件异步上传</title>
+        <link>./posts/2014/html5%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/</link>
+        <pubDate>Mon, 26 May 2014 15:31:58 +0000</pubDate>
+        
+        <guid>./posts/2014/html5%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/</guid>
+        <description>让美的事情发生 ./posts/2014/html5%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/ -&lt;p&gt;利用 HTML5 的新特点做文件异步上传非常简单方便，本文主要展示 JS 部分，html 结构。下面的代码并未使用第三发库，如果有参照，请注意一些未展现出来的代码片段。我这边的效果预览：&lt;/p&gt;
+&lt;p&gt;1.文件未选择 2.文件已选择&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./content/posts/2014/img/html5-upload.png&#34; alt=&#34;html5-upload&#34;&gt;
+&lt;img src=&#34;./content/posts/2014/img/html5-upload2.png&#34; alt=&#34;html5-upload2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;HTML 代码部分：
+　　思路：下面代码中我利用 css 的 z-index 属性将 input=&amp;quot;file”标签隐藏在了 id=btnSelect 元素下面，通过触发 a 标签的点击后，弹出文件选择框。下面的 masklayer 用于点击确认按钮后的弹出层，避免用户重复点击确认按钮。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;div&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;wp&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;warpper&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;a&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btnSelect&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;单击选择要上传的照片&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;input&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploadFile&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;file&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;myPhoto&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;button&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btnConfirm&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btn&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;确认上传&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;div&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;maskLayer&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;mask-layer&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;style=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;display:none;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;图片正在上传中...&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;JS 图片文件验证部分：&lt;/p&gt;
+&lt;p&gt;验证部分为：大小，是否已经选择，文件的类型 三个部分。第一个 createObject 方法为创建本地图片文件的预览路径，依次验证是否为空，文件类型以及文件大小，不满足条件则一律返回&lt;/p&gt;
+&lt;p&gt;false,满足以上 3 个条件后，在 dom 中生成图片预览，添加 img 元素，然后利用 createObjectURL()方法获取预览路径。&lt;/p&gt;
+&lt;p&gt;代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//获取数据的URL地址
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; createObjectURL(blob) {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.URL) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.URL.createObjectURL(blob);
+    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.webkitURL) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.webkitURL.createObjectURL(blob);
+    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt;;
+    }
+}
+
+&lt;span style=&#34;color:#228b22&#34;&gt;//文件检测
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; checkFile() {
+    &lt;span style=&#34;color:#228b22&#34;&gt;//获取文件
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; file = $$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploadFile&amp;#34;&lt;/span&gt;).files[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;];
+    &lt;span style=&#34;color:#228b22&#34;&gt;//文件为空判断
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (file === &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt; || file === &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;undefined&lt;/span&gt;) {
+        alert(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;请选择您要上传的文件！&amp;#34;&lt;/span&gt;);
+        $$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btnSelect&amp;#34;&lt;/span&gt;).innerHTML = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;单击选择要上传的照片&amp;#34;&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;;
+    }
+
+    &lt;span style=&#34;color:#228b22&#34;&gt;//检测文件类型
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(file.type.indexOf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;image&amp;#39;&lt;/span&gt;) === -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;) {
+        alert(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;请选择图片文件！&amp;#34;&lt;/span&gt;);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;;
+    }
+
+    &lt;span style=&#34;color:#228b22&#34;&gt;//计算文件大小
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; size = &lt;span style=&#34;color:#658b00&#34;&gt;Math&lt;/span&gt;.floor(file.size/&lt;span style=&#34;color:#b452cd&#34;&gt;1024&lt;/span&gt;);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (size &amp;gt; &lt;span style=&#34;color:#b452cd&#34;&gt;5000&lt;/span&gt;) {
+        alert(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;上传文件不得超过5M!&amp;#34;&lt;/span&gt;);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;;
+    };
+    &lt;span style=&#34;color:#228b22&#34;&gt;//添加预览图片
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    $$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btnSelect&amp;#34;&lt;/span&gt;).innerHTML = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&amp;lt;img class=\&amp;#34;photo\&amp;#34; src=\&amp;#34;&amp;#34;&lt;/span&gt;+createObjectURL(file)+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;\&amp;#34;/&amp;gt;&amp;#34;&lt;/span&gt;;
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;JS Ajax 请求部分：&lt;/p&gt;
+&lt;p&gt;说明：第一个监听文件选择更改事件，满足验证条件后则执行预览，第二个事件监听为监听单击 btnSelect 时弹出窗口的响应，下面的则是确认上传按钮的事件监听，开始发送 Ajax 请求。此处的 createXHR()方法为创建 XMLHttpRequest 对象，代码我并未贴出，包括 addEventListener()方法，这 2 个部分可以参考其他文章。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//监听图片URL地址更改
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;addEventListener($$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploadFile&amp;#34;&lt;/span&gt;), &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;change&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
+    checkFile();
+});
+
+&lt;span style=&#34;color:#228b22&#34;&gt;//监听单击文件选择按钮
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;addEventListener($$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btnSelect&amp;#34;&lt;/span&gt;), &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;click&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
+    &lt;span style=&#34;color:#228b22&#34;&gt;//弹出文件选择框
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    $$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploadFile&amp;#34;&lt;/span&gt;).click();
+});
+&lt;span style=&#34;color:#228b22&#34;&gt;//监听确认上传按钮的点击事件
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;addEventListener($$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btnConfirm&amp;#34;&lt;/span&gt;), &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;click&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(e) {
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (checkFile()) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;try&lt;/span&gt; {
+            &lt;span style=&#34;color:#228b22&#34;&gt;//执行上传操作var xhr = createXHR();
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            $$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;maskLayer&amp;#34;&lt;/span&gt;).style.display = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;block&amp;#34;&lt;/span&gt;;
+            xhr.open(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;post&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;/uploadPhoto.action&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;true&lt;/span&gt;);
+            xhr.setRequestHeader(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;X-Requested-With&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;XMLHttpRequest&amp;#34;&lt;/span&gt;);
+            xhr.onreadystatechange = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (xhr.readyState == &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;) {
+                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; flag = xhr.responseText;
+                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (flag == &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;success&amp;#34;&lt;/span&gt;) {
+                        alert(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;图片上传成功！&amp;#34;&lt;/span&gt;);
+                    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; {
+                        alert(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;图片上传成功！&amp;#34;&lt;/span&gt;);
+                    };
+                    $$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;maskLayer&amp;#34;&lt;/span&gt;).style.display = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;none&amp;#34;&lt;/span&gt;;
+                };
+            };
+            &lt;span style=&#34;color:#228b22&#34;&gt;//表单数据
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; fd = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; FormData();
+            fd.append(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;myPhoto&amp;#34;&lt;/span&gt;, $$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploadFile&amp;#34;&lt;/span&gt;).files[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;]);
+            &lt;span style=&#34;color:#228b22&#34;&gt;//执行发送
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            xhr.send(fd);
+        } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt; (e) {
+            console.log(e);
+        }
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以上则为全部主要代码部分，如果有什么问题可以联系我，欢迎交流。&lt;/p&gt;
+- ./posts/2014/html5%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/ - 2014-2020.</description>
+        </item>
+    
+    
+  </channel>
+</rss> 

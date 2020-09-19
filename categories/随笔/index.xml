@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>随笔 on 让美的事情发生</title>
+    <link>./categories/%E9%9A%8F%E7%AC%94/</link>
+    <description>Recent content in 随笔 on 让美的事情发生</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>2014-2020.</copyright>
+    <lastBuildDate>Sat, 31 Dec 2016 23:55:56 +0000</lastBuildDate>
+    
+	<atom:link href="./categories/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>而惑之年</title>
+      <link>./posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/</link>
+      <pubDate>Sat, 31 Dec 2016 23:55:56 +0000</pubDate>
+      
+      <guid>./posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>写作给我带来的益处</title>
+      <link>./posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/</link>
+      <pubDate>Thu, 20 Oct 2016 16:38:52 +0000</pubDate>
+      
+      <guid>./posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/</guid>
+      <description>刚刚进入工作那会儿， 经常通过搜索引擎搜索到各种大牛的博客，会在里面发现他们写的各种技术文章，人生经历，思考，旅行，人文等等。各种类型的文章。自己平时工作中遇到的问题，也尝尝是从这些文章中获益。所以从那时候自己也开始去培养写博客的习惯。
+刚开始写博客那会，写的大部分内容主要是技术文章，什么算法啊，Java 语言等等方面的知识。最近有回头去看看以前写的东西，从最基本的内容排版，文章内容结构去重新审视，比较粗糙。但是通过近 3 年来自己的断断续续的坚持，发现在写东西方面还是有一些进步。从最开始的写技术，到现在我会写写自己对业界的见闻和看法，会写旅行日记，会写一些思考。技术文章也比以前更有章法，内容组织的也更好。
+这么久的坚持，我是深深感受到了坚持写作中的受益是巨大的。我就简单的罗列几条。
+一、增强了自身的语言表达能力写作是语言的另外一种表达方式，文字有文字的魅力。长期的写作，会锻炼自身语言文字的组织能力。有时候为了去表达清楚一个观点，知识点，你必须去精准，斟词酌句，理清逻辑，不然自己不清不楚，读的人更是一头雾水。所以长期在这种思维的自我要求下，对自身语言的掌控和表达方面一定会有很大的帮助。
+二、行文内容的组织架构能力有时候想要去讲清楚一个知识点，观点的时候，为了达到更好的效果，便会理清整个文章的逻辑，模块，然后按模块填充文章的内容，就好比书本的目录一样。这是一个非常好的习惯，让我今后去表述的时候回提前就思考的事情，这种思维模式对工作十分有帮助。
+三、思考沉淀的好方式 有很多人有些日记，笔记的习惯。而这些都是写作的一种。通过这种写作的方式，与自我对话，与自己内心对话的方式，可以更好的总结，反思，重新认识自己。能让我们队自身有更好的认知。
+以上是我简单的罗列好处，其实写作的好处简直太多，就不在此一一列举了。希望自己能坚持，坚持到老！</description>
+    </item>
+    
+    <item>
+      <title>不要给自己制造过多的心理包袱</title>
+      <link>./posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/</link>
+      <pubDate>Mon, 01 Aug 2016 00:38:08 +0000</pubDate>
+      
+      <guid>./posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/</guid>
+      <description>一直以来，因为团队项目迭代节奏很快，每次发布的更新日志和版本更新都是通过人肉来完成的。有时候实在忙的团团转，对于手动的写这些更新信息就显得力不从心了。对于团队新来的小伙伴，有时候遇到些紧急情况，就更显的乱糟糟，还是得麻烦团队资深的同学。显然这些工作，用自动化工具再适合不过了。
+本文是一篇项目自动化方面的使用教程，社区里面针对四类问题的解决方案很多，今天这里主要介绍的是 onventional-changelog 方案相关的内容。 如果你正在思考或者试图解决这方面的问题的话，不妨了解一下。
+conventional-changelog conventional-changelog 是一款可以根据项目的 commit 和 metadata 信息自动生成 changelogs 和 release notes 的系列工具，并且在辅助 standard-version 工具的情况下，可以自动帮你完成生成 version、打 tag, 生成 CHANGELOG 等系列过程。
+conventional-changelog 生态主要模块 conventional-changelog-cli - conventional-changelog 核心命令行工具 standard-changelog - 针对 angular commit 格式的命令行工具 conventional-github-releaser - 利用 git metadata 针对 Github 的发布工具 conventional-commits-detector - commit message 规范引用检测 commitizen - 针对开发者简单的 commit 规范 commitlint - commit Lint 工具 以上是 onventional-changelog 生态重要的几个主要模块，实际工作中这几个工具常常是配套使用的，当然也需要根据自己的情况而定。篇幅有限，今天我们就主要介绍 commitizen、conventional-changelog-cli 、standard-version 这三工具了。
+commitizen commitizen 是一款标准化 git commit 信息的工具。在没有规范的情况下，开发人员的 commit 信息是常常是随意的，这就导致 commit 信息显的很无用。可是当你在做 git log、code review、编写 changelog 等情况时，良好的 commit 规范就显的尤为重要。</description>
+    </item>
+    
+  </channel>
+</rss>

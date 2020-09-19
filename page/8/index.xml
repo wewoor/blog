@@ -1,0 +1,965 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>让美的事情发生</title>
+    <link>./</link>
+    <description>Recent content on 让美的事情发生</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>2014-2020.</copyright>
+    <lastBuildDate>Tue, 14 Jan 2020 10:28:51 +0000</lastBuildDate>
+    
+        <atom:link href="./index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>Javascript 的字面量对象以及如何拆解字面量对象</title>
+        <link>./posts/2013/javascript%E7%9A%84%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E6%8B%86%E8%A7%A3%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1/</link>
+        <pubDate>Thu, 18 Jul 2013 14:28:00 +0000</pubDate>
+        
+        <guid>./posts/2013/javascript%E7%9A%84%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E6%8B%86%E8%A7%A3%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1/</guid>
+        <description>让美的事情发生 ./posts/2013/javascript%E7%9A%84%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E6%8B%86%E8%A7%A3%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1/ -&lt;p&gt;简单的说，字面量对象提供了一直非常方便构建新对象的方式，它的格式非常简单且容易阅读。是大多数前端程序员在构建对象时比较推崇的一种方式。&lt;/p&gt;
+&lt;h2 id=&#34;格式&#34;&gt;格式&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; person = {
+    name : &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;ziv&amp;#34;&lt;/span&gt;,
+    sex : &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;男&amp;#34;&lt;/span&gt;,
+    age : &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;22&amp;#34;&lt;/span&gt;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;注意字面量对象最后一个属性是不需要逗号的&lt;/p&gt;
+&lt;h2 id=&#34;访问字面量对象的属性值&#34;&gt;访问字面量对象的属性值&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;person.name
+&lt;span style=&#34;color:#228b22&#34;&gt;//或者采用数组形式传入属性的key取得value
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;person[name]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;获取字面量对象的所有 key 值的集合：
+获取子字面量对象的所有 key 值，通常可以调用 Object 对象的 getOwnPropertyNames();这个方法，示例如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; arr = &lt;span style=&#34;color:#658b00&#34;&gt;Object&lt;/span&gt;.getOwnPropertyNames(literals);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;arr 为一个数组对象，取得 name 的值 arr[index];&lt;/p&gt;
+&lt;h2 id=&#34;如何遍历字面量对象&#34;&gt;如何遍历字面量对象&lt;/h2&gt;
+&lt;p&gt;方法一，也是推荐的一种方法，for&amp;hellip;in 循环&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; style = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; property &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;in&lt;/span&gt; literals){
+     console.log(property);    &lt;span style=&#34;color:#228b22&#34;&gt;//属性值
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;     console.log(literals[property]);   &lt;span style=&#34;color:#228b22&#34;&gt;//key值
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;     style = style+property+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;:&amp;#34;&lt;/span&gt;+literals[property]+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;;&amp;#34;&lt;/span&gt;;
+}
+console.log(style); &lt;span style=&#34;color:#228b22&#34;&gt;//组合成一个样式串
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;方法二，比较笨，可以先获取 property 集合值，然后通过遍历 property 获取 key 的值&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; propertys = &lt;span style=&#34;color:#658b00&#34;&gt;Object&lt;/span&gt;.getOwnPropertyNames(literals); &lt;span style=&#34;color:#228b22&#34;&gt;//通过getOwnPropertyNames获取
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; style = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; ; i &amp;lt; propertys.length ; i++){
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; property = propertys[i];
+        console.log(propertys[i]+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;:&amp;#34;&lt;/span&gt;+literals[property]);
+        style = style+propertys[i]+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;:&amp;#34;&lt;/span&gt;+literals[property]+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;;&amp;#34;&lt;/span&gt;;
+   }
+console.log(style);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- ./posts/2013/javascript%E7%9A%84%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E6%8B%86%E8%A7%A3%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>什么是 CouchDB？</title>
+        <link>./posts/2013/%E4%BB%80%E4%B9%88%E6%98%AFcouchdb/</link>
+        <pubDate>Fri, 05 Jul 2013 11:16:00 +0000</pubDate>
+        
+        <guid>./posts/2013/%E4%BB%80%E4%B9%88%E6%98%AFcouchdb/</guid>
+        <description>让美的事情发生 ./posts/2013/%E4%BB%80%E4%B9%88%E6%98%AFcouchdb/ -&lt;p&gt;本文对 CouchDB 的解释是来自 Apache CouchDB 的官网的译文，如果有什么问题，请指正。&lt;/p&gt;
+&lt;p&gt;1.CouchDB 简介&lt;/p&gt;
+&lt;p&gt;CouchDB 是一种利用 JSON 文件，javascript 作为 MapReduce 查询，以及常规 HTTP 作为 API 的一种数据库系统。&lt;/p&gt;
+&lt;p&gt;2.CouchDB，一个为 Web 而生的数据库&lt;/p&gt;
+&lt;p&gt;CouchDB 是一个完全为了 web 而生的数据库，它利用了 JSON 文件来存贮数据。CouchDB 利用你的 web 浏览器，通过 HTTP，查询，结合来处理这些 JSON 文件，并且利用 Javascript 来传输这些数据。CouchDB 在现代浏览器以及移动浏览器上面的支持是非常好的，你甚至可以直接利用 CouchDB 来服务于你的 web 应用。你可以有效的利用 CouchDB 的增量复制特性去分发你的数据或者你的应用。CouchDB 利用了自动冲突检测功能，支持 master-master 的安装。&lt;/p&gt;
+&lt;p&gt;CouchDB 另外附增了一系列的特性，例如动态的文档转换，和实时的变更通知，CouchDB 的这些特性掀起了一股 web 应用开发的小风波。CouchDB 甚至携有一种简单的使用 web 管理控制的方式。这种特性直接由 CouchDB 提供。我们担心着大量的分布式扩展，CouchDB 是高可用性和分区容忍的，同时也是保持最终一致性的。我们一值都大量的关心着用户的数据。CouchDB 拥有着一个容错引擎，它将把你数据的安全始终放在第一位的。&lt;/p&gt;
+&lt;p&gt;※更多关于 CouchDB 请访问 Apach CouchDB 官网，此文意在简单介绍 CouchDB，一个利用了现代 web 的技术。&lt;a href=&#34;http://couchdb.apache.org/&#34;&gt;http://couchdb.apache.org/&lt;/a&gt;&lt;/p&gt;
+- ./posts/2013/%E4%BB%80%E4%B9%88%E6%98%AFcouchdb/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>JS 模拟 Alert 与 Confirm 对话框</title>
+        <link>./posts/2013/js%E6%A8%A1%E6%8B%9Falert%E4%B8%8Econfirm%E5%AF%B9%E8%AF%9D%E6%A1%86/</link>
+        <pubDate>Sun, 09 Jun 2013 13:09:00 +0000</pubDate>
+        
+        <guid>./posts/2013/js%E6%A8%A1%E6%8B%9Falert%E4%B8%8Econfirm%E5%AF%B9%E8%AF%9D%E6%A1%86/</guid>
+        <description>让美的事情发生 ./posts/2013/js%E6%A8%A1%E6%8B%9Falert%E4%B8%8Econfirm%E5%AF%B9%E8%AF%9D%E6%A1%86/ -&lt;p&gt;这 2 个例子都是用原生 JS 写的，主要是用 JS 拼接了界面，并未做过多的事件监听。，样式用了 Css3 的一些特性。&lt;/p&gt;
+&lt;p&gt;调用方式则为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//Alert
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt; Alert.show(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;我警告你哦~&amp;#39;&lt;/span&gt;);
+
+ &lt;span style=&#34;color:#228b22&#34;&gt;//Confirm
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt; Confirm.show(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;我是确认对话框&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(){
+      doSomething();
+ });
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;组件详情看下面的具体代码：&lt;/p&gt;
+&lt;p&gt;1.CSS 样式&lt;/p&gt;
+&lt;p&gt;由于这 2 个组件的样式差不多，所用共用了一样的 css，样式代码如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *     dialog
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; */&lt;/span&gt;
+.&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;dialog&lt;/span&gt; {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;top&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;40&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;left&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;40&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;width&lt;/span&gt;: &lt;span style=&#34;color:#b452cd&#34;&gt;250&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;min-height&lt;/span&gt;: &lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;position&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;fixed&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;z-index&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;9999&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;text-align&lt;/span&gt;: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;center&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;padding&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;border&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;solid&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;#bcc5c1&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;background&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;#FFF&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;border-radius&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;-moz-&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;border-radius&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;-webkit-&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;border-radius&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;padding&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    behavior: &lt;span style=&#34;color:#658b00&#34;&gt;url&lt;/span&gt;(&lt;span style=&#34;color:#cb6c20&#34;&gt;PIE.htc&lt;/span&gt;);
+}
+
+.&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;dialog&lt;/span&gt; .&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;dialog-header&lt;/span&gt; {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;position&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;relative&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;width&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;height&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;30&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;margin&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;background&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;#0CF&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;background&lt;/span&gt;:&lt;span style=&#34;color:#658b00&#34;&gt;linear-gradient&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;top&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#d1d4d3&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#c4c7c8&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;background&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;-webkit-&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;linear-gradient&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;top&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#d1d4d3&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#c4c7c8&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;background&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;-moz-&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;linear-gradient&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;top&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#d1d4d3&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#c4c7c8&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;border-radius&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;-moz-&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;border-radius&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;-webkit-&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;border-radius&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    behavior: &lt;span style=&#34;color:#658b00&#34;&gt;url&lt;/span&gt;(&lt;span style=&#34;color:#cb6c20&#34;&gt;PIE.htc&lt;/span&gt;);
+}
+
+.&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;dialog-header&lt;/span&gt; .&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;header-left&lt;/span&gt; {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;width&lt;/span&gt;: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;height&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;float&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;left&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;margin&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;7&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+}
+
+.&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;dialog-header&lt;/span&gt; .&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;header-right&lt;/span&gt; {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;width&lt;/span&gt;: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;height&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;float&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;right&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;margin&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;7&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+}
+
+.&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;dialog&lt;/span&gt; .&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;dialog-content&lt;/span&gt; {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;font-size&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;14&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;height&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;width&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;96&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;float&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;left&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;font-family&lt;/span&gt;:&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Helvetica Neue&amp;#34;&lt;/span&gt;, Helvetica, Arial, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sans-serif&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;color&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;#424242&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;padding&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;5&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+}
+
+.&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;dialog-content&lt;/span&gt; .&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;content-main&lt;/span&gt; {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;width&lt;/span&gt;: &lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;min-height&lt;/span&gt;: &lt;span style=&#34;color:#b452cd&#34;&gt;40&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;line-height&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;25&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;float&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;left&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;white-space&lt;/span&gt;: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;normal&lt;/span&gt;;
+}
+
+.&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;dialog-content&lt;/span&gt; .&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;content-btn&lt;/span&gt; {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;float&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;left&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;width&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;height&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;28&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;margin-top&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+}
+
+.&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;btn&lt;/span&gt; {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;font-family&lt;/span&gt;:Arial, Helvetica, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sans-serif&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;font-size&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;12&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;text-align&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;center&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;vertical-align&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;middle&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;margin-right&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;5&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;padding&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;5&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;20&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;5&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;20&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;text-decoration&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;none&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;border&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;#c4c7c8&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;solid&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;border-radius&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;background&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;#d1d4d3&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;background&lt;/span&gt;:&lt;span style=&#34;color:#658b00&#34;&gt;linear-gradient&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;top&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#d1d4d3&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#c4c7c8&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;background&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;-webkit-&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;linear-gradient&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;top&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#d1d4d3&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#c4c7c8&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;background&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;-moz-&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;linear-gradient&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;top&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#d1d4d3&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#c4c7c8&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;color&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;#111c24&lt;/span&gt;;
+
+}
+
+.&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;btn&lt;/span&gt;:&lt;span style=&#34;color:#707a7c&#34;&gt;hover&lt;/span&gt; {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;background&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;#d1d4d3&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;background&lt;/span&gt;:&lt;span style=&#34;color:#658b00&#34;&gt;linear-gradient&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;top&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#c4c7c8&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#d1d4d3&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;background&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;-webkit-&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;linear-gradient&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;top&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#c4c7c8&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#d1d4d3&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;background&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;-moz-&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;linear-gradient&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;top&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#c4c7c8&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;#d1d4d3&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;color&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;#111c24&lt;/span&gt;;
+}
+
+.&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;alert-content&lt;/span&gt; {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;text-align&lt;/span&gt;: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;left&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;text-indent&lt;/span&gt;: &lt;span style=&#34;color:#b452cd&#34;&gt;20&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+}
+
+.&lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;alert&lt;/span&gt; {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;margin-left&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;140&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2.Alert&lt;/p&gt;
+&lt;p&gt;Alert 主要是模拟了界面，并显示提示信息。JS 代码.Demo 可查看：&lt;a href=&#34;http://wewoor.github.io/CNUI/document.html&#34;&gt;http://wewoor.github.io/CNUI/document.html&lt;/a&gt; 。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//Alert
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; Alert = {
+
+    func : &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(){},
+    name : &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;dialog&amp;#34;&lt;/span&gt;,
+    show : &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(msg){        &lt;span style=&#34;color:#228b22&#34;&gt;//show function
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; confirm = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;div&amp;#34;&lt;/span&gt;);
+            confirm.className = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.name;
+            confirm.id = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.name;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; confirmHeader = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;div&amp;#34;&lt;/span&gt;);
+            confirmHeader.className = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;dialog-header&amp;#34;&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; headerSpan = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;span&amp;#34;&lt;/span&gt;);
+            headerSpan.className = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;dialog-title&amp;#34;&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; confirmContent = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;div&amp;#34;&lt;/span&gt;);
+            confirmContent.className = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;dialog-content&amp;#34;&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; contentSpan = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;span&amp;#34;&lt;/span&gt;);
+            contentSpan.className = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;content-main alert-content&amp;#34;&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; contentBtnDiv = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;div&amp;#34;&lt;/span&gt;);
+            contentBtnDiv.className=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;content-btn&amp;#34;&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; btnConfirm = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;);    &lt;span style=&#34;color:#228b22&#34;&gt;//确认按钮
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            btnConfirm.href = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;javascript:Alert.hide()&amp;#34;&lt;/span&gt;;
+            btnConfirm.className = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btn alert&amp;#34;&lt;/span&gt;;
+
+        &lt;span style=&#34;color:#228b22&#34;&gt;//按钮添加
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        contentBtnDiv.appendChild(btnConfirm);
+
+        confirmContent.appendChild(contentSpan);
+        confirmContent.appendChild(contentBtnDiv);
+
+        confirmHeader.appendChild(headerSpan);
+
+        confirm.appendChild(confirmHeader);
+        confirm.appendChild(confirmContent);
+
+        &lt;span style=&#34;color:#228b22&#34;&gt;//default button
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        headerSpan.innerHTML = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;警示框！&amp;#34;&lt;/span&gt;;
+        btnConfirm.innerHTML = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;确认&amp;#34;&lt;/span&gt;;
+        contentSpan.innerHTML = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;这是一个警示框！&amp;#34;&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(msg != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt; &amp;amp;&amp;amp; msg != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;undefined&lt;/span&gt;){
+            contentSpan.innerHTML = msg;
+        }
+
+        &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.body.appendChild(confirm);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; confirm;
+    },
+    hide : &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(){
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; confirm = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.getElementById(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.name);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(confirm != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt; &amp;amp;&amp;amp; confirm != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;undefined&lt;/span&gt;){
+            &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.body.removeChild(confirm);
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;3.Confirm 组件&lt;/p&gt;
+&lt;p&gt;confirm 对话框并没有像原生的 confirm 组件返回 true 或者 false，而是点击确认按钮后执行了传入的回调函数，点击取消按钮则移除了这个组件。demo 请看：&lt;a href=&#34;http://wewoor.github.io/CNUI/document.html&#34;&gt;http://wewoor.github.io/CNUI/document.html&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//Confirm
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt;  Confirm = {
+    func : &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(){},
+    name : &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;dialog&amp;#34;&lt;/span&gt;,
+    show : &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(msg,call){        &lt;span style=&#34;color:#228b22&#34;&gt;//show function
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; confirm = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;div&amp;#34;&lt;/span&gt;);
+            confirm.className = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.name;
+            confirm.id = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.name;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; confirmHeader = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;div&amp;#34;&lt;/span&gt;);
+            confirmHeader.className = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;dialog-header&amp;#34;&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; headerSpan = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;span&amp;#34;&lt;/span&gt;);
+            headerSpan.className = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;dialog-title&amp;#34;&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; confirmContent = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;div&amp;#34;&lt;/span&gt;);
+            confirmContent.className = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;dialog-content&amp;#34;&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; contentSpan = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;span&amp;#34;&lt;/span&gt;);
+            contentSpan.className = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;content-main&amp;#34;&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; contentBtnDiv = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;div&amp;#34;&lt;/span&gt;);
+            contentBtnDiv.className=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;content-btn&amp;#34;&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; btnConfirm = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;);    &lt;span style=&#34;color:#228b22&#34;&gt;//确认按钮
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            btnConfirm.href = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;javascript:Confirm.callback()&amp;#34;&lt;/span&gt;;
+            btnConfirm.className = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btn&amp;#34;&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; btnCancle = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;);    &lt;span style=&#34;color:#228b22&#34;&gt;//取消按钮
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            btnCancle.className = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btn&amp;#34;&lt;/span&gt;;
+            btnCancle.href = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;javascript:Confirm.hide()&amp;#34;&lt;/span&gt;;
+
+        &lt;span style=&#34;color:#228b22&#34;&gt;//按钮添加
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        contentBtnDiv.appendChild(btnConfirm);
+        contentBtnDiv.appendChild(btnCancle);
+
+        confirmContent.appendChild(contentSpan);
+        confirmContent.appendChild(contentBtnDiv);
+
+        confirmHeader.appendChild(headerSpan);
+
+        confirm.appendChild(confirmHeader);
+        confirm.appendChild(confirmContent);
+
+        &lt;span style=&#34;color:#228b22&#34;&gt;//default style
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        headerSpan.innerHTML = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;对话框&amp;#34;&lt;/span&gt;;
+        contentSpan.innerHTML = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;这是确认对话框？&amp;#34;&lt;/span&gt;;
+        btnConfirm.innerHTML = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;确认&amp;#34;&lt;/span&gt;;
+        btnCancle.innerHTML = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;取消&amp;#34;&lt;/span&gt;;
+
+        &lt;span style=&#34;color:#228b22&#34;&gt;//if the property html is not null and not undefined
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;//just set this property.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(msg != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;undefined&lt;/span&gt;){
+            contentSpan.innerHTML = msg;
+        }
+
+        &lt;span style=&#34;color:#228b22&#34;&gt;//set callback
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(call != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt; &amp;amp;&amp;amp; call != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;undefined&lt;/span&gt;){
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typeof&lt;/span&gt;(call) == &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;function&amp;#34;&lt;/span&gt;){
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.func = call;
+            }
+        }
+
+        &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.body.appendChild(confirm);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; confirm;
+    },
+
+    hide : &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(){
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; confirm = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.getElementById(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.name);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(confirm != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt; &amp;amp;&amp;amp; confirm != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;undefined&lt;/span&gt;){
+            &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.body.removeChild(confirm);
+        }
+    },
+    callback : &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(){
+        &lt;span style=&#34;color:#228b22&#34;&gt;//执行call回调方法
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.func();
+        &lt;span style=&#34;color:#228b22&#34;&gt;//隐藏confirm对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.hide();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- ./posts/2013/js%E6%A8%A1%E6%8B%9Falert%E4%B8%8Econfirm%E5%AF%B9%E8%AF%9D%E6%A1%86/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>详解 CSS 样式的 position 属性</title>
+        <link>./posts/2013/%E8%AF%A6%E8%A7%A3css%E6%A0%B7%E5%BC%8F%E7%9A%84position%E5%B1%9E%E6%80%A7/</link>
+        <pubDate>Sun, 09 Jun 2013 13:09:00 +0000</pubDate>
+        
+        <guid>./posts/2013/%E8%AF%A6%E8%A7%A3css%E6%A0%B7%E5%BC%8F%E7%9A%84position%E5%B1%9E%E6%80%A7/</guid>
+        <description>让美的事情发生 ./posts/2013/%E8%AF%A6%E8%A7%A3css%E6%A0%B7%E5%BC%8F%E7%9A%84position%E5%B1%9E%E6%80%A7/ -&lt;p&gt;平时在写 css 样式的时候 position 是我们比较常用的一个属性。有时候会弄不清其几个属性值的真正区别。不过用的时间久了，也就慢慢的明白了。不过其实想用好 position 有时候还是需要些技巧的。写篇博文总结下自己。&lt;/p&gt;
+&lt;p&gt;position 的作用：用于设置对 html 元素的定位方式　　
+position 属性的值：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;值名称&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;static&lt;/td&gt;
+&lt;td&gt;position 的默认值，设置此属性时，元素按照正常的流式布局往下排列&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;inherit&lt;/td&gt;
+&lt;td&gt;继承父元素的 position 值&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;relative&lt;/td&gt;
+&lt;td&gt;相对于其他元素的定位&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;absolute&lt;/td&gt;
+&lt;td&gt;相对于采用 static 定位的父元素的绝对定位&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;fixed&lt;/td&gt;
+&lt;td&gt;相对于浏览器的绝对定位&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;备注：如果给元素才用了 top,left 等定位属性时，只有 relative,absolute,fixed 才会有效果。&lt;/p&gt;
+&lt;p&gt;3.应用实例&lt;/p&gt;
+&lt;p&gt;　　　这里主要记录是 absolute 和 fixed 属性值。absolute 与 fixed 的好处主要就是它的定位不拘束于其它同级元素，不想其它几种布局自己的定位会被其它元素所影响。所以像做一些动画效果，div 浮动效果的时候，这个两个属性值就尤为适合了。&lt;/p&gt;
+&lt;p&gt;　　结合 z-index 的使用&lt;/p&gt;
+&lt;p&gt;　　　　z-index 用于控制元素在页面中层级的位置，就跟高楼大厦的楼层一样，z-index 则可用于控制所在的楼层。absolute 与 fixed 都支持 z-index 属性。所以当几个元素采用 absolute 或者 fixed 属性时，为了达到层次显示的效果，z-index 属性就很方便了。&lt;/p&gt;
+&lt;p&gt;　　示例：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;html&lt;/span&gt;&amp;gt;
+     &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;title&lt;/span&gt;&amp;gt;Position&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;title&lt;/span&gt;&amp;gt;
+     &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;head&lt;/span&gt;&amp;gt;
+      &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;meta&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;http-equiv&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Content-Type&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;content&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/html; charset=utf-8&amp;#34;&lt;/span&gt;&amp;gt;
+        &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;style&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/css&amp;#34;&lt;/span&gt;&amp;gt;
+              #&lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;container&lt;/span&gt;{
+                  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;height&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;1000&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+                  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;width&lt;/span&gt;: &lt;span style=&#34;color:#b452cd&#34;&gt;960&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+                  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;margin&lt;/span&gt;: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt;;
+                  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;background-color&lt;/span&gt;: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;blue&lt;/span&gt;;
+              }
+              #&lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;roll-top&lt;/span&gt; {
+                  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;padding&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;20&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+                  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;background-color&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;#525252&lt;/span&gt;;
+                  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;cursor&lt;/span&gt;: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;pointer&lt;/span&gt;;
+                  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;right&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+
+              }
+              #&lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;roll-top&lt;/span&gt;,#&lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;below&lt;/span&gt;{
+                  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;position&lt;/span&gt;:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;fixed&lt;/span&gt;;
+                  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;top&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;85&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;;
+                  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;font-size&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;12&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+                  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;color&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;#FFFFFF&lt;/span&gt;;
+              }
+              #&lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;below&lt;/span&gt;{
+                  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;width&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;%&lt;/span&gt;;
+                  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;height&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;px&lt;/span&gt;;
+                  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;background-color&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;#757575&lt;/span&gt;;
+                  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;z-index&lt;/span&gt;: &lt;span style=&#34;color:#b452cd&#34;&gt;-1&lt;/span&gt;;
+              }
+        &amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;style&lt;/span&gt;&amp;gt;
+        &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt;&amp;gt;
+          &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; rollbackTop(){
+            &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.scrollTo(&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+          }
+        &amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt;&amp;gt;
+    &amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;head&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
+        &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;div&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;container&amp;#34;&lt;/span&gt;&amp;gt;
+        &amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;div&lt;/span&gt;&amp;gt;
+        &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;div&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;roll-top&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;onclick&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;rollbackTop()&amp;#34;&lt;/span&gt;&amp;gt;返回顶部&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;div&lt;/span&gt;&amp;gt;
+        &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;div&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;below&amp;#34;&lt;/span&gt;&amp;gt;我在下面&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;div&lt;/span&gt;&amp;gt;
+    &amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;html&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;像利用 absolute 做动画效果的例子在 JQuery 官方上面的例子还是比较多。再次就不做详解了。&lt;/p&gt;
+- ./posts/2013/%E8%AF%A6%E8%A7%A3css%E6%A0%B7%E5%BC%8F%E7%9A%84position%E5%B1%9E%E6%80%A7/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>Play Framework 常用标签 list,set,如何遍历 list、map 类型数据</title>
+        <link>./posts/2013/play-framework%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BElistset%E5%A6%82%E4%BD%95%E9%81%8D%E5%8E%86listmap%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE/</link>
+        <pubDate>Tue, 29 Jan 2013 10:52:00 +0000</pubDate>
+        
+        <guid>./posts/2013/play-framework%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BElistset%E5%A6%82%E4%BD%95%E9%81%8D%E5%8E%86listmap%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE/</guid>
+        <description>让美的事情发生 ./posts/2013/play-framework%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BElistset%E5%A6%82%E4%BD%95%E9%81%8D%E5%8E%86listmap%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE/ -&lt;p&gt;最近一段时间的项目都是在 Play 这个框架上进行开发的，挺强大的，但不足之处也挺多的。今天分享下 play 中强大的标签，遍历 list,map 类型的数据的用法。&lt;/p&gt;
+&lt;p&gt;遍历单纯的 list 数据,例如：List&lt;!-- raw HTML omitted --&gt; peoples;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{list peoples,as:&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;people&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;} &lt;span style=&#34;color:#228b22&#34;&gt;//peoples为list对象，people为实体变量名 ，name则为实体相对应的属性值
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    ${people.&lt;span style=&#34;color:#658b00&#34;&gt;name&lt;/span&gt;}
+ &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{/list}
+遍历list中泛化的map类型&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;，&lt;/span&gt;例如&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;：&lt;/span&gt;List&amp;lt;Map&amp;lt;People&amp;gt;&amp;gt; peoples;
+&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{list peoples,as:&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;people&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;} &lt;span style=&#34;color:#228b22&#34;&gt;//peoples为list对象，people为实体变量名 ，name则为实体相对应的属性值
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;   &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{list people,as:&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;map&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;}${map.&lt;span style=&#34;color:#658b00&#34;&gt;value&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;property&lt;/span&gt;}&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{/list}
+    &lt;span style=&#34;color:#228b22&#34;&gt;//第二个list将people再次转换，map取值则像正常的取值，value为map的value,可是对象类型，property则为对象类型的属性值
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{/list}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;遍历单纯的 Map 类型，例如：Map&amp;lt;id,People&amp;gt; people;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//如果知道map的key值，则可以直接通过一下方式获取：
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;${people.&lt;span style=&#34;color:#658b00&#34;&gt;get&lt;/span&gt;(key).&lt;span style=&#34;color:#658b00&#34;&gt;name&lt;/span&gt;}
+&lt;span style=&#34;color:#228b22&#34;&gt;//如果是要遍历一个map,同样适用list标签
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{list people,as:&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;peo&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;}
+${peo.&lt;span style=&#34;color:#658b00&#34;&gt;value&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;name&lt;/span&gt;} &lt;span style=&#34;color:#228b22&#34;&gt;//peo为map变量，value为key的值，name为属性值
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{/list}
+
+&lt;span style=&#34;color:#228b22&#34;&gt;//如果id是一个对象的话，获取其对象的值则可以这样：
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{list people,as:&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;peo&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;}
+${peo.&lt;span style=&#34;color:#658b00&#34;&gt;key&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;name&lt;/span&gt;} &lt;span style=&#34;color:#228b22&#34;&gt;//peo为map变量，key为对象，key为实体对象，name为属性值
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{/list}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;遍历 map 与 list 的组合，例如：Map&amp;lt;id,List&lt;!-- raw HTML omitted --&gt;&amp;gt; people;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//知道ID的情况下可以这样,通过get方法获取对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{list people.&lt;span style=&#34;color:#658b00&#34;&gt;get&lt;/span&gt;(id),as:&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;peo&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;}
+　　${peo.&lt;span style=&#34;color:#658b00&#34;&gt;name&lt;/span&gt;}
+&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{list}
+&lt;span style=&#34;color:#228b22&#34;&gt;//如果people是多个map对象，则可以
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{list people,as: &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;map&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;}
+　　&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{list map.&lt;span style=&#34;color:#658b00&#34;&gt;value&lt;/span&gt;,as:&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;people&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;set,if,break 标签的使用:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//模拟遍历list时的计数器
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{set count:0}&lt;span style=&#34;color:#228b22&#34;&gt;//设置变量count
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{list data,as:&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;li&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#39;&lt;/span&gt;}
+ 　　&amp;lt;h1&amp;gt;${count}&amp;lt;/h1&amp;gt;
+    &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; count == 2}
+     　　&amp;lt;% &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;break&lt;/span&gt; %&amp;gt; &lt;span style=&#34;color:#228b22&#34;&gt;//跳出
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;}
+    &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{ifelse count == 3}
+       &amp;lt;h1&amp;gt;${count}&amp;lt;/h1}
+    &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{/ifelse}
+    &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;}
+       &amp;lt;h1&amp;gt;${count}&amp;lt;/h1&amp;gt;
+    &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;}
+    &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{set count:count+1}&lt;span style=&#34;color:#228b22&#34;&gt;//自增
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{/list}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- ./posts/2013/play-framework%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BElistset%E5%A6%82%E4%BD%95%E9%81%8D%E5%8E%86listmap%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>我所理解的团队</title>
+        <link>./posts/2013/%E6%88%91%E6%89%80%E7%90%86%E8%A7%A3%E7%9A%84%E5%9B%A2%E9%98%9F/</link>
+        <pubDate>Tue, 29 Jan 2013 10:52:00 +0000</pubDate>
+        
+        <guid>./posts/2013/%E6%88%91%E6%89%80%E7%90%86%E8%A7%A3%E7%9A%84%E5%9B%A2%E9%98%9F/</guid>
+        <description>让美的事情发生 ./posts/2013/%E6%88%91%E6%89%80%E7%90%86%E8%A7%A3%E7%9A%84%E5%9B%A2%E9%98%9F/ -&lt;p&gt;对于团队这个概念，我小时候的理解就是像国家体育队这样的团体，例如篮球队，或者足球队等。各个运动员在团体中相互发挥自己的优势，从而使整个队伍能发挥出最好的实力。而在我读大学的时候，我选择了软件这个专业，从这个专业中我了解到软件实际工作中，软件开发也是一个非常讲究团队概念的一个工作。只有拥有出色的团队，才能做出优秀的软件产品，然而当我真正踏入这个行业后，对这句话更是深信不疑。&lt;/p&gt;
+&lt;p&gt;在我大一的时候我遇到了我人生中非常重要的一只团队——班级篮球队。可能大家都有过这么个小小的经历，而我把它作为了我的论资。但的确我想表达的是当时的我们真的很团结，很包容。我们不会过分计较个人的失误，我们不会相互埋怨谁，也不会贪图所谓的功劳，有的只是鼓励，相互帮助。正因为如此，我们这支篮球团队在当时才可取得战无不胜的成绩。从此我爱上了团队这词，我觉得团队的力量是无限大的，团队让我们更有成就感。所以当我把这个观念转移到软件开发团队上的时候，我就有了另一些想法，或许是称得上梦想的想法吧。我想某一天我可以身在这样的一直开发团队中，我们创意无限，热爱技术，相互协作的完成各种有创意，有意义的事情，也许能做些在正面影响人们生活的事情。&lt;/p&gt;
+&lt;p&gt;在如今这样一个缺乏凝聚力的社会，如果我们身在的工作岗位上处处是勾心斗角，各种埋怨，我不知道这样工作有什么意思，我也想象不出可以完成什么样的杰作。如果身在一个有凝聚力的团队，相互包容，相互为梦想，为共同的目标去奋斗，不管成功是否，我觉得都是有意思，有意义的。&lt;/p&gt;
+&lt;p&gt;不求在我做程序员的岁月里在多么伟大或者怎样的公司呆过，但求我在这样一支包容，鼓励，团结的团队中为共同目标战斗过！&lt;/p&gt;
+- ./posts/2013/%E6%88%91%E6%89%80%E7%90%86%E8%A7%A3%E7%9A%84%E5%9B%A2%E9%98%9F/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>fileloder.js&#43;struts2 实现文件异步上传，无页面刷新效果。</title>
+        <link>./posts/2012/fileloder.js&#43;struts2%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%97%A0%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0%E6%95%88%E6%9E%9C/</link>
+        <pubDate>Thu, 01 Nov 2012 11:11:00 +0000</pubDate>
+        
+        <guid>./posts/2012/fileloder.js&#43;struts2%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%97%A0%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0%E6%95%88%E6%9E%9C/</guid>
+        <description>让美的事情发生 ./posts/2012/fileloder.js&#43;struts2%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%97%A0%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0%E6%95%88%E6%9E%9C/ -&lt;h2 id=&#34;一前言&#34;&gt;一、前言&lt;/h2&gt;
+&lt;p&gt;　　之前在写一个 web 的文件上传的功能时，希望在 web 前端对文件的大小，及类型用 js 给验证掉，然后提交到服务器保存入数据库，同时要求达到页面无刷新的异步效果。在网上也看到有很多用 iframe 的方式实现了这样的无刷新效果。不过我在这里给大家介绍的是一款 js 插件，非常强大。在用这款插件前，在网上查询了好久关于 js 对文件类型的验证，当然这样的方法很多，大多数通过正则表达式对文件后缀验证的方式，只不过对文件大小验证这项功能上网上贴出的大多数代码都不靠谱，很多浏览器根本就不支持很多属性操作，比喻说 filesize 这项，而且浏览器的兼容性上考虑起来非常麻烦。不过所幸后来我找到了 fileloader.js 这个插件，前身好像是 ajaxfileupload.js，这款插件可通过 js 提交验证文件的大小及类型、支持拖拽上传。有时间把它的源码研究下也跟大家分享下。fileloader.js 官方地址是：&amp;laquo;&lt;a href=&#34;http://fineuploader.com/%3E&#34;&gt;http://fineuploader.com/&amp;gt;&lt;/a&gt;。当然上面也有很多 DEMO&amp;gt;，大家可以自己去看。&lt;/p&gt;
+&lt;h2 id=&#34;二工作准备&#34;&gt;二、工作准备&lt;/h2&gt;
+&lt;p&gt;　　添加 strut2 框架；将下载的 fileloader.js 的文件添加到页面；将 fileloader.css 文件添加到页面；添加 jquery 包。&lt;/p&gt;
+&lt;h2 id=&#34;三html-页面代码&#34;&gt;三、HTML 页面代码&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;html&lt;/span&gt;&amp;gt;
+
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;head&lt;/span&gt;&amp;gt;
+
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;title&lt;/span&gt;&amp;gt;文件上传&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;title&lt;/span&gt;&amp;gt;
+
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;link&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;href&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;css/fileuploader.css&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;rel&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;stylesheet&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/css&amp;#34;&lt;/span&gt; /&amp;gt;
+
+　　&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;language&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;javascript&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;src&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;js/jquery-1.8.0.js&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt;&amp;gt;
+
+　　&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;language&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;javascript&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;src&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;js/fileuploader.js&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt;&amp;gt;
+　　&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;language&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;javascript&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt;&amp;gt;
+
+　　　　$(document).ready(function() {
+   　　　　 var thumbnailuploader = new qq.FileUploader({　　　　　　//new fileuploader object
+    　　　　  element: $(&amp;#39;#thumbnail-fine-uploader&amp;#39;)[0],　　　　　　//选定页面div元素，这里用了jquery的选择器
+   　　　　   action: &amp;#39;service/uploadImage&amp;#39;,　　　　　　　　　　　　//提交的action地址
+    　　　　  debug: true,
+    　　　　  multiple: false,
+    　　　　  allowedExtensions: [&amp;#39;jpeg&amp;#39;, &amp;#39;jpg&amp;#39;, &amp;#39;gif&amp;#39;, &amp;#39;png&amp;#39;],　　//允许上传的文件类型
+     　　　　 sizeLimit: 500*1024,　　　　　　　　　　　　　　　　//允许上传文件的大小，这里是500KB，500kb = 500*1024KB
+   　　　　   uploadButtonText:&amp;#39;图片上传&amp;#39;,　　　　　　　　　　　　//在页面显示上传按钮
+     　　　　 inputName: &amp;#39;myFile&amp;#39;,　　　　　　　　　　　　　　　　//在input标签中的name属性设置为myFile
+   　　　　   messages:{　　　　　　　　　　　　　　　　　　　　　//设置的提示信息，包括大小类型等的操作
+        　　　　  typeError:&amp;#39;只允许jpeg,jpg,gif,png格式的图片文件{file}&amp;#39;,
+        　　　　  sizeError:&amp;#39;文件大小不能超过{sizeLimit}。{file}&amp;#39;,
+       　　　　   emptyError:&amp;#39;文件不可为空{file}&amp;#39;,
+         　　　　 onLeave:&amp;#39;文件正在上传，离开将终止上传操作？&amp;#39;
+    　　　　  },
+      　　　　showMessage:function(message){　　　　　　　　　　//显示信息
+         　　 alert(message);
+     　　　　 },
+             // 设置返回从服务器反馈的error信息，不过我这里利用这个responseProperty属性反馈msg信息，
+             // 具体的msg内容在服务中设置。
+    　　　　  failedUploadTextDisplay: {
+       　　　　 mode: &amp;#39;custom&amp;#39;,
+      　　　　  maxChars: 40,
+       　　　　 responseProperty: &amp;#39;msg&amp;#39;,
+       　　　　 enableTooltip: true
+    　　  }
+
+  　　　  });
+　　  })　　
+
+　　&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;scripte&lt;/span&gt;&amp;gt;
+
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;head&lt;/span&gt;&amp;gt;
+
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
+
+     &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;fieldset&lt;/span&gt;&amp;gt;
+           &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;legend&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;span&lt;/span&gt;&amp;gt;您可以上传一张不超过500kb的图片&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;span&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;legend&lt;/span&gt;&amp;gt;
+            &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;div&lt;/span&gt;&amp;gt;
+                   &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;div&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;thumbnail-fine-uploader&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;div&lt;/span&gt;&amp;gt;  
+             &amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;div&lt;/span&gt;&amp;gt;
+    &amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;fieldset&lt;/span&gt;&amp;gt;
+
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
+
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;html&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;三action-服务器端代码&#34;&gt;三、Action 服务器端代码&lt;/h2&gt;
+&lt;p&gt;提示：我在项目中使用了 S2SH 框架，所以注意下自己写代码时候的区别。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.io.File&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.io.FileInputStream&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.io.FileOutputStream&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.io.InputStream&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;javax.servlet.http.HttpServletRequest&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;org.apache.struts2.ServletActionContext&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;org.hibernate.Hibernate&lt;/span&gt;;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;com.byg.entity.TableMsgService&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;com.byg.service.SendMessageService&lt;/span&gt;;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;FileHandleAction&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;extends&lt;/span&gt; SessionAction{
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; SendMessageService service;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setService&lt;/span&gt;(SendMessageService service) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;service&lt;/span&gt; = service;
+    }
+    &lt;span style=&#34;color:#228b22&#34;&gt;// myFile属性，即刚才在声明fileuploader 对象时候设置的myFile属性。通过此属性接收file的Name
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; String myFile;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;getMyFile&lt;/span&gt;() {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; myFile;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setMyFile&lt;/span&gt;(String myFile) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;myFile&lt;/span&gt; = myFile;
+    }
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 用于返回json数据，即在刚才在fileuploader对象中的failedUploadTextDisplay
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;// 中设置的responseProperty属性，显示msg的信息
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; String msg;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;getMsg&lt;/span&gt;() {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; msg;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setMsg&lt;/span&gt;(String msg) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;msg&lt;/span&gt; = msg;
+    }
+    &lt;span style=&#34;color:#228b22&#34;&gt;//check file size
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * upload image
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;uploadImage&lt;/span&gt;(){
+        &lt;span style=&#34;color:#228b22&#34;&gt;//声明request对象用于获取文件流
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        HttpServletRequest request = ServletActionContext.&lt;span style=&#34;color:#658b00&#34;&gt;getRequest&lt;/span&gt;();
+
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;getMyFile&lt;/span&gt;()!=&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt;){        &lt;span style=&#34;color:#228b22&#34;&gt;//如果图片名不为空
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+            File myFile = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; File(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;getMyFile&lt;/span&gt;());　　&lt;span style=&#34;color:#228b22&#34;&gt;//用改文件名new 一个文件对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;try&lt;/span&gt; {
+                    InputStream is = request.&lt;span style=&#34;color:#658b00&#34;&gt;getInputStream&lt;/span&gt;();    &lt;span style=&#34;color:#228b22&#34;&gt;//获取文件流
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                    FileOutputStream fout = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; FileOutputStream(myFile);&lt;span style=&#34;color:#228b22&#34;&gt;//定义文件输出流
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+                    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;byte&lt;/span&gt; b[] = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;byte&lt;/span&gt;[1000];
+
+                    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; n ;
+                    &lt;span style=&#34;color:#228b22&#34;&gt;//从inputStream中把获取的文件流写入这个新new的文件对象中
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt;((n=is.&lt;span style=&#34;color:#658b00&#34;&gt;read&lt;/span&gt;(b))!=-1){
+
+                        fout.&lt;span style=&#34;color:#658b00&#34;&gt;write&lt;/span&gt;(b,0,n);
+                    }
+                    is.&lt;span style=&#34;color:#658b00&#34;&gt;close&lt;/span&gt;();
+                    fout.&lt;span style=&#34;color:#658b00&#34;&gt;flush&lt;/span&gt;();
+                    fout.&lt;span style=&#34;color:#658b00&#34;&gt;close&lt;/span&gt;();
+                    &lt;span style=&#34;color:#228b22&#34;&gt;// 我的Image对象的定义是Blob类型，所以这里我通过进一步的转化myFile
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                    FileInputStream in = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; FileInputStream(myFile);
+                    TableMsgService msgService = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; TableMsgService();
+                    &lt;span style=&#34;color:#228b22&#34;&gt;//通过Hibernate的createBlob方法转化,然后设置我的image属性
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                    msgService.&lt;span style=&#34;color:#658b00&#34;&gt;setImage&lt;/span&gt;(Hibernate.&lt;span style=&#34;color:#658b00&#34;&gt;createBlob&lt;/span&gt;(in));
+                    &lt;span style=&#34;color:#228b22&#34;&gt;//最后保存包含这个Blob类型数据的对象，用的Hibernate框架　　
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                    service.&lt;span style=&#34;color:#658b00&#34;&gt;save&lt;/span&gt;(msgService);    &lt;span style=&#34;color:#228b22&#34;&gt;//save this object;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+                    msg = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;文件&amp;#34;&lt;/span&gt;+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;getMyFile&lt;/span&gt;()+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;上传成功&amp;#34;&lt;/span&gt;;　&lt;span style=&#34;color:#228b22&#34;&gt;// msg 设置显示成功
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+            }&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt;(Exception e) {
+                msg = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;文件&amp;#34;&lt;/span&gt;+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;getMyFile&lt;/span&gt;()+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;上传失败&amp;#34;&lt;/span&gt;; &lt;span style=&#34;color:#228b22&#34;&gt;//如果异常 设置msg显示失败
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                e.&lt;span style=&#34;color:#658b00&#34;&gt;printStackTrace&lt;/span&gt;();
+            }
+        }
+
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;succ&amp;#34;&lt;/span&gt;;
+
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;三strutsxml-的配置&#34;&gt;三、Struts.xml 的配置&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;struts&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;constant&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;struts.il8n.encoding&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;utf-8&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&amp;lt;/constant&amp;gt;&lt;/span&gt;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;package&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;extends=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;json-default&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;namespace=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;/service&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+            // 我这里写的是spring配置的Action
+　　        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;action&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploadImage&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;fileHandleAction&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploadImage&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;　　
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;result&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;succ&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;json&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;　// 返回json数据，即msg属性的信息
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/package&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/struts&amp;gt;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;四结语&#34;&gt;四、结语&lt;/h2&gt;
+&lt;p&gt;fileuploader.js 这款插件还是很是强大的，支持进度条的显示，也可以自定义气样式，不过目前我还是没有了解很透这款插件。有时间好好琢磨。希望这篇文章可以对大家有需要的分享下。&lt;/p&gt;
+- ./posts/2012/fileloder.js&#43;struts2%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%97%A0%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0%E6%95%88%E6%9E%9C/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>Struts2&#43;Hibernate&#43;Spring 在 mysql 更新 Blob 类型的数据</title>
+        <link>./posts/2012/struts2&#43;hibernate&#43;spring-%E5%9C%A8mysql%E6%9B%B4%E6%96%B0blob%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE/</link>
+        <pubDate>Thu, 06 Sep 2012 11:43:00 +0000</pubDate>
+        
+        <guid>./posts/2012/struts2&#43;hibernate&#43;spring-%E5%9C%A8mysql%E6%9B%B4%E6%96%B0blob%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE/</guid>
+        <description>让美的事情发生 ./posts/2012/struts2&#43;hibernate&#43;spring-%E5%9C%A8mysql%E6%9B%B4%E6%96%B0blob%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE/ -&lt;p&gt;看了好多别人写的，不是写的很复杂，就是写的简单的不靠谱。其实很简单 0 0.&lt;/p&gt;
+&lt;p&gt;以下的代码是更新指定 id 里面的 image 文件的方法。具体代码如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;public boolean updateImage(Image image) {
+    // 这里我用的是Spring 的HibernateTemplate 模板
+    Session session = template.getSessionFactory().openSession();
+    // 当然你可以直接用Hibernate获取session对象
+    Transaction transaction = session.beginTransaction();
+
+    session.saveOrUpdate(image);
+
+    session.flush();
+
+    transaction.commit();
+
+    session.close();
+
+    return true;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;下面是我的 Image class&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;Image&lt;/span&gt; {
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; id;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; Blob image;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;getId&lt;/span&gt;() {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; id;
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setId&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; id) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt; = id;
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; Blob &lt;span style=&#34;color:#008b45&#34;&gt;getImage&lt;/span&gt;() {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; image;
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setImage&lt;/span&gt;(Blob image) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;image&lt;/span&gt; = image;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;下面是我的 Struts2 的 Action&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;uploadImage&lt;/span&gt;(){
+
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;try&lt;/span&gt; {
+
+            FileInputStream input = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; FileInputStream(file);
+
+            Blob blob = Hibernate.&lt;span style=&#34;color:#658b00&#34;&gt;createBlob&lt;/span&gt;(input);
+
+            image.&lt;span style=&#34;color:#658b00&#34;&gt;setImage&lt;/span&gt;(blob);         &lt;span style=&#34;color:#228b22&#34;&gt;//Action 把上传过来的文件进行转换后给Image set value.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+            imageDao.&lt;span style=&#34;color:#658b00&#34;&gt;updateImage&lt;/span&gt;(image);
+
+        } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt; (FileNotFoundException e) {
+            e.&lt;span style=&#34;color:#658b00&#34;&gt;printStackTrace&lt;/span&gt;();
+        } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt; (IOException e) {
+            e.&lt;span style=&#34;color:#658b00&#34;&gt;printStackTrace&lt;/span&gt;();
+        }
+
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;succ&amp;#34;&lt;/span&gt;;
+    }
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- ./posts/2012/struts2&#43;hibernate&#43;spring-%E5%9C%A8mysql%E6%9B%B4%E6%96%B0blob%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>Strut2 与 Hibernate 的一个 web 分页功能</title>
+        <link>./posts/2012/strut2%E4%B8%8Ehibernate%E7%9A%84%E4%B8%80%E4%B8%AAweb%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD/</link>
+        <pubDate>Thu, 06 Sep 2012 11:32:00 +0000</pubDate>
+        
+        <guid>./posts/2012/strut2%E4%B8%8Ehibernate%E7%9A%84%E4%B8%80%E4%B8%AAweb%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD/</guid>
+        <description>让美的事情发生 ./posts/2012/strut2%E4%B8%8Ehibernate%E7%9A%84%E4%B8%80%E4%B8%AAweb%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD/ -&lt;p&gt;代码没有进行过多的封装，可能看起来有点 action 代码部分，hibernate 在这里只起到了一个查询记录集的作用。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.util.ArrayList&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.util.List&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.util.Map&lt;/span&gt;;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;org.apache.struts2.interceptor.SessionAware&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;org.hibernate.Criteria&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;org.hibernate.Session&lt;/span&gt;;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;com.HibernateSessionFactory&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;com.hibertest1.dto.MyMessage&lt;/span&gt;;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;FenYeAction&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;implements&lt;/span&gt; SessionAware{
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; start = 0;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;getStart&lt;/span&gt;() {
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; start;
+}
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setStart&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; start) {
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;start&lt;/span&gt; = start;
+}
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;getMessage&lt;/span&gt;(){
+
+List&amp;lt;MyMessage&amp;gt; msgs = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; ArrayList&amp;lt;MyMessage&amp;gt;();
+
+Session se = HibernateSessionFactory.&lt;span style=&#34;color:#658b00&#34;&gt;getSession&lt;/span&gt;();
+
+Criteria crit = se.&lt;span style=&#34;color:#658b00&#34;&gt;createCriteria&lt;/span&gt;(MyMessage.&lt;span style=&#34;color:#658b00&#34;&gt;class&lt;/span&gt;); &lt;span style=&#34;color:#228b22&#34;&gt;//创建Criteria 对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+msgs = crit.&lt;span style=&#34;color:#658b00&#34;&gt;list&lt;/span&gt;();
+
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; size = msgs.&lt;span style=&#34;color:#658b00&#34;&gt;size&lt;/span&gt;(); &lt;span style=&#34;color:#228b22&#34;&gt;//获得查询出来的总量
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+   &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(size&amp;gt;5)
+
+   {
+           session.&lt;span style=&#34;color:#658b00&#34;&gt;put&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;pageCount&amp;#34;&lt;/span&gt;,size%5);
+
+          &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(size-start&amp;lt;5)    &lt;span style=&#34;color:#228b22&#34;&gt;//如果起点位置到记录结束位置在5条结果之内
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;          {
+                    session.&lt;span style=&#34;color:#658b00&#34;&gt;put&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;subMsg&amp;#34;&lt;/span&gt;,msgs.&lt;span style=&#34;color:#658b00&#34;&gt;subList&lt;/span&gt;(start, size));            &lt;span style=&#34;color:#228b22&#34;&gt;//那么我们就取值到结束点的位置
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;           }&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+           {
+                    session.&lt;span style=&#34;color:#658b00&#34;&gt;put&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;subMsg&amp;#34;&lt;/span&gt;,msgs.&lt;span style=&#34;color:#658b00&#34;&gt;subList&lt;/span&gt;(start, start+5));            &lt;span style=&#34;color:#228b22&#34;&gt;//否则一次获取5条记录来
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;           }
+
+ }
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+  {
+                session.&lt;span style=&#34;color:#658b00&#34;&gt;put&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;subMsg&amp;#34;&lt;/span&gt;, msgs);             &lt;span style=&#34;color:#228b22&#34;&gt;//如果小于等于5条记录就全部放入session
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;   }
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;succ&amp;#34;&lt;/span&gt;;
+}
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; Map&amp;lt;String,Object&amp;gt; session;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setSession&lt;/span&gt;(Map&amp;lt;String, Object&amp;gt; arg0) {
+&lt;span style=&#34;color:#228b22&#34;&gt;// TODO Auto-generated method stub
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;session&lt;/span&gt; = arg0;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;一下是 jsp 页面的代码，主要用到 struts2 的 ognl 标签,下面的例子主要用的一张用户表，两个属性，id 和 name,所以至于 hibernat 和 actine 的配置我就不列举出来了&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
+
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;center&lt;/span&gt;&amp;gt;
+&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;lt;&lt;/span&gt;%@taglib prefix=&amp;#34;s&amp;#34; uri=&amp;#34;/struts-tags&amp;#34;%&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;table&lt;/span&gt;&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;用户ID&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;用户名称&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;s:iterator&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;value&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;#session[&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;subMsg&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#34;]&amp;#34;&lt;/span&gt;&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;s:property&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;value&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;/&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;s:property&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;value&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;/&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;s:iterator&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;table&lt;/span&gt;&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;s:if&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;test&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;#session[&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;pageCount&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#34;]!=&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;null&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#34;&lt;/span&gt;&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;s:iterator&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;var&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;i&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;begin&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;0&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;end&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;#session[&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;pageCount&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#34;]&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;step&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;href&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;http://wewoor.blog.163.com/blog/hirb/nextPage?start=&amp;lt;s:property value=&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;5&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#34;&lt;/span&gt;/&amp;gt;&amp;#34;&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;s:property&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;value&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;#i+1&amp;#34;&lt;/span&gt;/&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;a&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;s:iterator&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;s:if&lt;/span&gt;&amp;gt;
+
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;center&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- ./posts/2012/strut2%E4%B8%8Ehibernate%E7%9A%84%E4%B8%80%E4%B8%AAweb%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD/ - 2014-2020.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>Struts2 与 Spring 的整合</title>
+        <link>./posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/</link>
+        <pubDate>Thu, 06 Sep 2012 11:32:00 +0000</pubDate>
+        
+        <guid>./posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/</guid>
+        <description>让美的事情发生 ./posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/ -&lt;p&gt;今天倒腾了半天，终于是把这个两个框架整合到一起了。还是要写一下总结，同时给大家一些帮助。&lt;/p&gt;
+&lt;p&gt;开发环境：myeclipse 9.0(不好用！）tomcat6.0
+1.准备工作&lt;/p&gt;
+&lt;p&gt;需要导入的包：struts2 与 spring 基本的包就不用说了，我用的是 struts2.1  Spring 3.0，&lt;/p&gt;
+&lt;p&gt;尤其要注意 别少导入的几个是:Spring3.0 Web Libraries  ;
+struts 支持 spring 的插件：struts2-spring-plugin-2.1.8.1.jar  将这个 jar 文件放到 lib 目录下
+2.web.xml 的配置&lt;/p&gt;
+&lt;p&gt;除了 struts2 的核心配置外，我们还要加入 spring 的配置，代码如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;
+&lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--指明spring配置文件的位置!--&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;context-param&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;param-name&amp;gt;&lt;/span&gt;contextConfigLocation&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/param-name&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;param-value&amp;gt;&lt;/span&gt;classpath*:applicationContext*.xml&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/param-value&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/context-param&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;!-加载spring的配置文件!--&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;listener&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;listener-class&amp;gt;&lt;/span&gt;
+
+org.springframework.web.context.ContextLoaderListener
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/listener-class&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/listener&amp;gt;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;注：如果你在运行的时候发现有 no found class org.springframework.web.context.LoaderListener 的异常 ，那你要注意你的 Spring3.0 Web 包的导入了&lt;/p&gt;
+&lt;p&gt;3.application.xml 的配置&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;beans&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;bean&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;userService&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;com.test.service.UserServiceImpl&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&amp;lt;/bean&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;bean&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;userAction&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;com.test.action.UserAction&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+
+       &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;userService&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+
+         &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;ref&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;bean=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;userService&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+
+      &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/property&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/bean&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/beans&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;4.UserAction 类 这个不用多说，注意的是 userService 属性的 getter 和 setter 方法&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;UserAction&lt;/span&gt; {
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; User user = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; User();
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; User &lt;span style=&#34;color:#008b45&#34;&gt;getUser&lt;/span&gt;() {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; user;
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setUser&lt;/span&gt;(User user) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;user&lt;/span&gt; = user;
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; UserService userService;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; UserService &lt;span style=&#34;color:#008b45&#34;&gt;getUserService&lt;/span&gt;() {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; userService;
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setUserService&lt;/span&gt;(UserService userService) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;userService&lt;/span&gt; = userService;
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;checkLogin&lt;/span&gt;(){
+
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(userService.&lt;span style=&#34;color:#658b00&#34;&gt;checkLogin&lt;/span&gt;(user))
+        {
+                System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;ok&amp;#34;&lt;/span&gt;);
+        }&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+                System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;sorry&amp;#34;&lt;/span&gt;);
+
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;succ&amp;#34;&lt;/span&gt;;
+    }
+
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;5.struts.xml 的配置,把原先 class 的路径换成 spring 中配置 action 的 bean 的 id&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;struts&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;package&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;extends=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;struts-default&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;action&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;login&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;userAction&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;checkLogin&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;result&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;succ&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;index.jsp&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/result&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/package&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/struts&amp;gt;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- ./posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/ - 2014-2020.</description>
+        </item>
+    
+    
+  </channel>
+</rss> 
