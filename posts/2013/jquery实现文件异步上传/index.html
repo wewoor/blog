@@ -22,7 +22,7 @@
  前端代码 html:  &lt;form id=&#34;form1&#34; method=&#34;POST&#34; action=&#34;/image/upload&#34; ENCTYPE=&#34;multipart/form-data&#34;&gt; &lt;input id=&#34;uploadFile&#34; type=&#34;file&#34; name=&#34;myfile&#34; /&gt; &lt;/from&gt; Javascript:
 $(&#34;#uploadFile&#34;).change(function(){ var message = &#34;t&#34;; $(&#34;#form1&#34;).ajaxSubmit({ method : &#34;POST&#34;, success : function(data){ //成功　if(data == &#34;ok&#34;){ alert(&#34;上传成功&#34;) }else{　alert(&#34;上传失败&#34;);　} }, error : function(){ alert(&#34;网络错误，请稍后重新尝试！&#34;); } }); });  服务端代码  public static void upload(File myfile){ String msg = &#34;fail&#34;; try{ //图片写入路径,此处我的位置是项目的根目录  File temp = new File(myfile." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://http://imziv.com/posts/2013/jquery%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/" />
+<meta property="og:url" content="http://imziv.com/posts/2013/jquery%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/" />
 <meta property="article:published_time" content="2013-08-07T18:18:00+00:00" />
 <meta property="article:modified_time" content="2013-08-07T18:18:00+00:00" /><meta property="og:site_name" content="My Blog" />
 
@@ -58,26 +58,26 @@ if (!doNotTrack) {
 
 
 
-<script src="/imziv.com/vendor/js/jquery.min.js" ></script>
-<script src="/imziv.com/vendor/js/popper.min.js" ></script>
-<script src="/imziv.com/vendor/js/bootstrap.min.js" ></script>
-<script src="/imziv.com/vendor/js/smooth-scroll.polyfills.min.js" ></script>
-<link type="text/css" rel="stylesheet" href="/imziv.com/vendor/css/bootstrap.min.css">
-<script src="/imziv.com/vendor/js/vue.min.js" ></script>
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
 
 
 
 
 
 
-<link rel="stylesheet" href="https://http:/imziv.com/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+<link rel="stylesheet" href="http://imziv.com/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
 
 
 
-<link rel="stylesheet" href="https://http:/imziv.com/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
+<link rel="stylesheet" href="http://imziv.com/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
 
 
-<script src="https://http://imziv.com//js/loadCSS.js"></script>
+<script src="http://imziv.com/js/loadCSS.js"></script>
 <script>
   loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
 </script>
@@ -86,7 +86,7 @@ if (!doNotTrack) {
 
 
   
-    <script src="https://http://imziv.com//js/toc-collapse.js"></script>
+    <script src="http://imziv.com/js/toc-collapse.js"></script>
   
 
 
@@ -103,7 +103,7 @@ if (!doNotTrack) {
 </head><body>
     	<div id="app"><div ref="sideContainer" class="side-container">
     
-    <a class="a-block nav-head false" href="https://http://imziv.com/">
+    <a class="a-block nav-head false" href="http://imziv.com">
     
         <div class="nav-title">
             让美的事情发生
@@ -121,9 +121,11 @@ if (!doNotTrack) {
             
             
             
+                
             
             
-            <a class="a-block nav-link-item false" href="/imziv.com/posts">
+            
+            <a class="a-block nav-link-item active" href="/posts">
                 归档
             </a>
             
@@ -133,7 +135,7 @@ if (!doNotTrack) {
             
             
             
-            <a class="a-block nav-link-item false" href="/imziv.com/categories">
+            <a class="a-block nav-link-item false" href="/categories">
                 分类
             </a>
             
@@ -143,7 +145,7 @@ if (!doNotTrack) {
             
             
             
-            <a class="a-block nav-link-item false" href="/imziv.com/tags">
+            <a class="a-block nav-link-item false" href="/tags">
                 标签
             </a>
             
@@ -153,7 +155,7 @@ if (!doNotTrack) {
             
             
             
-            <a class="a-block nav-link-item false" href="/imziv.com/index.xml">
+            <a class="a-block nav-link-item false" href="/index.xml">
                 RSS Feed
             </a>
             
@@ -245,9 +247,11 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
+                    
                 
                 
-                <a class="a-block drawer-menu-item false" href="/imziv.com/posts">
+                
+                <a class="a-block drawer-menu-item active" href="/posts">
                     归档
                 </a>
                 
@@ -257,7 +261,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/imziv.com/categories">
+                <a class="a-block drawer-menu-item false" href="/categories">
                     分类
                 </a>
                 
@@ -267,7 +271,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/imziv.com/tags">
+                <a class="a-block drawer-menu-item false" href="/tags">
                     标签
                 </a>
                 
@@ -277,7 +281,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/imziv.com/index.xml">
+                <a class="a-block drawer-menu-item false" href="/index.xml">
                     RSS Feed
                 </a>
                 
@@ -337,7 +341,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 menu
             </i>
         </button>
-        <a ref="navTitle" class="navbar-brand" href="https://http://imziv.com/">
+        <a ref="navTitle" class="navbar-brand" href="http://imziv.com">
             让美的事情发生
         </a>
         
@@ -354,7 +358,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 </nav>
 <div class="single-column-header-container" ref="pageHead"
      v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
-    <a href="https://http://imziv.com/">
+    <a href="http://imziv.com">
         <div class="single-column-header-title">让美的事情发生</div>
         
         <div class="single-column-header-subtitle">—— Ziv小威</div>
@@ -385,7 +389,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 
                         
                             <i class="material-icons" style="">folder</i>
-                                <a href="/imziv.com/categories/">[计算机科学]</a>
+                                <a href="/categories/">[计算机科学]</a>
                                 &nbsp;
                         
 
@@ -468,13 +472,13 @@ html:</li>
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="https://http://imziv.com/posts/2013/%E7%AE%80%E8%B0%88%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/">
+                <a class="newer-posts" href="http://imziv.com/posts/2013/%E7%AE%80%E8%B0%88%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/">
 			下回<br>简谈“开放平台”设计中的一些感悟
                 </a>
                 
                 
                 
-                <a class="older-posts" href="https://http://imziv.com/posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">
+                <a class="older-posts" href="http://imziv.com/posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">
 			上回<br>Httpclient 实现带参文件上传
                 </a>
                 
@@ -611,6 +615,6 @@ app = new Vue({
 });
 </script>
 
-<script src="https://http://imziv.com//js/journal.js"></script>
+<script src="http://imziv.com/js/journal.js"></script>
     </body>
 </html>

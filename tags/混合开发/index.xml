@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>混合开发 on 让美的事情发生</title>
-    <link>https://http://imziv.com/tags/%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91/</link>
+    <link>http://imziv.com/tags/%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91/</link>
     <description>Recent content in 混合开发 on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>2014-2020.</copyright>
     <lastBuildDate>Fri, 24 Jun 2016 14:57:57 +0000</lastBuildDate>
     
-	<atom:link href="https://http://imziv.com/tags/%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://imziv.com/tags/%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Cordova 开发总结(插件篇）</title>
-      <link>https://http://imziv.com/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/</link>
+      <link>http://imziv.com/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/</link>
       <pubDate>Fri, 24 Jun 2016 14:57:57 +0000</pubDate>
       
-      <guid>https://http://imziv.com/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/</guid>
+      <guid>http://imziv.com/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/</guid>
       <description>最近刚刚做完一个用 Cordova 开发了一款电子商务的应用。在选用 Cordova 前，我有考察过，国内的 Appcan, Apicloud 等等的解决方案。其实 Appcan，ApiCloud 的混合方案挺完整的，从开发，框架，到打包测试，数据统计都包含了，但是我还是更倾向于开源的 Cordova, 我相信开源社区的力量应该更强大，所以最终选择了 Cordova 作为解决方案。事实上，我用 Cordova 开发遇到目前所以需要的插件都是可以通过 Google 查找到的。在此总结下我用到的插件。
 Crosswalk 这是一个单独定制的 Webview 插件，包含了大部分最新的 HTML5 特性。Crosswork Cordova 插件目前只支持 Android, iOS 需要自己手动的集成。在如今安卓机这种测试机可以装一箱子都不止的情况下，使用统一的 Webview 是十分有必要的。可以避免大部分的兼容性问题，而且可以保持不错的性能。当然有个弊端就是添加这个插件，打包的 apk 会增加 20MB 左右。
 极光推送(JPush) 极光的推送插件在 Cordova 上的集成也是非常的方便，顺利的话 1 个小时就可以搞定。刚开始的时候我还有点慌，担心推送插件的集成问题，没想到看了下官网，有从 Cordova 的集成版本，还支持自动安装。

@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java on 让美的事情发生</title>
-    <link>https://http://imziv.com/categories/java/</link>
+    <link>http://imziv.com/categories/java/</link>
     <description>Recent content in Java on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>2014-2020.</copyright>
     <lastBuildDate>Sat, 19 Jul 2014 12:59:48 +0000</lastBuildDate>
     
-	<atom:link href="https://http://imziv.com/categories/java/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://imziv.com/categories/java/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>细说 static 关键字及其应用</title>
-      <link>https://http://imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</link>
+      <link>http://imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</link>
       <pubDate>Sat, 19 Jul 2014 12:59:48 +0000</pubDate>
       
-      <guid>https://http://imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</guid>
+      <guid>http://imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</guid>
       <description>场景 先看段代码，考虑以下场景，其运行结果是什么？
 public class Test { static int i = 8; public void printI() { int i = 88; System.out.println(this.i); } public static void main(String arg[]) { Test t = new Test(); t.printI(); } } 最后的运行结果是：8
 如果把 this 关键字去掉的话，则结果是 88 ，当然这里有一些对关于 this 关键字的考察。
