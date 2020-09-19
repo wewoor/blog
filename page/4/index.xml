@@ -1,24 +1,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>让美的事情发生</title>
-    <link>https://wewoor.github.io/blog/</link>
+    <link>https://http://imziv.com/</link>
     <description>Recent content on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>2014-2020.</copyright>
     <lastBuildDate>Tue, 14 Jan 2020 10:28:51 +0000</lastBuildDate>
     
-        <atom:link href="https://wewoor.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://http://imziv.com/index.xml" rel="self" type="application/rss+xml" />
     
     
     
         <item>
         <title>使用 iScroll 实现上拉或者下拉刷新</title>
-        <link>https://wewoor.github.io/blog/posts/2016/%E4%BD%BF%E7%94%A8-iscroll-%E5%AE%9E%E7%8E%B0%E4%B8%8A%E6%8B%89%E6%88%96%E8%80%85%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0/</link>
+        <link>https://http://imziv.com/posts/2016/%E4%BD%BF%E7%94%A8-iscroll-%E5%AE%9E%E7%8E%B0%E4%B8%8A%E6%8B%89%E6%88%96%E8%80%85%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0/</link>
         <pubDate>Tue, 07 Jun 2016 11:56:52 +0000</pubDate>
         
-        <guid>https://wewoor.github.io/blog/posts/2016/%E4%BD%BF%E7%94%A8-iscroll-%E5%AE%9E%E7%8E%B0%E4%B8%8A%E6%8B%89%E6%88%96%E8%80%85%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0/</guid>
-        <description>让美的事情发生 https://wewoor.github.io/blog/posts/2016/%E4%BD%BF%E7%94%A8-iscroll-%E5%AE%9E%E7%8E%B0%E4%B8%8A%E6%8B%89%E6%88%96%E8%80%85%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0/ -&lt;p&gt;上拉或者下拉刷新的需求在移动端是非常常见的需求，大部分情况下，实现这个效果都使用网上现有的解决方案，例如有人使用&lt;code&gt;swiper&lt;/code&gt;这个插件，
+        <guid>https://http://imziv.com/posts/2016/%E4%BD%BF%E7%94%A8-iscroll-%E5%AE%9E%E7%8E%B0%E4%B8%8A%E6%8B%89%E6%88%96%E8%80%85%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0/</guid>
+        <description>让美的事情发生 https://http://imziv.com/posts/2016/%E4%BD%BF%E7%94%A8-iscroll-%E5%AE%9E%E7%8E%B0%E4%B8%8A%E6%8B%89%E6%88%96%E8%80%85%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0/ -&lt;p&gt;上拉或者下拉刷新的需求在移动端是非常常见的需求，大部分情况下，实现这个效果都使用网上现有的解决方案，例如有人使用&lt;code&gt;swiper&lt;/code&gt;这个插件，
 也有人使用&lt;code&gt;iScroll&lt;/code&gt;这个滚动插件。本文的示例是利用 iscroll 实现的下拉刷新效果。&lt;/p&gt;
 &lt;h2 id=&#34;iscroll-简介&#34;&gt;iScroll 简介&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;iScrool&lt;/code&gt;是目前最成熟的自定义滚动解决方案之一，在移动端和 PC 有很好的兼容性。iScroll 官方提供了 5 个不同的版本：&lt;/p&gt;
@@ -131,29 +131,29 @@ myScroll.on(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;scrollEnd&amp;#39
 &lt;p&gt;&lt;a href=&#34;http://wewoor.github.io/js-lab/iscroll-pulldown-load/index.html&#34;&gt;http://wewoor.github.io/js-lab/iscroll-pulldown-load/index.html&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&#34;原文地址&#34;&gt;原文地址&lt;/h4&gt;
 &lt;p&gt;&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=73&#34;&gt;http://imziv.com/blog/article/read.htm?id=73&lt;/a&gt;&lt;/p&gt;
-- https://wewoor.github.io/blog/posts/2016/%E4%BD%BF%E7%94%A8-iscroll-%E5%AE%9E%E7%8E%B0%E4%B8%8A%E6%8B%89%E6%88%96%E8%80%85%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0/ - 2014-2020.</description>
+- https://http://imziv.com/posts/2016/%E4%BD%BF%E7%94%A8-iscroll-%E5%AE%9E%E7%8E%B0%E4%B8%8A%E6%8B%89%E6%88%96%E8%80%85%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>实现 Checkbox 组件化(Component)</title>
-        <link>https://wewoor.github.io/blog/posts/2016/%E5%AE%9E%E7%8E%B0-checkbox-%E7%BB%84%E4%BB%B6%E5%8C%96component/</link>
+        <link>https://http://imziv.com/posts/2016/%E5%AE%9E%E7%8E%B0-checkbox-%E7%BB%84%E4%BB%B6%E5%8C%96component/</link>
         <pubDate>Thu, 19 May 2016 19:53:50 +0000</pubDate>
         
-        <guid>https://wewoor.github.io/blog/posts/2016/%E5%AE%9E%E7%8E%B0-checkbox-%E7%BB%84%E4%BB%B6%E5%8C%96component/</guid>
-        <description>让美的事情发生 https://wewoor.github.io/blog/posts/2016/%E5%AE%9E%E7%8E%B0-checkbox-%E7%BB%84%E4%BB%B6%E5%8C%96component/ -- https://wewoor.github.io/blog/posts/2016/%E5%AE%9E%E7%8E%B0-checkbox-%E7%BB%84%E4%BB%B6%E5%8C%96component/ - 2014-2020.</description>
+        <guid>https://http://imziv.com/posts/2016/%E5%AE%9E%E7%8E%B0-checkbox-%E7%BB%84%E4%BB%B6%E5%8C%96component/</guid>
+        <description>让美的事情发生 https://http://imziv.com/posts/2016/%E5%AE%9E%E7%8E%B0-checkbox-%E7%BB%84%E4%BB%B6%E5%8C%96component/ -- https://http://imziv.com/posts/2016/%E5%AE%9E%E7%8E%B0-checkbox-%E7%BB%84%E4%BB%B6%E5%8C%96component/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>CSS3 实现自定义 Checkbox</title>
-        <link>https://wewoor.github.io/blog/posts/2016/css3-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-checkbox/</link>
+        <link>https://http://imziv.com/posts/2016/css3-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-checkbox/</link>
         <pubDate>Sun, 17 Apr 2016 20:27:24 +0000</pubDate>
         
-        <guid>https://wewoor.github.io/blog/posts/2016/css3-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-checkbox/</guid>
-        <description>让美的事情发生 https://wewoor.github.io/blog/posts/2016/css3-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-checkbox/ -&lt;p&gt;之前我写了一篇自定义 checkbox 的&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=71&#34;&gt;文章&lt;/a&gt;，通过 css3 实现自定义的 checkbox，并没有使用当今流行的 Reactjs, 或者 Vuejs 之类的进行组件化。但是很显然，这样封装的 checkbox 组件复用的时候非常麻烦。如果在新项目中使用的话，可能需要同时拷贝 css 和 html 文件进行整合。从 html 语义角度上讲，代码的易读性也不是很强，显然这样的组件显然不利于维护。&lt;/p&gt;
+        <guid>https://http://imziv.com/posts/2016/css3-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-checkbox/</guid>
+        <description>让美的事情发生 https://http://imziv.com/posts/2016/css3-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-checkbox/ -&lt;p&gt;之前我写了一篇自定义 checkbox 的&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=71&#34;&gt;文章&lt;/a&gt;，通过 css3 实现自定义的 checkbox，并没有使用当今流行的 Reactjs, 或者 Vuejs 之类的进行组件化。但是很显然，这样封装的 checkbox 组件复用的时候非常麻烦。如果在新项目中使用的话，可能需要同时拷贝 css 和 html 文件进行整合。从 html 语义角度上讲，代码的易读性也不是很强，显然这样的组件显然不利于维护。&lt;/p&gt;
 &lt;p&gt;其实 Web Component 是前端界一直非常热衷的一个领域，因为原生的 HTML 在维护复杂网页应用时，实在是太差了。所以才出现了诸如 Google 的&lt;code&gt;Ploymer&lt;/code&gt;、Facebook 的&lt;code&gt;Reactjs&lt;/code&gt;等等。而且很多&lt;code&gt;MVVM&lt;/code&gt;的框架也自带组件化的方案,例如&lt;code&gt;Angularjs&lt;/code&gt;的指令，但貌似&lt;code&gt;ng&lt;/code&gt;的这个用起来太复杂。用第三方组件化的框架去实现的话，你需要依赖框架本身很多东西，很多时候我们只是简单的几个组件，不是很大，也不是很多，所以为了保证组件的&lt;code&gt;轻量，简单&lt;/code&gt;,其实这个时候我们并不想采用第三方的框架。接下来我会介绍使用&lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/Web_Components/Shadow_DOM&#34;&gt;Shadow DOM&lt;/a&gt;和&lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/API/Document/registerElement&#34;&gt;&lt;code&gt;registerElement&lt;/code&gt;&lt;/a&gt;的方式去实现组件化。&lt;/p&gt;
 &lt;p&gt;先看看实现后的调用方式：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;div&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;line&amp;#34;&lt;/span&gt;&amp;gt;
@@ -348,29 +348,29 @@ console.log(checkbox.checked); &lt;span style=&#34;color:#228b22&#34;&gt;// outp
 &lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
 &lt;p&gt;以上便是整个组件定义的具体方法。当然今天我们自定义的是&lt;code&gt;checkbox&lt;/code&gt;组件，我们当然可以通过该方法去实现其他的组件，例如&lt;code&gt;radio&lt;/code&gt;,&lt;code&gt;select&lt;/code&gt;等等。&lt;/p&gt;
 &lt;h4 id=&#34;原文地址httpimzivcomblogarticlereadhtmid72httpimzivcomblogarticlereadhtmid72&#34;&gt;原文地址：&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=72&#34;&gt;http://imziv.com/blog/article/read.htm?id=72&lt;/a&gt;&lt;/h4&gt;
-- https://wewoor.github.io/blog/posts/2016/css3-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-checkbox/ - 2014-2020.</description>
+- https://http://imziv.com/posts/2016/css3-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-checkbox/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>老博客升级</title>
-        <link>https://wewoor.github.io/blog/posts/2016/%E8%80%81%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7/</link>
+        <link>https://http://imziv.com/posts/2016/%E8%80%81%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7/</link>
         <pubDate>Mon, 04 Apr 2016 23:55:53 +0000</pubDate>
         
-        <guid>https://wewoor.github.io/blog/posts/2016/%E8%80%81%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7/</guid>
-        <description>让美的事情发生 https://wewoor.github.io/blog/posts/2016/%E8%80%81%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7/ -- https://wewoor.github.io/blog/posts/2016/%E8%80%81%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7/ - 2014-2020.</description>
+        <guid>https://http://imziv.com/posts/2016/%E8%80%81%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7/</guid>
+        <description>让美的事情发生 https://http://imziv.com/posts/2016/%E8%80%81%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7/ -- https://http://imziv.com/posts/2016/%E8%80%81%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>Cordova 开发环境的搭建</title>
-        <link>https://wewoor.github.io/blog/posts/2015/cordova%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/</link>
+        <link>https://http://imziv.com/posts/2015/cordova%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/</link>
         <pubDate>Mon, 23 Nov 2015 13:58:34 +0000</pubDate>
         
-        <guid>https://wewoor.github.io/blog/posts/2015/cordova%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/</guid>
-        <description>让美的事情发生 https://wewoor.github.io/blog/posts/2015/cordova%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/ -&lt;p&gt;Cordova 为目前做混合式开发中比较受欢迎的一个解决方案了，并且拥有比较丰富的插件资源。本文介绍了 Cordova 开发的环境搭建过程。 由于 Cordova 命令行工具发布在了 npm 包管理平台上，npm 为 nodejs 内置的包管理工具，所以安装 cordova 前需要先确认你是否已经安装过 Nodejs。&lt;/p&gt;
+        <guid>https://http://imziv.com/posts/2015/cordova%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/</guid>
+        <description>让美的事情发生 https://http://imziv.com/posts/2015/cordova%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/ -&lt;p&gt;Cordova 为目前做混合式开发中比较受欢迎的一个解决方案了，并且拥有比较丰富的插件资源。本文介绍了 Cordova 开发的环境搭建过程。 由于 Cordova 命令行工具发布在了 npm 包管理平台上，npm 为 nodejs 内置的包管理工具，所以安装 cordova 前需要先确认你是否已经安装过 Nodejs。&lt;/p&gt;
 &lt;h2 id=&#34;nodejs-安装&#34;&gt;Nodejs 安装&lt;/h2&gt;
 &lt;p&gt;打开 Nodejs 官网下载页，根据自己当前的操作系统平台，选择对应的 nodejs 版本，下载完后直接点击安装程序，下一步完成即可。测试 nodejs 安装，打开控制台，输入：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;    node -v // 查看node版本plain
@@ -453,18 +453,18 @@ cordova build android // 构建安卓平台
 &lt;a href=&#34;https://github.com/creationix/nvmhttp://cordova.apache.org/docs/en/latest/guide/cli/index.html&#34;&gt;https://github.com/creationix/nvmhttp://cordova.apache.org/docs/en/latest/guide/cli/index.html&lt;/a&gt;
 &lt;a href=&#34;http://developer.android.com/sdk/installing/index.html?pkg=tools&#34;&gt;http://developer.android.com/sdk/installing/index.html?pkg=tools&lt;/a&gt;
 &lt;a href=&#34;https://www.genymotion.com/#!/developers/user-guide&#34;&gt;https://www.genymotion.com/#!/developers/user-guide&lt;/a&gt;&lt;/p&gt;
-- https://wewoor.github.io/blog/posts/2015/cordova%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/ - 2014-2020.</description>
+- https://http://imziv.com/posts/2015/cordova%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>Atom 在 Ubuntu 上中文乱码解决</title>
-        <link>https://wewoor.github.io/blog/posts/2015/atom%E5%9C%A8ubuntu%E4%B8%8A%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/</link>
+        <link>https://http://imziv.com/posts/2015/atom%E5%9C%A8ubuntu%E4%B8%8A%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/</link>
         <pubDate>Wed, 05 Aug 2015 14:18:33 +0000</pubDate>
         
-        <guid>https://wewoor.github.io/blog/posts/2015/atom%E5%9C%A8ubuntu%E4%B8%8A%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/</guid>
-        <description>让美的事情发生 https://wewoor.github.io/blog/posts/2015/atom%E5%9C%A8ubuntu%E4%B8%8A%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ -&lt;p&gt;之前一直用的是 Sublime Text2, 但是 Sublime 在 Ubuntu 上不支持中文输入,着实让人蛋疼,当然也有一些解决方案,我都试过,比较麻烦.得知 Atom 即将发布 1.0, 所以下载了 Atom 0.9 多的版本,但是同样发现中文乱码.以下记录了 Atom 0.9 以及 1.0 版本在 Ubuntu 上的方块乱码以及 markdown-preview 乱码的解决方法.&lt;/p&gt;
+        <guid>https://http://imziv.com/posts/2015/atom%E5%9C%A8ubuntu%E4%B8%8A%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/</guid>
+        <description>让美的事情发生 https://http://imziv.com/posts/2015/atom%E5%9C%A8ubuntu%E4%B8%8A%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ -&lt;p&gt;之前一直用的是 Sublime Text2, 但是 Sublime 在 Ubuntu 上不支持中文输入,着实让人蛋疼,当然也有一些解决方案,我都试过,比较麻烦.得知 Atom 即将发布 1.0, 所以下载了 Atom 0.9 多的版本,但是同样发现中文乱码.以下记录了 Atom 0.9 以及 1.0 版本在 Ubuntu 上的方块乱码以及 markdown-preview 乱码的解决方法.&lt;/p&gt;
 &lt;p&gt;Atom 乱码解决
 首先你的确认你电脑上面是否安装过文泉驿正黑字体,默认情况下 Ubuntu 是没有这个字体的,所以如果没有那么请使用以下命令安装:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt-get install ttf-wqy-*
@@ -492,76 +492,76 @@ cordova build android // 构建安卓平台
     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;font-family&lt;/span&gt;: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sans-serif&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;文泉驿正黑&amp;#39;&lt;/span&gt;  &lt;span style=&#34;color:#1e889b&#34;&gt;!important&lt;/span&gt;;
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;经过这个设置可以看到,预览文件里乱码以及好了.&lt;/p&gt;
-- https://wewoor.github.io/blog/posts/2015/atom%E5%9C%A8ubuntu%E4%B8%8A%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ - 2014-2020.</description>
+- https://http://imziv.com/posts/2015/atom%E5%9C%A8ubuntu%E4%B8%8A%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>小游厦门</title>
-        <link>https://wewoor.github.io/blog/posts/2015/%E5%B0%8F%E6%B8%B8%E5%8E%A6%E9%97%A8/</link>
+        <link>https://http://imziv.com/posts/2015/%E5%B0%8F%E6%B8%B8%E5%8E%A6%E9%97%A8/</link>
         <pubDate>Mon, 27 Jul 2015 23:53:20 +0000</pubDate>
         
-        <guid>https://wewoor.github.io/blog/posts/2015/%E5%B0%8F%E6%B8%B8%E5%8E%A6%E9%97%A8/</guid>
-        <description>让美的事情发生 https://wewoor.github.io/blog/posts/2015/%E5%B0%8F%E6%B8%B8%E5%8E%A6%E9%97%A8/ -&lt;p&gt;说起厦门，大家自然而然的就会想到&lt;code&gt;厦门大学&lt;/code&gt;,&lt;code&gt;鼓浪屿&lt;/code&gt;,&lt;code&gt;厦门国际马拉松赛&lt;/code&gt;等等标志性的词语。厦门市的别称叫“鹭岛”，据说以前是白鹭的栖息之地，不过这次旅途当中我倒是一只白鹭也没见到，不知是季节的原因还是环境原因。&lt;/p&gt;
+        <guid>https://http://imziv.com/posts/2015/%E5%B0%8F%E6%B8%B8%E5%8E%A6%E9%97%A8/</guid>
+        <description>让美的事情发生 https://http://imziv.com/posts/2015/%E5%B0%8F%E6%B8%B8%E5%8E%A6%E9%97%A8/ -&lt;p&gt;说起厦门，大家自然而然的就会想到&lt;code&gt;厦门大学&lt;/code&gt;,&lt;code&gt;鼓浪屿&lt;/code&gt;,&lt;code&gt;厦门国际马拉松赛&lt;/code&gt;等等标志性的词语。厦门市的别称叫“鹭岛”，据说以前是白鹭的栖息之地，不过这次旅途当中我倒是一只白鹭也没见到，不知是季节的原因还是环境原因。&lt;/p&gt;
 &lt;h3 id=&#34;厦门大学&#34;&gt;厦门大学&lt;/h3&gt;
 &lt;p&gt;最早接触到厦门这座城市还是当年初中（已记不太清）时，通过中央 3 套的《同一首歌-走进厦门大学》这个节目认识的，当时通过电视机里面的镜头，给我展示了一个美丽，清新的印象，所以我当时甚至还告诉自己，以后我也要去厦门大学念书，可惜当年不努力，沦落成了学渣。&lt;/p&gt;
 &lt;p&gt;厦门大学的校区众多，正如我当时座公交听到当地人所说的一样，整个厦门市到处都是厦大建的房子，可见厦大在整个厦门市的地位。现如今到厦门旅游的游客众多，厦大已成为游客去厦门旅游必去的景点之一。而厦门大学现在更是被冠上了&amp;quot;恋爱圣地”， “谈恋爱，到厦大”等等标签，许多旅游网站都是打着这样宣传标语。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://wewoor.github.io/blog/posts/2015/img/xiamen-1.jpg&#34; alt=&#34;芙蓉湖里的黑天鹅&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://http://imziv.com/posts/2015/img/xiamen-1.jpg&#34; alt=&#34;芙蓉湖里的黑天鹅&#34;&gt;&lt;/p&gt;
 &lt;p&gt;芙蓉湖里的黑天鹅&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://wewoor.github.io/blog/posts/2015/img/xiamen-2.jpg&#34; alt=&#34;体育场&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://http://imziv.com/posts/2015/img/xiamen-2.jpg&#34; alt=&#34;体育场&#34;&gt;
 体育场&lt;/p&gt;
 &lt;p&gt;在我们打车去厦大途中得知，厦大采取了每日限额参观，去厦门大学（思明校区）需要刷身份证进入，入口则是厦大群贤校门，其他入口貌似不能进，所以千万别走错了。&lt;/p&gt;
 &lt;p&gt;芙蓉隧道是厦大另一个有意思的地方，隧道墙壁上被学生涂鸦绘画了各种图案，有我们熟悉的卡通动漫，也有自己创作的。据说大部分都是毕业学生的作品，以此来告别自己生活四年的大学时光。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://wewoor.github.io/blog/posts/2015/img/xiamen-3.jpg&#34; alt=&#34;高数不会离开你&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://http://imziv.com/posts/2015/img/xiamen-3.jpg&#34; alt=&#34;高数不会离开你&#34;&gt;
 高数不会离开你&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://wewoor.github.io/blog/posts/2015/img/xiamen-4.jpg&#34; alt=&#34;小卡通&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://http://imziv.com/posts/2015/img/xiamen-4.jpg&#34; alt=&#34;小卡通&#34;&gt;
 小卡通&lt;/p&gt;
 &lt;p&gt;由于这次出行比较匆忙，去厦大安排的时间并不是很充足，所以很多地方也没有细逛。&lt;/p&gt;
 &lt;h3 id=&#34;鼓浪屿&#34;&gt;鼓浪屿&lt;/h3&gt;
 &lt;p&gt;鼓浪屿是厦门旅游路线中另一个重要的点。鼓浪屿有“钢琴之乡”，“音乐之乡”等等的名头，这与岛上很有艺术风格的建筑还是比较相称的。小岛上的民居错落有致，很多建筑也是中西结合，各种穿插的小巷，这里面的街道布满了各种小吃，小玩意，台湾小商品，显的比较文艺清新。登上日光岩，可以俯瞰大半个厦门和整个鼓浪屿，整好我们去的那天天气晴朗，视野十分开阔，整体上给人的感觉还是比较棒的。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://wewoor.github.io/blog/posts/2015/img/xiamen-5.jpg&#34; alt=&#34;日光岩俯瞰&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://http://imziv.com/posts/2015/img/xiamen-5.jpg&#34; alt=&#34;日光岩俯瞰&#34;&gt;
 日光岩俯瞰&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://wewoor.github.io/blog/posts/2015/img/xiamen-6.jpg&#34; alt=&#34;世界很大，我想去看看&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://http://imziv.com/posts/2015/img/xiamen-6.jpg&#34; alt=&#34;世界很大，我想去看看&#34;&gt;
 世界很大，我想去看看&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://wewoor.github.io/blog/posts/2015/img/xiamen-7.jpg&#34; alt=&#34;萌萌哒&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://http://imziv.com/posts/2015/img/xiamen-7.jpg&#34; alt=&#34;萌萌哒&#34;&gt;
 萌萌哒&lt;/p&gt;
 &lt;h3 id=&#34;曾厝垵&#34;&gt;曾厝垵&lt;/h3&gt;
 &lt;p&gt;曾厝（cuo)垵是我们这次旅程的住宿的地方,在去之前这个字(厝）我还不认识 0.0。选这个地点主要有几个好处，曾厝垵门口就是环岛南路，29 路公交到达的景点很多,包括去中山路和一号码头，而门口就是海边沙滩。从厦门北站有到曾厝垵的旅行大巴，20 块一个人，不过返回的时候则是 30 块，大巴到机场饶了一圈，赶时间的朋友要记得划算，到北站需要一个半小时左右。曾厝垵同样是一个小吃遍地的地方，错综复杂的小街里面各种海鲜小吃，酒吧，对了，之前在微博看到&lt;a href=&#34;http://weibo.com/u/1663559265?topnav=1&amp;amp;wvr=6&amp;amp;topsug=1&#34;&gt;大冰&lt;/a&gt;在厦门新开了一个“大冰的小屋”没想到就在这里，所以我们当天晚上去街上扫完吃的后就去这个民谣小屋座了半天，听了听音乐和他们的吹牛 X。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://wewoor.github.io/blog/posts/2015/img/xiamen-8.png&#34; alt=&#34;曾厝垵&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://http://imziv.com/posts/2015/img/xiamen-8.png&#34; alt=&#34;曾厝垵&#34;&gt;
 曾厝垵&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://wewoor.github.io/blog/posts/2015/img/xiamen-9.jpg&#34; alt=&#34;大冰的小屋&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://http://imziv.com/posts/2015/img/xiamen-9.jpg&#34; alt=&#34;大冰的小屋&#34;&gt;
 大冰的小屋&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://wewoor.github.io/blog/posts/2015/img/xiamen-10.jpg&#34; alt=&#34;雨后的小街&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://http://imziv.com/posts/2015/img/xiamen-10.jpg&#34; alt=&#34;雨后的小街&#34;&gt;
 雨后的小街&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://wewoor.github.io/blog/posts/2015/img/xiamen-11.jpg&#34; alt=&#34;陶吧小体验&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://http://imziv.com/posts/2015/img/xiamen-11.jpg&#34; alt=&#34;陶吧小体验&#34;&gt;
 陶吧小体验&lt;/p&gt;
 &lt;h3 id=&#34;注意事项总结&#34;&gt;注意事项&amp;amp;总结&lt;/h3&gt;
 &lt;p&gt;由于厦门旅游的各种开发，游人的增多，当地环境保护的欠缺，我们在鼓浪屿旁边的沙滩游玩时，发现海水里面各种垃圾不断漂浮到沙滩上，着实很脏。在网络上定住宿的地方还是得仔细谨慎些，照片还是很容易糊弄人的，这个我们吃了些小亏，也是长了记性。厦门的黄牛疯狂，去厦大可以找黄牛不用排队，去鼓浪屿的门票本来 35 元硬是吵到了 100~150 甚至更高。这些黄牛先通过刷票攒到自己手中，然后当游客去轮渡中心购票时发现没票，这一点也是我们之前没有仔细搞清楚的地方，吃了个亏，票也是从黄牛手里面买的。所以去游玩的朋友一定要注意，尽量提交订票，甚至找旅行社。还有就是去鼓浪屿岛上游玩的景点同样是需要门票的，这个也应该提交网上订好，到岛上去了以后再领。&lt;/p&gt;
 &lt;p&gt;另一个坑人的地方，由于从鼓浪屿返回的人众多，所以排队轮渡情况糟糕的话要花上 2~3 个小时，但是这些黄牛却说可以快速上传。后来由于实在是时间原因，我们花了 40 块，最后得知他们只是给我们带到了一个叫&lt;code&gt;內厝澳码头&lt;/code&gt;的地方，这个地方基本上人来就可以上船，排队很快。原来只要通过身份证购票的游客，都可以通过这些提供刷卡的码头，大部分游客不知，便都挤到了&lt;code&gt;三秋田码头&lt;/code&gt;。所以很坑啊~&lt;/p&gt;
 &lt;p&gt;总之厦门还是一个值得去的地方，如今每个旅游城市人都是很多，很多情况需要做好心理准备，还有旅游攻略，像我们上面碰到的坑都是功课没有做足的后果。如果提前预防了这些问题，那么整个行程的麻烦将会少上许多，影响心情的因素自然也会少上一些。&lt;/p&gt;
 &lt;p&gt;最后放几张美食照：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://wewoor.github.io/blog/posts/2015/img/xiamen-12.jpg&#34; alt=&#34;大肠包小肠&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://http://imziv.com/posts/2015/img/xiamen-12.jpg&#34; alt=&#34;大肠包小肠&#34;&gt;
 大肠包小肠&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://wewoor.github.io/blog/posts/2015/img/xiamen-13.jpg&#34; alt=&#34;榴莲酥&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://http://imziv.com/posts/2015/img/xiamen-13.jpg&#34; alt=&#34;榴莲酥&#34;&gt;
 榴莲酥&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://wewoor.github.io/blog/posts/2015/img/xiamen-14.jpg&#34; alt=&#34;海鲜排挡&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://http://imziv.com/posts/2015/img/xiamen-14.jpg&#34; alt=&#34;海鲜排挡&#34;&gt;
 海鲜排挡&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;2015/07/27 于杭州&lt;/p&gt;
 &lt;/blockquote&gt;
-- https://wewoor.github.io/blog/posts/2015/%E5%B0%8F%E6%B8%B8%E5%8E%A6%E9%97%A8/ - 2014-2020.</description>
+- https://http://imziv.com/posts/2015/%E5%B0%8F%E6%B8%B8%E5%8E%A6%E9%97%A8/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>使用网易云音乐，丢掉 QQ 音乐吧</title>
-        <link>https://wewoor.github.io/blog/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/</link>
+        <link>https://http://imziv.com/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/</link>
         <pubDate>Thu, 28 May 2015 23:07:27 +0000</pubDate>
         
-        <guid>https://wewoor.github.io/blog/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/</guid>
-        <description>让美的事情发生 https://wewoor.github.io/blog/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/ -&lt;p&gt;我是一个听音乐的重度用户，基本上每天大约有三分之一的时间里我在使用网易云音乐去听音乐。包括工作写代码的时候，跑步的时候，去上班的途中我都去听。首先需要声明的是，在这里我不是故意的去抹黑其他的音乐产品，我只是谈谈我一个真实用户的真切感受。
+        <guid>https://http://imziv.com/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/</guid>
+        <description>让美的事情发生 https://http://imziv.com/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/ -&lt;p&gt;我是一个听音乐的重度用户，基本上每天大约有三分之一的时间里我在使用网易云音乐去听音乐。包括工作写代码的时候，跑步的时候，去上班的途中我都去听。首先需要声明的是，在这里我不是故意的去抹黑其他的音乐产品，我只是谈谈我一个真实用户的真切感受。
 由于喜欢听音乐的原因，自从开始接触互联网后，我便开始接触了很多音乐播放类产品，从早期的千千静听，酷我音乐，酷狗音乐，QQ 音乐，豆瓣 FM，虾米音乐，JingFM, 多米音乐，落网等等，有太多的音乐产品，我都数不过来。其实不难看出，网易做音乐类产品还是近两年才发力，早期根本没有涉足此类的音乐市场，除了给我印象深刻的网易邮箱里内置的在线音乐播放器以外。&lt;/p&gt;
 &lt;p&gt;在使用网易云音乐之前，豆瓣 FM 和 QQ 音乐是我主要的听音乐产品。豆瓣给人的印象就是，小资，独立，经常可以听到和发现一些市面上比较小众，但是又很耐人寻味的音乐，而且豆瓣本身就聚集了一大批的热爱文艺的人，所以如果你遇上喜爱曲风相近的人，那么分享出来的音乐也就比较容易合你的胃口。QQ 音乐由于与 QQ 账号绑定的原因，早期的时候，结合 QQ 客户端，它的账号同步功能占了很大的优势，而且利用 QQ 社交的影响，加上它足够丰富的曲库，让大部分用户都难以割舍它。但是这些并不能掩饰 QQ 音乐是一个做的比较烂的产品。我相信那时很大一部分音乐重度用户泡在虾米和豆瓣上。而今天我主要讨论的产品则是网易云音乐和 QQ 音乐。&lt;/p&gt;
 &lt;p&gt;产品外观
@@ -578,18 +578,18 @@ cordova build android // 构建安卓平台
 前段时间，微信，QQZone 利用自己垄断的优势，直接屏蔽了网易云音乐其重要的分享社交功能，虽然网易云音乐通过一些方式实现了微信上面的分享，但是 QQZone 直接过滤了。本来用户想和其他人分享自己的心情，分享好的音乐的，这样利用自己的垄断打击竞争对手，完全不顾用户的感受，简直是可耻！如果自家产品用心，让用户感受到用心的话，我相信像网易这种后起之秀是根本不会得到任何机会的，只怪自己产品太烂，为用户做的太少，最后利用这种手段，实在让人心寒，国内的互联网公司就这种尿性吗?&lt;/p&gt;
 &lt;p&gt;最后说一句：&lt;/p&gt;
 &lt;p&gt;赶紧卸掉 QQ 音乐吧！&lt;/p&gt;
-- https://wewoor.github.io/blog/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/ - 2014-2020.</description>
+- https://http://imziv.com/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>HTML5 文件异步上传 — h5uploader.js</title>
-        <link>https://wewoor.github.io/blog/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/</link>
+        <link>https://http://imziv.com/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/</link>
         <pubDate>Thu, 07 May 2015 23:11:53 +0000</pubDate>
         
-        <guid>https://wewoor.github.io/blog/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/</guid>
-        <description>让美的事情发生 https://wewoor.github.io/blog/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/ -&lt;p&gt;之前写过一篇 H5 异步文件上传的&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=46&#34;&gt;文章&lt;/a&gt;, 但是很多朋友看着我的这个教程还是出现很多问题，文章写的不是很好，比较早了。其实通过 H5 做异步上传已经非常简单了，通过查看文档，便可以很轻松的完成这个功能，当然，如果你不愿意查看文档自己动手的话，那么就用插件咯。&lt;a href=&#34;https://github.com/wewoor/h5uploader&#34;&gt;h5uploader&lt;/a&gt;是我最近封装的 HTML5 上传插件，代码才白来行，使用的话也比较简单，支持文件大小，类型，progress 等等功能。本篇教程，将向你展示 Nodejs,Java 两种服务端的上传方法，并且附有源代码示例。&lt;/p&gt;
+        <guid>https://http://imziv.com/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/</guid>
+        <description>让美的事情发生 https://http://imziv.com/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/ -&lt;p&gt;之前写过一篇 H5 异步文件上传的&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=46&#34;&gt;文章&lt;/a&gt;, 但是很多朋友看着我的这个教程还是出现很多问题，文章写的不是很好，比较早了。其实通过 H5 做异步上传已经非常简单了，通过查看文档，便可以很轻松的完成这个功能，当然，如果你不愿意查看文档自己动手的话，那么就用插件咯。&lt;a href=&#34;https://github.com/wewoor/h5uploader&#34;&gt;h5uploader&lt;/a&gt;是我最近封装的 HTML5 上传插件，代码才白来行，使用的话也比较简单，支持文件大小，类型，progress 等等功能。本篇教程，将向你展示 Nodejs,Java 两种服务端的上传方法，并且附有源代码示例。&lt;/p&gt;
 &lt;h3 id=&#34;插件下载&#34;&gt;插件下载&lt;/h3&gt;
 &lt;p&gt;如果你是&lt;a href=&#34;http://bower.io/docs/api/#register&#34;&gt;&lt;code&gt;bower&lt;/code&gt;&lt;/a&gt;的用户的话，可以直接通过以下命令：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;bower install h5uploader --save
@@ -802,18 +802,18 @@ app.use(express.&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;stati
 &lt;p&gt;以上则是这个插件使用的全部内容，如果有什么问题可以直接点击示例代码进行查看，另外插件是我才写出来的，如果有什么问题请告诉我。谢谢，希望它能帮助你！&lt;/p&gt;
 &lt;h4 id=&#34;作者ziv-小威httpimzivcom&#34;&gt;作者：&lt;a href=&#34;http://imziv.com&#34;&gt;Ziv 小威&lt;/a&gt;&lt;/h4&gt;
 &lt;h4 id=&#34;原文地址httpimzivcomblogarticlereadhtmid62httpimzivcomblogarticlereadhtmid62&#34;&gt;原文地址：&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=62&#34;&gt;http://imziv.com/blog/article/read.htm?id=62&lt;/a&gt;&lt;/h4&gt;
-- https://wewoor.github.io/blog/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/ - 2014-2020.</description>
+- https://http://imziv.com/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/ - 2014-2020.</description>
         </item>
     
     
     
         <item>
         <title>利用 Gulp 优化部署 Web 项目</title>
-        <link>https://wewoor.github.io/blog/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/</link>
+        <link>https://http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/</link>
         <pubDate>Sun, 26 Apr 2015 11:27:16 +0000</pubDate>
         
-        <guid>https://wewoor.github.io/blog/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/</guid>
-        <description>让美的事情发生 https://wewoor.github.io/blog/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/ -&lt;h3 id=&#34;gulp&#34;&gt;Gulp&lt;/h3&gt;
+        <guid>https://http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/</guid>
+        <description>让美的事情发生 https://http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/ -&lt;h3 id=&#34;gulp&#34;&gt;Gulp&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;http://gulpjs.com/&#34;&gt;Gulp&lt;/a&gt;是一款项目自动化的构建工具，与&lt;a href=&#34;http://gruntjs.com/&#34;&gt;Grunt&lt;/a&gt;一样可以通过创建任务（Task）来帮助我们自动完成一些工作流的内容。当然，今天我们的内容并不是讨论这二者的区别，仅仅是介绍介绍如何利用 Gulp 来优化我们的 Web 项目中前端自动化工作流。&lt;/p&gt;
 &lt;h3 id=&#34;引言&#34;&gt;引言&lt;/h3&gt;
 &lt;p&gt;相信不少人看过百度大牛&lt;a href=&#34;https://github.com/fouber&#34;&gt;张云龙&lt;/a&gt;的那篇讲解&lt;a href=&#34;https://github.com/fouber/blog/issues/6&#34;&gt;大公司里怎样开发和部署前端代码?&lt;/a&gt;的文章，如果没有阅读的朋友请戳。由于在项目部署时，我们需要对项目 js，css,image 等文件进行压缩，合并处理，从而减少客户端对服务 Http 请求，已达到增强页面的加载速度，优化服务器带宽压力等等目的。所以本文主要讲的是利用 Gulp 优化我们 Web 部署优化工作。&lt;/p&gt;
@@ -1015,7 +1015,7 @@ watcher.on(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;change&amp;#39;&lt
 &lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;});
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;总结&#34;&gt;总结&lt;/h3&gt;
 &lt;p&gt;以上基本介绍了如何使用 gulp 来自动完成打包，压缩，合并文件等任务，Gulp 插件非常多，本文只是简单的介绍了几种基本的。总之，使用 gulp，只需要几行命令便可以完成以上任务，使很多优化工作变得十分简单。&lt;/p&gt;
-- https://wewoor.github.io/blog/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/ - 2014-2020.</description>
+- https://http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/ - 2014-2020.</description>
         </item>
     
     

@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Shell on 让美的事情发生</title>
-    <link>https://wewoor.github.io/blog/tags/shell/</link>
+    <link>https://http://imziv.com/tags/shell/</link>
     <description>Recent content in Shell on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>2014-2020.</copyright>
     <lastBuildDate>Wed, 08 Feb 2017 17:21:03 +0000</lastBuildDate>
     
-	<atom:link href="https://wewoor.github.io/blog/tags/shell/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://http://imziv.com/tags/shell/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>常用的 Linux Shell 命令</title>
-      <link>https://wewoor.github.io/blog/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/</link>
+      <link>https://http://imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 08 Feb 2017 17:21:03 +0000</pubDate>
       
-      <guid>https://wewoor.github.io/blog/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://http://imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/</guid>
       <description>自己平时有可能会用到的 Shell 命令，之前用 Evenote 记录的比较零散，重新整理了下，以后慢慢补充。
 文件操作 查看文件所属用户 ls -al 动态打印日志 tail -f /var/log/error.log 给指定目录的所属用户权限赋予指定人 #把directry目录下的所有用户指向someone $ sudo chown -R someone:staff directory 查看文件内容 cat filename 查看目录所占磁盘容量 du dir # 显示dir的总容量以及次目录的容量，KB为单位 du -s dir # 显示dir的容量 scp 获取远程服务器上的文件 # 把远程服务器/root目录下的remote.tar.gz文件下载到本地/home目录下， # 并保存为local.tar.gz # -P 表端口参数，2222为端口号 $ scp -P 2222 root@www.example.com:/root/remote.tar.gz /home/local.tar.gz scp 获取远程服务器上的文件目录 # 把远程服务器/root/remote内容拷贝到本地/home/local目录下， # -P 表端口参数，2222为端口号 # -r 表示目录拷贝 $ scp -P 2222 -r root@www.example.com:/root/remote /home/local scp 上传本地文件到远程服务器 # 把本地文件/home/local.tar.gz上传到远程服务器/root目录下， # 并命名为remote.</description>
     </item>

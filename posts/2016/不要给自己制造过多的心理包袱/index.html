@@ -23,7 +23,7 @@ conventional-changelog conventional-changelog 是一款可以根据项目的 com
 conventional-changelog 生态主要模块 conventional-changelog-cli - conventional-changelog 核心命令行工具 standard-changelog - 针对 angular commit 格式的命令行工具 conventional-github-releaser - 利用 git metadata 针对 Github 的发布工具 conventional-commits-detector - commit message 规范引用检测 commitizen - 针对开发者简单的 commit 规范 commitlint - commit Lint 工具 以上是 onventional-changelog 生态重要的几个主要模块，实际工作中这几个工具常常是配套使用的，当然也需要根据自己的情况而定。篇幅有限，今天我们就主要介绍 commitizen、conventional-changelog-cli 、standard-version 这三工具了。
 commitizen commitizen 是一款标准化 git commit 信息的工具。在没有规范的情况下，开发人员的 commit 信息是常常是随意的，这就导致 commit 信息显的很无用。可是当你在做 git log、code review、编写 changelog 等情况时，良好的 commit 规范就显的尤为重要。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://wewoor.github.io/blog/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/" />
+<meta property="og:url" content="https://http://imziv.com/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/" />
 <meta property="article:published_time" content="2016-08-01T00:38:08+00:00" />
 <meta property="article:modified_time" content="2016-08-01T00:38:08+00:00" /><meta property="og:site_name" content="My Blog" />
 
@@ -60,26 +60,26 @@ if (!doNotTrack) {
 
 
 
-<script src="/blog/vendor/js/jquery.min.js" ></script>
-<script src="/blog/vendor/js/popper.min.js" ></script>
-<script src="/blog/vendor/js/bootstrap.min.js" ></script>
-<script src="/blog/vendor/js/smooth-scroll.polyfills.min.js" ></script>
-<link type="text/css" rel="stylesheet" href="/blog/vendor/css/bootstrap.min.css">
-<script src="/blog/vendor/js/vue.min.js" ></script>
+<script src="/imziv.com/vendor/js/jquery.min.js" ></script>
+<script src="/imziv.com/vendor/js/popper.min.js" ></script>
+<script src="/imziv.com/vendor/js/bootstrap.min.js" ></script>
+<script src="/imziv.com/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/imziv.com/vendor/css/bootstrap.min.css">
+<script src="/imziv.com/vendor/js/vue.min.js" ></script>
 
 
 
 
 
 
-<link rel="stylesheet" href="https://wewoor.github.io/blog/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+<link rel="stylesheet" href="https://http:/imziv.com/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
 
 
 
-<link rel="stylesheet" href="https://wewoor.github.io/blog/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
+<link rel="stylesheet" href="https://http:/imziv.com/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
 
 
-<script src="https://wewoor.github.io/blog/js/loadCSS.js"></script>
+<script src="https://http://imziv.com//js/loadCSS.js"></script>
 <script>
   loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
 </script>
@@ -88,7 +88,7 @@ if (!doNotTrack) {
 
 
   
-    <script src="https://wewoor.github.io/blog/js/toc-collapse.js"></script>
+    <script src="https://http://imziv.com//js/toc-collapse.js"></script>
   
 
 
@@ -105,7 +105,7 @@ if (!doNotTrack) {
 </head><body>
     	<div id="app"><div ref="sideContainer" class="side-container">
     
-    <a class="a-block nav-head false" href="https://wewoor.github.io/blog">
+    <a class="a-block nav-head false" href="https://http://imziv.com/">
     
         <div class="nav-title">
             让美的事情发生
@@ -123,11 +123,9 @@ if (!doNotTrack) {
             
             
             
-                
             
             
-            
-            <a class="a-block nav-link-item active" href="/blog/posts">
+            <a class="a-block nav-link-item false" href="/imziv.com/posts">
                 归档
             </a>
             
@@ -137,7 +135,7 @@ if (!doNotTrack) {
             
             
             
-            <a class="a-block nav-link-item false" href="/blog/categories">
+            <a class="a-block nav-link-item false" href="/imziv.com/categories">
                 分类
             </a>
             
@@ -147,7 +145,7 @@ if (!doNotTrack) {
             
             
             
-            <a class="a-block nav-link-item false" href="/blog/tags">
+            <a class="a-block nav-link-item false" href="/imziv.com/tags">
                 标签
             </a>
             
@@ -157,7 +155,7 @@ if (!doNotTrack) {
             
             
             
-            <a class="a-block nav-link-item false" href="/blog/index.xml">
+            <a class="a-block nav-link-item false" href="/imziv.com/index.xml">
                 RSS Feed
             </a>
             
@@ -461,11 +459,9 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                    
                 
                 
-                
-                <a class="a-block drawer-menu-item active" href="/blog/posts">
+                <a class="a-block drawer-menu-item false" href="/imziv.com/posts">
                     归档
                 </a>
                 
@@ -475,7 +471,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/blog/categories">
+                <a class="a-block drawer-menu-item false" href="/imziv.com/categories">
                     分类
                 </a>
                 
@@ -485,7 +481,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/blog/tags">
+                <a class="a-block drawer-menu-item false" href="/imziv.com/tags">
                     标签
                 </a>
                 
@@ -495,7 +491,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/blog/index.xml">
+                <a class="a-block drawer-menu-item false" href="/imziv.com/index.xml">
                     RSS Feed
                 </a>
                 
@@ -767,7 +763,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 menu
             </i>
         </button>
-        <a ref="navTitle" class="navbar-brand" href="https://wewoor.github.io/blog">
+        <a ref="navTitle" class="navbar-brand" href="https://http://imziv.com/">
             让美的事情发生
         </a>
         
@@ -784,7 +780,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 </nav>
 <div class="single-column-header-container" ref="pageHead"
      v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
-    <a href="https://wewoor.github.io/blog">
+    <a href="https://http://imziv.com/">
         <div class="single-column-header-title">让美的事情发生</div>
         
         <div class="single-column-header-subtitle">—— Ziv小威</div>
@@ -815,14 +811,14 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 
                         
                             <i class="material-icons" style="">folder</i>
-                                <a href="/blog/categories/">[随笔]</a>
+                                <a href="/imziv.com/categories/">[随笔]</a>
                                 &nbsp;
                         
 
                         
                             <i class="material-icons" style="">label</i>
                             
-                                <a href="/blog/tags/%E6%80%9D%E8%80%83">思考</a>
+                                <a href="/imziv.com/tags/%E6%80%9D%E8%80%83">思考</a>
                                 &nbsp;
                             
                         
@@ -977,13 +973,13 @@ echo &ldquo;Release finished.&rdquo;
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="https://wewoor.github.io/blog/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/">
+                <a class="newer-posts" href="https://http://imziv.com/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/">
 			下回<br>又见南京 - JSConf 之行
                 </a>
                 
                 
                 
-                <a class="older-posts" href="https://wewoor.github.io/blog/posts/2016/%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD/">
+                <a class="older-posts" href="https://http://imziv.com/posts/2016/%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD/">
 			上回<br>实现图片的异步加载
                 </a>
                 
@@ -1120,6 +1116,6 @@ app = new Vue({
 });
 </script>
 
-<script src="https://wewoor.github.io/blog/js/journal.js"></script>
+<script src="https://http://imziv.com//js/journal.js"></script>
     </body>
 </html>

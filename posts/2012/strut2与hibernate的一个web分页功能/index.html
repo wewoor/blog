@@ -20,7 +20,7 @@
 <meta property="og:description" content="代码没有进行过多的封装，可能看起来有点 action 代码部分，hibernate 在这里只起到了一个查询记录集的作用。
 import java.util.ArrayList; import java.util.List; import java.util.Map; import org.apache.struts2.interceptor.SessionAware; import org.hibernate.Criteria; import org.hibernate.Session; import com.HibernateSessionFactory; import com.hibertest1.dto.MyMessage; public class FenYeAction implements SessionAware{ private int start = 0; public int getStart() { return start; } public void setStart(int start) { this.start = start; } public String getMessage(){ List&lt;MyMessage&gt; msgs = new ArrayList&lt;MyMessage&gt;(); Session se = HibernateSessionFactory.getSession(); Criteria crit = se.createCriteria(MyMessage.class); //创建Criteria 对象  msgs = crit.list(); int size = msgs." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://wewoor.github.io/blog/posts/2012/strut2%E4%B8%8Ehibernate%E7%9A%84%E4%B8%80%E4%B8%AAweb%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD/" />
+<meta property="og:url" content="https://http://imziv.com/posts/2012/strut2%E4%B8%8Ehibernate%E7%9A%84%E4%B8%80%E4%B8%AAweb%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD/" />
 <meta property="article:published_time" content="2012-09-06T11:32:00+00:00" />
 <meta property="article:modified_time" content="2012-09-06T11:32:00+00:00" /><meta property="og:site_name" content="My Blog" />
 
@@ -54,26 +54,26 @@ if (!doNotTrack) {
 
 
 
-<script src="/blog/vendor/js/jquery.min.js" ></script>
-<script src="/blog/vendor/js/popper.min.js" ></script>
-<script src="/blog/vendor/js/bootstrap.min.js" ></script>
-<script src="/blog/vendor/js/smooth-scroll.polyfills.min.js" ></script>
-<link type="text/css" rel="stylesheet" href="/blog/vendor/css/bootstrap.min.css">
-<script src="/blog/vendor/js/vue.min.js" ></script>
+<script src="/imziv.com/vendor/js/jquery.min.js" ></script>
+<script src="/imziv.com/vendor/js/popper.min.js" ></script>
+<script src="/imziv.com/vendor/js/bootstrap.min.js" ></script>
+<script src="/imziv.com/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/imziv.com/vendor/css/bootstrap.min.css">
+<script src="/imziv.com/vendor/js/vue.min.js" ></script>
 
 
 
 
 
 
-<link rel="stylesheet" href="https://wewoor.github.io/blog/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+<link rel="stylesheet" href="https://http:/imziv.com/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
 
 
 
-<link rel="stylesheet" href="https://wewoor.github.io/blog/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
+<link rel="stylesheet" href="https://http:/imziv.com/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
 
 
-<script src="https://wewoor.github.io/blog/js/loadCSS.js"></script>
+<script src="https://http://imziv.com//js/loadCSS.js"></script>
 <script>
   loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
 </script>
@@ -82,7 +82,7 @@ if (!doNotTrack) {
 
 
   
-    <script src="https://wewoor.github.io/blog/js/toc-collapse.js"></script>
+    <script src="https://http://imziv.com//js/toc-collapse.js"></script>
   
 
 
@@ -99,7 +99,7 @@ if (!doNotTrack) {
 </head><body>
     	<div id="app"><div ref="sideContainer" class="side-container">
     
-    <a class="a-block nav-head false" href="https://wewoor.github.io/blog">
+    <a class="a-block nav-head false" href="https://http://imziv.com/">
     
         <div class="nav-title">
             让美的事情发生
@@ -117,11 +117,9 @@ if (!doNotTrack) {
             
             
             
-                
             
             
-            
-            <a class="a-block nav-link-item active" href="/blog/posts">
+            <a class="a-block nav-link-item false" href="/imziv.com/posts">
                 归档
             </a>
             
@@ -131,7 +129,7 @@ if (!doNotTrack) {
             
             
             
-            <a class="a-block nav-link-item false" href="/blog/categories">
+            <a class="a-block nav-link-item false" href="/imziv.com/categories">
                 分类
             </a>
             
@@ -141,7 +139,7 @@ if (!doNotTrack) {
             
             
             
-            <a class="a-block nav-link-item false" href="/blog/tags">
+            <a class="a-block nav-link-item false" href="/imziv.com/tags">
                 标签
             </a>
             
@@ -151,7 +149,7 @@ if (!doNotTrack) {
             
             
             
-            <a class="a-block nav-link-item false" href="/blog/index.xml">
+            <a class="a-block nav-link-item false" href="/imziv.com/index.xml">
                 RSS Feed
             </a>
             
@@ -208,11 +206,9 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                    
                 
                 
-                
-                <a class="a-block drawer-menu-item active" href="/blog/posts">
+                <a class="a-block drawer-menu-item false" href="/imziv.com/posts">
                     归档
                 </a>
                 
@@ -222,7 +218,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/blog/categories">
+                <a class="a-block drawer-menu-item false" href="/imziv.com/categories">
                     分类
                 </a>
                 
@@ -232,7 +228,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/blog/tags">
+                <a class="a-block drawer-menu-item false" href="/imziv.com/tags">
                     标签
                 </a>
                 
@@ -242,7 +238,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/blog/index.xml">
+                <a class="a-block drawer-menu-item false" href="/imziv.com/index.xml">
                     RSS Feed
                 </a>
                 
@@ -267,7 +263,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 menu
             </i>
         </button>
-        <a ref="navTitle" class="navbar-brand" href="https://wewoor.github.io/blog">
+        <a ref="navTitle" class="navbar-brand" href="https://http://imziv.com/">
             让美的事情发生
         </a>
         
@@ -284,7 +280,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 </nav>
 <div class="single-column-header-container" ref="pageHead"
      v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
-    <a href="https://wewoor.github.io/blog">
+    <a href="https://http://imziv.com/">
         <div class="single-column-header-title">让美的事情发生</div>
         
         <div class="single-column-header-subtitle">—— Ziv小威</div>
@@ -315,7 +311,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 
                         
                             <i class="material-icons" style="">folder</i>
-                                <a href="/blog/categories/">[计算机科学]</a>
+                                <a href="/imziv.com/categories/">[计算机科学]</a>
                                 &nbsp;
                         
 
@@ -427,13 +423,13 @@ msgs = crit.<span style="color:#658b00">list</span>();
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="https://wewoor.github.io/blog/posts/2012/struts2&#43;hibernate&#43;spring-%E5%9C%A8mysql%E6%9B%B4%E6%96%B0blob%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE/">
+                <a class="newer-posts" href="https://http://imziv.com/posts/2012/struts2&#43;hibernate&#43;spring-%E5%9C%A8mysql%E6%9B%B4%E6%96%B0blob%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE/">
 			下回<br>Struts2&#43;Hibernate&#43;Spring 在 mysql 更新 Blob 类型的数据
                 </a>
                 
                 
                 
-                <a class="older-posts" href="https://wewoor.github.io/blog/posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/">
+                <a class="older-posts" href="https://http://imziv.com/posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/">
 			上回<br>Struts2 与 Spring 的整合
                 </a>
                 
@@ -570,6 +566,6 @@ app = new Vue({
 });
 </script>
 
-<script src="https://wewoor.github.io/blog/js/journal.js"></script>
+<script src="https://http://imziv.com//js/journal.js"></script>
     </body>
 </html>

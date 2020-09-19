@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Decorator on 让美的事情发生</title>
-    <link>https://wewoor.github.io/blog/tags/decorator/</link>
+    <link>https://http://imziv.com/tags/decorator/</link>
     <description>Recent content in Decorator on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>2014-2020.</copyright>
     <lastBuildDate>Sun, 05 Nov 2017 14:36:35 +0000</lastBuildDate>
     
-	<atom:link href="https://wewoor.github.io/blog/tags/decorator/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://http://imziv.com/tags/decorator/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Decorator 简介及实战</title>
-      <link>https://wewoor.github.io/blog/posts/2017/decorator-%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%AE%9E%E6%88%98/</link>
+      <link>https://http://imziv.com/posts/2017/decorator-%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%AE%9E%E6%88%98/</link>
       <pubDate>Sun, 05 Nov 2017 14:36:35 +0000</pubDate>
       
-      <guid>https://wewoor.github.io/blog/posts/2017/decorator-%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%AE%9E%E6%88%98/</guid>
+      <guid>https://http://imziv.com/posts/2017/decorator-%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%AE%9E%E6%88%98/</guid>
       <description>前言 用过 Java 的朋友都知道，装饰器（Decorator)是一种十分非常方便改变类运行是行为的一种方式，例如在 Spring 框架中我们用到比较多的注解（@Autowired), 通过它可以自动实例化对象，从而可以精简代码。装饰器是典型的 AOP(Aspect-Oriented-Programming) 编程的应用，类似的 CSS 对于 HTML 的样式也是类似于这种思想，即从切面来改变和影响主对象的行为。
 Decorator 简介 Decorator 是一种通过注解表达式就可以扩展类或者方法的函数。Decorator 可以应用到任何一个 class 或者 property 上。列如:
 @myDecorator class A {} // 作用class  @myDecorator doSomething() {} // 作用表达式 Javascript Decorator 目前任然是 ES7 提案状态，更多该特性的进度可以访问proposal-decorators查看。
