@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>WebGL on 让美的事情发生</title>
-    <link>https://wewoor.github.io/tags/webgl/</link>
+    <link>https://wewoor.github.io/blog/tags/webgl/</link>
     <description>Recent content in WebGL on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>2014-2020.</copyright>
     <lastBuildDate>Sun, 22 Mar 2015 01:43:59 +0000</lastBuildDate>
     
-	<atom:link href="https://wewoor.github.io/tags/webgl/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://wewoor.github.io/blog/tags/webgl/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>利用 javascript 和 WebGL 绘制地球 【翻译】</title>
-      <link>https://wewoor.github.io/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/</link>
+      <link>https://wewoor.github.io/blog/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/</link>
       <pubDate>Sun, 22 Mar 2015 01:43:59 +0000</pubDate>
       
-      <guid>https://wewoor.github.io/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/</guid>
+      <guid>https://wewoor.github.io/blog/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/</guid>
       <description>原翻译：利用 javascript 和 WebGL 绘制地球 【翻译】
 在我们所有已知的 HTML5API 中，WebGL可能是最有意思的一个，利用这个 API 我们能够在浏览器中创造出炫酷 3D 场景的能力。本文将完整的向你展示一些炫酷是如何实现的。
 需要特别指出的是，这篇教程我们将会构建一个地球行星模型，这个模型可以像一个兴奋的人一样环绕的旋转，另外，它可能使我们可以获得一些其他程序员的称赞，好吧，就这么多了。

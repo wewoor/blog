@@ -21,7 +21,7 @@
 以下是我的 Action 的代码：
 //show image private static Image image = new Image(); public Image getImage() { return image; } public void setImage(Image image) { this.image = image; } //imageDao对象我是Spring注入进来的，你可以用new创建  public static void showImage(){ byte[] itemImage = null; HttpServletResponse response = ServletActionContext.getResponse(); response.reset(); response.setContentType(&#34;image/jpeg&#34;); try { image.setId(0); //通过getBytes()方法将获取的Blob类型数据转换  itemImage = imageDao.getImage(image). getBytes(1, (int)imageDao.getImage(image).length()); OutputStream out = response.getOutputStream(); out.write(itemImage); out.flush(); out.close(); } catch (SQLException e) { // TODO Auto-generated catch block  e." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://wewoor.github.io/posts/2012/%E5%B0%86mysql%E4%B8%AD%E7%9A%84blob%E7%9A%84%E5%9B%BE%E7%89%87%E5%9C%A8jsp%E4%B8%AD%E6%98%BE%E7%A4%BA/" />
+<meta property="og:url" content="https://wewoor.github.io/blog/posts/2012/%E5%B0%86mysql%E4%B8%AD%E7%9A%84blob%E7%9A%84%E5%9B%BE%E7%89%87%E5%9C%A8jsp%E4%B8%AD%E6%98%BE%E7%A4%BA/" />
 <meta property="article:published_time" content="2012-09-06T11:32:00+00:00" />
 <meta property="article:modified_time" content="2012-09-06T11:32:00+00:00" /><meta property="og:site_name" content="My Blog" />
 
@@ -41,26 +41,26 @@
 
 
 
-<script src="/vendor/js/jquery.min.js" ></script>
-<script src="/vendor/js/popper.min.js" ></script>
-<script src="/vendor/js/bootstrap.min.js" ></script>
-<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
-<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
-<script src="/vendor/js/vue.min.js" ></script>
+<script src="/blog/vendor/js/jquery.min.js" ></script>
+<script src="/blog/vendor/js/popper.min.js" ></script>
+<script src="/blog/vendor/js/bootstrap.min.js" ></script>
+<script src="/blog/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/blog/vendor/css/bootstrap.min.css">
+<script src="/blog/vendor/js/vue.min.js" ></script>
 
 
 
 
 
 
-<link rel="stylesheet" href="https://wewoor.github.io/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+<link rel="stylesheet" href="https://wewoor.github.io/blog/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
 
 
 
-<link rel="stylesheet" href="https://wewoor.github.io/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
+<link rel="stylesheet" href="https://wewoor.github.io/blog/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
 
 
-<script src="https://wewoor.github.io//js/loadCSS.js"></script>
+<script src="https://wewoor.github.io/blog//js/loadCSS.js"></script>
 <script>
   loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
 </script>
@@ -69,7 +69,7 @@
 
 
   
-    <script src="https://wewoor.github.io//js/toc-collapse.js"></script>
+    <script src="https://wewoor.github.io/blog//js/toc-collapse.js"></script>
   
 
 
@@ -86,7 +86,7 @@
 </head><body>
     	<div id="app"><div ref="sideContainer" class="side-container">
     
-    <a class="a-block nav-head false" href="https://wewoor.github.io/">
+    <a class="a-block nav-head false" href="https://wewoor.github.io/blog/">
     
         <div class="nav-title">
             让美的事情发生
@@ -108,7 +108,7 @@
             
             
             
-            <a class="a-block nav-link-item active" href="/posts">
+            <a class="a-block nav-link-item active" href="/blog/posts">
                 归档
             </a>
             
@@ -118,7 +118,7 @@
             
             
             
-            <a class="a-block nav-link-item false" href="/categories">
+            <a class="a-block nav-link-item false" href="/blog/categories">
                 分类
             </a>
             
@@ -128,7 +128,7 @@
             
             
             
-            <a class="a-block nav-link-item false" href="/tags">
+            <a class="a-block nav-link-item false" href="/blog/tags">
                 标签
             </a>
             
@@ -138,7 +138,7 @@
             
             
             
-            <a class="a-block nav-link-item false" href="/index.xml">
+            <a class="a-block nav-link-item false" href="/blog/index.xml">
                 RSS Feed
             </a>
             
@@ -199,7 +199,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item active" href="/posts">
+                <a class="a-block drawer-menu-item active" href="/blog/posts">
                     归档
                 </a>
                 
@@ -209,7 +209,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/categories">
+                <a class="a-block drawer-menu-item false" href="/blog/categories">
                     分类
                 </a>
                 
@@ -219,7 +219,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/tags">
+                <a class="a-block drawer-menu-item false" href="/blog/tags">
                     标签
                 </a>
                 
@@ -229,7 +229,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/index.xml">
+                <a class="a-block drawer-menu-item false" href="/blog/index.xml">
                     RSS Feed
                 </a>
                 
@@ -254,7 +254,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 menu
             </i>
         </button>
-        <a ref="navTitle" class="navbar-brand" href="https://wewoor.github.io/">
+        <a ref="navTitle" class="navbar-brand" href="https://wewoor.github.io/blog/">
             让美的事情发生
         </a>
         
@@ -271,7 +271,7 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 </nav>
 <div class="single-column-header-container" ref="pageHead"
      v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
-    <a href="https://wewoor.github.io/">
+    <a href="https://wewoor.github.io/blog/">
         <div class="single-column-header-title">让美的事情发生</div>
         
         <div class="single-column-header-subtitle">—— Ziv小威</div>
@@ -302,17 +302,17 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 
                         
                             <i class="material-icons" style="">folder</i>
-                                <a href="/categories/">[计算机科学]</a>
+                                <a href="/blog/categories/">[计算机科学]</a>
                                 &nbsp;
                         
 
                         
                             <i class="material-icons" style="">label</i>
                             
-                                <a href="/tags/mysql">MySQL</a>
+                                <a href="/blog/tags/mysql">MySQL</a>
                                 &nbsp;
                             
-                                <a href="/tags/jsp">JSP</a>
+                                <a href="/blog/tags/jsp">JSP</a>
                                 &nbsp;
                             
                         
@@ -390,13 +390,13 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="https://wewoor.github.io/posts/2012/%E4%B9%9F%E8%AE%B8%E6%88%91%E4%B8%8D%E6%98%AF%E4%B8%AA%E6%9C%89%E5%A4%A9%E8%B5%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/">
+                <a class="newer-posts" href="https://wewoor.github.io/blog/posts/2012/%E4%B9%9F%E8%AE%B8%E6%88%91%E4%B8%8D%E6%98%AF%E4%B8%AA%E6%9C%89%E5%A4%A9%E8%B5%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/">
 			下回<br>也许我不是个有天赋的程序员
                 </a>
                 
                 
                 
-                <a class="older-posts" href="https://wewoor.github.io/posts/2012/%E6%B5%85%E8%81%8A%E8%BF%992%E5%90%84%E6%9C%88%E7%9A%84%E5%AD%A6%E4%B9%A0/">
+                <a class="older-posts" href="https://wewoor.github.io/blog/posts/2012/%E6%B5%85%E8%81%8A%E8%BF%992%E5%90%84%E6%9C%88%E7%9A%84%E5%AD%A6%E4%B9%A0/">
 			上回<br>浅聊这 2 各月的学习
                 </a>
                 
@@ -533,6 +533,6 @@ app = new Vue({
 });
 </script>
 
-<script src="https://wewoor.github.io//js/journal.js"></script>
+<script src="https://wewoor.github.io/blog//js/journal.js"></script>
     </body>
 </html>
