@@ -5,10 +5,34 @@
     <description>Recent content on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>2014-2020.</copyright>
+    <copyright>2014-2020 Ziv小威</copyright>
     <lastBuildDate>Tue, 14 Jan 2020 10:28:51 +0000</lastBuildDate>
     
         <atom:link href="http://imziv.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>Cordova 开发总结(插件篇）</title>
+        <link>http://imziv.com/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/</link>
+        <pubDate>Fri, 24 Jun 2016 14:57:57 +0000</pubDate>
+        
+        <guid>http://imziv.com/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/</guid>
+        <description>让美的事情发生 http://imziv.com/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/ -&lt;p&gt;最近刚刚做完一个用 Cordova 开发了一款电子商务的应用。在选用 Cordova 前，我有考察过，国内的 Appcan, Apicloud 等等的解决方案。其实 Appcan，ApiCloud 的混合方案挺完整的，从开发，框架，到打包测试，数据统计都包含了，但是我还是更倾向于开源的 Cordova, 我相信开源社区的力量应该更强大，所以最终选择了 Cordova 作为解决方案。事实上，我用 Cordova 开发遇到目前所以需要的插件都是可以通过 Google 查找到的。在此总结下我用到的插件。&lt;/p&gt;
+&lt;h4 id=&#34;crosswalkhttpscrosswalk-projectorg&#34;&gt;&lt;a href=&#34;https://crosswalk-project.org/&#34;&gt;Crosswalk&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;这是一个单独定制的 Webview 插件，包含了大部分最新的 HTML5 特性。Crosswork Cordova 插件目前只支持 Android, iOS 需要自己手动的集成。在如今安卓机这种测试机可以装一箱子都不止的情况下，使用统一的 Webview 是十分有必要的。可以避免大部分的兼容性问题，而且可以保持不错的性能。当然有个弊端就是添加这个插件，打包的 apk 会增加 20MB 左右。&lt;/p&gt;
+&lt;h4 id=&#34;极光推送jpushhttpsgithubcomjpushjpush-phonegap-plugin&#34;&gt;&lt;a href=&#34;https://github.com/jpush/jpush-phonegap-plugin&#34;&gt;极光推送(JPush)&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;极光的推送插件在 Cordova 上的集成也是非常的方便，顺利的话 1 个小时就可以搞定。刚开始的时候我还有点慌，担心推送插件的集成问题，没想到看了下官网，有从 Cordova 的集成版本，还支持自动安装。&lt;/p&gt;
+&lt;h4 id=&#34;切页转场动画httppluginstelerikcomcordovapluginnative-page-transitions&#34;&gt;&lt;a href=&#34;http://plugins.telerik.com/cordova/plugin/native-page-transitions&#34;&gt;切页转场动画&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;刚开始我利用 Angularjs 集成了 CSS3 的转场动画，打包跑在 iOS 上时其实还好，但是到 Android 端的时候，弊端尽显，实在不理想，最好我把转场动画都直接撤掉了，留下个 loading 动画。显然整个界面的切换就变的干巴巴了。最后找到&lt;a href=&#34;http://plugins.telerik.com/cordova/plugin/native-page-transitions&#34;&gt;com.telerik.plugins.nativepagetransitions&lt;/a&gt;这个转场插件。这个插件支持&lt;code&gt;Slide&lt;/code&gt;,&lt;code&gt;Flip&lt;/code&gt;,&lt;code&gt;Fade&lt;/code&gt;, &lt;code&gt;Drawer&lt;/code&gt;, &lt;code&gt;Curl&lt;/code&gt;等 5 种效果，集成和调用也很简单。&lt;/p&gt;
+&lt;h4 id=&#34;键盘插件keyboardhttpsgithubcomdriftycoionic-plugin-keyboard&#34;&gt;&lt;a href=&#34;https://github.com/driftyco/ionic-plugin-keyboard&#34;&gt;键盘插件（Keyboard)&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;大家都知道在移动端调出键盘输入操作时，调出的键盘会挤出自己当前的界面，造成页面的样式错乱的问题。Keyboard 插件可以监听键盘的展示隐藏事件，禁止 input 时键盘出现界面滚动等等问题。&lt;/p&gt;
+&lt;h4 id=&#34;支付-alipayhttpsgithubcomcharleywcordova-plugin-alipay&#34;&gt;&lt;a href=&#34;https://github.com/charleyw/cordova-plugin-alipay&#34;&gt;支付 Alipay&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;做移动应用肯定少不了支付，支付宝的 Cordova 插件其实很多，但我搜索了一圈还是这个比较好使~&lt;/p&gt;
+&lt;h4 id=&#34;总结&#34;&gt;总结&lt;/h4&gt;
+&lt;p&gt;以上是我用的几个主要插件，因为 Cordova 里面像&lt;code&gt;Camera&lt;/code&gt;, &lt;code&gt;File&lt;/code&gt;, 其他类型的插件太多太多了。完全可以根据自己的喜好来选择。总而言之，Cordova 本身由于这么多年时间的积累，造就了它在插件等等资源上的很多的优势。另外，微软刚刚开源的&lt;a href=&#34;https://www.xamarin.com/&#34;&gt;Xamarin&lt;/a&gt;据说也是个非常不错的混合开发方案，用 C#编写源码， 有机会试试~&lt;/p&gt;
+- http://imziv.com/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/ - 2014-2020 Ziv小威</description>
+        </item>
     
     
     
@@ -131,7 +155,7 @@ myScroll.on(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;scrollEnd&amp;#39
 &lt;p&gt;&lt;a href=&#34;http://wewoor.github.io/js-lab/iscroll-pulldown-load/index.html&#34;&gt;http://wewoor.github.io/js-lab/iscroll-pulldown-load/index.html&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&#34;原文地址&#34;&gt;原文地址&lt;/h4&gt;
 &lt;p&gt;&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=73&#34;&gt;http://imziv.com/blog/article/read.htm?id=73&lt;/a&gt;&lt;/p&gt;
-- http://imziv.com/posts/2016/%E4%BD%BF%E7%94%A8-iscroll-%E5%AE%9E%E7%8E%B0%E4%B8%8A%E6%8B%89%E6%88%96%E8%80%85%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0/ - 2014-2020.</description>
+- http://imziv.com/posts/2016/%E4%BD%BF%E7%94%A8-iscroll-%E5%AE%9E%E7%8E%B0%E4%B8%8A%E6%8B%89%E6%88%96%E8%80%85%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -142,7 +166,7 @@ myScroll.on(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;scrollEnd&amp;#39
         <pubDate>Thu, 19 May 2016 19:53:50 +0000</pubDate>
         
         <guid>http://imziv.com/posts/2016/%E5%AE%9E%E7%8E%B0-checkbox-%E7%BB%84%E4%BB%B6%E5%8C%96component/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2016/%E5%AE%9E%E7%8E%B0-checkbox-%E7%BB%84%E4%BB%B6%E5%8C%96component/ -- http://imziv.com/posts/2016/%E5%AE%9E%E7%8E%B0-checkbox-%E7%BB%84%E4%BB%B6%E5%8C%96component/ - 2014-2020.</description>
+        <description>让美的事情发生 http://imziv.com/posts/2016/%E5%AE%9E%E7%8E%B0-checkbox-%E7%BB%84%E4%BB%B6%E5%8C%96component/ -- http://imziv.com/posts/2016/%E5%AE%9E%E7%8E%B0-checkbox-%E7%BB%84%E4%BB%B6%E5%8C%96component/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -348,7 +372,7 @@ console.log(checkbox.checked); &lt;span style=&#34;color:#228b22&#34;&gt;// outp
 &lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
 &lt;p&gt;以上便是整个组件定义的具体方法。当然今天我们自定义的是&lt;code&gt;checkbox&lt;/code&gt;组件，我们当然可以通过该方法去实现其他的组件，例如&lt;code&gt;radio&lt;/code&gt;,&lt;code&gt;select&lt;/code&gt;等等。&lt;/p&gt;
 &lt;h4 id=&#34;原文地址httpimzivcomblogarticlereadhtmid72httpimzivcomblogarticlereadhtmid72&#34;&gt;原文地址：&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=72&#34;&gt;http://imziv.com/blog/article/read.htm?id=72&lt;/a&gt;&lt;/h4&gt;
-- http://imziv.com/posts/2016/css3-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-checkbox/ - 2014-2020.</description>
+- http://imziv.com/posts/2016/css3-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-checkbox/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -359,7 +383,7 @@ console.log(checkbox.checked); &lt;span style=&#34;color:#228b22&#34;&gt;// outp
         <pubDate>Mon, 04 Apr 2016 23:55:53 +0000</pubDate>
         
         <guid>http://imziv.com/posts/2016/%E8%80%81%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2016/%E8%80%81%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7/ -- http://imziv.com/posts/2016/%E8%80%81%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7/ - 2014-2020.</description>
+        <description>让美的事情发生 http://imziv.com/posts/2016/%E8%80%81%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7/ -- http://imziv.com/posts/2016/%E8%80%81%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -453,7 +477,7 @@ cordova build android // 构建安卓平台
 &lt;a href=&#34;https://github.com/creationix/nvmhttp://cordova.apache.org/docs/en/latest/guide/cli/index.html&#34;&gt;https://github.com/creationix/nvmhttp://cordova.apache.org/docs/en/latest/guide/cli/index.html&lt;/a&gt;
 &lt;a href=&#34;http://developer.android.com/sdk/installing/index.html?pkg=tools&#34;&gt;http://developer.android.com/sdk/installing/index.html?pkg=tools&lt;/a&gt;
 &lt;a href=&#34;https://www.genymotion.com/#!/developers/user-guide&#34;&gt;https://www.genymotion.com/#!/developers/user-guide&lt;/a&gt;&lt;/p&gt;
-- http://imziv.com/posts/2015/cordova%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/ - 2014-2020.</description>
+- http://imziv.com/posts/2015/cordova%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -492,7 +516,7 @@ cordova build android // 构建安卓平台
     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;font-family&lt;/span&gt;: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sans-serif&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;文泉驿正黑&amp;#39;&lt;/span&gt;  &lt;span style=&#34;color:#1e889b&#34;&gt;!important&lt;/span&gt;;
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;经过这个设置可以看到,预览文件里乱码以及好了.&lt;/p&gt;
-- http://imziv.com/posts/2015/atom%E5%9C%A8ubuntu%E4%B8%8A%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ - 2014-2020.</description>
+- http://imziv.com/posts/2015/atom%E5%9C%A8ubuntu%E4%B8%8A%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -550,7 +574,7 @@ cordova build android // 构建安卓平台
 &lt;blockquote&gt;
 &lt;p&gt;2015/07/27 于杭州&lt;/p&gt;
 &lt;/blockquote&gt;
-- http://imziv.com/posts/2015/%E5%B0%8F%E6%B8%B8%E5%8E%A6%E9%97%A8/ - 2014-2020.</description>
+- http://imziv.com/posts/2015/%E5%B0%8F%E6%B8%B8%E5%8E%A6%E9%97%A8/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -578,7 +602,7 @@ cordova build android // 构建安卓平台
 前段时间，微信，QQZone 利用自己垄断的优势，直接屏蔽了网易云音乐其重要的分享社交功能，虽然网易云音乐通过一些方式实现了微信上面的分享，但是 QQZone 直接过滤了。本来用户想和其他人分享自己的心情，分享好的音乐的，这样利用自己的垄断打击竞争对手，完全不顾用户的感受，简直是可耻！如果自家产品用心，让用户感受到用心的话，我相信像网易这种后起之秀是根本不会得到任何机会的，只怪自己产品太烂，为用户做的太少，最后利用这种手段，实在让人心寒，国内的互联网公司就这种尿性吗?&lt;/p&gt;
 &lt;p&gt;最后说一句：&lt;/p&gt;
 &lt;p&gt;赶紧卸掉 QQ 音乐吧！&lt;/p&gt;
-- http://imziv.com/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/ - 2014-2020.</description>
+- http://imziv.com/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -802,220 +826,7 @@ app.use(express.&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;stati
 &lt;p&gt;以上则是这个插件使用的全部内容，如果有什么问题可以直接点击示例代码进行查看，另外插件是我才写出来的，如果有什么问题请告诉我。谢谢，希望它能帮助你！&lt;/p&gt;
 &lt;h4 id=&#34;作者ziv-小威httpimzivcom&#34;&gt;作者：&lt;a href=&#34;http://imziv.com&#34;&gt;Ziv 小威&lt;/a&gt;&lt;/h4&gt;
 &lt;h4 id=&#34;原文地址httpimzivcomblogarticlereadhtmid62httpimzivcomblogarticlereadhtmid62&#34;&gt;原文地址：&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=62&#34;&gt;http://imziv.com/blog/article/read.htm?id=62&lt;/a&gt;&lt;/h4&gt;
-- http://imziv.com/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/ - 2014-2020.</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>利用 Gulp 优化部署 Web 项目</title>
-        <link>http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/</link>
-        <pubDate>Sun, 26 Apr 2015 11:27:16 +0000</pubDate>
-        
-        <guid>http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/ -&lt;h3 id=&#34;gulp&#34;&gt;Gulp&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;http://gulpjs.com/&#34;&gt;Gulp&lt;/a&gt;是一款项目自动化的构建工具，与&lt;a href=&#34;http://gruntjs.com/&#34;&gt;Grunt&lt;/a&gt;一样可以通过创建任务（Task）来帮助我们自动完成一些工作流的内容。当然，今天我们的内容并不是讨论这二者的区别，仅仅是介绍介绍如何利用 Gulp 来优化我们的 Web 项目中前端自动化工作流。&lt;/p&gt;
-&lt;h3 id=&#34;引言&#34;&gt;引言&lt;/h3&gt;
-&lt;p&gt;相信不少人看过百度大牛&lt;a href=&#34;https://github.com/fouber&#34;&gt;张云龙&lt;/a&gt;的那篇讲解&lt;a href=&#34;https://github.com/fouber/blog/issues/6&#34;&gt;大公司里怎样开发和部署前端代码?&lt;/a&gt;的文章，如果没有阅读的朋友请戳。由于在项目部署时，我们需要对项目 js，css,image 等文件进行压缩，合并处理，从而减少客户端对服务 Http 请求，已达到增强页面的加载速度，优化服务器带宽压力等等目的。所以本文主要讲的是利用 Gulp 优化我们 Web 部署优化工作。&lt;/p&gt;
-&lt;h3 id=&#34;安装初始化&#34;&gt;安装&amp;amp;初始化&lt;/h3&gt;
-&lt;p&gt;首先你得确保你的电脑上面是否已经安装了 Nodejs, 如果没有安装的话，那么请&lt;a href=&#34;https://nodejs.org/&#34;&gt;移步&lt;/a&gt;。假定有如下一个 Nodejs 的 Web 项目（当然你也可以是其他的例如 Java，.Net 的 Web 项目，且具体开发目录如下：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;|- project
- |- src // 前端项目的源文件
-  |- js
-  |- html
-  |- images
-  |- css
-  |- bower_component // bower 前端依赖包管理
-  |- node_component // nodejs 插件
- |- server
-  |- api
-  |- views
-   |- app
-  |- assets // 前端静态文件存放目录
-   |- js
-   |- css
-   |- images
-   |- templates
-  |- ... // 其他目录就不一一列出了
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;src&lt;/code&gt;文件夹为前端的&lt;code&gt;js&lt;/code&gt;，&lt;code&gt;css&lt;/code&gt;, &lt;code&gt;html&lt;/code&gt;, &lt;code&gt;image&lt;/code&gt;的开发目录, 我们会通过 gulp 将这些源文件进行压缩合并后打包到目标目录，也就是&lt;code&gt;assets&lt;/code&gt;目录下相应的&lt;code&gt;js&lt;/code&gt;,&lt;code&gt;css&lt;/code&gt;目录，html 视图文件会打包到&lt;code&gt;views&lt;/code&gt;下的&lt;code&gt;app&lt;/code&gt;文件夹和&lt;code&gt;assets&lt;/code&gt;下的&lt;code&gt;templates&lt;/code&gt;模板文件夹，具体视情况而定。其中的&lt;code&gt;bower_component&lt;/code&gt;为&lt;a href=&#34;http://bower.io/&#34;&gt;bower&lt;/a&gt;前端包管理，我们可以用 bower 直接下载几乎任何我们前端日常所需的库，框架,而且可以任选版本，例如&lt;code&gt;JQuery&lt;/code&gt;,&lt;code&gt;Bootstrap&lt;/code&gt;,&lt;code&gt;Angular&lt;/code&gt;，只需执行&lt;code&gt;bower install packageName&lt;/code&gt;即可，不同版本只需&lt;code&gt;bower install packageName#version&lt;/code&gt;,更多内容，可以去&lt;a href=&#34;http://bower.io/&#34;&gt;官网&lt;/a&gt;自行查阅，这里就不展开了。至于&lt;code&gt;node_component&lt;/code&gt; 文件夹即是用&lt;code&gt;npm&lt;/code&gt;安装的我们打包会用到的插件资源了。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;全局安装 Gulp&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;   npm install --global gulp
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
-&lt;li&gt;安装 Gulp 到开发项目中&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;   npm install --save-dev gulp
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
-&lt;li&gt;在 src 创建&lt;code&gt;gulpfile.js&lt;/code&gt;文件，这个文件用来配置我们所需的&lt;code&gt;task&lt;/code&gt;,接下来会具体讲解。&lt;/li&gt;
-&lt;li&gt;执行&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;$ gulp
-或者
-$ gulp taskName
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;gulp 会执行&lt;code&gt;gulpfile.js&lt;/code&gt;文件下定义的&lt;code&gt;default&lt;/code&gt;任务，如果我们需要执行特定的 task，则需要执行下面的命令&lt;/p&gt;
-&lt;h3 id=&#34;gulpfilejs-文件&#34;&gt;gulpfile.js 文件&lt;/h3&gt;
-&lt;p&gt;&lt;code&gt;gulpfile.js&lt;/code&gt;用来定义我们需要自动化的任务，里面包含了很多依赖关系。这里我们会创建 4 个 Task，第一个&lt;code&gt;develop task&lt;/code&gt;,用于开发时使用，另一个&lt;code&gt;release task&lt;/code&gt;,用于部署发布时用的，还有一个&lt;code&gt;watch task&lt;/code&gt;, 用于实时监听文件修改行为，可及时打包，最后一个&lt;code&gt;default task&lt;/code&gt;, gulp 默认执行的 task.&lt;/p&gt;
-&lt;h4 id=&#34;创建-default-task&#34;&gt;创建 Default Task&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; gulp = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;gulp&amp;#39;&lt;/span&gt;);
-
- gulp.task(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;default&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
-   &lt;span style=&#34;color:#228b22&#34;&gt;// place code for your default task here
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt; });
- 
- &lt;span style=&#34;color:#228b22&#34;&gt;// 如果默认情况下我们会执行一个叫develop的task，则这么写，执行gulp命令时，
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#228b22&#34;&gt;// 会自动调用develop
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt; gulp.task(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;default&amp;#39;&lt;/span&gt;, [&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;develop&amp;#39;&lt;/span&gt;]);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;创建-develop-task&#34;&gt;创建 Develop Task&lt;/h4&gt;
-&lt;h5 id=&#34;创建develop-task前先介绍下我们今天要用到的一些插件&#34;&gt;创建&lt;code&gt;develop task&lt;/code&gt;前，先介绍下我们今天要用到的一些插件&lt;/h5&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/terinjokes/gulp-uglify&#34;&gt;gulp-uglify&lt;/a&gt; Js 压缩插件&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/jonathanepollack/gulp-minify-css&#34;&gt;gulp-minify-css&lt;/a&gt; Css 压缩插件&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/sindresorhus/gulp-imagemin&#34;&gt;gulp-imagemin&lt;/a&gt; 图片压缩插件，支持格式： PNG, JPEG, GIF and SVG images&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/sindresorhus/gulp-strip-debug&#34;&gt;gulp-strip-debug&lt;/a&gt; 清除源文件 console,debugger 代码&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/jonkemp/gulp-useref&#34;&gt;gulp-useref&lt;/a&gt; 合并压缩 html 文件中的文件&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;以上列出的插件为我个人常用的一些插件，如果你还有 fonts 文件的话，也可以添加进去，gulp 有很多其他或者相似的插件，都可以去 google 搜索。安装方法则是正常的&lt;code&gt;npm&lt;/code&gt;安装，可以戳进官网去查看。&lt;/p&gt;
-&lt;h5 id=&#34;首先我们需要为我们要压缩的源文件配置路径以及导入插件假设我们-bower-里面已有-jquery-和-bootstrap-插件以及其他源文件目录如下&#34;&gt;首先我们需要为我们要压缩的源文件配置路径以及导入插件，假设我们 bower 里面已有 jquery 和 bootstrap 插件，以及其他源文件目录，如下&lt;/h5&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 引入插件
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; uglify = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;gulp-uglify&amp;#39;&lt;/span&gt;); &lt;span style=&#34;color:#228b22&#34;&gt;// 压缩
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; minifyCss = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;gulp-minify-css&amp;#39;&lt;/span&gt;);
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; stripDebug = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;gulp-strip-debug&amp;#39;&lt;/span&gt;); &lt;span style=&#34;color:#228b22&#34;&gt;// 该插件用来去掉console和debugger语句
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; useref = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;gulp-useref&amp;#39;&lt;/span&gt;);
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; imagemin = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;gulp-imagemin&amp;#39;&lt;/span&gt;);
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; pngquant = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;imagemin-pngquant&amp;#39;&lt;/span&gt;);
-
-&lt;span style=&#34;color:#228b22&#34;&gt;// 任务处理的文件路径配置
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; paths = {
-    js: [ &lt;span style=&#34;color:#228b22&#34;&gt;// js目录
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;app/*&amp;#39;&lt;/span&gt;
-    ],
-    css: [
-      &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;css/*&amp;#39;&lt;/span&gt;
-    ],
-    img: [
-      &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;images/*&amp;#39;&lt;/span&gt;
-    ],
-    html: [
-     &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;html/*&amp;#39;&lt;/span&gt;
-    ],
-    lib: { &lt;span style=&#34;color:#228b22&#34;&gt;// 第三方依赖文件
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;     js: [
-         &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;bower_components/bootstrap/dist/js/bootstrap.js&amp;#39;&lt;/span&gt;,
-         &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;bower_components/jquery/jquery.js&amp;#39;&lt;/span&gt;
-     ],
-     css: [
-         &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;bower_components/bootstrap/dist/css/bootstrap.css&amp;#39;&lt;/span&gt;
-     ],
-     img: [
-      &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;bower_components/bootstrap/dist/images/*&amp;#39;&lt;/span&gt;
-     ]
-    }
-};
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;定义develop-task&#34;&gt;定义&lt;code&gt;develop task&lt;/code&gt;&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; output = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;../server/assets/&amp;#34;&lt;/span&gt;; &lt;span style=&#34;color:#228b22&#34;&gt;// output
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#228b22&#34;&gt;/* 开发环境 */&lt;/span&gt;
-gulp.task(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;develop&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
-    gulp.src(paths.js)
-        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/js&amp;#39;&lt;/span&gt;));
-
-    gulp.src(paths.lib.js)
-        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/js&amp;#39;&lt;/span&gt;));
-
-    gulp.src(paths.css)
-        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/css&amp;#39;&lt;/span&gt;));
-
-    gulp.src(paths.lib.css)
-        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/css&amp;#39;&lt;/span&gt;));
-
-    gulp.src(paths.img)
-        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/images&amp;#39;&lt;/span&gt;));
-
-    gulp.src(paths.lib.img)
-        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/images&amp;#39;&lt;/span&gt;));
-});
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上面的 develop task 直接将代码都输出到了我们的 server 目录下，并未通过插件进行相应的处理，主要是因为我们等会还会创建&lt;code&gt;release task&lt;/code&gt;， 当真正部署的时候我们才进行压缩合并这些处理。&lt;/p&gt;
-&lt;h4 id=&#34;定义release-task&#34;&gt;定义&lt;code&gt;release task&lt;/code&gt;&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/* 部署环境 */&lt;/span&gt;
-gulp.task(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;release&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
-    gulp.src(paths.js)
-        .pipe(stripDebug())
-        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/js&amp;#39;&lt;/span&gt;));
-
-    gulp.src(paths.lib.js)
-        .pipe(stripDebug())
-        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/js&amp;#39;&lt;/span&gt;));
-
-    gulp.src(paths.css)
-        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/css&amp;#39;&lt;/span&gt;));
-
-    gulp.src(paths.lib.css)
-        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/css&amp;#39;&lt;/span&gt;));
-
-    gulp.src(paths.img)
-        .pipe(imagemin({
-            progressive: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;true&lt;/span&gt;,
-            svgoPlugins: [{removeViewBox: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;}],
-            use: [pngquant()]
-        }))
-        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/images&amp;#39;&lt;/span&gt;));
-
-    gulp.src(paths.lib.img)
-         .pipe(imagemin({
-            progressive: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;true&lt;/span&gt;,
-            svgoPlugins: [{removeViewBox: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;}],
-            use: [pngquant()]
-        }))
-        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/images&amp;#39;&lt;/span&gt;));
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; assets = useref.assets();
-    gulp.src(paths.html)
-     .pipe(assets)
-        .pipe(gulpif(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;*.js&amp;#39;&lt;/span&gt;, uglify()))
-        .pipe(gulpif(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;*.css&amp;#39;&lt;/span&gt;, minifyCss()))
-        .pipe(assets.restore())
-        .pipe(useref())
-        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/templates&amp;#39;&lt;/span&gt;));
-});
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上面的代码首先是先打包静态文件到指定包，去掉多余的 console,debugger,给图片文件进行压缩处理，最后利用&lt;code&gt;useref&lt;/code&gt;插件对 ejs 视图文件中的 js,css 进行压缩合并处理，并打包到指定目录。&lt;/p&gt;
-&lt;h4 id=&#34;利用useref对-html-内部的文件进行压缩合并&#34;&gt;利用&lt;code&gt;useref&lt;/code&gt;对 html 内部的文件进行压缩合并&lt;/h4&gt;
-&lt;p&gt;上面的&lt;code&gt;release&lt;/code&gt;中我们以及定义了对 app 目录下 html 文件内部的 js，css 进行压缩何必，仅仅配置 task 是还不够的，我还需要在 html 内部做如下配置：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;html&lt;/span&gt;&amp;gt;
-&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;head&lt;/span&gt;&amp;gt;
-    &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!-- build:css css/main.css --&amp;gt;&lt;/span&gt;
-    &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;link&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;href&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;css/style.css&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;rel&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;stylesheet&amp;#34;&lt;/span&gt;&amp;gt;
-    &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;link&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;href&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;css/bootstrap.cs.css&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;rel&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;stylesheet&amp;#34;&lt;/span&gt;&amp;gt;
-    &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!-- endbuild --&amp;gt;&lt;/span&gt;
-&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;head&lt;/span&gt;&amp;gt;
-&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
-    &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!-- build:js scripts/main.js --&amp;gt;&lt;/span&gt;
-    &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;src&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;js/bootstrap.js&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt;&amp;gt;
-    &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;src&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;js/jquery.js&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt;&amp;gt;
-    &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!-- endbuild --&amp;gt;&lt;/span&gt;
-&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
-&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;html&lt;/span&gt;&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;经过合并后的文件：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;html&lt;/span&gt;&amp;gt;
-&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;head&lt;/span&gt;&amp;gt;
-  &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;link&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;rel&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;stylesheet&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;href&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;css/main.css&amp;#34;&lt;/span&gt;/&amp;gt;
-&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;head&lt;/span&gt;&amp;gt;
-&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
-    &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;src&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;js/main.js&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt;&amp;gt;
-&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
-&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;htm&lt;/span&gt;&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;更多关于&lt;a href=&#34;https://github.com/jonkemp/gulp-useref&#34;&gt;gulp-useref&lt;/a&gt;的使用方法&lt;a href=&#34;https://github.com/jonkemp/gulp-useref&#34;&gt;请戳&lt;/a&gt;。&lt;/p&gt;
-&lt;h4 id=&#34;定义watch-task&#34;&gt;定义&lt;code&gt;watch Task&lt;/code&gt;&lt;/h4&gt;
-&lt;p&gt;&lt;code&gt;watch task&lt;/code&gt; 是为了监听文件发生改变后立即触发的任务，已便于我们开发。代码如下：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; watcher = gulp.watch(paths.scripts, [&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;develop&amp;#39;&lt;/span&gt;]);
-watcher.on(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;change&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; (event) {
-   console.log(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;Event type: &amp;#39;&lt;/span&gt; + event.type); &lt;span style=&#34;color:#228b22&#34;&gt;// added, changed, or deleted
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;   console.log(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;Event path: &amp;#39;&lt;/span&gt; + event.path); &lt;span style=&#34;color:#228b22&#34;&gt;// The path of the modified file
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;});
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;总结&#34;&gt;总结&lt;/h3&gt;
-&lt;p&gt;以上基本介绍了如何使用 gulp 来自动完成打包，压缩，合并文件等任务，Gulp 插件非常多，本文只是简单的介绍了几种基本的。总之，使用 gulp，只需要几行命令便可以完成以上任务，使很多优化工作变得十分简单。&lt;/p&gt;
-- http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/ - 2014-2020.</description>
+- http://imziv.com/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/ - 2014-2020 Ziv小威</description>
         </item>
     
     

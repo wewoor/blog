@@ -5,10 +5,117 @@
     <description>Recent content on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>2014-2020.</copyright>
+    <copyright>2014-2020 Ziv小威</copyright>
     <lastBuildDate>Tue, 14 Jan 2020 10:28:51 +0000</lastBuildDate>
     
         <atom:link href="http://imziv.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>Struts2 与 Spring 的整合</title>
+        <link>http://imziv.com/posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/</link>
+        <pubDate>Thu, 06 Sep 2012 11:32:00 +0000</pubDate>
+        
+        <guid>http://imziv.com/posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/</guid>
+        <description>让美的事情发生 http://imziv.com/posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/ -&lt;p&gt;今天倒腾了半天，终于是把这个两个框架整合到一起了。还是要写一下总结，同时给大家一些帮助。&lt;/p&gt;
+&lt;p&gt;开发环境：myeclipse 9.0(不好用！）tomcat6.0
+1.准备工作&lt;/p&gt;
+&lt;p&gt;需要导入的包：struts2 与 spring 基本的包就不用说了，我用的是 struts2.1  Spring 3.0，&lt;/p&gt;
+&lt;p&gt;尤其要注意 别少导入的几个是:Spring3.0 Web Libraries  ;
+struts 支持 spring 的插件：struts2-spring-plugin-2.1.8.1.jar  将这个 jar 文件放到 lib 目录下
+2.web.xml 的配置&lt;/p&gt;
+&lt;p&gt;除了 struts2 的核心配置外，我们还要加入 spring 的配置，代码如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;
+&lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--指明spring配置文件的位置!--&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;context-param&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;param-name&amp;gt;&lt;/span&gt;contextConfigLocation&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/param-name&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;param-value&amp;gt;&lt;/span&gt;classpath*:applicationContext*.xml&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/param-value&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/context-param&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;!-加载spring的配置文件!--&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;listener&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;listener-class&amp;gt;&lt;/span&gt;
+
+org.springframework.web.context.ContextLoaderListener
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/listener-class&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/listener&amp;gt;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;注：如果你在运行的时候发现有 no found class org.springframework.web.context.LoaderListener 的异常 ，那你要注意你的 Spring3.0 Web 包的导入了&lt;/p&gt;
+&lt;p&gt;3.application.xml 的配置&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;beans&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;bean&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;userService&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;com.test.service.UserServiceImpl&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&amp;lt;/bean&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;bean&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;userAction&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;com.test.action.UserAction&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+
+       &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;userService&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+
+         &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;ref&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;bean=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;userService&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+
+      &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/property&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/bean&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/beans&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;4.UserAction 类 这个不用多说，注意的是 userService 属性的 getter 和 setter 方法&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;UserAction&lt;/span&gt; {
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; User user = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; User();
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; User &lt;span style=&#34;color:#008b45&#34;&gt;getUser&lt;/span&gt;() {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; user;
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setUser&lt;/span&gt;(User user) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;user&lt;/span&gt; = user;
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; UserService userService;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; UserService &lt;span style=&#34;color:#008b45&#34;&gt;getUserService&lt;/span&gt;() {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; userService;
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setUserService&lt;/span&gt;(UserService userService) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;userService&lt;/span&gt; = userService;
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;checkLogin&lt;/span&gt;(){
+
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(userService.&lt;span style=&#34;color:#658b00&#34;&gt;checkLogin&lt;/span&gt;(user))
+        {
+                System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;ok&amp;#34;&lt;/span&gt;);
+        }&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+                System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;sorry&amp;#34;&lt;/span&gt;);
+
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;succ&amp;#34;&lt;/span&gt;;
+    }
+
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;5.struts.xml 的配置,把原先 class 的路径换成 spring 中配置 action 的 bean 的 id&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;struts&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;package&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;extends=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;struts-default&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;action&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;login&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;userAction&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;checkLogin&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;result&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;succ&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;index.jsp&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/result&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/package&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/struts&amp;gt;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/ - 2014-2020 Ziv小威</description>
+        </item>
     
     
     
@@ -23,7 +130,7 @@
 &lt;p&gt;　　我不得不承认我在数学方面没有太多的天赋，从小学的时候到大学，我的数学就是一般般，可能也是由于自己当时没有认真学习吧，因为我发现我的逻辑思维还是可以的。我一直觉得，我并不想成为编程界的多么有成就的人物，数学不好我可以学，所以这并不能阻挡我成为一个高手的动力。经过了 2 年多的学习，事实证明，我可以完成很多同学都不能完成的作品，或许是他们不愿意学习去做的原因吧，因为我觉得，如果他们愿意，这些同样难倒不了他们。同样我也不断的在学习着英语，因为英语决定了我将来可以站在多高的舞台上面，理所当然我想变的更好。&lt;/p&gt;
 &lt;p&gt;　　也许我不是一个有天赋的程序员，对于某些算法的东西，对于有天赋的人来说，他们可能一个小时就可以搞定，可是我可能需要 2 个小时，或者更久等等，但是我并没有放弃对问题的思索，对答案的渴求。所以我一直觉得只要努力，可能你并不是一个有天赋的程序员，但至少你也可以成为一位优秀的程序员，stay hungry ,stay foolish.&lt;/p&gt;
 &lt;p&gt;　　马上就要毕业了，就要踏上社会，找到适合的工作，可能找到适合自己的工作很难，这仅仅只是一个开始，希望能保持自己的初衷，在这条道路中不断的探索，前进！&lt;/p&gt;
-- http://imziv.com/posts/2012/%E4%B9%9F%E8%AE%B8%E6%88%91%E4%B8%8D%E6%98%AF%E4%B8%AA%E6%9C%89%E5%A4%A9%E8%B5%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/ - 2014-2020.</description>
+- http://imziv.com/posts/2012/%E4%B9%9F%E8%AE%B8%E6%88%91%E4%B8%8D%E6%98%AF%E4%B8%AA%E6%9C%89%E5%A4%A9%E8%B5%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -87,7 +194,7 @@
 &lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;JSP 的代码为：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;   &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;img&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;src&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&amp;lt;http://wewoor.blog.163.com/blog/&amp;lt;s:url&amp;gt; value=&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;show&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#34;&lt;/span&gt; /&amp;gt;&amp;#34; border=&amp;#34;0&amp;#34; width=&amp;#34;100&amp;#34; height=&amp;#34;100&amp;#34;&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2012/%E5%B0%86mysql%E4%B8%AD%E7%9A%84blob%E7%9A%84%E5%9B%BE%E7%89%87%E5%9C%A8jsp%E4%B8%AD%E6%98%BE%E7%A4%BA/ - 2014-2020.</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2012/%E5%B0%86mysql%E4%B8%AD%E7%9A%84blob%E7%9A%84%E5%9B%BE%E7%89%87%E5%9C%A8jsp%E4%B8%AD%E6%98%BE%E7%A4%BA/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -107,7 +214,7 @@
 &lt;p&gt;在学完这 2 个框架的基本开发后，我便拿着这两个框架去完成自己脑袋中的一些小小的创想，在实际中完整自己知识，让我对这 2 个框架有更进一步的学习和认识。 我觉得通过这种拿自己的创想去完成一些东西也成为了自己的一种小小动力。项目期间同时也把之前的纯 javascript 用 Jquery 这个技术引入了页面 的开发，渐渐让自己的页面变得更生动，js 代码更加简洁。总之收获很多。&lt;/p&gt;
 &lt;p&gt;在天气晴朗的时候，我也会抽时间晚上去跑步，跑好远好远，一个人可以静静的想通很多问题，也可以想到很多好玩的。不经意的一次发现自己挺喜欢阅读文章，后 来在淘宝上面买了个声卡，和麦，为同学的一个小 FM 网站上面录了文章，感觉还不错，虽然在发音上面还是有很多问题，但我觉得挺好的，在自己写代码累了后， 我便会找几篇文章，尝试找到有感觉的背景音乐，然后尝试去诠释它。真的挺好的一种感觉。&lt;/p&gt;
 &lt;p&gt;暑假过完了，同时也涌现了很多新的方向，新的目标，但这个暑假我觉得过的真的挺不错的，收获很多。同时也想通了很多。以后也会写更多的日志，来总结自己，鞭策自己。&lt;/p&gt;
-- http://imziv.com/posts/2012/%E6%B5%85%E8%81%8A%E8%BF%992%E5%90%84%E6%9C%88%E7%9A%84%E5%AD%A6%E4%B9%A0/ - 2014-2020.</description>
+- http://imziv.com/posts/2012/%E6%B5%85%E8%81%8A%E8%BF%992%E5%90%84%E6%9C%88%E7%9A%84%E5%AD%A6%E4%B9%A0/ - 2014-2020 Ziv小威</description>
         </item>
     
     

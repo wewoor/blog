@@ -7,7 +7,6 @@
 
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
-<link rel="icon" type="image/png" href="/images/favicon.png"/>
 <meta name="google-site-verification" content="">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <meta content="telephone=no" name="format-detection">
@@ -22,7 +21,7 @@
 
 <meta property="og:title" content="常用的 Linux Shell 命令" />
 <meta property="og:description" content="自己平时有可能会用到的 Shell 命令，之前用 Evenote 记录的比较零散，重新整理了下，以后慢慢补充。
-文件操作 查看文件所属用户 ls -al 动态打印日志 tail -f /var/log/error.log 给指定目录的所属用户权限赋予指定人 #把directry目录下的所有用户指向someone $ sudo chown -R someone:staff directory 查看文件内容 cat filename 查看目录所占磁盘容量 du dir # 显示dir的总容量以及次目录的容量，KB为单位 du -s dir # 显示dir的容量 scp 获取远程服务器上的文件 # 把远程服务器/root目录下的remote.tar.gz文件下载到本地/home目录下， # 并保存为local.tar.gz # -P 表端口参数，2222为端口号 $ scp -P 2222 root@www.example.com:/root/remote.tar.gz /home/local.tar.gz scp 获取远程服务器上的文件目录 # 把远程服务器/root/remote内容拷贝到本地/home/local目录下， # -P 表端口参数，2222为端口号 # -r 表示目录拷贝 $ scp -P 2222 -r root@www.example.com:/root/remote /home/local scp 上传本地文件到远程服务器 # 把本地文件/home/local.tar.gz上传到远程服务器/root目录下， # 并命名为remote." />
+文件操作 查看文件所属用户 ls -al 动态打印日志 tail -f /var/log/error.log 给指定目录的所属用户权限赋予指定人 #把directry目录下的所有用户指向someone $ sudo chown -R someone:staff directory 查看文件内容 cat filename 查看目录所占磁盘容量 du dir # 显示dir的总容量以及次目录的容量，KB为单位 du -s dir # 显示dir的容量 测试用户目录权限 sudo -u admin stat /home # 测试用户admin对目录 /home 对权限 scp 获取远程服务器上的文件 # 把远程服务器/root目录下的remote.tar.gz文件下载到本地/home目录下， # 并保存为local.tar.gz # -P 表端口参数，2222为端口号 $ scp -P 2222 root@www.example.com:/root/remote.tar.gz /home/local.tar.gz scp 获取远程服务器上的文件目录 # 把远程服务器/root/remote内容拷贝到本地/home/local目录下， # -P 表端口参数，2222为端口号 # -r 表示目录拷贝 $ scp -P 2222 -r root@www." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/" />
 <meta property="article:published_time" content="2017-02-08T17:21:03+00:00" />
@@ -35,7 +34,7 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="常用的 Linux Shell 命令"/>
 <meta name="twitter:description" content="自己平时有可能会用到的 Shell 命令，之前用 Evenote 记录的比较零散，重新整理了下，以后慢慢补充。
-文件操作 查看文件所属用户 ls -al 动态打印日志 tail -f /var/log/error.log 给指定目录的所属用户权限赋予指定人 #把directry目录下的所有用户指向someone $ sudo chown -R someone:staff directory 查看文件内容 cat filename 查看目录所占磁盘容量 du dir # 显示dir的总容量以及次目录的容量，KB为单位 du -s dir # 显示dir的容量 scp 获取远程服务器上的文件 # 把远程服务器/root目录下的remote.tar.gz文件下载到本地/home目录下， # 并保存为local.tar.gz # -P 表端口参数，2222为端口号 $ scp -P 2222 root@www.example.com:/root/remote.tar.gz /home/local.tar.gz scp 获取远程服务器上的文件目录 # 把远程服务器/root/remote内容拷贝到本地/home/local目录下， # -P 表端口参数，2222为端口号 # -r 表示目录拷贝 $ scp -P 2222 -r root@www.example.com:/root/remote /home/local scp 上传本地文件到远程服务器 # 把本地文件/home/local.tar.gz上传到远程服务器/root目录下， # 并命名为remote."/>
+文件操作 查看文件所属用户 ls -al 动态打印日志 tail -f /var/log/error.log 给指定目录的所属用户权限赋予指定人 #把directry目录下的所有用户指向someone $ sudo chown -R someone:staff directory 查看文件内容 cat filename 查看目录所占磁盘容量 du dir # 显示dir的总容量以及次目录的容量，KB为单位 du -s dir # 显示dir的容量 测试用户目录权限 sudo -u admin stat /home # 测试用户admin对目录 /home 对权限 scp 获取远程服务器上的文件 # 把远程服务器/root目录下的remote.tar.gz文件下载到本地/home目录下， # 并保存为local.tar.gz # -P 表端口参数，2222为端口号 $ scp -P 2222 root@www.example.com:/root/remote.tar.gz /home/local.tar.gz scp 获取远程服务器上的文件目录 # 把远程服务器/root/remote内容拷贝到本地/home/local目录下， # -P 表端口参数，2222为端口号 # -r 表示目录拷贝 $ scp -P 2222 -r root@www."/>
 
 
 
@@ -64,8 +63,13 @@ if (!doNotTrack) {
 <script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
 <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
 <script src="/vendor/js/vue.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
+<link type="text/css" rel="stylesheet" href="/vendor/fontawesome/css/brands.min.css">
 
 
+
+
+<link rel="icon" href="/images/favicon.png">
 
 
 
@@ -121,18 +125,6 @@ if (!doNotTrack) {
             
             
             
-                
-            
-            
-            
-            <a class="a-block nav-link-item active" href="/posts">
-                归档
-            </a>
-            
-        
-            
-            
-            
             
             
             <a class="a-block nav-link-item false" href="/categories">
@@ -153,27 +145,41 @@ if (!doNotTrack) {
             
             
             
+                
             
             
-            <a class="a-block nav-link-item false" href="/index.xml">
-                RSS Feed
+            
+            <a class="a-block nav-link-item active" href="/posts">
+                归档
             </a>
             
         
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/about">
+                关于
+            </a>
+            
+        
+        <div class="nav-link-item">
+            <a href="https://github.com/wewoor" target="_blank"><i title="Github" class="fab fa-github"></i></a>
+            <a href="https://www.zhihu.com/people/zivxiaowei" target="_blank"><i title="Telegram" class="fab fa-zhihu"></i></a>
+            <a href="//weibo.com/zivxiaowei" target="_blank"><i title="Telegram" class="fab fa-weibo"></i></a>
+            <a href="mailto:wewoor@foxmail.com" target="_blank"><i title="Facebook" class="fa fa-envelope"></i></a>
+            <a href="/index.xml" target="_blank"><i title="Feed" class="fas fa-rss"></i></a>
+        </div>
     </div>
 
     <div class="nav-footer">
         
-Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
-<br>
-移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
-<br>
-
 &copy;
 	
-	2014-2020.
+	2014-2020 Ziv小威
 	
-
+	Built by Hugo <a href="https://github.com/amazingrise/hugo-theme-diary">(Diary)</a>
     </div>
     
 </div><div ref="extraContainer" class="extra-container">
@@ -286,6 +292,46 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 					
 				
 			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e9%98%b2%e7%81%ab%e5%a2%99" onclick="onNavClick(`#防火墙-nav`)" id="防火墙-nav">
+									防火墙
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								<ul class="collapse" data-toggle="collapse">
+							
+						
+						
+							<li>
+								<a href="#centos" onclick="onNavClick(`#centos-nav`)" id="centos-nav">
+									CentOS
+								</a>
+							</li>
+						
+						
+					
+				
+			
 		</ul>
 	</div>
 
@@ -319,18 +365,6 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
-                    
-                
-                
-                
-                <a class="a-block drawer-menu-item active" href="/posts">
-                    归档
-                </a>
-                
-            
-                
-                
-                
                 
                 
                 <a class="a-block drawer-menu-item false" href="/categories">
@@ -351,10 +385,22 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
                 
                 
                 
+                    
                 
                 
-                <a class="a-block drawer-menu-item false" href="/index.xml">
-                    RSS Feed
+                
+                <a class="a-block drawer-menu-item active" href="/posts">
+                    归档
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/about">
+                    关于
                 </a>
                 
             
@@ -466,6 +512,46 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 					
 				
 			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e9%98%b2%e7%81%ab%e5%a2%99" onclick="onNavClick(`#防火墙-nav`)" id="防火墙-nav">
+									防火墙
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								<ul class="collapse" data-toggle="collapse">
+							
+						
+						
+							<li>
+								<a href="#centos" onclick="onNavClick(`#centos-nav`)" id="centos-nav">
+									CentOS
+								</a>
+							</li>
+						
+						
+					
+				
+			
 		</ul>
 	</div>
 
@@ -570,6 +656,8 @@ $ sudo chown -R someone:staff directory
 </code></pre></div><h5 id="查看目录所占磁盘容量">查看目录所占磁盘容量</h5>
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">du dir <span style="color:#228b22"># 显示dir的总容量以及次目录的容量，KB为单位</span>
 du -s dir <span style="color:#228b22"># 显示dir的容量</span>
+</code></pre></div><h5 id="测试用户目录权限">测试用户目录权限</h5>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo -u admin stat /home <span style="color:#228b22"># 测试用户admin对目录 /home 对权限</span>
 </code></pre></div><h5 id="scp-获取远程服务器上的文件">scp 获取远程服务器上的文件</h5>
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#228b22"># 把远程服务器/root目录下的remote.tar.gz文件下载到本地/home目录下，</span>
 <span style="color:#228b22"># 并保存为local.tar.gz</span>
@@ -610,7 +698,15 @@ $ su ziv
 <h5 id="sql-备份">sql 备份</h5>
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mysqldump -u root -p dbname&gt;/home/backup_20170208.sql
 </code></pre></div><h5 id="导入-sql-脚本">导入 Sql 脚本</h5>
-<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#658b00">source</span> /home/backup.sql
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#658b00">source</span> /home/backup.sql
+</code></pre></div><h2 id="防火墙">防火墙</h2>
+<h3 id="centos">CentOS</h3>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#228b22"># 防火墙状态查看</span>
+$ systemctl status firewalld.service
+<span style="color:#228b22"># 防火墙停止</span>
+$ systemctl stop firewalld.service
+<span style="color:#228b22"># 禁止firewall开机启动</span>
+$ systemctl disable firewalld.service
 </code></pre></div>
                     
                     <HR width="100%" id="EOF">
@@ -655,16 +751,11 @@ $ su ziv
 </div>
 
             </div><div id="single-column-footer">
-Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
-<br>
-移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
-<br>
-
 &copy;
 	
-	2014-2020.
+	2014-2020 Ziv小威
 	
-</div>
+	Built by Hugo <a href="https://github.com/amazingrise/hugo-theme-diary">(Diary)</a></div>
             </div>
     <script>
 let app;

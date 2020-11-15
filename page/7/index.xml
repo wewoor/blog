@@ -5,10 +5,57 @@
     <description>Recent content on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>2014-2020.</copyright>
+    <copyright>2014-2020 Ziv小威</copyright>
     <lastBuildDate>Tue, 14 Jan 2020 10:28:51 +0000</lastBuildDate>
     
         <atom:link href="http://imziv.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>Spring 中@Component 注解,@Controller 注解详解</title>
+        <link>http://imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/</link>
+        <pubDate>Tue, 24 Dec 2013 16:28:00 +0000</pubDate>
+        
+        <guid>http://imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/</guid>
+        <description>让美的事情发生 http://imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/ -&lt;p&gt;在使用 Spring 的过程中，为了避免大量使用 Bean 注入的 Xml 配置文件,我们会采用 Spring 提供的自动扫描注入的方式,只需要添加几行自动注入的的配置,便可以完成&lt;/p&gt;
+&lt;p&gt;Service 层,Controller 层等等的注入配置.使用过程中,在 Service 层中的实现类头上加@Compopnet 注解，在 Controller 类头加@Controller 注解，便完成了配置。例如在&lt;/p&gt;
+&lt;p&gt;Controller 中当我们调用某个 Service 时就不需要 Set 方法了，直接通过@Autowried 注解对 Service 对象进行注解即可：例如&lt;/p&gt;
+&lt;p&gt;在 Controller 中：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#707a7c&#34;&gt;@Controller@RequestMapping&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;/test&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;ExampleController&lt;/span&gt; {
+     &lt;span style=&#34;color:#707a7c&#34;&gt;@Autowired&lt;/span&gt;  
+     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; ExampleService service;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在 Service 中&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#707a7c&#34;&gt;@Component&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;ExampleServiceImpl&lt;/span&gt; Implements ExampleService {
+     &lt;span style=&#34;color:#707a7c&#34;&gt;@Autowired&lt;/span&gt;  
+     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; ExampleDao exampleDao;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Spring 中的 XML 配置：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!-- 自动扫描service,controller组件 --&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;context:component-scan&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;base-package=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;com.example.service.*&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;context:component-scan&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;base-package=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;com.example.controller.*&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;通常，在 Bean 为添加@Component 注解的情况下，在启动服务时，服务会提前报出以下代码中这样的异常情况下，此时应该检查相应 Bean 是否正确添加@Component&lt;/p&gt;
+&lt;p&gt;注解，而在 Controller 层中未配置@Controller 的情况，启动时服务可能不会爆出异常，但是你会发现页面请求中的 URL 地址是正确的，当时无论如何也访问不到 Controller 中相&lt;/p&gt;
+&lt;p&gt;对应的方法，这个时候就需要那么需要检查@Controller 注解和@RequestMapping 注解是否已经添加到 Class 上面了。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-log&#34; data-lang=&#34;log&#34;&gt;org.springframework.beans.factory.BeanCreationException:Error creating bean with name &#39;example&#39;
+
+No matching bean of type [com.example.ExampleService] found for dependency:
+expected at least 1 bean which qualifies as autowire candidate for this dependency.
+Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;下面就详细介绍下@Component，@Controller 注解：&lt;/p&gt;
+&lt;p&gt;org.springframework.stereotype.Component (implements java.lang.annotation.Annotation)
+　　在自动服务，spring 初始化的时候，spring 会把所有添加@Component 注解的类作为使用自动扫描注入配置路径下的备选对象，同时在初始化 spring@Autowired&lt;/p&gt;
+&lt;p&gt;注解相应的 Bean 时，@Autowired 标签会自动寻找相应的备选对象完成对 bean 的注入工作。&lt;/p&gt;
+&lt;p&gt;org.springframework.stereotype.Controller (implements java.lang.annotation.Annotation)
+　　@Controller 注解是一个特殊的 Component，它允许了实现类可以通过扫描类配置路径的方式完成自动注入，通常@Controller 是结合@RequestMapping 注解一起使用的。&lt;/p&gt;
+&lt;p&gt;结语：&lt;/p&gt;
+&lt;p&gt;　　　通过了解 Spring 的注解可以帮助我们在使用 Spring 开发过程中提高开发效率，同时也加强了我们对 Spring 的认识。在使用 Spring 开发的过程中，我个人更倾向于使用注解的方式，减少配置文件代码。&lt;/p&gt;
+- http://imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/ - 2014-2020 Ziv小威</description>
+        </item>
     
     
     
@@ -58,7 +105,7 @@
 &lt;a href=&#34;http://xiaoweijs.duapp.com/demo/slidebar.html&#34;&gt;http://xiaoweijs.duapp.com/demo/slidebar.html&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
 &lt;p&gt;有时候对于效果过于追求的我们，像遇到了卡顿这种情况，心里难免有些不完美的感觉。以上 demo 和上面的那个例子只是延时处理的一种情况，其实在做很多导航滑动，向下滑动菜单效果，滚动条滑动等等效果的的时候我们经常会遇见，但是解决思路都是相同的。增加延迟处理，终止事件。注意到这里终止事件的关键点在于 clearTimeout 上，先记录定时器 Id,不满足条件则 clear 掉。&lt;/p&gt;
-- http://imziv.com/posts/2013/%E5%88%B6%E4%BD%9C%E6%BB%91%E5%8A%A8%E6%9D%A1%E8%8F%9C%E5%8D%95%E5%A6%82%E4%BD%95%E5%BB%B6%E6%97%B6%E5%A4%84%E7%90%86%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E9%81%BF%E5%85%8D%E5%8A%A8%E7%94%BB%E5%8D%A1%E9%A1%BF/ - 2014-2020.</description>
+- http://imziv.com/posts/2013/%E5%88%B6%E4%BD%9C%E6%BB%91%E5%8A%A8%E6%9D%A1%E8%8F%9C%E5%8D%95%E5%A6%82%E4%BD%95%E5%BB%B6%E6%97%B6%E5%A4%84%E7%90%86%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E9%81%BF%E5%85%8D%E5%8A%A8%E7%94%BB%E5%8D%A1%E9%A1%BF/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -109,7 +156,7 @@
 &lt;p&gt;当用户发送请求后，@Requestbody 注解会读取请求 body 中的数据，默认的请求转换器 HttpMessageConverter 通过获取请求头 Header 中的 Content-Type 来确认请求头的数据格式，从而来为请求数据适配合适的转换器。例如 contentType:applicatin/json，那么转换器会适配 MappingJacksonHttpMessageConverter。响应时候的时候同理，@Responsebody 注解会启用 HttpMessageConverter，通过检测 Header 中 Accept 属性来适配的响应的转换器。&lt;/p&gt;
 &lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
 &lt;p&gt;　　当在使用 SpringMVC 做服务器数据接收时，尤其是在做 Ajax 请求的时候，尤其要注意 contentType 属性，和 accepte 属性的设置，在 springmvc-config.xml 中配置好相应的转换器。当我们在用 SpringMVC 做 Ajax 请求的时候，有的做法用 response.getWriter().print()的方法，还有更好的方法就是添加@Responsebody 注解，直接返回 Map 类型的数据，转换器自动转换为 JSON 数据类型。&lt;/p&gt;
-- http://imziv.com/posts/2013/springmvc-%E4%B8%ADhttpmessageconverter%E7%AE%80%E4%BB%8B%E5%92%8Chttp%E8%AF%B7%E6%B1%82415-unsupported-media-type%E7%9A%84%E9%97%AE%E9%A2%98/ - 2014-2020.</description>
+- http://imziv.com/posts/2013/springmvc-%E4%B8%ADhttpmessageconverter%E7%AE%80%E4%BB%8B%E5%92%8Chttp%E8%AF%B7%E6%B1%82415-unsupported-media-type%E7%9A%84%E9%97%AE%E9%A2%98/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -147,7 +194,7 @@
 &lt;/ul&gt;
 &lt;p&gt;HTTP_TOOL 模拟了以上 HTTP 的这 4 个基本请求。&lt;/p&gt;
 &lt;p&gt;项目 GitHub 地址：&lt;a href=&#34;https://github.com/wewoor/HTTP_TOOL&#34;&gt;https://github.com/wewoor/HTTP_TOOL&lt;/a&gt;&lt;/p&gt;
-- http://imziv.com/posts/2013/%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%A8%A1%E6%8B%9Fgetpostputdelet%E8%AF%B7%E6%B1%82%E7%9A%84http%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/ - 2014-2020.</description>
+- http://imziv.com/posts/2013/%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%A8%A1%E6%8B%9Fgetpostputdelet%E8%AF%B7%E6%B1%82%E7%9A%84http%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -195,7 +242,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以上方法我在 IE8 和 chrome 测试通过。下图是一张 disabled 属性在浏览器中的支持情况：&lt;/p&gt;
 &lt;p&gt;结语：以上是我操作样式的一种思路，当然还有其他方法，欢迎大家交流。更多关于 disabled 的知识可以查看一下链接：&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;http://www.ibm.com/developerworks/cn/web/1309_hanjz_htmldisable/&#34;&gt;http://www.ibm.com/developerworks/cn/web/1309_hanjz_htmldisable/&lt;/a&gt;&lt;/p&gt;
-- http://imziv.com/posts/2013/%E5%88%A9%E7%94%A8link%E6%A0%87%E7%AD%BE%E7%9A%84disabed%E5%B1%9E%E6%80%A7%E5%A4%A7%E9%9D%A2%E7%A7%AF%E7%9A%84%E5%AF%B9%E5%85%B6%E4%BB%96%E6%A0%87%E7%AD%BE%E5%85%83%E7%B4%A0%E7%9A%84css%E6%A0%B7%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C/ - 2014-2020.</description>
+- http://imziv.com/posts/2013/%E5%88%A9%E7%94%A8link%E6%A0%87%E7%AD%BE%E7%9A%84disabed%E5%B1%9E%E6%80%A7%E5%A4%A7%E9%9D%A2%E7%A7%AF%E7%9A%84%E5%AF%B9%E5%85%B6%E4%BB%96%E6%A0%87%E7%AD%BE%E5%85%83%E7%B4%A0%E7%9A%84css%E6%A0%B7%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -216,7 +263,7 @@
 &lt;p&gt;　　3.做到兼容，并且引导用户升级或者更换其他更好体验的浏览器。（这样做的目前我见到的网站很少）&lt;/p&gt;
 &lt;p&gt;　　总结：&lt;/p&gt;
 &lt;p&gt;　　很明显，如果我们开发人员能在开发产品的时候，去引导用户升级体验的话，我相信可以帮助很多用户获取更好的体验，从而提升产品的体验。这同时也能减轻开发者处理兼容性问题的负担。由于很多中国互联网用户在浏览器产品上面缺乏一定的常识，所以很多人不知道也不会如何升级产品，如果我们能做出更人性化的引导，我相信至少还是有些作用的。&lt;/p&gt;
-- http://imziv.com/posts/2013/%E4%BD%9C%E4%B8%BAweb%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%91%E4%BB%AC%E6%98%AF%E4%B8%8D%E6%98%AF%E5%BA%94%E8%AF%A5%E7%A7%AF%E6%9E%81%E7%9A%84%E6%8E%A8%E8%BF%9B%E4%B8%80%E4%B8%8B%E7%94%A8%E6%88%B7%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/ - 2014-2020.</description>
+- http://imziv.com/posts/2013/%E4%BD%9C%E4%B8%BAweb%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%91%E4%BB%AC%E6%98%AF%E4%B8%8D%E6%98%AF%E5%BA%94%E8%AF%A5%E7%A7%AF%E6%9E%81%E7%9A%84%E6%8E%A8%E8%BF%9B%E4%B8%80%E4%B8%8B%E7%94%A8%E6%88%B7%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -241,7 +288,7 @@
 &lt;p&gt;　　工作了将近一年，发现自己并没有太多的进步，看看自己以前有过的疯狂学习劲头，看看如今自己的低靡颓废，有点过于安于现状，安于生活了。今天看到同样的一名 90 后，通过自己的努力，大学期间在 google,微软实习过，毕业后拿到 twitter 和 facebook 的 offer，看到他博客中记录自己从中学到大学的学习经历，觉得自己简直弱爆了，太弱了，视野太狭隘了，真的，太狭隘了。有兴趣的同学可以点击进去看看： &lt;a href=&#34;https://www.byvoid.com/zhs/blog/my-highschool-1&#34;&gt;https://www.byvoid.com/zhs/blog/my-highschool-1&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;　　尤其今天看了很多前辈的博文，写记录自己过去一路走来的文章，然后看到这位同样 90 后的同行，看看现在自己的生活，看看自己曾经美好的计划，我就对自己喊了，shit~!真心讨厌现在的自己。简直看不下去。也许我有些激进了，但自己的确太差了。。。&lt;/p&gt;
 &lt;p&gt;　　吐槽的文字就先写到这吧，多余的不说了，有和我同样境况的同学一起加油吧～也欢迎和我交流。&lt;/p&gt;
-- http://imziv.com/posts/2013/%E6%88%91%E5%BF%AB%E6%88%90%E4%B8%BA%E4%BA%86%E6%88%91%E4%B8%80%E7%9B%B4%E8%AE%A8%E5%8E%8C%E7%9A%84%E9%82%A3%E7%A7%8D%E4%BA%BA%E8%AF%B4%E5%A5%BD%E7%9A%84%E5%9B%9E%E6%9D%A5%E5%A5%BD%E5%A5%BD%E5%81%9A%E4%BA%BA%E5%91%A2/ - 2014-2020.</description>
+- http://imziv.com/posts/2013/%E6%88%91%E5%BF%AB%E6%88%90%E4%B8%BA%E4%BA%86%E6%88%91%E4%B8%80%E7%9B%B4%E8%AE%A8%E5%8E%8C%E7%9A%84%E9%82%A3%E7%A7%8D%E4%BA%BA%E8%AF%B4%E5%A5%BD%E7%9A%84%E5%9B%9E%E6%9D%A5%E5%A5%BD%E5%A5%BD%E5%81%9A%E4%BA%BA%E5%91%A2/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -261,7 +308,7 @@
 &lt;p&gt;　　据说来骑行 318 中，有失恋患者，有失业患者，有创业失败患者，有学生党，当然也有我这种想完成毕业之旅的热血青年。其实挺好的，一路上景色非常美，与蓝天白云作伴，晚上还有非常多的星星，除了海拔高点，呼吸急促了些，的确是一件转移集中注意力的好去处～很多时候，我们都会觉得自己是神经病，因为脑袋发热才会爬这种几十公里的长坡，累的连狗都不如（自嘲一下）。不过爬坡让我也是总结了一点：人一生很多时候会遇见一个个很长的坡，你得慢慢的爬，你不知道你需要多久才能爬上去，每当你看到仿佛无穷无尽的折和坡的时候，你的心就有些害怕自己爬不上去，觉得自己不行。但是你要做的是，低头看自己脚下，一步一步走就好，不要看前面那么多的长坡，只要你有目标，你总会爬到山顶的~&lt;/p&gt;
 &lt;p&gt;　　最后非常怀恋和感谢一路陪伴的好伙伴们，好兄弟～相互帮忙，相互鼓励，感谢一路上碰到的对我们喊加油的大人，小孩，男人和女人们～！下面分享下路上美景的照片～&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://imziv.com/posts/2013/img/318.jpg&#34; alt=&#34;318&#34;&gt;&lt;/p&gt;
-- http://imziv.com/posts/2013/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84318%E9%AA%91%E8%A1%8C%E4%B9%8B%E6%97%85/ - 2014-2020.</description>
+- http://imziv.com/posts/2013/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84318%E9%AA%91%E8%A1%8C%E4%B9%8B%E6%97%85/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -285,7 +332,7 @@
 公司 web 项目组每次的开发周期并未得到缩短，反而由于每次项目上的问题，在平台接口上花费了大量的精力
 开放平台丢失了为开发者提供开放接口的本质
 　　由于整个平台支撑着公司所有产品与项目的运营，同时目标是对外开放，所有由于这些设计上的失误，对公司的整个产品线的影响是相当大的。个人体会是前期对这种开发平台的设计时一定要慎重考虑，不然后果是相当的麻烦的。&lt;/p&gt;
-- http://imziv.com/posts/2013/%E7%AE%80%E8%B0%88%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/ - 2014-2020.</description>
+- http://imziv.com/posts/2013/%E7%AE%80%E8%B0%88%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -353,58 +400,7 @@ html:&lt;/li&gt;
     }
     renderJSON(msg);
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2013/jquery%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/ - 2014-2020.</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>Httpclient 实现带参文件上传</title>
-        <link>http://imziv.com/posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</link>
-        <pubDate>Wed, 07 Aug 2013 17:13:00 +0000</pubDate>
-        
-        <guid>http://imziv.com/posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/ -&lt;p&gt;这里直接贴出的是我封装好的 doPostFile 方法,httpclient 的版本是 3.1。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;doPostFile&lt;/span&gt;(String url, Part[] parts){
-
-    String response = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt;;
-    PostMethod postMethod = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; PostMethod(url);
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;try&lt;/span&gt;{
-        &lt;span style=&#34;color:#228b22&#34;&gt;//设置请求实体
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        postMethod.&lt;span style=&#34;color:#658b00&#34;&gt;setRequestEntity&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; MultipartRequestEntity(parts,postMethod.&lt;span style=&#34;color:#658b00&#34;&gt;getParams&lt;/span&gt;()));
-        HttpClient client = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; HttpClient();
-
-        &lt;span style=&#34;color:#228b22&#34;&gt;//设置连接超时限度
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        client.&lt;span style=&#34;color:#658b00&#34;&gt;getHttpConnectionManager&lt;/span&gt;().&lt;span style=&#34;color:#658b00&#34;&gt;getParams&lt;/span&gt;().&lt;span style=&#34;color:#658b00&#34;&gt;setConnectionTimeout&lt;/span&gt;(5000);
-        client.&lt;span style=&#34;color:#658b00&#34;&gt;executeMethod&lt;/span&gt;(postMethod);
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(postMethod.&lt;span style=&#34;color:#658b00&#34;&gt;getStatusCode&lt;/span&gt;() ==  HttpStatus.&lt;span style=&#34;color:#658b00&#34;&gt;SC_OK&lt;/span&gt;){
-            response = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; String(postMethod.&lt;span style=&#34;color:#658b00&#34;&gt;getResponseBodyAsString&lt;/span&gt;().&lt;span style=&#34;color:#658b00&#34;&gt;getBytes&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;utf-8&amp;#34;&lt;/span&gt;));
-        }
-    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt;(Exception e){
-        LOGGER.&lt;span style=&#34;color:#658b00&#34;&gt;error&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;HttpServiceSender.doPostFile()&amp;#34;&lt;/span&gt;,e.&lt;span style=&#34;color:#658b00&#34;&gt;getMessage&lt;/span&gt;());
-    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;finally&lt;/span&gt; {
-        postMethod.&lt;span style=&#34;color:#658b00&#34;&gt;releaseConnection&lt;/span&gt;();
-    }
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; response;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;调用此方法的代码，注意参数的传递方式&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;uploadImage&lt;/span&gt;(File file,String id,String name){
-
-    String result = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt;;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;try&lt;/span&gt;{
-        &lt;span style=&#34;color:#228b22&#34;&gt;//文件part,new FilePart添加的是File类型的文件，后面StringPart则为字符串参数
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        Part[] parts = { &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; FilePart(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;file&amp;#34;&lt;/span&gt;, file),
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; StringPart(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;, id),  
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; StringPart(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;,name)};
-        result = HttpServiceSender.&lt;span style=&#34;color:#658b00&#34;&gt;doPostFile&lt;/span&gt;(SERVER+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;service/resource/upload&amp;#34;&lt;/span&gt;,parts);
-
-    }&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt;(Exception e){
-        Logger.&lt;span style=&#34;color:#658b00&#34;&gt;error&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;ImageService.uploadImage()&amp;#34;&lt;/span&gt;, e.&lt;span style=&#34;color:#658b00&#34;&gt;getMessage&lt;/span&gt;());
-    }
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; result;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/ - 2014-2020.</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2013/jquery%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/ - 2014-2020 Ziv小威</description>
         </item>
     
     

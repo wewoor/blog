@@ -5,10 +5,61 @@
     <description>Recent content on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>2014-2020.</copyright>
+    <copyright>2014-2020 Ziv小威</copyright>
     <lastBuildDate>Tue, 14 Jan 2020 10:28:51 +0000</lastBuildDate>
     
         <atom:link href="http://imziv.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>Httpclient 实现带参文件上传</title>
+        <link>http://imziv.com/posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</link>
+        <pubDate>Wed, 07 Aug 2013 17:13:00 +0000</pubDate>
+        
+        <guid>http://imziv.com/posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</guid>
+        <description>让美的事情发生 http://imziv.com/posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/ -&lt;p&gt;这里直接贴出的是我封装好的 doPostFile 方法,httpclient 的版本是 3.1。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;doPostFile&lt;/span&gt;(String url, Part[] parts){
+
+    String response = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt;;
+    PostMethod postMethod = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; PostMethod(url);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;try&lt;/span&gt;{
+        &lt;span style=&#34;color:#228b22&#34;&gt;//设置请求实体
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        postMethod.&lt;span style=&#34;color:#658b00&#34;&gt;setRequestEntity&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; MultipartRequestEntity(parts,postMethod.&lt;span style=&#34;color:#658b00&#34;&gt;getParams&lt;/span&gt;()));
+        HttpClient client = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; HttpClient();
+
+        &lt;span style=&#34;color:#228b22&#34;&gt;//设置连接超时限度
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        client.&lt;span style=&#34;color:#658b00&#34;&gt;getHttpConnectionManager&lt;/span&gt;().&lt;span style=&#34;color:#658b00&#34;&gt;getParams&lt;/span&gt;().&lt;span style=&#34;color:#658b00&#34;&gt;setConnectionTimeout&lt;/span&gt;(5000);
+        client.&lt;span style=&#34;color:#658b00&#34;&gt;executeMethod&lt;/span&gt;(postMethod);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(postMethod.&lt;span style=&#34;color:#658b00&#34;&gt;getStatusCode&lt;/span&gt;() ==  HttpStatus.&lt;span style=&#34;color:#658b00&#34;&gt;SC_OK&lt;/span&gt;){
+            response = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; String(postMethod.&lt;span style=&#34;color:#658b00&#34;&gt;getResponseBodyAsString&lt;/span&gt;().&lt;span style=&#34;color:#658b00&#34;&gt;getBytes&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;utf-8&amp;#34;&lt;/span&gt;));
+        }
+    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt;(Exception e){
+        LOGGER.&lt;span style=&#34;color:#658b00&#34;&gt;error&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;HttpServiceSender.doPostFile()&amp;#34;&lt;/span&gt;,e.&lt;span style=&#34;color:#658b00&#34;&gt;getMessage&lt;/span&gt;());
+    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;finally&lt;/span&gt; {
+        postMethod.&lt;span style=&#34;color:#658b00&#34;&gt;releaseConnection&lt;/span&gt;();
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; response;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;调用此方法的代码，注意参数的传递方式&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;uploadImage&lt;/span&gt;(File file,String id,String name){
+
+    String result = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;try&lt;/span&gt;{
+        &lt;span style=&#34;color:#228b22&#34;&gt;//文件part,new FilePart添加的是File类型的文件，后面StringPart则为字符串参数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        Part[] parts = { &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; FilePart(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;file&amp;#34;&lt;/span&gt;, file),
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; StringPart(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;, id),  
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; StringPart(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;,name)};
+        result = HttpServiceSender.&lt;span style=&#34;color:#658b00&#34;&gt;doPostFile&lt;/span&gt;(SERVER+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;service/resource/upload&amp;#34;&lt;/span&gt;,parts);
+
+    }&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt;(Exception e){
+        Logger.&lt;span style=&#34;color:#658b00&#34;&gt;error&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;ImageService.uploadImage()&amp;#34;&lt;/span&gt;, e.&lt;span style=&#34;color:#658b00&#34;&gt;getMessage&lt;/span&gt;());
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; result;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/ - 2014-2020 Ziv小威</description>
+        </item>
     
     
     
@@ -52,7 +103,7 @@ console.log(style); &lt;span style=&#34;color:#228b22&#34;&gt;//组合成一个�
         style = style+propertys[i]+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;:&amp;#34;&lt;/span&gt;+literals[property]+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;;&amp;#34;&lt;/span&gt;;
    }
 console.log(style);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2013/javascript%E7%9A%84%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E6%8B%86%E8%A7%A3%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1/ - 2014-2020.</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2013/javascript%E7%9A%84%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E6%8B%86%E8%A7%A3%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -70,7 +121,7 @@ console.log(style);
 &lt;p&gt;CouchDB 是一个完全为了 web 而生的数据库，它利用了 JSON 文件来存贮数据。CouchDB 利用你的 web 浏览器，通过 HTTP，查询，结合来处理这些 JSON 文件，并且利用 Javascript 来传输这些数据。CouchDB 在现代浏览器以及移动浏览器上面的支持是非常好的，你甚至可以直接利用 CouchDB 来服务于你的 web 应用。你可以有效的利用 CouchDB 的增量复制特性去分发你的数据或者你的应用。CouchDB 利用了自动冲突检测功能，支持 master-master 的安装。&lt;/p&gt;
 &lt;p&gt;CouchDB 另外附增了一系列的特性，例如动态的文档转换，和实时的变更通知，CouchDB 的这些特性掀起了一股 web 应用开发的小风波。CouchDB 甚至携有一种简单的使用 web 管理控制的方式。这种特性直接由 CouchDB 提供。我们担心着大量的分布式扩展，CouchDB 是高可用性和分区容忍的，同时也是保持最终一致性的。我们一值都大量的关心着用户的数据。CouchDB 拥有着一个容错引擎，它将把你数据的安全始终放在第一位的。&lt;/p&gt;
 &lt;p&gt;※更多关于 CouchDB 请访问 Apach CouchDB 官网，此文意在简单介绍 CouchDB，一个利用了现代 web 的技术。&lt;a href=&#34;http://couchdb.apache.org/&#34;&gt;http://couchdb.apache.org/&lt;/a&gt;&lt;/p&gt;
-- http://imziv.com/posts/2013/%E4%BB%80%E4%B9%88%E6%98%AFcouchdb/ - 2014-2020.</description>
+- http://imziv.com/posts/2013/%E4%BB%80%E4%B9%88%E6%98%AFcouchdb/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -331,7 +382,7 @@ console.log(style);
 &lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.hide();
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2013/js%E6%A8%A1%E6%8B%9Falert%E4%B8%8Econfirm%E5%AF%B9%E8%AF%9D%E6%A1%86/ - 2014-2020.</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2013/js%E6%A8%A1%E6%8B%9Falert%E4%B8%8Econfirm%E5%AF%B9%E8%AF%9D%E6%A1%86/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -427,7 +478,7 @@ position 属性的值：&lt;/p&gt;
     &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt;&amp;gt;
 &amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;html&lt;/span&gt;&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;像利用 absolute 做动画效果的例子在 JQuery 官方上面的例子还是比较多。再次就不做详解了。&lt;/p&gt;
-- http://imziv.com/posts/2013/%E8%AF%A6%E8%A7%A3css%E6%A0%B7%E5%BC%8F%E7%9A%84position%E5%B1%9E%E6%80%A7/ - 2014-2020.</description>
+- http://imziv.com/posts/2013/%E8%AF%A6%E8%A7%A3css%E6%A0%B7%E5%BC%8F%E7%9A%84position%E5%B1%9E%E6%80%A7/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -484,7 +535,7 @@ ${peo.&lt;span style=&#34;color:#658b00&#34;&gt;key&lt;/span&gt;.&lt;span style=
     &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;}
     &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{set count:count+1}&lt;span style=&#34;color:#228b22&#34;&gt;//自增
 &lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt;{/list}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2013/play-framework%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BElistset%E5%A6%82%E4%BD%95%E9%81%8D%E5%8E%86listmap%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE/ - 2014-2020.</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2013/play-framework%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BElistset%E5%A6%82%E4%BD%95%E9%81%8D%E5%8E%86listmap%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -499,7 +550,7 @@ ${peo.&lt;span style=&#34;color:#658b00&#34;&gt;key&lt;/span&gt;.&lt;span style=
 &lt;p&gt;在我大一的时候我遇到了我人生中非常重要的一只团队——班级篮球队。可能大家都有过这么个小小的经历，而我把它作为了我的论资。但的确我想表达的是当时的我们真的很团结，很包容。我们不会过分计较个人的失误，我们不会相互埋怨谁，也不会贪图所谓的功劳，有的只是鼓励，相互帮助。正因为如此，我们这支篮球团队在当时才可取得战无不胜的成绩。从此我爱上了团队这词，我觉得团队的力量是无限大的，团队让我们更有成就感。所以当我把这个观念转移到软件开发团队上的时候，我就有了另一些想法，或许是称得上梦想的想法吧。我想某一天我可以身在这样的一直开发团队中，我们创意无限，热爱技术，相互协作的完成各种有创意，有意义的事情，也许能做些在正面影响人们生活的事情。&lt;/p&gt;
 &lt;p&gt;在如今这样一个缺乏凝聚力的社会，如果我们身在的工作岗位上处处是勾心斗角，各种埋怨，我不知道这样工作有什么意思，我也想象不出可以完成什么样的杰作。如果身在一个有凝聚力的团队，相互包容，相互为梦想，为共同的目标去奋斗，不管成功是否，我觉得都是有意思，有意义的。&lt;/p&gt;
 &lt;p&gt;不求在我做程序员的岁月里在多么伟大或者怎样的公司呆过，但求我在这样一支包容，鼓励，团结的团队中为共同目标战斗过！&lt;/p&gt;
-- http://imziv.com/posts/2013/%E6%88%91%E6%89%80%E7%90%86%E8%A7%A3%E7%9A%84%E5%9B%A2%E9%98%9F/ - 2014-2020.</description>
+- http://imziv.com/posts/2013/%E6%88%91%E6%89%80%E7%90%86%E8%A7%A3%E7%9A%84%E5%9B%A2%E9%98%9F/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -677,7 +728,7 @@ ${peo.&lt;span style=&#34;color:#658b00&#34;&gt;key&lt;/span&gt;.&lt;span style=
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;四结语&#34;&gt;四、结语&lt;/h2&gt;
 &lt;p&gt;fileuploader.js 这款插件还是很是强大的，支持进度条的显示，也可以自定义气样式，不过目前我还是没有了解很透这款插件。有时间好好琢磨。希望这篇文章可以对大家有需要的分享下。&lt;/p&gt;
-- http://imziv.com/posts/2012/fileloder.js&#43;struts2%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%97%A0%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0%E6%95%88%E6%9E%9C/ - 2014-2020.</description>
+- http://imziv.com/posts/2012/fileloder.js&#43;struts2%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%97%A0%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0%E6%95%88%E6%9E%9C/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -753,7 +804,7 @@ ${peo.&lt;span style=&#34;color:#658b00&#34;&gt;key&lt;/span&gt;.&lt;span style=
         &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;succ&amp;#34;&lt;/span&gt;;
     }
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2012/struts2&#43;hibernate&#43;spring-%E5%9C%A8mysql%E6%9B%B4%E6%96%B0blob%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE/ - 2014-2020.</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2012/struts2&#43;hibernate&#43;spring-%E5%9C%A8mysql%E6%9B%B4%E6%96%B0blob%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -850,114 +901,7 @@ msgs = crit.&lt;span style=&#34;color:#658b00&#34;&gt;list&lt;/span&gt;();
 &amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;center&lt;/span&gt;&amp;gt;
 &amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2012/strut2%E4%B8%8Ehibernate%E7%9A%84%E4%B8%80%E4%B8%AAweb%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD/ - 2014-2020.</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>Struts2 与 Spring 的整合</title>
-        <link>http://imziv.com/posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/</link>
-        <pubDate>Thu, 06 Sep 2012 11:32:00 +0000</pubDate>
-        
-        <guid>http://imziv.com/posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/ -&lt;p&gt;今天倒腾了半天，终于是把这个两个框架整合到一起了。还是要写一下总结，同时给大家一些帮助。&lt;/p&gt;
-&lt;p&gt;开发环境：myeclipse 9.0(不好用！）tomcat6.0
-1.准备工作&lt;/p&gt;
-&lt;p&gt;需要导入的包：struts2 与 spring 基本的包就不用说了，我用的是 struts2.1  Spring 3.0，&lt;/p&gt;
-&lt;p&gt;尤其要注意 别少导入的几个是:Spring3.0 Web Libraries  ;
-struts 支持 spring 的插件：struts2-spring-plugin-2.1.8.1.jar  将这个 jar 文件放到 lib 目录下
-2.web.xml 的配置&lt;/p&gt;
-&lt;p&gt;除了 struts2 的核心配置外，我们还要加入 spring 的配置，代码如下：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;
-&lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--指明spring配置文件的位置!--&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;context-param&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;param-name&amp;gt;&lt;/span&gt;contextConfigLocation&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/param-name&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;param-value&amp;gt;&lt;/span&gt;classpath*:applicationContext*.xml&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/param-value&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/context-param&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;!-加载spring的配置文件!--&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;listener&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;listener-class&amp;gt;&lt;/span&gt;
-
-org.springframework.web.context.ContextLoaderListener
-
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/listener-class&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/listener&amp;gt;&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;注：如果你在运行的时候发现有 no found class org.springframework.web.context.LoaderListener 的异常 ，那你要注意你的 Spring3.0 Web 包的导入了&lt;/p&gt;
-&lt;p&gt;3.application.xml 的配置&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;beans&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;bean&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;userService&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;com.test.service.UserServiceImpl&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&amp;lt;/bean&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;bean&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;userAction&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;com.test.action.UserAction&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-
-       &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;userService&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-
-         &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;ref&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;bean=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;userService&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-
-      &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/property&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/bean&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/beans&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;4.UserAction 类 这个不用多说，注意的是 userService 属性的 getter 和 setter 方法&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;UserAction&lt;/span&gt; {
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; User user = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; User();
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; User &lt;span style=&#34;color:#008b45&#34;&gt;getUser&lt;/span&gt;() {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; user;
-    }
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setUser&lt;/span&gt;(User user) {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;user&lt;/span&gt; = user;
-    }
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; UserService userService;
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; UserService &lt;span style=&#34;color:#008b45&#34;&gt;getUserService&lt;/span&gt;() {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; userService;
-    }
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setUserService&lt;/span&gt;(UserService userService) {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;userService&lt;/span&gt; = userService;
-    }
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;checkLogin&lt;/span&gt;(){
-
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(userService.&lt;span style=&#34;color:#658b00&#34;&gt;checkLogin&lt;/span&gt;(user))
-        {
-                System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;ok&amp;#34;&lt;/span&gt;);
-        }&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
-                System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;sorry&amp;#34;&lt;/span&gt;);
-
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;succ&amp;#34;&lt;/span&gt;;
-    }
-
-}
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;5.struts.xml 的配置,把原先 class 的路径换成 spring 中配置 action 的 bean 的 id&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;struts&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;package&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;extends=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;struts-default&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;action&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;login&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;userAction&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;checkLogin&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;result&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;succ&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;index.jsp&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/result&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/package&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/struts&amp;gt;&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/ - 2014-2020.</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2012/strut2%E4%B8%8Ehibernate%E7%9A%84%E4%B8%80%E4%B8%AAweb%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD/ - 2014-2020 Ziv小威</description>
         </item>
     
     

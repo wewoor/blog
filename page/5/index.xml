@@ -5,10 +5,223 @@
     <description>Recent content on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>2014-2020.</copyright>
+    <copyright>2014-2020 Ziv小威</copyright>
     <lastBuildDate>Tue, 14 Jan 2020 10:28:51 +0000</lastBuildDate>
     
         <atom:link href="http://imziv.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>利用 Gulp 优化部署 Web 项目</title>
+        <link>http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/</link>
+        <pubDate>Sun, 26 Apr 2015 11:27:16 +0000</pubDate>
+        
+        <guid>http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/</guid>
+        <description>让美的事情发生 http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/ -&lt;h3 id=&#34;gulp&#34;&gt;Gulp&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;http://gulpjs.com/&#34;&gt;Gulp&lt;/a&gt;是一款项目自动化的构建工具，与&lt;a href=&#34;http://gruntjs.com/&#34;&gt;Grunt&lt;/a&gt;一样可以通过创建任务（Task）来帮助我们自动完成一些工作流的内容。当然，今天我们的内容并不是讨论这二者的区别，仅仅是介绍介绍如何利用 Gulp 来优化我们的 Web 项目中前端自动化工作流。&lt;/p&gt;
+&lt;h3 id=&#34;引言&#34;&gt;引言&lt;/h3&gt;
+&lt;p&gt;相信不少人看过百度大牛&lt;a href=&#34;https://github.com/fouber&#34;&gt;张云龙&lt;/a&gt;的那篇讲解&lt;a href=&#34;https://github.com/fouber/blog/issues/6&#34;&gt;大公司里怎样开发和部署前端代码?&lt;/a&gt;的文章，如果没有阅读的朋友请戳。由于在项目部署时，我们需要对项目 js，css,image 等文件进行压缩，合并处理，从而减少客户端对服务 Http 请求，已达到增强页面的加载速度，优化服务器带宽压力等等目的。所以本文主要讲的是利用 Gulp 优化我们 Web 部署优化工作。&lt;/p&gt;
+&lt;h3 id=&#34;安装初始化&#34;&gt;安装&amp;amp;初始化&lt;/h3&gt;
+&lt;p&gt;首先你得确保你的电脑上面是否已经安装了 Nodejs, 如果没有安装的话，那么请&lt;a href=&#34;https://nodejs.org/&#34;&gt;移步&lt;/a&gt;。假定有如下一个 Nodejs 的 Web 项目（当然你也可以是其他的例如 Java，.Net 的 Web 项目，且具体开发目录如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;|- project
+ |- src // 前端项目的源文件
+  |- js
+  |- html
+  |- images
+  |- css
+  |- bower_component // bower 前端依赖包管理
+  |- node_component // nodejs 插件
+ |- server
+  |- api
+  |- views
+   |- app
+  |- assets // 前端静态文件存放目录
+   |- js
+   |- css
+   |- images
+   |- templates
+  |- ... // 其他目录就不一一列出了
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;src&lt;/code&gt;文件夹为前端的&lt;code&gt;js&lt;/code&gt;，&lt;code&gt;css&lt;/code&gt;, &lt;code&gt;html&lt;/code&gt;, &lt;code&gt;image&lt;/code&gt;的开发目录, 我们会通过 gulp 将这些源文件进行压缩合并后打包到目标目录，也就是&lt;code&gt;assets&lt;/code&gt;目录下相应的&lt;code&gt;js&lt;/code&gt;,&lt;code&gt;css&lt;/code&gt;目录，html 视图文件会打包到&lt;code&gt;views&lt;/code&gt;下的&lt;code&gt;app&lt;/code&gt;文件夹和&lt;code&gt;assets&lt;/code&gt;下的&lt;code&gt;templates&lt;/code&gt;模板文件夹，具体视情况而定。其中的&lt;code&gt;bower_component&lt;/code&gt;为&lt;a href=&#34;http://bower.io/&#34;&gt;bower&lt;/a&gt;前端包管理，我们可以用 bower 直接下载几乎任何我们前端日常所需的库，框架,而且可以任选版本，例如&lt;code&gt;JQuery&lt;/code&gt;,&lt;code&gt;Bootstrap&lt;/code&gt;,&lt;code&gt;Angular&lt;/code&gt;，只需执行&lt;code&gt;bower install packageName&lt;/code&gt;即可，不同版本只需&lt;code&gt;bower install packageName#version&lt;/code&gt;,更多内容，可以去&lt;a href=&#34;http://bower.io/&#34;&gt;官网&lt;/a&gt;自行查阅，这里就不展开了。至于&lt;code&gt;node_component&lt;/code&gt; 文件夹即是用&lt;code&gt;npm&lt;/code&gt;安装的我们打包会用到的插件资源了。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;全局安装 Gulp&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;   npm install --global gulp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;安装 Gulp 到开发项目中&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;   npm install --save-dev gulp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;在 src 创建&lt;code&gt;gulpfile.js&lt;/code&gt;文件，这个文件用来配置我们所需的&lt;code&gt;task&lt;/code&gt;,接下来会具体讲解。&lt;/li&gt;
+&lt;li&gt;执行&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;$ gulp
+或者
+$ gulp taskName
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;gulp 会执行&lt;code&gt;gulpfile.js&lt;/code&gt;文件下定义的&lt;code&gt;default&lt;/code&gt;任务，如果我们需要执行特定的 task，则需要执行下面的命令&lt;/p&gt;
+&lt;h3 id=&#34;gulpfilejs-文件&#34;&gt;gulpfile.js 文件&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;gulpfile.js&lt;/code&gt;用来定义我们需要自动化的任务，里面包含了很多依赖关系。这里我们会创建 4 个 Task，第一个&lt;code&gt;develop task&lt;/code&gt;,用于开发时使用，另一个&lt;code&gt;release task&lt;/code&gt;,用于部署发布时用的，还有一个&lt;code&gt;watch task&lt;/code&gt;, 用于实时监听文件修改行为，可及时打包，最后一个&lt;code&gt;default task&lt;/code&gt;, gulp 默认执行的 task.&lt;/p&gt;
+&lt;h4 id=&#34;创建-default-task&#34;&gt;创建 Default Task&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; gulp = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;gulp&amp;#39;&lt;/span&gt;);
+
+ gulp.task(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;default&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
+   &lt;span style=&#34;color:#228b22&#34;&gt;// place code for your default task here
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt; });
+ 
+ &lt;span style=&#34;color:#228b22&#34;&gt;// 如果默认情况下我们会执行一个叫develop的task，则这么写，执行gulp命令时，
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#228b22&#34;&gt;// 会自动调用develop
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt; gulp.task(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;default&amp;#39;&lt;/span&gt;, [&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;develop&amp;#39;&lt;/span&gt;]);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;创建-develop-task&#34;&gt;创建 Develop Task&lt;/h4&gt;
+&lt;h5 id=&#34;创建develop-task前先介绍下我们今天要用到的一些插件&#34;&gt;创建&lt;code&gt;develop task&lt;/code&gt;前，先介绍下我们今天要用到的一些插件&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/terinjokes/gulp-uglify&#34;&gt;gulp-uglify&lt;/a&gt; Js 压缩插件&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/jonathanepollack/gulp-minify-css&#34;&gt;gulp-minify-css&lt;/a&gt; Css 压缩插件&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/sindresorhus/gulp-imagemin&#34;&gt;gulp-imagemin&lt;/a&gt; 图片压缩插件，支持格式： PNG, JPEG, GIF and SVG images&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/sindresorhus/gulp-strip-debug&#34;&gt;gulp-strip-debug&lt;/a&gt; 清除源文件 console,debugger 代码&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/jonkemp/gulp-useref&#34;&gt;gulp-useref&lt;/a&gt; 合并压缩 html 文件中的文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以上列出的插件为我个人常用的一些插件，如果你还有 fonts 文件的话，也可以添加进去，gulp 有很多其他或者相似的插件，都可以去 google 搜索。安装方法则是正常的&lt;code&gt;npm&lt;/code&gt;安装，可以戳进官网去查看。&lt;/p&gt;
+&lt;h5 id=&#34;首先我们需要为我们要压缩的源文件配置路径以及导入插件假设我们-bower-里面已有-jquery-和-bootstrap-插件以及其他源文件目录如下&#34;&gt;首先我们需要为我们要压缩的源文件配置路径以及导入插件，假设我们 bower 里面已有 jquery 和 bootstrap 插件，以及其他源文件目录，如下&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 引入插件
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; uglify = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;gulp-uglify&amp;#39;&lt;/span&gt;); &lt;span style=&#34;color:#228b22&#34;&gt;// 压缩
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; minifyCss = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;gulp-minify-css&amp;#39;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; stripDebug = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;gulp-strip-debug&amp;#39;&lt;/span&gt;); &lt;span style=&#34;color:#228b22&#34;&gt;// 该插件用来去掉console和debugger语句
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; useref = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;gulp-useref&amp;#39;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; imagemin = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;gulp-imagemin&amp;#39;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; pngquant = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;imagemin-pngquant&amp;#39;&lt;/span&gt;);
+
+&lt;span style=&#34;color:#228b22&#34;&gt;// 任务处理的文件路径配置
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; paths = {
+    js: [ &lt;span style=&#34;color:#228b22&#34;&gt;// js目录
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;app/*&amp;#39;&lt;/span&gt;
+    ],
+    css: [
+      &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;css/*&amp;#39;&lt;/span&gt;
+    ],
+    img: [
+      &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;images/*&amp;#39;&lt;/span&gt;
+    ],
+    html: [
+     &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;html/*&amp;#39;&lt;/span&gt;
+    ],
+    lib: { &lt;span style=&#34;color:#228b22&#34;&gt;// 第三方依赖文件
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;     js: [
+         &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;bower_components/bootstrap/dist/js/bootstrap.js&amp;#39;&lt;/span&gt;,
+         &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;bower_components/jquery/jquery.js&amp;#39;&lt;/span&gt;
+     ],
+     css: [
+         &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;bower_components/bootstrap/dist/css/bootstrap.css&amp;#39;&lt;/span&gt;
+     ],
+     img: [
+      &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;bower_components/bootstrap/dist/images/*&amp;#39;&lt;/span&gt;
+     ]
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;定义develop-task&#34;&gt;定义&lt;code&gt;develop task&lt;/code&gt;&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; output = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;../server/assets/&amp;#34;&lt;/span&gt;; &lt;span style=&#34;color:#228b22&#34;&gt;// output
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#228b22&#34;&gt;/* 开发环境 */&lt;/span&gt;
+gulp.task(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;develop&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
+    gulp.src(paths.js)
+        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/js&amp;#39;&lt;/span&gt;));
+
+    gulp.src(paths.lib.js)
+        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/js&amp;#39;&lt;/span&gt;));
+
+    gulp.src(paths.css)
+        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/css&amp;#39;&lt;/span&gt;));
+
+    gulp.src(paths.lib.css)
+        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/css&amp;#39;&lt;/span&gt;));
+
+    gulp.src(paths.img)
+        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/images&amp;#39;&lt;/span&gt;));
+
+    gulp.src(paths.lib.img)
+        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/images&amp;#39;&lt;/span&gt;));
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上面的 develop task 直接将代码都输出到了我们的 server 目录下，并未通过插件进行相应的处理，主要是因为我们等会还会创建&lt;code&gt;release task&lt;/code&gt;， 当真正部署的时候我们才进行压缩合并这些处理。&lt;/p&gt;
+&lt;h4 id=&#34;定义release-task&#34;&gt;定义&lt;code&gt;release task&lt;/code&gt;&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/* 部署环境 */&lt;/span&gt;
+gulp.task(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;release&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
+    gulp.src(paths.js)
+        .pipe(stripDebug())
+        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/js&amp;#39;&lt;/span&gt;));
+
+    gulp.src(paths.lib.js)
+        .pipe(stripDebug())
+        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/js&amp;#39;&lt;/span&gt;));
+
+    gulp.src(paths.css)
+        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/css&amp;#39;&lt;/span&gt;));
+
+    gulp.src(paths.lib.css)
+        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/css&amp;#39;&lt;/span&gt;));
+
+    gulp.src(paths.img)
+        .pipe(imagemin({
+            progressive: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;true&lt;/span&gt;,
+            svgoPlugins: [{removeViewBox: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;}],
+            use: [pngquant()]
+        }))
+        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/images&amp;#39;&lt;/span&gt;));
+
+    gulp.src(paths.lib.img)
+         .pipe(imagemin({
+            progressive: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;true&lt;/span&gt;,
+            svgoPlugins: [{removeViewBox: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;}],
+            use: [pngquant()]
+        }))
+        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/images&amp;#39;&lt;/span&gt;));
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; assets = useref.assets();
+    gulp.src(paths.html)
+     .pipe(assets)
+        .pipe(gulpif(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;*.js&amp;#39;&lt;/span&gt;, uglify()))
+        .pipe(gulpif(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;*.css&amp;#39;&lt;/span&gt;, minifyCss()))
+        .pipe(assets.restore())
+        .pipe(useref())
+        .pipe(gulp.dest(output + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/templates&amp;#39;&lt;/span&gt;));
+});
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上面的代码首先是先打包静态文件到指定包，去掉多余的 console,debugger,给图片文件进行压缩处理，最后利用&lt;code&gt;useref&lt;/code&gt;插件对 ejs 视图文件中的 js,css 进行压缩合并处理，并打包到指定目录。&lt;/p&gt;
+&lt;h4 id=&#34;利用useref对-html-内部的文件进行压缩合并&#34;&gt;利用&lt;code&gt;useref&lt;/code&gt;对 html 内部的文件进行压缩合并&lt;/h4&gt;
+&lt;p&gt;上面的&lt;code&gt;release&lt;/code&gt;中我们以及定义了对 app 目录下 html 文件内部的 js，css 进行压缩何必，仅仅配置 task 是还不够的，我还需要在 html 内部做如下配置：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;html&lt;/span&gt;&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;head&lt;/span&gt;&amp;gt;
+    &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!-- build:css css/main.css --&amp;gt;&lt;/span&gt;
+    &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;link&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;href&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;css/style.css&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;rel&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;stylesheet&amp;#34;&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;link&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;href&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;css/bootstrap.cs.css&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;rel&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;stylesheet&amp;#34;&lt;/span&gt;&amp;gt;
+    &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!-- endbuild --&amp;gt;&lt;/span&gt;
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;head&lt;/span&gt;&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
+    &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!-- build:js scripts/main.js --&amp;gt;&lt;/span&gt;
+    &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;src&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;js/bootstrap.js&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;src&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;js/jquery.js&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt;&amp;gt;
+    &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!-- endbuild --&amp;gt;&lt;/span&gt;
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;html&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;经过合并后的文件：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;html&lt;/span&gt;&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;head&lt;/span&gt;&amp;gt;
+  &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;link&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;rel&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;stylesheet&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;href&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;css/main.css&amp;#34;&lt;/span&gt;/&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;head&lt;/span&gt;&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;src&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;js/main.js&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;htm&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;更多关于&lt;a href=&#34;https://github.com/jonkemp/gulp-useref&#34;&gt;gulp-useref&lt;/a&gt;的使用方法&lt;a href=&#34;https://github.com/jonkemp/gulp-useref&#34;&gt;请戳&lt;/a&gt;。&lt;/p&gt;
+&lt;h4 id=&#34;定义watch-task&#34;&gt;定义&lt;code&gt;watch Task&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;watch task&lt;/code&gt; 是为了监听文件发生改变后立即触发的任务，已便于我们开发。代码如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; watcher = gulp.watch(paths.scripts, [&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;develop&amp;#39;&lt;/span&gt;]);
+watcher.on(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;change&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; (event) {
+   console.log(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;Event type: &amp;#39;&lt;/span&gt; + event.type); &lt;span style=&#34;color:#228b22&#34;&gt;// added, changed, or deleted
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;   console.log(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;Event path: &amp;#39;&lt;/span&gt; + event.path); &lt;span style=&#34;color:#228b22&#34;&gt;// The path of the modified file
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;总结&#34;&gt;总结&lt;/h3&gt;
+&lt;p&gt;以上基本介绍了如何使用 gulp 来自动完成打包，压缩，合并文件等任务，Gulp 插件非常多，本文只是简单的介绍了几种基本的。总之，使用 gulp，只需要几行命令便可以完成以上任务，使很多优化工作变得十分简单。&lt;/p&gt;
+- http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/ - 2014-2020 Ziv小威</description>
+        </item>
     
     
     
@@ -113,7 +326,7 @@ earthMat.bumpScale = &lt;span style=&#34;color:#b452cd&#34;&gt;8&lt;/span&gt;;
 &lt;h2 id=&#34;结尾&#34;&gt;结尾&lt;/h2&gt;
 &lt;p&gt;WebGL 和 Three.js 变得越发的具有挑战性，因为他们偶尔会要求我们要像 3D 艺术家一样，利用场景，画布，camera 去完成我们的工作，最终的结果就是做出了一些加令人印象深刻的东西。如果你专注于在这个技术上的话，你可以通过在浏览器中使用 3D 特性创造出一些有趣的可能性。如果坚持它，相信不久你就很可能获取一些非凡的成绩。&lt;/p&gt;
 &lt;p&gt;原文地址：&lt;a href=&#34;http://www.sitepoint.com/building-earth-with-webgl-javascript/?utm_source=html5weekly&amp;amp;utm_medium=email&#34;&gt;Building the Earth with WebGL and JavaScript&lt;/a&gt;&lt;/p&gt;
-- http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/ - 2014-2020.</description>
+- http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -259,7 +472,7 @@ fullScreen.addEventListener(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;c
 &lt;p&gt;&lt;a href=&#34;https://fullscreen.spec.whatwg.org/&#34;&gt;Fullscreen API
 Living Standard&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;http://www.sitepoint.com/use-html5-full-screen-api/&#34;&gt;How to Use the HTML5 Full-Screen API (Again)&lt;/a&gt;&lt;/p&gt;
-- http://imziv.com/posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/ - 2014-2020.</description>
+- http://imziv.com/posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -276,7 +489,7 @@ Living Standard&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;后来上大学了，相较于那些跨省上学的同学来说，我离家还是比较近的，但是由于父母常年不在老家，所以我也只是像清明节或者其他假期才会回老家住上几晚。这样算下来一年也回不了几次家，算上春节，也就一个月的左右。而每次我发现我对家的依恋的感觉都变得越来越淡。&lt;/p&gt;
 &lt;p&gt;这几年感觉自己就像飘在外面一样，身上染上了很多坏毛病，不喜欢与父母交流，越是亲密的人我可能越是说话刻薄。有时候会很讨厌自己。有时候想改变，但是却不知道怎么改变，想去多关心关心父母，朋友，但是告诫过自己的，临场时确又回到了原点。&lt;/p&gt;
 &lt;p&gt;如今已经离开学校一年左右了，我从一陌生的城市来到了另外一座陌生的城市，曾经有想过回去，但是不知道为什么总有些力量吸引我继续这样的日子，也许是好奇心，也行是我太年轻。&lt;/p&gt;
-- http://imziv.com/posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/ - 2014-2020.</description>
+- http://imziv.com/posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -305,7 +518,7 @@ res.set(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;Content-Type&amp;#39;
 &lt;span style=&#34;color:#228b22&#34;&gt;// 解决excel打开内容乱码
 &lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; dataBuffer = Buffer.concat([&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Buffer(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;\xEF\xBB\xBF&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;binary&amp;#39;&lt;/span&gt;), &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Buffer(data)]);
 res.send(dataBuffer);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ - 2014-2020.</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -325,7 +538,7 @@ res.send(dataBuffer);
 &lt;p&gt;其中利用 Appcan 作为应用的打包平台，通过其内置的 JS 组件进行数据请求，请求得到的数据利用 JS 做些业务逻辑处理后，使用 Angular 进行绑定渲染，UI 组件的东西则用的 GMU.js,而 gmu 内置了 zepto.js 和 scroll.js 等等, 页面则是 h5+css3。可以看到的是与传统的 web 相比，其中多了不少 js 框架和库的应用，毕竟把数据的调用和业务处理都移到了 JS 端，所以在这里提醒大家，可以考虑加入 js 模块管理的框架，例如 seajs。数据绑定这块感觉 Angular 真的很棒，写好绑定后，只需要专注后端 JS 数据的业务处理即可，提升了不少开发效率。&lt;/p&gt;
 &lt;p&gt;在编码阶段遇到了不少问题，例如并不能利用 url 像平时那样进行参数传递，发现抓取不到页面跳转后的参数。为了减少请求次数，也尝试采用 LocalStorage 缓存 json。通过 Manifest cache 缓存 html,css,js 文件，来提升界面的响应速度。通过 css3 替代 js 做动画效果，但是效果并不理想，感觉还是没有 js 来的流畅。页面跳转白屏，数据加载的延迟等等状况，加载动画体验需要做的更好，而且尽量减少页面的跳转，把一些功能集中到单个 html 文件。&lt;/p&gt;
 &lt;p&gt;总而言之，采取了很多优化方法，但是显然这种 hybird app 在性能体验等方面还是问题很多，但是例如一些交互简单的 app 话，用这种方案还是可以考虑的。&lt;/p&gt;
-- http://imziv.com/posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/ - 2014-2020.</description>
+- http://imziv.com/posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -356,7 +569,7 @@ rd.on(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;line&amp;#39;&lt;/span&
     write(line);
     i++;
 });
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/ - 2014-2020.</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -370,7 +583,7 @@ rd.on(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;line&amp;#39;&lt;/span&
         <description>让美的事情发生 http://imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/ -&lt;p&gt;2012 年 11 月份，我一人来到了南京这座陌生的城市。&lt;/p&gt;
 &lt;p&gt;2014 年 8 月 9 日，我离开了这座美丽的城市，只身来到杭州。&lt;/p&gt;
 &lt;p&gt;i love you more when i&amp;rsquo;m missing you.&lt;/p&gt;
-- http://imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/ - 2014-2020.</description>
+- http://imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -453,7 +666,7 @@ rd.on(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;line&amp;#39;&lt;/span&
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;该类的构造方法被 private 关键字修饰，意味着该对象不可用 new 关键字进行实例化了，当然我们已经在此类中提供了静态方法 getInstance 通过这个方法获取该类的静态实例对象。由于该对象实例后被保存在了静态变量 INSTANCE 中，所以调用者每次调用的都是这个实例对象。调用示例：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;Singleton c = Singleton.&lt;span style=&#34;color:#658b00&#34;&gt;getInstance&lt;/span&gt;();
 c.&lt;span style=&#34;color:#658b00&#34;&gt;test&lt;/span&gt;(); &lt;span style=&#34;color:#228b22&#34;&gt;// 调用test方法
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/ - 2014-2020.</description>
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -551,116 +764,7 @@ c.&lt;span style=&#34;color:#658b00&#34;&gt;test&lt;/span&gt;(); &lt;span style=
     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; request.&lt;span style=&#34;color:#658b00&#34;&gt;getHeader&lt;/span&gt;( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;x-forwarded-for&amp;#34;&lt;/span&gt; );
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以上则是统计的核心代码部分，数据入库后便可以对其进行相应业务上的处理，获取想了解的数据。部署时只需要把 JS 采集脚本添加到要监控的页面即可。&lt;/p&gt;
-- http://imziv.com/posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/ - 2014-2020.</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>HTML5 实现图片文件异步上传</title>
-        <link>http://imziv.com/posts/2014/html5%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/</link>
-        <pubDate>Mon, 26 May 2014 15:31:58 +0000</pubDate>
-        
-        <guid>http://imziv.com/posts/2014/html5%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2014/html5%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/ -&lt;p&gt;利用 HTML5 的新特点做文件异步上传非常简单方便，本文主要展示 JS 部分，html 结构。下面的代码并未使用第三发库，如果有参照，请注意一些未展现出来的代码片段。我这边的效果预览：&lt;/p&gt;
-&lt;p&gt;1.文件未选择 2.文件已选择&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://imziv.com/content/posts/2014/img/html5-upload.png&#34; alt=&#34;html5-upload&#34;&gt;
-&lt;img src=&#34;http://imziv.com/content/posts/2014/img/html5-upload2.png&#34; alt=&#34;html5-upload2&#34;&gt;&lt;/p&gt;
-&lt;p&gt;HTML 代码部分：
-　　思路：下面代码中我利用 css 的 z-index 属性将 input=&amp;quot;file”标签隐藏在了 id=btnSelect 元素下面，通过触发 a 标签的点击后，弹出文件选择框。下面的 masklayer 用于点击确认按钮后的弹出层，避免用户重复点击确认按钮。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;div&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;wp&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;warpper&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;a&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btnSelect&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;单击选择要上传的照片&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;input&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploadFile&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;file&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;myPhoto&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;button&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btnConfirm&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btn&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;确认上传&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;div&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;maskLayer&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;mask-layer&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;style=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;display:none;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;图片正在上传中...&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;JS 图片文件验证部分：&lt;/p&gt;
-&lt;p&gt;验证部分为：大小，是否已经选择，文件的类型 三个部分。第一个 createObject 方法为创建本地图片文件的预览路径，依次验证是否为空，文件类型以及文件大小，不满足条件则一律返回&lt;/p&gt;
-&lt;p&gt;false,满足以上 3 个条件后，在 dom 中生成图片预览，添加 img 元素，然后利用 createObjectURL()方法获取预览路径。&lt;/p&gt;
-&lt;p&gt;代码：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//获取数据的URL地址
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; createObjectURL(blob) {
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.URL) {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.URL.createObjectURL(blob);
-    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.webkitURL) {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.webkitURL.createObjectURL(blob);
-    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt;;
-    }
-}
-
-&lt;span style=&#34;color:#228b22&#34;&gt;//文件检测
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; checkFile() {
-    &lt;span style=&#34;color:#228b22&#34;&gt;//获取文件
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; file = $$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploadFile&amp;#34;&lt;/span&gt;).files[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;];
-    &lt;span style=&#34;color:#228b22&#34;&gt;//文件为空判断
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (file === &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt; || file === &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;undefined&lt;/span&gt;) {
-        alert(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;请选择您要上传的文件！&amp;#34;&lt;/span&gt;);
-        $$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btnSelect&amp;#34;&lt;/span&gt;).innerHTML = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;单击选择要上传的照片&amp;#34;&lt;/span&gt;;
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;;
-    }
-
-    &lt;span style=&#34;color:#228b22&#34;&gt;//检测文件类型
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(file.type.indexOf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;image&amp;#39;&lt;/span&gt;) === -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;) {
-        alert(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;请选择图片文件！&amp;#34;&lt;/span&gt;);
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;;
-    }
-
-    &lt;span style=&#34;color:#228b22&#34;&gt;//计算文件大小
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; size = &lt;span style=&#34;color:#658b00&#34;&gt;Math&lt;/span&gt;.floor(file.size/&lt;span style=&#34;color:#b452cd&#34;&gt;1024&lt;/span&gt;);
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (size &amp;gt; &lt;span style=&#34;color:#b452cd&#34;&gt;5000&lt;/span&gt;) {
-        alert(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;上传文件不得超过5M!&amp;#34;&lt;/span&gt;);
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;;
-    };
-    &lt;span style=&#34;color:#228b22&#34;&gt;//添加预览图片
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    $$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btnSelect&amp;#34;&lt;/span&gt;).innerHTML = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&amp;lt;img class=\&amp;#34;photo\&amp;#34; src=\&amp;#34;&amp;#34;&lt;/span&gt;+createObjectURL(file)+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;\&amp;#34;/&amp;gt;&amp;#34;&lt;/span&gt;;
-};
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;JS Ajax 请求部分：&lt;/p&gt;
-&lt;p&gt;说明：第一个监听文件选择更改事件，满足验证条件后则执行预览，第二个事件监听为监听单击 btnSelect 时弹出窗口的响应，下面的则是确认上传按钮的事件监听，开始发送 Ajax 请求。此处的 createXHR()方法为创建 XMLHttpRequest 对象，代码我并未贴出，包括 addEventListener()方法，这 2 个部分可以参考其他文章。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//监听图片URL地址更改
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;addEventListener($$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploadFile&amp;#34;&lt;/span&gt;), &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;change&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
-    checkFile();
-});
-
-&lt;span style=&#34;color:#228b22&#34;&gt;//监听单击文件选择按钮
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;addEventListener($$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btnSelect&amp;#34;&lt;/span&gt;), &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;click&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
-    &lt;span style=&#34;color:#228b22&#34;&gt;//弹出文件选择框
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    $$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploadFile&amp;#34;&lt;/span&gt;).click();
-});
-&lt;span style=&#34;color:#228b22&#34;&gt;//监听确认上传按钮的点击事件
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;addEventListener($$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;btnConfirm&amp;#34;&lt;/span&gt;), &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;click&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(e) {
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (checkFile()) {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;try&lt;/span&gt; {
-            &lt;span style=&#34;color:#228b22&#34;&gt;//执行上传操作var xhr = createXHR();
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            $$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;maskLayer&amp;#34;&lt;/span&gt;).style.display = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;block&amp;#34;&lt;/span&gt;;
-            xhr.open(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;post&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;/uploadPhoto.action&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;true&lt;/span&gt;);
-            xhr.setRequestHeader(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;X-Requested-With&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;XMLHttpRequest&amp;#34;&lt;/span&gt;);
-            xhr.onreadystatechange = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
-                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (xhr.readyState == &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;) {
-                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; flag = xhr.responseText;
-                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (flag == &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;success&amp;#34;&lt;/span&gt;) {
-                        alert(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;图片上传成功！&amp;#34;&lt;/span&gt;);
-                    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; {
-                        alert(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;图片上传成功！&amp;#34;&lt;/span&gt;);
-                    };
-                    $$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;maskLayer&amp;#34;&lt;/span&gt;).style.display = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;none&amp;#34;&lt;/span&gt;;
-                };
-            };
-            &lt;span style=&#34;color:#228b22&#34;&gt;//表单数据
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; fd = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; FormData();
-            fd.append(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;myPhoto&amp;#34;&lt;/span&gt;, $$(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploadFile&amp;#34;&lt;/span&gt;).files[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;]);
-            &lt;span style=&#34;color:#228b22&#34;&gt;//执行发送
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            xhr.send(fd);
-        } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt; (e) {
-            console.log(e);
-        }
-    }
-});
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以上则为全部主要代码部分，如果有什么问题可以联系我，欢迎交流。&lt;/p&gt;
-- http://imziv.com/posts/2014/html5%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/ - 2014-2020.</description>
+- http://imziv.com/posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/ - 2014-2020 Ziv小威</description>
         </item>
     
     

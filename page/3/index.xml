@@ -5,10 +5,97 @@
     <description>Recent content on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>2014-2020.</copyright>
+    <copyright>2014-2020 Ziv小威</copyright>
     <lastBuildDate>Tue, 14 Jan 2020 10:28:51 +0000</lastBuildDate>
     
         <atom:link href="http://imziv.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>我用 Express.js 封装了一个服务器容器小工具</title>
+        <link>http://imziv.com/posts/2017/%E6%88%91%E7%94%A8express.js%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%B9%E5%99%A8%E5%B0%8F%E5%B7%A5%E5%85%B7/</link>
+        <pubDate>Tue, 28 Feb 2017 17:35:09 +0000</pubDate>
+        
+        <guid>http://imziv.com/posts/2017/%E6%88%91%E7%94%A8express.js%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%B9%E5%99%A8%E5%B0%8F%E5%B7%A5%E5%85%B7/</guid>
+        <description>让美的事情发生 http://imziv.com/posts/2017/%E6%88%91%E7%94%A8express.js%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%B9%E5%99%A8%E5%B0%8F%E5%B7%A5%E5%85%B7/ -&lt;h1 id=&#34;背景&#34;&gt;背景&lt;/h1&gt;
+&lt;p&gt;我们都知道利用 Node.js 可以非常轻易的就编写一个 Web Server。在没有利用集成 Gulp, Webpack，Web Server 等等脚手架工具前，在做一些简单的 Web 应用的时候，我通常的做法是：用 Express.js 封装好一个 Server.js 文件集成到项目中去，以便于开发和测试。例如通过二维码扫描 Chrome 的开发程序到手机端测试，例如需要跨域调用远程服务器 API, 例如 Ajax 异步加载，等等。当然，偶尔也会用用 Nginx 做测试开发环境，但是 Nginx 这玩意还是感觉太重，并且项目组的有些同学觉得安装麻烦，配置复杂，不易上手。&lt;/p&gt;
+&lt;p&gt;由于我们经常会收到一些活动页面，或者很少页面的开发需求，移动端，PC 端都有，所以如果每次都大张旗鼓的上脚手架，全家桶实在上有点杀鸡用牛刀的感觉。一堆依赖，每次重复的安装，很占用硬盘空间。正因如此，我便希望把现有的基于 Express.js 的 server 给封装成全局的程序，每次在这些小项目需要的时候，直接一个简单的命令行就可以进行开发和测试，要安装简单，轻便，配置简单。于是这个叫&lt;a href=&#34;https://github.com/wewoor/cup&#34;&gt;&lt;code&gt;cup&lt;/code&gt;&lt;/a&gt;的工具就诞生了。&lt;/p&gt;
+&lt;h1 id=&#34;特点&#34;&gt;特点&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;随时随地针对项目目录开启 Server 服务&lt;/li&gt;
+&lt;li&gt;全局安装，简单的 CLI&lt;/li&gt;
+&lt;li&gt;支持自定义服务器端口&lt;/li&gt;
+&lt;li&gt;支持远程服务器代理（Proxy)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;基本使用&#34;&gt;基本使用&lt;/h1&gt;
+&lt;h4 id=&#34;安装&#34;&gt;安装&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;npm install -g mini-cup
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;示例&#34;&gt;示例&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;| - test
+ | - css
+ | - styles
+ | - index.html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;例如当你有个项目简单到只有以上一些文件和文件夹时，需要添加 server 容器来调试开发，你只需要在控制台切换到&lt;code&gt;test&lt;/code&gt;项目所在目录，运行：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cup run &lt;span style=&#34;color:#658b00&#34;&gt;test&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;cup&lt;/code&gt;默认开启的服务器端口是&lt;code&gt;3000&lt;/code&gt;，如果端口占用，或者需要指定其他端口的情况下，则可以通过如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cup run &lt;span style=&#34;color:#658b00&#34;&gt;test&lt;/span&gt; -p &lt;span style=&#34;color:#b452cd&#34;&gt;8080&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;通过选项参数&lt;code&gt;-p&lt;/code&gt;指定端口为&lt;code&gt;8080&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;其他&#34;&gt;其他&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cup // 默认为命令行当前目录添加server服务
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;使用自定义配置文件&#34;&gt;使用自定义配置文件&lt;/h1&gt;
+&lt;p&gt;当我们的项目中需要跨域调用远程接口时，我们可以给项目添加一个名叫&lt;code&gt;config.cup.json&lt;/code&gt;的简单&lt;code&gt;JSON&lt;/code&gt;配置文件，指定服务器地址和代理地址，然后运行命令行即可，如下：&lt;/p&gt;
+&lt;h4 id=&#34;项目目录&#34;&gt;项目目录&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;| - test
+ | - css
+ | - styles
+ | - index.html
+ | - config.cup.json
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;configcupjson-配置&#34;&gt;config.cup.json 配置&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt;,
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;#34;listen&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#b452cd&#34;&gt;8080&lt;/span&gt;,
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;#34;root&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;./&amp;#34;&lt;/span&gt;,
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;#34;location&amp;#34;&lt;/span&gt;: {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;#34;/test/*&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;./index.html&amp;#34;&lt;/span&gt;,
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;#34;/login&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;./index.html&amp;#34;&lt;/span&gt;
+    },
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;#34;proxyTable&amp;#34;&lt;/span&gt;: {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;#34;/api&amp;#34;&lt;/span&gt;: {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;#34;target&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;http://test.api.com&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;#34;changeOrigin&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;true&lt;/span&gt;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;参数说明&#34;&gt;参数说明&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;name - 项目名称&lt;/li&gt;
+&lt;li&gt;listen - 监听端口&lt;/li&gt;
+&lt;li&gt;root - 根目录&lt;/li&gt;
+&lt;li&gt;location - 指定请求路径返回到指定页面&lt;/li&gt;
+&lt;li&gt;proxyTable - 代理设置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;location&#34;&gt;location&lt;/h5&gt;
+&lt;p&gt;如果你现在正在开发一个单页应用，例如使用了 React.js 和 React-Router 的 browserHistory 技术，发现全局刷新页面，路由无法正确解析到指定页面时，便可以通过设置&lt;code&gt;location&lt;/code&gt;参数，指定请求路由到指定页面即可&lt;/p&gt;
+&lt;h5 id=&#34;proxytable&#34;&gt;proxyTable&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&amp;#34;/api&amp;#34;: { // 代理所有api为根路径的请求地址
+    &amp;#34;target&amp;#34;: &amp;#34;http://test.api.com&amp;#34;, // 代理目标服务器地址
+    &amp;#34;changeOrigin&amp;#34;: true // 是否改变origin
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;运行&#34;&gt;运行&lt;/h4&gt;
+&lt;p&gt;通过添加配置的项目，运行 server 只需要如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ cup config
+或者
+$ cup -c
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;最后&#34;&gt;最后&lt;/h1&gt;
+&lt;p&gt;由于这个小工具是在我现有工作环境下的一个产物，所以使用场景肯定是有限的，我也只是想用它解决些小问题。当然我也知道 Github 上肯定有很多类似的工具，但是我就是不去看！！看了我就不会自己动手了~&lt;/p&gt;
+&lt;p&gt;最后，如果这个小玩意能帮你的话，欢迎交流，使用和 star~&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;项目地址：&lt;a href=&#34;https://github.com/wewoor/cup&#34;&gt;https://github.com/wewoor/cup&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;原文地址：&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=83&#34;&gt;http://imziv.com/blog/article/read.htm?id=83&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+- http://imziv.com/posts/2017/%E6%88%91%E7%94%A8express.js%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%B9%E5%99%A8%E5%B0%8F%E5%B7%A5%E5%85%B7/ - 2014-2020 Ziv小威</description>
+        </item>
     
     
     
@@ -148,7 +235,7 @@ echo &amp;ldquo;Release finished.&amp;rdquo;
 &lt;p&gt;最后
 项目的工程化是一件很有意思的事情，通过自动化的工具，可以有效提升项目可维护性和质量，并且避免很多不确定因素。如果你工作中发现了这些问题，而不想继续通过人肉的方法解决这些问题的话，那就赶紧试试~&lt;/p&gt;
 &lt;p&gt;原文地址：&lt;a href=&#34;http://imziv.com/blog/article/index.htm&#34;&gt;http://imziv.com/blog/article/index.htm&lt;/a&gt;&lt;/p&gt;
-- http://imziv.com/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/ - 2014-2020.</description>
+- http://imziv.com/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -173,6 +260,8 @@ $ sudo chown -R someone:staff directory
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;查看目录所占磁盘容量&#34;&gt;查看目录所占磁盘容量&lt;/h5&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;du dir &lt;span style=&#34;color:#228b22&#34;&gt;# 显示dir的总容量以及次目录的容量，KB为单位&lt;/span&gt;
 du -s dir &lt;span style=&#34;color:#228b22&#34;&gt;# 显示dir的容量&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;测试用户目录权限&#34;&gt;测试用户目录权限&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo -u admin stat /home &lt;span style=&#34;color:#228b22&#34;&gt;# 测试用户admin对目录 /home 对权限&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;scp-获取远程服务器上的文件&#34;&gt;scp 获取远程服务器上的文件&lt;/h5&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 把远程服务器/root目录下的remote.tar.gz文件下载到本地/home目录下，&lt;/span&gt;
 &lt;span style=&#34;color:#228b22&#34;&gt;# 并保存为local.tar.gz&lt;/span&gt;
@@ -213,8 +302,16 @@ $ su ziv
 &lt;h5 id=&#34;sql-备份&#34;&gt;sql 备份&lt;/h5&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mysqldump -u root -p dbname&amp;gt;/home/backup_20170208.sql
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;导入-sql-脚本&#34;&gt;导入 Sql 脚本&lt;/h5&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ &lt;span style=&#34;color:#658b00&#34;&gt;source&lt;/span&gt; /home/backup.sql
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/ - 2014-2020.</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#658b00&#34;&gt;source&lt;/span&gt; /home/backup.sql
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;防火墙&#34;&gt;防火墙&lt;/h2&gt;
+&lt;h3 id=&#34;centos&#34;&gt;CentOS&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 防火墙状态查看&lt;/span&gt;
+$ systemctl status firewalld.service
+&lt;span style=&#34;color:#228b22&#34;&gt;# 防火墙停止&lt;/span&gt;
+$ systemctl stop firewalld.service
+&lt;span style=&#34;color:#228b22&#34;&gt;# 禁止firewall开机启动&lt;/span&gt;
+$ systemctl disable firewalld.service
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -251,7 +348,7 @@ $ su ziv
 &lt;p&gt;总而言之，并不是所有的 Web 应用和使用场景都需要添加状态管理，很多时候服务端渲染任然是更好的选择，而是否需要添加状态管理框架，是用 Redux，还是 Mobx, 我们可以根据自己的业务实际情况和技术团队的偏好而添加，而有些情况下，自己创建一个全局对象可能是更适合的选择。有的人可能觉得 Redux 这种函数式编程的方式让人难以理解，那么你也可以选择 Mobx 这种面向对象编程思维的状态管理框架。如果你觉得 React 这种骑术门槛太高，适应能力差，我觉得 VueJS, Vuex 可能是更适合你的选择。&lt;/p&gt;
 &lt;p&gt;说了这么多，希望自己能解释清楚前端状态管理是怎么一回事。&lt;/p&gt;
 &lt;h5 id=&#34;原文地址httpimzivcomblogarticlereadhtmid80httpimzivcomblogarticlereadhtmid80&#34;&gt;原文地址&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=80&#34;&gt;http://imziv.com/blog/article/read.htm?id=80&lt;/a&gt;&lt;/h5&gt;
-- http://imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/ - 2014-2020.</description>
+- http://imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -290,7 +387,7 @@ $ su ziv
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;之前从其他渠道看到过这句话，今天也算是知道出处了~&lt;/p&gt;
 &lt;p&gt;总而言之，言而总之，用现在时髦的话说就是：“去做你想做的事，去成为你想成为的人”。&lt;/p&gt;
 &lt;h5 id=&#34;原文地址httpimzivcomblogarticlereadhtmid79httpimzivcomblogarticlereadhtmid79&#34;&gt;原文地址：&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=79&#34;&gt;http://imziv.com/blog/article/read.htm?id=79&lt;/a&gt;&lt;/h5&gt;
-- http://imziv.com/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/ - 2014-2020.</description>
+- http://imziv.com/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -301,7 +398,7 @@ $ su ziv
         <pubDate>Sat, 31 Dec 2016 23:55:56 +0000</pubDate>
         
         <guid>http://imziv.com/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/ -- http://imziv.com/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/ - 2014-2020.</description>
+        <description>让美的事情发生 http://imziv.com/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/ -- http://imziv.com/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -322,7 +419,7 @@ $ su ziv
 &lt;p&gt;三、思考沉淀的好方式
 有很多人有些日记，笔记的习惯。而这些都是写作的一种。通过这种写作的方式，与自我对话，与自己内心对话的方式，可以更好的总结，反思，重新认识自己。能让我们队自身有更好的认知。&lt;/p&gt;
 &lt;p&gt;以上是我简单的罗列好处，其实写作的好处简直太多，就不在此一一列举了。希望自己能坚持，坚持到老！&lt;/p&gt;
-- http://imziv.com/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/ - 2014-2020.</description>
+- http://imziv.com/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -341,7 +438,7 @@ $ su ziv
 &lt;p&gt;JSConf 还是比我想象中的要好的，还是挺有收获的。不管是干货还是湿货，我觉得这次 JSConf 之行对我而言是次挺难忘的经历。具体的技术点梳理，知乎已经有很多不错的回答了。而且这次来此 Facebook 的分享嘉宾&lt;a href=&#34;http://thejameskyle.com/&#34;&gt;James Kyle&lt;/a&gt;的 Presentation 着实把大家的研究给辣瞎了。本身也在知乎上回复了关于自己 Presentation 的看法(&lt;a href=&#34;https://www.zhihu.com/question/50244455&#34;&gt;详情可以点击&lt;/a&gt;)。参加 JSConf 前，我也就参加过 D2 前端论坛，基本上其他大大小小的也参与过，也看过不少视频，很多的感觉并不是太好。但是这次我还是看到了很多不同东西，看到了很多分享嘉宾大老远从地球的一端飞过来，而给我们分享的内容也就那么几十分钟，其实这一切都挺不易的。具体的技术内容我就不讲了，嘉宾各具特色，精美的 PPT, 各类的开发者，有高中生，还有类似医生转开发者的，还有拖家带口的，例如朴灵大大，当然还有在大会上直接点评甚至喷嘉宾的那位童鞋，等等。很多的因素，让我除了技术上的收获外，更多的是体会到了这个社区很多不一样的一面，很多东西变得更立体，更鲜活。&lt;/p&gt;
 &lt;p&gt;另外这次也跟很多开发者也相互交流过自己所在做的东西，所用到的技术，然后相互获取一些灵感。我觉得这种大会除去一些干货以外，更多的是提供一种平台，促成许多面对面的交流，然后认识一些新的朋友。毕竟线上和现实还是有区别的。&lt;/p&gt;
 &lt;p&gt;嗯，最后希望 JSConf 越办越好， 南京，再见。&lt;/p&gt;
-- http://imziv.com/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/ - 2014-2020.</description>
+- http://imziv.com/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -482,7 +579,7 @@ echo &amp;ldquo;Release finished.&amp;rdquo;
 &lt;p&gt;最后
 项目的工程化是一件很有意思的事情，通过自动化的工具，可以有效提升项目可维护性和质量，并且避免很多不确定因素。如果你工作中发现了这些问题，而不想继续通过人肉的方法解决这些问题的话，那就赶紧试试~&lt;/p&gt;
 &lt;p&gt;原文地址：&lt;a href=&#34;http://imziv.com/blog/article/index.htm&#34;&gt;http://imziv.com/blog/article/index.htm&lt;/a&gt;&lt;/p&gt;
-- http://imziv.com/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/ - 2014-2020.</description>
+- http://imziv.com/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/ - 2014-2020 Ziv小威</description>
         </item>
     
     
@@ -536,31 +633,7 @@ echo &amp;ldquo;Release finished.&amp;rdquo;
     }, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;);
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;总结&#34;&gt;总结&lt;/h4&gt;
 &lt;p&gt;以上就是图片异步加载的主要代码了。当然里面可以进行跟多的性能优化，例如我这里每次都需要重新遍历图片列表，只是通过单独的加载标记来确认图片是否加载过，我们当然可以用不同的数组列表分别装载加载过和未加载的图片元素，从而降低遍历次数等等。另外也可以给图片添加过度的 loading 动画等等，让这个异步加载插件更完善。我这里有个较为完整的异步加载的代码，有兴趣的朋友可以查看：&lt;a href=&#34;https://github.com/wewoor/sloth&#34;&gt;https://github.com/wewoor/sloth&lt;/a&gt;&lt;/p&gt;
-- http://imziv.com/posts/2016/%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD/ - 2014-2020.</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>Cordova 开发总结(插件篇）</title>
-        <link>http://imziv.com/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/</link>
-        <pubDate>Fri, 24 Jun 2016 14:57:57 +0000</pubDate>
-        
-        <guid>http://imziv.com/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/ -&lt;p&gt;最近刚刚做完一个用 Cordova 开发了一款电子商务的应用。在选用 Cordova 前，我有考察过，国内的 Appcan, Apicloud 等等的解决方案。其实 Appcan，ApiCloud 的混合方案挺完整的，从开发，框架，到打包测试，数据统计都包含了，但是我还是更倾向于开源的 Cordova, 我相信开源社区的力量应该更强大，所以最终选择了 Cordova 作为解决方案。事实上，我用 Cordova 开发遇到目前所以需要的插件都是可以通过 Google 查找到的。在此总结下我用到的插件。&lt;/p&gt;
-&lt;h4 id=&#34;crosswalkhttpscrosswalk-projectorg&#34;&gt;&lt;a href=&#34;https://crosswalk-project.org/&#34;&gt;Crosswalk&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;这是一个单独定制的 Webview 插件，包含了大部分最新的 HTML5 特性。Crosswork Cordova 插件目前只支持 Android, iOS 需要自己手动的集成。在如今安卓机这种测试机可以装一箱子都不止的情况下，使用统一的 Webview 是十分有必要的。可以避免大部分的兼容性问题，而且可以保持不错的性能。当然有个弊端就是添加这个插件，打包的 apk 会增加 20MB 左右。&lt;/p&gt;
-&lt;h4 id=&#34;极光推送jpushhttpsgithubcomjpushjpush-phonegap-plugin&#34;&gt;&lt;a href=&#34;https://github.com/jpush/jpush-phonegap-plugin&#34;&gt;极光推送(JPush)&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;极光的推送插件在 Cordova 上的集成也是非常的方便，顺利的话 1 个小时就可以搞定。刚开始的时候我还有点慌，担心推送插件的集成问题，没想到看了下官网，有从 Cordova 的集成版本，还支持自动安装。&lt;/p&gt;
-&lt;h4 id=&#34;切页转场动画httppluginstelerikcomcordovapluginnative-page-transitions&#34;&gt;&lt;a href=&#34;http://plugins.telerik.com/cordova/plugin/native-page-transitions&#34;&gt;切页转场动画&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;刚开始我利用 Angularjs 集成了 CSS3 的转场动画，打包跑在 iOS 上时其实还好，但是到 Android 端的时候，弊端尽显，实在不理想，最好我把转场动画都直接撤掉了，留下个 loading 动画。显然整个界面的切换就变的干巴巴了。最后找到&lt;a href=&#34;http://plugins.telerik.com/cordova/plugin/native-page-transitions&#34;&gt;com.telerik.plugins.nativepagetransitions&lt;/a&gt;这个转场插件。这个插件支持&lt;code&gt;Slide&lt;/code&gt;,&lt;code&gt;Flip&lt;/code&gt;,&lt;code&gt;Fade&lt;/code&gt;, &lt;code&gt;Drawer&lt;/code&gt;, &lt;code&gt;Curl&lt;/code&gt;等 5 种效果，集成和调用也很简单。&lt;/p&gt;
-&lt;h4 id=&#34;键盘插件keyboardhttpsgithubcomdriftycoionic-plugin-keyboard&#34;&gt;&lt;a href=&#34;https://github.com/driftyco/ionic-plugin-keyboard&#34;&gt;键盘插件（Keyboard)&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;大家都知道在移动端调出键盘输入操作时，调出的键盘会挤出自己当前的界面，造成页面的样式错乱的问题。Keyboard 插件可以监听键盘的展示隐藏事件，禁止 input 时键盘出现界面滚动等等问题。&lt;/p&gt;
-&lt;h4 id=&#34;支付-alipayhttpsgithubcomcharleywcordova-plugin-alipay&#34;&gt;&lt;a href=&#34;https://github.com/charleyw/cordova-plugin-alipay&#34;&gt;支付 Alipay&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;做移动应用肯定少不了支付，支付宝的 Cordova 插件其实很多，但我搜索了一圈还是这个比较好使~&lt;/p&gt;
-&lt;h4 id=&#34;总结&#34;&gt;总结&lt;/h4&gt;
-&lt;p&gt;以上是我用的几个主要插件，因为 Cordova 里面像&lt;code&gt;Camera&lt;/code&gt;, &lt;code&gt;File&lt;/code&gt;, 其他类型的插件太多太多了。完全可以根据自己的喜好来选择。总而言之，Cordova 本身由于这么多年时间的积累，造就了它在插件等等资源上的很多的优势。另外，微软刚刚开源的&lt;a href=&#34;https://www.xamarin.com/&#34;&gt;Xamarin&lt;/a&gt;据说也是个非常不错的混合开发方案，用 C#编写源码， 有机会试试~&lt;/p&gt;
-- http://imziv.com/posts/2016/cordova-%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93%E6%8F%92%E4%BB%B6%E7%AF%87/ - 2014-2020.</description>
+- http://imziv.com/posts/2016/%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD/ - 2014-2020 Ziv小威</description>
         </item>
     
     
