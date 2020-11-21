@@ -25,9 +25,9 @@
 很多朋友刚刚上手 React 的时候，被什么 Redux, 函数式都搞的有点摸不着头脑。因为之前很多时候写前端用一个 jQuery 就足矣，当转换到 ReactJS 时,忽然多出了个 Webpack, Redux, 然而 Redux 里面又包含了什么Reducer、Action、State管理、函数式等等概念, 搞的人的确很头大。前期较高的学习成本，造成了很多朋友就放弃了 ReactJS 的选型。而且很多开发者初期并不了解这些框架所解决的问题，缺乏足够的实践经验，造成很多人误认为这是把简单的问题越搞越复杂。可能大家回想本来很简单的问题，我用个 jQuery 就能搞定，甚至纯手撸原生 Javascript 都可以，怎么突然多出了这么多东西。例如 ReactJS 只是单纯的 View 层的解决方案，而 Redux 是一种状态管理框架，不仅支持 ReactJS，还支持Angularjs, 官方宣称的是它可以支持任务其他的视图库。正因越来越复杂的前端需求，层出不穷的前端解决方案和技术的推陈出新，造就了前端社区异常火爆的局面。而本文主要探讨前端的状态管理（State Management）
 服务端渲染的 WEB 开发 就在几年前，前端工程师的大部分工作，可能还停留在利用 CSS, HTML 切页面，然后利用 JS 做些简单的动态交互，更进一步的前端开发者可能需要懂 Java, 或者 PHP 之类的语言，因为需要将写好的页面与模板引擎完成整合。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/" />
+<meta property="og:url" content="//imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/" />
 <meta property="article:published_time" content="2017-01-08T22:38:01+00:00" />
-<meta property="article:modified_time" content="2017-01-08T22:38:01+00:00" /><meta property="og:site_name" content="My Blog" />
+<meta property="article:modified_time" content="2017-01-08T22:38:01+00:00" /><meta property="og:site_name" content="Ziv小威" />
 
 
 
@@ -78,14 +78,14 @@ if (!doNotTrack) {
 
 
 
-<link rel="stylesheet" href="http://imziv.com/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+<link rel="stylesheet" href="//imziv.com/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
 
 
 
-<link rel="stylesheet" href="http://imziv.com/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
+<link rel="stylesheet" href="//imziv.com/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
 
 
-<script src="http://imziv.com/js/loadCSS.js"></script>
+<script src="//imziv.com/js/loadCSS.js"></script>
 <script>
   loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
 </script>
@@ -94,7 +94,7 @@ if (!doNotTrack) {
 
 
   
-    <script src="http://imziv.com/js/toc-collapse.js"></script>
+    <script src="//imziv.com/js/toc-collapse.js"></script>
   
 
 
@@ -111,20 +111,32 @@ if (!doNotTrack) {
 </head><body>
     	<div id="app"><div ref="sideContainer" class="side-container">
     
-    <a class="a-block nav-head false" href="http://imziv.com">
+    <a class="a-block nav-head false" href="//imziv.com">
     
         <div class="nav-title">
             让美的事情发生
         </div>
         
         <div class="nav-subtitle">
-            Ziv小威
+            Ziv 小威
         </div>
         
     </a>
 
     <div class="nav-link-list">
         
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/">
+                网志
+            </a>
+            
         
             
             
@@ -170,9 +182,10 @@ if (!doNotTrack) {
         
         <div class="nav-link-item">
             <a href="https://github.com/wewoor" target="_blank"><i title="Github" class="fab fa-github"></i></a>
+            <a href="//www.instagram.com/wewoor/" target="_blank"><i title="Instagram" class="fab fa-instagram"></i></a>
+            <a href="//slides.com/wewoor" target="_blank"><i title="Slides" class="fab fa-slideshare"></i></a>
             <a href="https://www.zhihu.com/people/zivxiaowei" target="_blank"><i title="Telegram" class="fab fa-zhihu"></i></a>
-            <a href="//weibo.com/zivxiaowei" target="_blank"><i title="Telegram" class="fab fa-weibo"></i></a>
-            <a href="mailto:wewoor@foxmail.com" target="_blank"><i title="Facebook" class="fa fa-envelope"></i></a>
+            <a href="mailto:wewoor@foxmail.com" target="_blank"><i title="Email to me!" class="fa fa-envelope"></i></a>
             <a href="/index.xml" target="_blank"><i title="Feed" class="fas fa-rss"></i></a>
         </div>
     </div>
@@ -181,7 +194,7 @@ if (!doNotTrack) {
         
 &copy;
 	
-	2014-2020 Ziv小威
+	2012-2020 Ziv小威
 	
 	Built by Hugo <a href="https://github.com/amazingrise/hugo-theme-diary">(Diary)</a>
     </div>
@@ -353,6 +366,18 @@ if (!doNotTrack) {
         <div class="drawer-menu">
             
             
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/">
+                    网志
+                </a>
+                
             
                 
                 
@@ -551,7 +576,7 @@ if (!doNotTrack) {
                 menu
             </i>
         </button>
-        <a ref="navTitle" class="navbar-brand" href="http://imziv.com">
+        <a ref="navTitle" class="navbar-brand" href="//imziv.com">
             让美的事情发生
         </a>
         
@@ -568,10 +593,10 @@ if (!doNotTrack) {
 </nav>
 <div class="single-column-header-container" ref="pageHead"
      v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
-    <a href="http://imziv.com">
+    <a href="//imziv.com">
         <div class="single-column-header-title">让美的事情发生</div>
         
-        <div class="single-column-header-subtitle">Ziv小威</div>
+        <div class="single-column-header-subtitle">Ziv 小威</div>
         
 
     </a>
@@ -660,13 +685,13 @@ if (!doNotTrack) {
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="http://imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/">
+                <a class="newer-posts" href="//imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/">
 			下回<br>常用的 Linux Shell 命令
                 </a>
                 
                 
                 
-                <a class="older-posts" href="http://imziv.com/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/">
+                <a class="older-posts" href="//imziv.com/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/">
 			上回<br>《明朝那些事》读后感
                 </a>
                 
@@ -694,7 +719,7 @@ if (!doNotTrack) {
             </div><div id="single-column-footer">
 &copy;
 	
-	2014-2020 Ziv小威
+	2012-2020 Ziv小威
 	
 	Built by Hugo <a href="https://github.com/amazingrise/hugo-theme-diary">(Diary)</a></div>
             </div>
@@ -798,6 +823,6 @@ app = new Vue({
 });
 </script>
 
-<script src="http://imziv.com/js/journal.js"></script>
+<script src="//imziv.com/js/journal.js"></script>
     </body>
 </html>

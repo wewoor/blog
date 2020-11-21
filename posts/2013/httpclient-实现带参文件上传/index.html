@@ -24,9 +24,9 @@
 public static String doPostFile(String url, Part[] parts){ String response = null; PostMethod postMethod = new PostMethod(url); try{ //设置请求实体  postMethod.setRequestEntity(new MultipartRequestEntity(parts,postMethod.getParams())); HttpClient client = new HttpClient(); //设置连接超时限度  client.getHttpConnectionManager().getParams().setConnectionTimeout(5000); client.executeMethod(postMethod); if(postMethod.getStatusCode() == HttpStatus.SC_OK){ response = new String(postMethod.getResponseBodyAsString().getBytes(&#34;utf-8&#34;)); } } catch(Exception e){ LOGGER.error(&#34;HttpServiceSender.doPostFile()&#34;,e.getMessage()); } finally { postMethod.releaseConnection(); } return response; } 调用此方法的代码，注意参数的传递方式
 public String uploadImage(File file,String id,String name){ String result = null; try{ //文件part,new FilePart添加的是File类型的文件，后面StringPart则为字符串参数  Part[] parts = { new FilePart(&#34;file&#34;, file), new StringPart(&#34;id&#34;, id), new StringPart(&#34;id&#34;,name)}; result = HttpServiceSender." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://imziv.com/posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" />
+<meta property="og:url" content="//imziv.com/posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" />
 <meta property="article:published_time" content="2013-08-07T17:13:00+00:00" />
-<meta property="article:modified_time" content="2013-08-07T17:13:00+00:00" /><meta property="og:site_name" content="My Blog" />
+<meta property="article:modified_time" content="2013-08-07T17:13:00+00:00" /><meta property="og:site_name" content="Ziv小威" />
 
 
 
@@ -76,14 +76,14 @@ if (!doNotTrack) {
 
 
 
-<link rel="stylesheet" href="http://imziv.com/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+<link rel="stylesheet" href="//imziv.com/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
 
 
 
-<link rel="stylesheet" href="http://imziv.com/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
+<link rel="stylesheet" href="//imziv.com/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
 
 
-<script src="http://imziv.com/js/loadCSS.js"></script>
+<script src="//imziv.com/js/loadCSS.js"></script>
 <script>
   loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
 </script>
@@ -92,7 +92,7 @@ if (!doNotTrack) {
 
 
   
-    <script src="http://imziv.com/js/toc-collapse.js"></script>
+    <script src="//imziv.com/js/toc-collapse.js"></script>
   
 
 
@@ -109,20 +109,32 @@ if (!doNotTrack) {
 </head><body>
     	<div id="app"><div ref="sideContainer" class="side-container">
     
-    <a class="a-block nav-head false" href="http://imziv.com">
+    <a class="a-block nav-head false" href="//imziv.com">
     
         <div class="nav-title">
             让美的事情发生
         </div>
         
         <div class="nav-subtitle">
-            Ziv小威
+            Ziv 小威
         </div>
         
     </a>
 
     <div class="nav-link-list">
         
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/">
+                网志
+            </a>
+            
         
             
             
@@ -168,9 +180,10 @@ if (!doNotTrack) {
         
         <div class="nav-link-item">
             <a href="https://github.com/wewoor" target="_blank"><i title="Github" class="fab fa-github"></i></a>
+            <a href="//www.instagram.com/wewoor/" target="_blank"><i title="Instagram" class="fab fa-instagram"></i></a>
+            <a href="//slides.com/wewoor" target="_blank"><i title="Slides" class="fab fa-slideshare"></i></a>
             <a href="https://www.zhihu.com/people/zivxiaowei" target="_blank"><i title="Telegram" class="fab fa-zhihu"></i></a>
-            <a href="//weibo.com/zivxiaowei" target="_blank"><i title="Telegram" class="fab fa-weibo"></i></a>
-            <a href="mailto:wewoor@foxmail.com" target="_blank"><i title="Facebook" class="fa fa-envelope"></i></a>
+            <a href="mailto:wewoor@foxmail.com" target="_blank"><i title="Email to me!" class="fa fa-envelope"></i></a>
             <a href="/index.xml" target="_blank"><i title="Feed" class="fas fa-rss"></i></a>
         </div>
     </div>
@@ -179,7 +192,7 @@ if (!doNotTrack) {
         
 &copy;
 	
-	2014-2020 Ziv小威
+	2012-2020 Ziv小威
 	
 	Built by Hugo <a href="https://github.com/amazingrise/hugo-theme-diary">(Diary)</a>
     </div>
@@ -216,6 +229,18 @@ if (!doNotTrack) {
         <div class="drawer-menu">
             
             
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/">
+                    网志
+                </a>
+                
             
                 
                 
@@ -279,7 +304,7 @@ if (!doNotTrack) {
                 menu
             </i>
         </button>
-        <a ref="navTitle" class="navbar-brand" href="http://imziv.com">
+        <a ref="navTitle" class="navbar-brand" href="//imziv.com">
             让美的事情发生
         </a>
         
@@ -296,10 +321,10 @@ if (!doNotTrack) {
 </nav>
 <div class="single-column-header-container" ref="pageHead"
      v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
-    <a href="http://imziv.com">
+    <a href="//imziv.com">
         <div class="single-column-header-title">让美的事情发生</div>
         
-        <div class="single-column-header-subtitle">Ziv小威</div>
+        <div class="single-column-header-subtitle">Ziv 小威</div>
         
 
     </a>
@@ -393,13 +418,13 @@ if (!doNotTrack) {
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="http://imziv.com/posts/2013/jquery%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/">
+                <a class="newer-posts" href="//imziv.com/posts/2013/jquery%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/">
 			下回<br>jquery 实现文件异步上传
                 </a>
                 
                 
                 
-                <a class="older-posts" href="http://imziv.com/posts/2013/javascript%E7%9A%84%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E6%8B%86%E8%A7%A3%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1/">
+                <a class="older-posts" href="//imziv.com/posts/2013/javascript%E7%9A%84%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E6%8B%86%E8%A7%A3%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1/">
 			上回<br>Javascript 的字面量对象以及如何拆解字面量对象
                 </a>
                 
@@ -427,7 +452,7 @@ if (!doNotTrack) {
             </div><div id="single-column-footer">
 &copy;
 	
-	2014-2020 Ziv小威
+	2012-2020 Ziv小威
 	
 	Built by Hugo <a href="https://github.com/amazingrise/hugo-theme-diary">(Diary)</a></div>
             </div>
@@ -531,6 +556,6 @@ app = new Vue({
 });
 </script>
 
-<script src="http://imziv.com/js/journal.js"></script>
+<script src="//imziv.com/js/journal.js"></script>
     </body>
 </html>

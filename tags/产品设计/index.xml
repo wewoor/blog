@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>产品设计 on 让美的事情发生</title>
-    <link>http://imziv.com/tags/%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1/</link>
+    <link>//imziv.com/tags/%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1/</link>
     <description>Recent content in 产品设计 on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>2014-2020 Ziv小威</copyright>
+    <copyright>2012-2020 Ziv小威</copyright>
     <lastBuildDate>Thu, 28 May 2015 23:07:27 +0000</lastBuildDate>
     
-	<atom:link href="http://imziv.com/tags/%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="//imziv.com/tags/%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>使用网易云音乐，丢掉 QQ 音乐吧</title>
-      <link>http://imziv.com/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/</link>
+      <link>//imziv.com/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/</link>
       <pubDate>Thu, 28 May 2015 23:07:27 +0000</pubDate>
       
-      <guid>http://imziv.com/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/</guid>
+      <guid>//imziv.com/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/</guid>
       <description>我是一个听音乐的重度用户，基本上每天大约有三分之一的时间里我在使用网易云音乐去听音乐。包括工作写代码的时候，跑步的时候，去上班的途中我都去听。首先需要声明的是，在这里我不是故意的去抹黑其他的音乐产品，我只是谈谈我一个真实用户的真切感受。 由于喜欢听音乐的原因，自从开始接触互联网后，我便开始接触了很多音乐播放类产品，从早期的千千静听，酷我音乐，酷狗音乐，QQ 音乐，豆瓣 FM，虾米音乐，JingFM, 多米音乐，落网等等，有太多的音乐产品，我都数不过来。其实不难看出，网易做音乐类产品还是近两年才发力，早期根本没有涉足此类的音乐市场，除了给我印象深刻的网易邮箱里内置的在线音乐播放器以外。
 在使用网易云音乐之前，豆瓣 FM 和 QQ 音乐是我主要的听音乐产品。豆瓣给人的印象就是，小资，独立，经常可以听到和发现一些市面上比较小众，但是又很耐人寻味的音乐，而且豆瓣本身就聚集了一大批的热爱文艺的人，所以如果你遇上喜爱曲风相近的人，那么分享出来的音乐也就比较容易合你的胃口。QQ 音乐由于与 QQ 账号绑定的原因，早期的时候，结合 QQ 客户端，它的账号同步功能占了很大的优势，而且利用 QQ 社交的影响，加上它足够丰富的曲库，让大部分用户都难以割舍它。但是这些并不能掩饰 QQ 音乐是一个做的比较烂的产品。我相信那时很大一部分音乐重度用户泡在虾米和豆瓣上。而今天我主要讨论的产品则是网易云音乐和 QQ 音乐。
 产品外观 相信使用过网易云音乐产品的朋友第一次都会被其整洁，简练，精致的的外观所吸引，从整个 Web 产品到 PC 端，移动应用，都保持着高度一致的美感。其标准性的碟片播放界面十分讨用户喜爱，罗永浩（这个人比较凶悍）甚至直接在锤子手机中引入了网易云音乐。而反观 QQ 音乐层次不齐，细节上面远远没有网易云音乐用心。外观对于一款产品的作用的不言而喻的，就好比你第一次见到两道菜，你肯定会更倾向于菜色更佳的，当然你也会说，光看菜色不行啊，口感才是最重要的，而不巧的是，网易云音乐的口感同样于外观一样出色。

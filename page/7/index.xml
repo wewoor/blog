@@ -1,24 +1,95 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>让美的事情发生</title>
-    <link>http://imziv.com/</link>
+    <link>//imziv.com/</link>
     <description>Recent content on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>2014-2020 Ziv小威</copyright>
-    <lastBuildDate>Tue, 14 Jan 2020 10:28:51 +0000</lastBuildDate>
+    <copyright>2012-2020 Ziv小威</copyright>
+    <lastBuildDate>Sat, 21 Nov 2020 04:00:25 +0000</lastBuildDate>
     
-        <atom:link href="http://imziv.com/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="//imziv.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>JS 实现星级评价</title>
+        <link>//imziv.com/posts/2014/js%E5%AE%9E%E7%8E%B0%E6%98%9F%E7%BA%A7%E8%AF%84%E4%BB%B7/</link>
+        <pubDate>Thu, 09 Jan 2014 16:55:00 +0000</pubDate>
+        
+        <guid>//imziv.com/posts/2014/js%E5%AE%9E%E7%8E%B0%E6%98%9F%E7%BA%A7%E8%AF%84%E4%BB%B7/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2014/js%E5%AE%9E%E7%8E%B0%E6%98%9F%E7%BA%A7%E8%AF%84%E4%BB%B7/ -&lt;h2 id=&#34;说明&#34;&gt;说明&lt;/h2&gt;
+&lt;p&gt;　　本方法采用了 Jquery 库，暂时检测兼容 IE8 版本。本示例的 2 种颜色的星星都是放入了一张 png 图片当中，当然还有其他的一些实现思路。本示例展示的情况是当前页面只有一个星级评价的情况。&lt;/p&gt;
+&lt;h2 id=&#34;思路&#34;&gt;思路&lt;/h2&gt;
+&lt;p&gt;　　通过对星级显示元素的，mouseenter,mouseout,click 三个事件的监听，从而星星显示的个数。其中我用了 2 个变量（temp_value,choice_value）来存放当前选定星级的值和当前临时的星级值；&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;temp_value : 临时的星级值；&lt;/li&gt;
+&lt;li&gt;choice_value : 选择的星级值；&lt;/li&gt;
+&lt;li&gt;mouseenter : 鼠标移入，获取当前所在的星星级别赋予 temp_value，调整当前星星的图片颜色；&lt;/li&gt;
+&lt;li&gt;mouseout : 鼠标移除，通过对比 choice_value 值，重新调整星星图片颜色；&lt;/li&gt;
+&lt;li&gt;click : 鼠标单击后，获取当前的星级值，赋值给 choice_value;（注意在 click 前已经进行过 mouseenter 事件了，click 后进行了 mouseout 事件了）&lt;/li&gt;
+&lt;li&gt;当完成选定值后，在需要提交评价值的时候，可以通过 JS 去获取变量 choice_value 的值；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;HTML 结构代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;h1&lt;/span&gt;&amp;gt;评价：&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;h1&lt;/span&gt;&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;ul&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;star&amp;#34;&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;li&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;title&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;很差&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;star1&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;star&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;li&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;li&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;title&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;差&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;star2&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;star&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;2&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;li&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;li&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;title&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;一般&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;star3&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;star&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;3&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;li&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;li&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;title&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;好&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;star4&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;star&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;4&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;li&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;li&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;title&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;很好&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;star5&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;star&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;5&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;li&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;ul&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;注：如果页面中不止一个星级评价，也就是出现多行的情况，这个时候只需要对 Dom 中 li 的 id 进行一些改造，加上动态的下标，从而区分不同的元素。另外有个点就是，我把选定的星级值放入的是 JS 变量中去了，多个评价值的情况下，建议可以在 Dom 中加上隐藏表单域去存放选定的当前星级值。&lt;/p&gt;
+&lt;p&gt;JS 实现代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&amp;lt;script src=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;http://code.jquery.com/jquery-latest.js&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;/script&amp;gt;&lt;/span&gt;
+&amp;lt;script type=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt;&amp;gt;
+    $(&lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;).ready(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; _temp_value = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;,&lt;span style=&#34;color:#228b22&#34;&gt;//鼠标hover时的等级value
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            choiceValue = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;&lt;span style=&#34;color:#228b22&#34;&gt;//默认选定的等级值为1
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#228b22&#34;&gt;//鼠标移入的时候
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        $(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;#star li&amp;#34;&lt;/span&gt;).mouseenter(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
+            &lt;span style=&#34;color:#228b22&#34;&gt;//获取当前的星级
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            _temp_value = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;Number&lt;/span&gt;($(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;).attr(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;star&amp;#34;&lt;/span&gt;));
+            showStar();
+
+        &lt;span style=&#34;color:#228b22&#34;&gt;//鼠标移入的时候
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        }).mouseout(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(){
+            hideStar();
+
+        &lt;span style=&#34;color:#228b22&#34;&gt;//鼠标移入的时候
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        }).click(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(){
+            &lt;span style=&#34;color:#228b22&#34;&gt;//单击时，设定当前的选定值
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            choiceValue = _temp_value;　　　　　　　　hideSatr();　　
+        });
+
+        &lt;span style=&#34;color:#228b22&#34;&gt;//星级显示
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; showStar() {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt; ; i &amp;lt; _temp_value+&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;; ++i) {
+                $(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;#star&amp;#34;&lt;/span&gt;+i).addClass(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;choice&amp;#34;&lt;/span&gt;);
+            }
+        }
+
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; hideStar() {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;5&lt;/span&gt; ; i &amp;gt; choiceValue; --i) {
+                $(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;#star&amp;#34;&lt;/span&gt;+i).removeClass(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;choice&amp;#34;&lt;/span&gt;);
+            }
+        }
+    });
+&amp;lt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如有问题，请联系我！这里是 Demo 地址：http://xiaoweijs.duapp.com/demo/star-level/index.html&lt;/p&gt;
+- //imziv.com/posts/2014/js%E5%AE%9E%E7%8E%B0%E6%98%9F%E7%BA%A7%E8%AF%84%E4%BB%B7/ - 2012-2020 Ziv小威</description>
+        </item>
     
     
     
         <item>
         <title>Spring 中@Component 注解,@Controller 注解详解</title>
-        <link>http://imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/</link>
+        <link>//imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/</link>
         <pubDate>Tue, 24 Dec 2013 16:28:00 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/ -&lt;p&gt;在使用 Spring 的过程中，为了避免大量使用 Bean 注入的 Xml 配置文件,我们会采用 Spring 提供的自动扫描注入的方式,只需要添加几行自动注入的的配置,便可以完成&lt;/p&gt;
+        <guid>//imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/ -&lt;p&gt;在使用 Spring 的过程中，为了避免大量使用 Bean 注入的 Xml 配置文件,我们会采用 Spring 提供的自动扫描注入的方式,只需要添加几行自动注入的的配置,便可以完成&lt;/p&gt;
 &lt;p&gt;Service 层,Controller 层等等的注入配置.使用过程中,在 Service 层中的实现类头上加@Compopnet 注解，在 Controller 类头加@Controller 注解，便完成了配置。例如在&lt;/p&gt;
 &lt;p&gt;Controller 中当我们调用某个 Service 时就不需要 Set 方法了，直接通过@Autowried 注解对 Service 对象进行注解即可：例如&lt;/p&gt;
 &lt;p&gt;在 Controller 中：&lt;/p&gt;
@@ -54,18 +125,18 @@ Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired
 　　@Controller 注解是一个特殊的 Component，它允许了实现类可以通过扫描类配置路径的方式完成自动注入，通常@Controller 是结合@RequestMapping 注解一起使用的。&lt;/p&gt;
 &lt;p&gt;结语：&lt;/p&gt;
 &lt;p&gt;　　　通过了解 Spring 的注解可以帮助我们在使用 Spring 开发过程中提高开发效率，同时也加强了我们对 Spring 的认识。在使用 Spring 开发的过程中，我个人更倾向于使用注解的方式，减少配置文件代码。&lt;/p&gt;
-- http://imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>制作滑动条菜单，如何延时处理滑动效果，避免动画卡顿</title>
-        <link>http://imziv.com/posts/2013/%E5%88%B6%E4%BD%9C%E6%BB%91%E5%8A%A8%E6%9D%A1%E8%8F%9C%E5%8D%95%E5%A6%82%E4%BD%95%E5%BB%B6%E6%97%B6%E5%A4%84%E7%90%86%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E9%81%BF%E5%85%8D%E5%8A%A8%E7%94%BB%E5%8D%A1%E9%A1%BF/</link>
+        <link>//imziv.com/posts/2013/%E5%88%B6%E4%BD%9C%E6%BB%91%E5%8A%A8%E6%9D%A1%E8%8F%9C%E5%8D%95%E5%A6%82%E4%BD%95%E5%BB%B6%E6%97%B6%E5%A4%84%E7%90%86%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E9%81%BF%E5%85%8D%E5%8A%A8%E7%94%BB%E5%8D%A1%E9%A1%BF/</link>
         <pubDate>Sat, 07 Dec 2013 16:47:00 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2013/%E5%88%B6%E4%BD%9C%E6%BB%91%E5%8A%A8%E6%9D%A1%E8%8F%9C%E5%8D%95%E5%A6%82%E4%BD%95%E5%BB%B6%E6%97%B6%E5%A4%84%E7%90%86%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E9%81%BF%E5%85%8D%E5%8A%A8%E7%94%BB%E5%8D%A1%E9%A1%BF/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2013/%E5%88%B6%E4%BD%9C%E6%BB%91%E5%8A%A8%E6%9D%A1%E8%8F%9C%E5%8D%95%E5%A6%82%E4%BD%95%E5%BB%B6%E6%97%B6%E5%A4%84%E7%90%86%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E9%81%BF%E5%85%8D%E5%8A%A8%E7%94%BB%E5%8D%A1%E9%A1%BF/ -&lt;p&gt;前几日在利用 JQuery 做菜单滑动标记这个效果的时候，最后发现滑动条在我用鼠标快速滑动的时候，会出现滑动条延迟滑动，并且有卡顿的现象,相当影响体验感受。不完美～&lt;/p&gt;
+        <guid>//imziv.com/posts/2013/%E5%88%B6%E4%BD%9C%E6%BB%91%E5%8A%A8%E6%9D%A1%E8%8F%9C%E5%8D%95%E5%A6%82%E4%BD%95%E5%BB%B6%E6%97%B6%E5%A4%84%E7%90%86%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E9%81%BF%E5%85%8D%E5%8A%A8%E7%94%BB%E5%8D%A1%E9%A1%BF/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2013/%E5%88%B6%E4%BD%9C%E6%BB%91%E5%8A%A8%E6%9D%A1%E8%8F%9C%E5%8D%95%E5%A6%82%E4%BD%95%E5%BB%B6%E6%97%B6%E5%A4%84%E7%90%86%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E9%81%BF%E5%85%8D%E5%8A%A8%E7%94%BB%E5%8D%A1%E9%A1%BF/ -&lt;p&gt;前几日在利用 JQuery 做菜单滑动标记这个效果的时候，最后发现滑动条在我用鼠标快速滑动的时候，会出现滑动条延迟滑动，并且有卡顿的现象,相当影响体验感受。不完美～&lt;/p&gt;
 &lt;p&gt;在几番询问下，得到了一个延时处理的解决方案，完美解决了这个问题。&lt;/p&gt;
 &lt;h2 id=&#34;思路&#34;&gt;思路&lt;/h2&gt;
 &lt;blockquote&gt;
@@ -105,18 +176,18 @@ Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired
 &lt;a href=&#34;http://xiaoweijs.duapp.com/demo/slidebar.html&#34;&gt;http://xiaoweijs.duapp.com/demo/slidebar.html&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
 &lt;p&gt;有时候对于效果过于追求的我们，像遇到了卡顿这种情况，心里难免有些不完美的感觉。以上 demo 和上面的那个例子只是延时处理的一种情况，其实在做很多导航滑动，向下滑动菜单效果，滚动条滑动等等效果的的时候我们经常会遇见，但是解决思路都是相同的。增加延迟处理，终止事件。注意到这里终止事件的关键点在于 clearTimeout 上，先记录定时器 Id,不满足条件则 clear 掉。&lt;/p&gt;
-- http://imziv.com/posts/2013/%E5%88%B6%E4%BD%9C%E6%BB%91%E5%8A%A8%E6%9D%A1%E8%8F%9C%E5%8D%95%E5%A6%82%E4%BD%95%E5%BB%B6%E6%97%B6%E5%A4%84%E7%90%86%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E9%81%BF%E5%85%8D%E5%8A%A8%E7%94%BB%E5%8D%A1%E9%A1%BF/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2013/%E5%88%B6%E4%BD%9C%E6%BB%91%E5%8A%A8%E6%9D%A1%E8%8F%9C%E5%8D%95%E5%A6%82%E4%BD%95%E5%BB%B6%E6%97%B6%E5%A4%84%E7%90%86%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E9%81%BF%E5%85%8D%E5%8A%A8%E7%94%BB%E5%8D%A1%E9%A1%BF/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>SpringMVC 中 HttpMessageConverter 简介和 Http 请求 415 Unsupported Media Type 的问题</title>
-        <link>http://imziv.com/posts/2013/springmvc-%E4%B8%ADhttpmessageconverter%E7%AE%80%E4%BB%8B%E5%92%8Chttp%E8%AF%B7%E6%B1%82415-unsupported-media-type%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+        <link>//imziv.com/posts/2013/springmvc-%E4%B8%ADhttpmessageconverter%E7%AE%80%E4%BB%8B%E5%92%8Chttp%E8%AF%B7%E6%B1%82415-unsupported-media-type%E7%9A%84%E9%97%AE%E9%A2%98/</link>
         <pubDate>Thu, 05 Dec 2013 15:12:00 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2013/springmvc-%E4%B8%ADhttpmessageconverter%E7%AE%80%E4%BB%8B%E5%92%8Chttp%E8%AF%B7%E6%B1%82415-unsupported-media-type%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2013/springmvc-%E4%B8%ADhttpmessageconverter%E7%AE%80%E4%BB%8B%E5%92%8Chttp%E8%AF%B7%E6%B1%82415-unsupported-media-type%E7%9A%84%E9%97%AE%E9%A2%98/ -&lt;h2 id=&#34;一概述&#34;&gt;一、概述&lt;/h2&gt;
+        <guid>//imziv.com/posts/2013/springmvc-%E4%B8%ADhttpmessageconverter%E7%AE%80%E4%BB%8B%E5%92%8Chttp%E8%AF%B7%E6%B1%82415-unsupported-media-type%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2013/springmvc-%E4%B8%ADhttpmessageconverter%E7%AE%80%E4%BB%8B%E5%92%8Chttp%E8%AF%B7%E6%B1%82415-unsupported-media-type%E7%9A%84%E9%97%AE%E9%A2%98/ -&lt;h2 id=&#34;一概述&#34;&gt;一、概述&lt;/h2&gt;
 &lt;p&gt;　　本文介绍且记录如何解决在 SpringMVC 中遇到 415 Unsupported Media Type 的问题，并且顺便介绍 Spring MVC 的 HTTP 请求信息转换器 HttpMessageConverter。&lt;/p&gt;
 &lt;h2 id=&#34;二问题描述&#34;&gt;二、问题描述&lt;/h2&gt;
 &lt;p&gt;　　在 SprinvMVC 的 Web 程序中，我在页面发送 Ajax 的 POST 请求，然后在服务器端利用@requestBody 接收请求 body 中的参数，当时运行过程中，我想服务器发送 Ajax 请求，浏览器一直反馈 415 Unsupported Media Type 或者 400 的状态码，以为是 Ajax 写的有问题。便查找了半天资料，才发现 spring-mvc.config 文件的配置中少了东西，当然也有可能是你真的在 Ajax 中缺少了对 Content-Type 参数的设置。分析后应该是我 springMVC-config.xml 文件配置有问题。&lt;/p&gt;
@@ -156,18 +227,18 @@ Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired
 &lt;p&gt;当用户发送请求后，@Requestbody 注解会读取请求 body 中的数据，默认的请求转换器 HttpMessageConverter 通过获取请求头 Header 中的 Content-Type 来确认请求头的数据格式，从而来为请求数据适配合适的转换器。例如 contentType:applicatin/json，那么转换器会适配 MappingJacksonHttpMessageConverter。响应时候的时候同理，@Responsebody 注解会启用 HttpMessageConverter，通过检测 Header 中 Accept 属性来适配的响应的转换器。&lt;/p&gt;
 &lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
 &lt;p&gt;　　当在使用 SpringMVC 做服务器数据接收时，尤其是在做 Ajax 请求的时候，尤其要注意 contentType 属性，和 accepte 属性的设置，在 springmvc-config.xml 中配置好相应的转换器。当我们在用 SpringMVC 做 Ajax 请求的时候，有的做法用 response.getWriter().print()的方法，还有更好的方法就是添加@Responsebody 注解，直接返回 Map 类型的数据，转换器自动转换为 JSON 数据类型。&lt;/p&gt;
-- http://imziv.com/posts/2013/springmvc-%E4%B8%ADhttpmessageconverter%E7%AE%80%E4%BB%8B%E5%92%8Chttp%E8%AF%B7%E6%B1%82415-unsupported-media-type%E7%9A%84%E9%97%AE%E9%A2%98/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2013/springmvc-%E4%B8%ADhttpmessageconverter%E7%AE%80%E4%BB%8B%E5%92%8Chttp%E8%AF%B7%E6%B1%82415-unsupported-media-type%E7%9A%84%E9%97%AE%E9%A2%98/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>一个可以模拟 GET，POST，PUT，DELET 请求的 HTTP 在线工具</title>
-        <link>http://imziv.com/posts/2013/%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%A8%A1%E6%8B%9Fgetpostputdelet%E8%AF%B7%E6%B1%82%E7%9A%84http%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/</link>
+        <link>//imziv.com/posts/2013/%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%A8%A1%E6%8B%9Fgetpostputdelet%E8%AF%B7%E6%B1%82%E7%9A%84http%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/</link>
         <pubDate>Tue, 03 Dec 2013 19:02:00 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2013/%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%A8%A1%E6%8B%9Fgetpostputdelet%E8%AF%B7%E6%B1%82%E7%9A%84http%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2013/%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%A8%A1%E6%8B%9Fgetpostputdelet%E8%AF%B7%E6%B1%82%E7%9A%84http%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/ -&lt;p&gt;一个简陋的 HTTP 请求工具，UI 比较丑陋。0.0，可以用于接口调试。&lt;/p&gt;
+        <guid>//imziv.com/posts/2013/%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%A8%A1%E6%8B%9Fgetpostputdelet%E8%AF%B7%E6%B1%82%E7%9A%84http%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2013/%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%A8%A1%E6%8B%9Fgetpostputdelet%E8%AF%B7%E6%B1%82%E7%9A%84http%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/ -&lt;p&gt;一个简陋的 HTTP 请求工具，UI 比较丑陋。0.0，可以用于接口调试。&lt;/p&gt;
 &lt;p&gt;　　之前在调试公司的远程接口的时候用的是 curl,后来也在网上找到几种 Http 请求模拟的客户端程序。当时后来发现 google app 里面有很多在线版的模拟工具，觉得很不错。后来自己也想做一个在线版便动手做的，有问题可以联系我，欢迎交流。&lt;/p&gt;
 &lt;p&gt;访问地址：&lt;a href=&#34;http://httptool.duapp.com/&#34;&gt;http://httptool.duapp.com/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;首先温习一下 Http 请求的内容（内容来自于互联网），标准 Http 协议支持六种请求方法：&lt;/p&gt;
@@ -194,18 +265,18 @@ Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired
 &lt;/ul&gt;
 &lt;p&gt;HTTP_TOOL 模拟了以上 HTTP 的这 4 个基本请求。&lt;/p&gt;
 &lt;p&gt;项目 GitHub 地址：&lt;a href=&#34;https://github.com/wewoor/HTTP_TOOL&#34;&gt;https://github.com/wewoor/HTTP_TOOL&lt;/a&gt;&lt;/p&gt;
-- http://imziv.com/posts/2013/%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%A8%A1%E6%8B%9Fgetpostputdelet%E8%AF%B7%E6%B1%82%E7%9A%84http%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2013/%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%A8%A1%E6%8B%9Fgetpostputdelet%E8%AF%B7%E6%B1%82%E7%9A%84http%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>利用 link 标签的 disabed 属性大面积的对其他标签元素的 CSS 样式进行替换操作</title>
-        <link>http://imziv.com/posts/2013/%E5%88%A9%E7%94%A8link%E6%A0%87%E7%AD%BE%E7%9A%84disabed%E5%B1%9E%E6%80%A7%E5%A4%A7%E9%9D%A2%E7%A7%AF%E7%9A%84%E5%AF%B9%E5%85%B6%E4%BB%96%E6%A0%87%E7%AD%BE%E5%85%83%E7%B4%A0%E7%9A%84css%E6%A0%B7%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C/</link>
+        <link>//imziv.com/posts/2013/%E5%88%A9%E7%94%A8link%E6%A0%87%E7%AD%BE%E7%9A%84disabed%E5%B1%9E%E6%80%A7%E5%A4%A7%E9%9D%A2%E7%A7%AF%E7%9A%84%E5%AF%B9%E5%85%B6%E4%BB%96%E6%A0%87%E7%AD%BE%E5%85%83%E7%B4%A0%E7%9A%84css%E6%A0%B7%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C/</link>
         <pubDate>Sat, 23 Nov 2013 11:50:00 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2013/%E5%88%A9%E7%94%A8link%E6%A0%87%E7%AD%BE%E7%9A%84disabed%E5%B1%9E%E6%80%A7%E5%A4%A7%E9%9D%A2%E7%A7%AF%E7%9A%84%E5%AF%B9%E5%85%B6%E4%BB%96%E6%A0%87%E7%AD%BE%E5%85%83%E7%B4%A0%E7%9A%84css%E6%A0%B7%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2013/%E5%88%A9%E7%94%A8link%E6%A0%87%E7%AD%BE%E7%9A%84disabed%E5%B1%9E%E6%80%A7%E5%A4%A7%E9%9D%A2%E7%A7%AF%E7%9A%84%E5%AF%B9%E5%85%B6%E4%BB%96%E6%A0%87%E7%AD%BE%E5%85%83%E7%B4%A0%E7%9A%84css%E6%A0%B7%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C/ -&lt;p&gt;由于平时对元素样式的控制基本上只是 3，4 个，所以一般用 Jquery 的时候直接使用$(element).css();这个方法，或者使用$(element).addClass()方法完成样式操作。对于小范围元素的操作来说，这是非常方便的。但是当针对众多元素同时进行操作的时候呢，这 2 个方法让代码看起来就比较重量级了，代码的可读性也比较小。&lt;/p&gt;
+        <guid>//imziv.com/posts/2013/%E5%88%A9%E7%94%A8link%E6%A0%87%E7%AD%BE%E7%9A%84disabed%E5%B1%9E%E6%80%A7%E5%A4%A7%E9%9D%A2%E7%A7%AF%E7%9A%84%E5%AF%B9%E5%85%B6%E4%BB%96%E6%A0%87%E7%AD%BE%E5%85%83%E7%B4%A0%E7%9A%84css%E6%A0%B7%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2013/%E5%88%A9%E7%94%A8link%E6%A0%87%E7%AD%BE%E7%9A%84disabed%E5%B1%9E%E6%80%A7%E5%A4%A7%E9%9D%A2%E7%A7%AF%E7%9A%84%E5%AF%B9%E5%85%B6%E4%BB%96%E6%A0%87%E7%AD%BE%E5%85%83%E7%B4%A0%E7%9A%84css%E6%A0%B7%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C/ -&lt;p&gt;由于平时对元素样式的控制基本上只是 3，4 个，所以一般用 Jquery 的时候直接使用$(element).css();这个方法，或者使用$(element).addClass()方法完成样式操作。对于小范围元素的操作来说，这是非常方便的。但是当针对众多元素同时进行操作的时候呢，这 2 个方法让代码看起来就比较重量级了，代码的可读性也比较小。&lt;/p&gt;
 &lt;p&gt;　　过程起初，我先尝试了一种方式，就是在 JS 代码中动态插入 link 标签，引入新的样式文，但是很遗憾的是根本就不起作用，因为那个时候浏览器已经把样式渲染到页面元素了，新引入的样式文件根本就不会被浏览器执行渲染。所以我选择了另外一种方式，就是把 2 个样式文件同时先加载完毕，然后先禁用其中一个文件，等到在需要出现的时候，利用 JS 代码控制其启用，从而达到整体控制。&lt;/p&gt;
 &lt;p&gt;HTML 代码片段：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;link&lt;/span&gt;
@@ -242,20 +313,20 @@ Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以上方法我在 IE8 和 chrome 测试通过。下图是一张 disabled 属性在浏览器中的支持情况：&lt;/p&gt;
 &lt;p&gt;结语：以上是我操作样式的一种思路，当然还有其他方法，欢迎大家交流。更多关于 disabled 的知识可以查看一下链接：&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;http://www.ibm.com/developerworks/cn/web/1309_hanjz_htmldisable/&#34;&gt;http://www.ibm.com/developerworks/cn/web/1309_hanjz_htmldisable/&lt;/a&gt;&lt;/p&gt;
-- http://imziv.com/posts/2013/%E5%88%A9%E7%94%A8link%E6%A0%87%E7%AD%BE%E7%9A%84disabed%E5%B1%9E%E6%80%A7%E5%A4%A7%E9%9D%A2%E7%A7%AF%E7%9A%84%E5%AF%B9%E5%85%B6%E4%BB%96%E6%A0%87%E7%AD%BE%E5%85%83%E7%B4%A0%E7%9A%84css%E6%A0%B7%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2013/%E5%88%A9%E7%94%A8link%E6%A0%87%E7%AD%BE%E7%9A%84disabed%E5%B1%9E%E6%80%A7%E5%A4%A7%E9%9D%A2%E7%A7%AF%E7%9A%84%E5%AF%B9%E5%85%B6%E4%BB%96%E6%A0%87%E7%AD%BE%E5%85%83%E7%B4%A0%E7%9A%84css%E6%A0%B7%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>作为 WEB 工程师，我们是不是应该积极的推进一下用户浏览器的使用体验？</title>
-        <link>http://imziv.com/posts/2013/%E4%BD%9C%E4%B8%BAweb%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%91%E4%BB%AC%E6%98%AF%E4%B8%8D%E6%98%AF%E5%BA%94%E8%AF%A5%E7%A7%AF%E6%9E%81%E7%9A%84%E6%8E%A8%E8%BF%9B%E4%B8%80%E4%B8%8B%E7%94%A8%E6%88%B7%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</link>
+        <link>//imziv.com/posts/2013/%E4%BD%9C%E4%B8%BAweb%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%91%E4%BB%AC%E6%98%AF%E4%B8%8D%E6%98%AF%E5%BA%94%E8%AF%A5%E7%A7%AF%E6%9E%81%E7%9A%84%E6%8E%A8%E8%BF%9B%E4%B8%80%E4%B8%8B%E7%94%A8%E6%88%B7%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</link>
         <pubDate>Thu, 14 Nov 2013 15:24:00 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2013/%E4%BD%9C%E4%B8%BAweb%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%91%E4%BB%AC%E6%98%AF%E4%B8%8D%E6%98%AF%E5%BA%94%E8%AF%A5%E7%A7%AF%E6%9E%81%E7%9A%84%E6%8E%A8%E8%BF%9B%E4%B8%80%E4%B8%8B%E7%94%A8%E6%88%B7%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2013/%E4%BD%9C%E4%B8%BAweb%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%91%E4%BB%AC%E6%98%AF%E4%B8%8D%E6%98%AF%E5%BA%94%E8%AF%A5%E7%A7%AF%E6%9E%81%E7%9A%84%E6%8E%A8%E8%BF%9B%E4%B8%80%E4%B8%8B%E7%94%A8%E6%88%B7%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/ -&lt;p&gt;为什么会写这篇文章，其实是有原因的。目前我工作的公司的 Web 网站仅支持 IE8 以上的版本，然后我们经常接到客户的反馈，说为什么在他浏览器当中 flash 怎么显示不了，或者为什么在他浏览器中有这样那样的问题。有时候的确是一件很恼怒的事情。&lt;/p&gt;
+        <guid>//imziv.com/posts/2013/%E4%BD%9C%E4%B8%BAweb%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%91%E4%BB%AC%E6%98%AF%E4%B8%8D%E6%98%AF%E5%BA%94%E8%AF%A5%E7%A7%AF%E6%9E%81%E7%9A%84%E6%8E%A8%E8%BF%9B%E4%B8%80%E4%B8%8B%E7%94%A8%E6%88%B7%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2013/%E4%BD%9C%E4%B8%BAweb%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%91%E4%BB%AC%E6%98%AF%E4%B8%8D%E6%98%AF%E5%BA%94%E8%AF%A5%E7%A7%AF%E6%9E%81%E7%9A%84%E6%8E%A8%E8%BF%9B%E4%B8%80%E4%B8%8B%E7%94%A8%E6%88%B7%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/ -&lt;p&gt;为什么会写这篇文章，其实是有原因的。目前我工作的公司的 Web 网站仅支持 IE8 以上的版本，然后我们经常接到客户的反馈，说为什么在他浏览器当中 flash 怎么显示不了，或者为什么在他浏览器中有这样那样的问题。有时候的确是一件很恼怒的事情。&lt;/p&gt;
 &lt;p&gt;　　我很想知道为什么在中国，使用 IE6 浏览器的人为什么还有这么多，为什么用户不愿意升级到体验更好，使用更方便的浏览器当中。其实我仔细想想，&lt;strong&gt;毕竟用户打交道的 web 都是出自我们之手&lt;/strong&gt;，虽然很多用户对有些互联网产品并不了解，但是我们作为开发者是可以比较好的去引导用户去提升使用体验。这无论是对用户，产品，开发者来说都是有益的。下图是 13 年 CNZZ 关于浏览器使用的一个统计：
-&lt;img src=&#34;http://imziv.com/posts/2013/img/browser.jpg&#34; alt=&#34;browser&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;//imziv.com/posts/2013/img/browser.jpg&#34; alt=&#34;browser&#34;&gt;&lt;/p&gt;
 &lt;p&gt;　　老版本的浏览器在体验上并不好，而且漏洞又多，对于这个鱼龙混杂的互联网时代来说，对自己隐私，财产也是有不小的安全隐患，同时无论是对于用户，产品，开发者来说这都是一件不好的事情。尤其是还有很多用户停留在的 IE6 浏览器。无论其加载速度，渲染效果，还是对 css3 和 HTML5 等等新特性的支持上都不好，然后这些新特性，在新版本的浏览器中都得到了实现，其用户体验是老版本 IE 所不能比的。所以从用户体验的角度而言，作为开发者本身就是为用户服务的，我们更应该促使用户去升级浏览器，去增强体验和用户感受。当时据我观察，我们大部分 web 工程师并没有这样干，或者说干的并不好。&lt;/p&gt;
 &lt;p&gt;　　通常我们针对 IE6 就是这样处理的：&lt;/p&gt;
 &lt;p&gt;　　1.兼容到 IE8，放弃 IE6；（我目前的做法）&lt;/p&gt;
@@ -263,18 +334,18 @@ Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired
 &lt;p&gt;　　3.做到兼容，并且引导用户升级或者更换其他更好体验的浏览器。（这样做的目前我见到的网站很少）&lt;/p&gt;
 &lt;p&gt;　　总结：&lt;/p&gt;
 &lt;p&gt;　　很明显，如果我们开发人员能在开发产品的时候，去引导用户升级体验的话，我相信可以帮助很多用户获取更好的体验，从而提升产品的体验。这同时也能减轻开发者处理兼容性问题的负担。由于很多中国互联网用户在浏览器产品上面缺乏一定的常识，所以很多人不知道也不会如何升级产品，如果我们能做出更人性化的引导，我相信至少还是有些作用的。&lt;/p&gt;
-- http://imziv.com/posts/2013/%E4%BD%9C%E4%B8%BAweb%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%91%E4%BB%AC%E6%98%AF%E4%B8%8D%E6%98%AF%E5%BA%94%E8%AF%A5%E7%A7%AF%E6%9E%81%E7%9A%84%E6%8E%A8%E8%BF%9B%E4%B8%80%E4%B8%8B%E7%94%A8%E6%88%B7%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2013/%E4%BD%9C%E4%B8%BAweb%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%91%E4%BB%AC%E6%98%AF%E4%B8%8D%E6%98%AF%E5%BA%94%E8%AF%A5%E7%A7%AF%E6%9E%81%E7%9A%84%E6%8E%A8%E8%BF%9B%E4%B8%80%E4%B8%8B%E7%94%A8%E6%88%B7%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>我快成为了我一直讨厌的那种人（说好的回来好好做人呢？）</title>
-        <link>http://imziv.com/posts/2013/%E6%88%91%E5%BF%AB%E6%88%90%E4%B8%BA%E4%BA%86%E6%88%91%E4%B8%80%E7%9B%B4%E8%AE%A8%E5%8E%8C%E7%9A%84%E9%82%A3%E7%A7%8D%E4%BA%BA%E8%AF%B4%E5%A5%BD%E7%9A%84%E5%9B%9E%E6%9D%A5%E5%A5%BD%E5%A5%BD%E5%81%9A%E4%BA%BA%E5%91%A2/</link>
+        <link>//imziv.com/posts/2013/%E6%88%91%E5%BF%AB%E6%88%90%E4%B8%BA%E4%BA%86%E6%88%91%E4%B8%80%E7%9B%B4%E8%AE%A8%E5%8E%8C%E7%9A%84%E9%82%A3%E7%A7%8D%E4%BA%BA%E8%AF%B4%E5%A5%BD%E7%9A%84%E5%9B%9E%E6%9D%A5%E5%A5%BD%E5%A5%BD%E5%81%9A%E4%BA%BA%E5%91%A2/</link>
         <pubDate>Mon, 28 Oct 2013 19:41:00 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2013/%E6%88%91%E5%BF%AB%E6%88%90%E4%B8%BA%E4%BA%86%E6%88%91%E4%B8%80%E7%9B%B4%E8%AE%A8%E5%8E%8C%E7%9A%84%E9%82%A3%E7%A7%8D%E4%BA%BA%E8%AF%B4%E5%A5%BD%E7%9A%84%E5%9B%9E%E6%9D%A5%E5%A5%BD%E5%A5%BD%E5%81%9A%E4%BA%BA%E5%91%A2/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2013/%E6%88%91%E5%BF%AB%E6%88%90%E4%B8%BA%E4%BA%86%E6%88%91%E4%B8%80%E7%9B%B4%E8%AE%A8%E5%8E%8C%E7%9A%84%E9%82%A3%E7%A7%8D%E4%BA%BA%E8%AF%B4%E5%A5%BD%E7%9A%84%E5%9B%9E%E6%9D%A5%E5%A5%BD%E5%A5%BD%E5%81%9A%E4%BA%BA%E5%91%A2/ -&lt;p&gt;　文章使用这个标题别无他意，主要是本身对自己当前的学习和生活状态非常的不满，算是自嘲且提醒勉励自己。计划的生活，从来没有按计划去实施过，马上快工作一年了，除了刚开始的几个月进步比较快，但如今却感觉自己好像遇到了瓶颈，技术学习上一直没有太多的进步。下面来看看我是怎么计划好自己每周学习计划的：&lt;/p&gt;
+        <guid>//imziv.com/posts/2013/%E6%88%91%E5%BF%AB%E6%88%90%E4%B8%BA%E4%BA%86%E6%88%91%E4%B8%80%E7%9B%B4%E8%AE%A8%E5%8E%8C%E7%9A%84%E9%82%A3%E7%A7%8D%E4%BA%BA%E8%AF%B4%E5%A5%BD%E7%9A%84%E5%9B%9E%E6%9D%A5%E5%A5%BD%E5%A5%BD%E5%81%9A%E4%BA%BA%E5%91%A2/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2013/%E6%88%91%E5%BF%AB%E6%88%90%E4%B8%BA%E4%BA%86%E6%88%91%E4%B8%80%E7%9B%B4%E8%AE%A8%E5%8E%8C%E7%9A%84%E9%82%A3%E7%A7%8D%E4%BA%BA%E8%AF%B4%E5%A5%BD%E7%9A%84%E5%9B%9E%E6%9D%A5%E5%A5%BD%E5%A5%BD%E5%81%9A%E4%BA%BA%E5%91%A2/ -&lt;p&gt;　文章使用这个标题别无他意，主要是本身对自己当前的学习和生活状态非常的不满，算是自嘲且提醒勉励自己。计划的生活，从来没有按计划去实施过，马上快工作一年了，除了刚开始的几个月进步比较快，但如今却感觉自己好像遇到了瓶颈，技术学习上一直没有太多的进步。下面来看看我是怎么计划好自己每周学习计划的：&lt;/p&gt;
 &lt;p&gt;周一至周五：除去每天白天的正常上班时间，完成自己的份内的工作外，且在工作中记录一些典型的问题。晚上回家阅读有关技术方面的书籍，包括算法，操作系统，javascript,java 等基础的内容；
 周六：我会根据平时工作内容的记录，做相应的学习总结，然后记录博文，也就是说一星期起码有一篇总结性的文章。另外我会尝试去翻译国外大牛的博文或者其他开源技术的教程，学习增加英文水平。其他时间我会去写写自己的小工具，尝试写小的 js 插件什么的；
 周日：由于个人比较喜欢音乐，由于之前不久买了一把吉他，所以想好好学习一下这个乐器，另外一值也想学习几首英语歌曲，一是为学习英语增加兴趣，另一点也是因为喜欢音乐，个人也比较喜欢看电影，偶尔去影院看场电影，略作点评。
@@ -288,18 +359,18 @@ Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired
 &lt;p&gt;　　工作了将近一年，发现自己并没有太多的进步，看看自己以前有过的疯狂学习劲头，看看如今自己的低靡颓废，有点过于安于现状，安于生活了。今天看到同样的一名 90 后，通过自己的努力，大学期间在 google,微软实习过，毕业后拿到 twitter 和 facebook 的 offer，看到他博客中记录自己从中学到大学的学习经历，觉得自己简直弱爆了，太弱了，视野太狭隘了，真的，太狭隘了。有兴趣的同学可以点击进去看看： &lt;a href=&#34;https://www.byvoid.com/zhs/blog/my-highschool-1&#34;&gt;https://www.byvoid.com/zhs/blog/my-highschool-1&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;　　尤其今天看了很多前辈的博文，写记录自己过去一路走来的文章，然后看到这位同样 90 后的同行，看看现在自己的生活，看看自己曾经美好的计划，我就对自己喊了，shit~!真心讨厌现在的自己。简直看不下去。也许我有些激进了，但自己的确太差了。。。&lt;/p&gt;
 &lt;p&gt;　　吐槽的文字就先写到这吧，多余的不说了，有和我同样境况的同学一起加油吧～也欢迎和我交流。&lt;/p&gt;
-- http://imziv.com/posts/2013/%E6%88%91%E5%BF%AB%E6%88%90%E4%B8%BA%E4%BA%86%E6%88%91%E4%B8%80%E7%9B%B4%E8%AE%A8%E5%8E%8C%E7%9A%84%E9%82%A3%E7%A7%8D%E4%BA%BA%E8%AF%B4%E5%A5%BD%E7%9A%84%E5%9B%9E%E6%9D%A5%E5%A5%BD%E5%A5%BD%E5%81%9A%E4%BA%BA%E5%91%A2/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2013/%E6%88%91%E5%BF%AB%E6%88%90%E4%B8%BA%E4%BA%86%E6%88%91%E4%B8%80%E7%9B%B4%E8%AE%A8%E5%8E%8C%E7%9A%84%E9%82%A3%E7%A7%8D%E4%BA%BA%E8%AF%B4%E5%A5%BD%E7%9A%84%E5%9B%9E%E6%9D%A5%E5%A5%BD%E5%A5%BD%E5%81%9A%E4%BA%BA%E5%91%A2/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>程序员的 318 骑行之旅</title>
-        <link>http://imziv.com/posts/2013/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84318%E9%AA%91%E8%A1%8C%E4%B9%8B%E6%97%85/</link>
+        <link>//imziv.com/posts/2013/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84318%E9%AA%91%E8%A1%8C%E4%B9%8B%E6%97%85/</link>
         <pubDate>Tue, 15 Oct 2013 10:39:00 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2013/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84318%E9%AA%91%E8%A1%8C%E4%B9%8B%E6%97%85/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2013/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84318%E9%AA%91%E8%A1%8C%E4%B9%8B%E6%97%85/ -&lt;p&gt;马上到十一月了，算上实习的时段，即是我踏上社会工作一年时间了。今年 6 月份还回到母校拿去了我的毕业证，便依依不舍得继续回到了工作的岗位，继续码农的日子。拿毕业证期间，总共也就请了 3 天假，从南京回到武汉，想在毕业的时候好好玩一下，可是却什么也没有做，只是和同学吃了吃饭，叙叙旧，然后大家就各奔东西了。&lt;/p&gt;
+        <guid>//imziv.com/posts/2013/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84318%E9%AA%91%E8%A1%8C%E4%B9%8B%E6%97%85/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2013/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84318%E9%AA%91%E8%A1%8C%E4%B9%8B%E6%97%85/ -&lt;p&gt;马上到十一月了，算上实习的时段，即是我踏上社会工作一年时间了。今年 6 月份还回到母校拿去了我的毕业证，便依依不舍得继续回到了工作的岗位，继续码农的日子。拿毕业证期间，总共也就请了 3 天假，从南京回到武汉，想在毕业的时候好好玩一下，可是却什么也没有做，只是和同学吃了吃饭，叙叙旧，然后大家就各奔东西了。&lt;/p&gt;
 &lt;p&gt;大概 8 月份的时候，在网上看到了一朋友的召集帖，关于 9 月中旬骑行 318 国道去拉萨的信息。那段时间工作状态实属不好，效率也不高。想想今年自己刚刚毕业，说了好多次要疯狂一把却一直没有去实现，大学有时间的时候那会没钱，毕业工作有点钱却没有时间，确实是一件很纠结的事情。不过仔细研究了下 9 月份的时间，正是中秋和国庆假期在一起的时间，心中便盘算请半个月假，加上这些假期便刚刚够骑行 318 整个行程了。是的，我联系朋友了，决定加入这次旅行了～！大概在出发前半个月，我向老板提出了请假的请求，其实当时心中很忐忑，不知道老板会不会答应，不过最终老板同意了我的请假，当时也是非常大高兴，再次感谢老板的支持，让我拥有了这次刺激，欢乐，无数美景相伴的 318 骑行之旅～&lt;/p&gt;
 &lt;p&gt;　　9 月 12 号，我坐上了去成都的火车，在车上满满想的是对这次旅程的幻想。其实在这次骑行之前好多年我没怎么骑自行车了，大概大学的时候偶尔和同学出去骑骑自行车玩玩，然后就是在出发前一个月每晚尽量出去骑 15 公里左右，最远的估计也就是 20 多公里而已。当时骑行 318 国道从成都到拉萨，总路程是 2100 公里左右，平均每天 100 公里左右，攻略骑行周期是 24 天，其中翻越 4000 海拔以上的山峰有 12 座，包括 2 座 5000 海拔的山。有些路段的路都是泥浆，还伴随这滑坡，而旁边就是峭壁与大河。&lt;/p&gt;
 &lt;p&gt;　　在 9 月 13 号我已是到达了这座天府之城—成都。在成都简略的修整，然后做了些最后的准备，补给了一些装备，买了些保暖的衣物。在成都遇见些从拉萨过来的驴友，说那边天气有点冷，所以要准备些保暖的装备。9 月 15 号是我们出发的日子，浩浩荡荡的 15 个人便从成都出发，第一程 150 公里到雅安。那天早晨在成都买了 4 个包子，吃了一口实在难吃，我便全部扔了，这一顿早餐不吃，害的我一整天吃尽了亏，也是给我后来的行程上了一课！整个路程中队伍保持每小时 25 公里的时速，大约到中午的时候，骑行了将近 60 公里左右，离中午补给点还有 20 公里左右的时候，体力出现严重下滑，肚子相当空虚，任凭我怎么打起精神，就是没劲，怎么怎么就是踩不动，之后被大部队甩开了 10 公里左右，没办法，在后面我只能慢慢踩，后来发现一些被我们超越的队伍也是骑上来了，还有女汉子，对我我加油，当时心里难受的很，竟然被女汉子给超越了！只好停下车吃了吃随带的饼干，当时貌似并没有起太大的作用，当我骑到补给点的时候，大部队的午饭已经吃完了，我炒了一个餐，猛猛的吃了几碗饭，吃完大约调整了下，下午的 80 公里就又开始了。&lt;/p&gt;
@@ -307,24 +378,24 @@ Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired
 &lt;p&gt;整个旅途中第一天是我最吃苦的一天，虽然后面的路程中要翻越很多大山，当时基本上低着头慢慢的踩，虽然呼吸的节奏连狗都不如，不过人那个时候也是有体力的。整个 318 专制平时失眠和各种挑食的患者，因为你不用担心你睡不着，你也不用担心你不吃，因为不吃的后果很严重。整个旅途基本每天都要翻越一座 4000 以上海拔的上，不断的上然后下，挺折腾人的。途中在芒康这个地方的那一晚竟然出现了高反，头疼的难受，当时海拔才 3900，因为那天才从 4000 多的山上下来，也没反应，下来后才有的反应，幸好老板那边有氧气，找人借了个氧气袋充了点养吸完睡了一觉后便好了。最后的一天里程数 174 公里，翻越一座 5000 多海拔的米拉雪山，从居住点到达垭口是 28 公里，爬山垭口我那天才用了 3 个半小时，天还没亮我们就出发了，那天连星星也没有，路上还下起了蒙蒙的雪花。由于在山顶逗留的时间比较久，中 12 点多才从山顶下来，那时候距离拉萨还有 140 多公里。一路下来是相当的冷，途中还遇到了冰雹，看着一阵大风过来，把我和自行车差点吹倒了，幸好当时离藏民的家不远，便躲了进去。谢谢那个藏族老奶奶，为我们开门，与藏族老奶奶交流时，发现老奶奶听不懂我说的什么，便没有多说什么。休息了半个多小时，冰雹和雨终于停了，然后继续上路。到拉萨的时候已经晚上 8 点钟了，竟然也没有太多的激动，想着太晚，便先找了一处青旅先住下了，改天去布达拉门前合影。&lt;/p&gt;
 &lt;p&gt;　　据说来骑行 318 中，有失恋患者，有失业患者，有创业失败患者，有学生党，当然也有我这种想完成毕业之旅的热血青年。其实挺好的，一路上景色非常美，与蓝天白云作伴，晚上还有非常多的星星，除了海拔高点，呼吸急促了些，的确是一件转移集中注意力的好去处～很多时候，我们都会觉得自己是神经病，因为脑袋发热才会爬这种几十公里的长坡，累的连狗都不如（自嘲一下）。不过爬坡让我也是总结了一点：人一生很多时候会遇见一个个很长的坡，你得慢慢的爬，你不知道你需要多久才能爬上去，每当你看到仿佛无穷无尽的折和坡的时候，你的心就有些害怕自己爬不上去，觉得自己不行。但是你要做的是，低头看自己脚下，一步一步走就好，不要看前面那么多的长坡，只要你有目标，你总会爬到山顶的~&lt;/p&gt;
 &lt;p&gt;　　最后非常怀恋和感谢一路陪伴的好伙伴们，好兄弟～相互帮忙，相互鼓励，感谢一路上碰到的对我们喊加油的大人，小孩，男人和女人们～！下面分享下路上美景的照片～&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://imziv.com/posts/2013/img/318.jpg&#34; alt=&#34;318&#34;&gt;&lt;/p&gt;
-- http://imziv.com/posts/2013/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84318%E9%AA%91%E8%A1%8C%E4%B9%8B%E6%97%85/ - 2014-2020 Ziv小威</description>
+&lt;p&gt;&lt;img src=&#34;//imziv.com/posts/2013/img/318.jpg&#34; alt=&#34;318&#34;&gt;&lt;/p&gt;
+- //imziv.com/posts/2013/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84318%E9%AA%91%E8%A1%8C%E4%B9%8B%E6%97%85/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>简谈“开放平台”设计中的一些感悟</title>
-        <link>http://imziv.com/posts/2013/%E7%AE%80%E8%B0%88%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/</link>
+        <link>//imziv.com/posts/2013/%E7%AE%80%E8%B0%88%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/</link>
         <pubDate>Wed, 28 Aug 2013 14:21:00 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2013/%E7%AE%80%E8%B0%88%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2013/%E7%AE%80%E8%B0%88%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/ -&lt;p&gt;从 2012 年 11 月份实习开始，到现在 2013 年 9 月已经算是工作将近一年时间了,个人是从工作中学到了不少东西的。刚进公司的时候主要是负责平台服务器开发，后来由于我对前端的一些偏向，所有年后不久就转到公司前台业务的 Web 开发。因为我从公司开放平台服务的开发，然后到公司 web 产品的开发这 2 个部分都有参与，所以自己对公司的这个架构设计上和业务层面的一些设计也是有了自己比较深刻的感受。其中开发过程中发现公司开发平台设计中，由于一些不合理的设计，造成了公司之后的一些依赖开放平台服务器的项目的开发成本严重的增加，并影响了整个开放平台的生态和布局。仅此写文总结，并无他意，希望对自己之后的工作有帮助。下面让我细细讲解我的一些理解。&lt;/p&gt;
+        <guid>//imziv.com/posts/2013/%E7%AE%80%E8%B0%88%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2013/%E7%AE%80%E8%B0%88%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/ -&lt;p&gt;从 2012 年 11 月份实习开始，到现在 2013 年 9 月已经算是工作将近一年时间了,个人是从工作中学到了不少东西的。刚进公司的时候主要是负责平台服务器开发，后来由于我对前端的一些偏向，所有年后不久就转到公司前台业务的 Web 开发。因为我从公司开放平台服务的开发，然后到公司 web 产品的开发这 2 个部分都有参与，所以自己对公司的这个架构设计上和业务层面的一些设计也是有了自己比较深刻的感受。其中开发过程中发现公司开发平台设计中，由于一些不合理的设计，造成了公司之后的一些依赖开放平台服务器的项目的开发成本严重的增加，并影响了整个开放平台的生态和布局。仅此写文总结，并无他意，希望对自己之后的工作有帮助。下面让我细细讲解我的一些理解。&lt;/p&gt;
 &lt;h2 id=&#34;开放平台的理解&#34;&gt;开放平台的理解　　&lt;/h2&gt;
 &lt;p&gt;　　开放平台简而言之即是一个可提供数据接口的服务器，什么样的数据就要根据具体的业务了。如今各大公司都有自己相应的开放平台，例如新浪微博的开放平台，百度开放平台等等。开放平台主要是给开发者提供了丰富的数据接口，让开发者在利用已有的开放平台的基础上可以轻松的开发出满足自己业务设计的程序。所有一个开放平台的设计如果不合理会直接导致开发者的开发成本直接翻倍。开放平台本身是为了简化并降低开发者的开发成本的，如果由于设计的不合理，返回会造成帮倒忙情况。&lt;/p&gt;
 &lt;h2 id=&#34;公司的开放平台的现状&#34;&gt;公司的开放平台的现状&lt;/h2&gt;
 &lt;p&gt;　　公司开放平台的主要功能是为开发者和公司用户提供数据支持，其中主要存贮处理的是从远程硬件设备上面采集过来的传感器数据，并支持对相应的设备进行远程控制。当然，平台支持开发者注册接入自己的传感器和控制设备的，并提供公司项目和产品的支持。起初，这个平台包含的内容比较少，只是对简单的传感器，控制设备进行的管理和数据处理。后来由于公司在开发一些项目时候，由于业务的需求，逐渐抽象了一些新的概念，例如：场景，权限。当时平台团队为了适应更多的项目，并且为了满足公司 web 项目组和手机项目组的接口需求，在没有慎重考虑的情况下，决定把业务性的东西给设计到了开发平台当中，但是当时只是迎合了当前的项目，对广泛的需求欠缺了考虑。而后果是可想而知的。下面是平台对外数据支持的一个结构图：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://imziv.com/posts/2013/img/platform.png&#34; alt=&#34;platform&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;//imziv.com/posts/2013/img/platform.png&#34; alt=&#34;platform&#34;&gt;&lt;/p&gt;
 &lt;p&gt;　　 在平台为了适应项目上的一些需求的同时，由于融入了相应的业务概念后，当为了满足公司移动端和 web 产品更多的项目开发需要的时候，平台组不得不为了不断的需求变动对平台的设计再三的更改，同时也需要提供越来越多的接口。由于平台在业务上过多的设计，导致的一个很明显的结果就是，发现开放平台总是不能满足新项目的需求，而平台开发团队老是要重新的设计和开发。具体后遗症我总结的有下面几条：&lt;/p&gt;
 &lt;p&gt;开放平台由于不小心融入了过度的业务性设计，开放平台一点都不开放！有强烈的业务定制化性质！
 平台陷入了重新设计开发的恶性循环，增加了平台团队后期的开发成本和维护成本
@@ -332,75 +403,7 @@ Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired
 公司 web 项目组每次的开发周期并未得到缩短，反而由于每次项目上的问题，在平台接口上花费了大量的精力
 开放平台丢失了为开发者提供开放接口的本质
 　　由于整个平台支撑着公司所有产品与项目的运营，同时目标是对外开放，所有由于这些设计上的失误，对公司的整个产品线的影响是相当大的。个人体会是前期对这种开发平台的设计时一定要慎重考虑，不然后果是相当的麻烦的。&lt;/p&gt;
-- http://imziv.com/posts/2013/%E7%AE%80%E8%B0%88%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/ - 2014-2020 Ziv小威</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>jquery 实现文件异步上传</title>
-        <link>http://imziv.com/posts/2013/jquery%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/</link>
-        <pubDate>Wed, 07 Aug 2013 18:18:00 +0000</pubDate>
-        
-        <guid>http://imziv.com/posts/2013/jquery%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2013/jquery%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/ -&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
-&lt;p&gt;这里用了 2 个 JS 插件，一个是 Jquery 原生 js，我的版本是 jquery-1.7.2.min.js，另一个是 jquery.form.js。这个 form.js 是关键，不可少哦。另外，&lt;/p&gt;
-&lt;p&gt;我的服务器端用的是 Play Framework,版本是 2.1。下面是代码部分，贴出的是关键部分：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;前端代码
-html:&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;form&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;form1&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;POST&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;action&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;/image/upload&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;ENCTYPE&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;multipart/form-data&amp;#34;&lt;/span&gt;&amp;gt;
-　　&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;input&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploadFile&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;file&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;myfile&amp;#34;&lt;/span&gt; /&amp;gt;
-&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;from&lt;/span&gt;&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Javascript:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;$(&amp;#34;#uploadFile&amp;#34;).change(function(){
-    var message = &amp;#34;t&amp;#34;;
-    $(&amp;#34;#form1&amp;#34;).ajaxSubmit({
-        method : &amp;#34;POST&amp;#34;,
-        success : function(data){
-                //成功　　　　　　　　　　　　　　　 if(data == &amp;#34;ok&amp;#34;){
-　　　　　　　　　　alert(&amp;#34;上传成功&amp;#34;)
-　　　　　　　　}else{　　　　　　　　　　alert(&amp;#34;上传失败&amp;#34;);　　　　　　　　}
-        },
-        error : function(){
-                alert(&amp;#34;网络错误，请稍后重新尝试！&amp;#34;);
-        }
-    });
-});
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
-&lt;li&gt;服务端代码&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;void&lt;/span&gt; upload(File myfile){
-    &lt;span style=&#34;color:#658b00&#34;&gt;String&lt;/span&gt; msg = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;fail&amp;#34;&lt;/span&gt;;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;try&lt;/span&gt;{
-        &lt;span style=&#34;color:#228b22&#34;&gt;//图片写入路径,此处我的位置是项目的根目录
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        File temp = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; File(myfile.getName());
-        &lt;span style=&#34;color:#228b22&#34;&gt;//输入文件流
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        FileInputStream input = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; FileInputStream(myfile);
-        &lt;span style=&#34;color:#228b22&#34;&gt;//输出文件流
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        FileOutputStream out = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; FileOutputStream(temp);
-
-        &lt;span style=&#34;color:#228b22&#34;&gt;//每次写入的字节的大小
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;byte&lt;/span&gt; [] b = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;byte&lt;/span&gt;[&lt;span style=&#34;color:#b452cd&#34;&gt;1024&lt;/span&gt;];
-        &lt;span style=&#34;color:#228b22&#34;&gt;//文件长度
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;int&lt;/span&gt; n;
-
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt;((n=input.read(b)) != -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;){
-            &lt;span style=&#34;color:#228b22&#34;&gt;//写入字节
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            out.write(b, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, n);
-        }
-
-        input.close();
-        out.flush();
-        out.close();
-        msg = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;ok&amp;#34;&lt;/span&gt;;
-    }&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt;(Exception e){
-        Logger.error(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Image.upload()&amp;#34;&lt;/span&gt;, e.getMessage());
-    }
-    renderJSON(msg);
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2013/jquery%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2013/%E7%AE%80%E8%B0%88%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/ - 2012-2020 Ziv小威</description>
         </item>
     
     

@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>设计模式 on 让美的事情发生</title>
-    <link>http://imziv.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+    <link>//imziv.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
     <description>Recent content in 设计模式 on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>2014-2020 Ziv小威</copyright>
+    <copyright>2012-2020 Ziv小威</copyright>
     <lastBuildDate>Fri, 23 Nov 2018 17:24:48 +0000</lastBuildDate>
     
-	<atom:link href="http://imziv.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="//imziv.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>【译】理解 Javascript 中常用的一些设计模式</title>
-      <link>http://imziv.com/posts/2018/%E8%AF%91%E7%90%86%E8%A7%A3-javascript-%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <link>//imziv.com/posts/2018/%E8%AF%91%E7%90%86%E8%A7%A3-javascript-%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Fri, 23 Nov 2018 17:24:48 +0000</pubDate>
       
-      <guid>http://imziv.com/posts/2018/%E8%AF%91%E7%90%86%E8%A7%A3-javascript-%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <guid>//imziv.com/posts/2018/%E8%AF%91%E7%90%86%E8%A7%A3-javascript-%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
       <description>原文地址: Understanding Design Patterns in JavaScript
  当我们开始一个新的项目的时候，通常不会立刻开始实际编码的工作，而是首先会理清楚项目的一些需求、问题和目标。在我们可以开始编写代码后， 或者如果你正在处理的是一个更复杂的项目的话，那么我们应该考虑去选择一种最适合项目的设计模式去帮助我们完成工作。
 如何理解设计模式 在软件工程中，设计模式是一种用来解决软件设计中一些共通问题的解决方案。设计模式往往是开发工程师最佳实践后的经验总结。通常我们可以把一个设计模式理解为是一个编程模板。
@@ -34,10 +34,10 @@ const myModule = (function() { const privateVariable = &amp;#39;Hello World&amp;
     
     <item>
       <title>Decorator 简介及实战</title>
-      <link>http://imziv.com/posts/2017/decorator-%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%AE%9E%E6%88%98/</link>
+      <link>//imziv.com/posts/2017/decorator-%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%AE%9E%E6%88%98/</link>
       <pubDate>Sun, 05 Nov 2017 14:36:35 +0000</pubDate>
       
-      <guid>http://imziv.com/posts/2017/decorator-%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%AE%9E%E6%88%98/</guid>
+      <guid>//imziv.com/posts/2017/decorator-%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%AE%9E%E6%88%98/</guid>
       <description>前言 用过 Java 的朋友都知道，装饰器（Decorator)是一种十分非常方便改变类运行是行为的一种方式，例如在 Spring 框架中我们用到比较多的注解（@Autowired), 通过它可以自动实例化对象，从而可以精简代码。装饰器是典型的 AOP(Aspect-Oriented-Programming) 编程的应用，类似的 CSS 对于 HTML 的样式也是类似于这种思想，即从切面来改变和影响主对象的行为。
 Decorator 简介 Decorator 是一种通过注解表达式就可以扩展类或者方法的函数。Decorator 可以应用到任何一个 class 或者 property 上。列如:
 @myDecorator class A {} // 作用class  @myDecorator doSomething() {} // 作用表达式 Javascript Decorator 目前任然是 ES7 提案状态，更多该特性的进度可以访问proposal-decorators查看。

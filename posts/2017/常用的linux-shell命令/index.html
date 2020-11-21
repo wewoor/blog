@@ -21,11 +21,16 @@
 
 <meta property="og:title" content="常用的 Linux Shell 命令" />
 <meta property="og:description" content="自己平时有可能会用到的 Shell 命令，之前用 Evenote 记录的比较零散，重新整理了下，以后慢慢补充。
-文件操作 查看文件所属用户 ls -al 动态打印日志 tail -f /var/log/error.log 给指定目录的所属用户权限赋予指定人 #把directry目录下的所有用户指向someone $ sudo chown -R someone:staff directory 查看文件内容 cat filename 查看目录所占磁盘容量 du dir # 显示dir的总容量以及次目录的容量，KB为单位 du -s dir # 显示dir的容量 测试用户目录权限 sudo -u admin stat /home # 测试用户admin对目录 /home 对权限 scp 获取远程服务器上的文件 # 把远程服务器/root目录下的remote.tar.gz文件下载到本地/home目录下， # 并保存为local.tar.gz # -P 表端口参数，2222为端口号 $ scp -P 2222 root@www.example.com:/root/remote.tar.gz /home/local.tar.gz scp 获取远程服务器上的文件目录 # 把远程服务器/root/remote内容拷贝到本地/home/local目录下， # -P 表端口参数，2222为端口号 # -r 表示目录拷贝 $ scp -P 2222 -r root@www." />
+文件操作 查看文件所属用户 ls -al 动态打印日志 tail -f /var/log/error.log 给指定目录的所属用户权限赋予指定人 # 把directry目录下的所有用户指向someone $ sudo chown -R someone:staff directory 用户组相关操作 查看用户组
+groups 查看各用户与组的关联情况
+id 添加新用户组
+sudo groupadd mynewgroup 添加已存在的用户到一个组
+usermod -a -G exampleGroup exampleUserName 改变用户主要的组
+usermod -g groupName userName 查看文件内容 cat filename 查看目录所占磁盘容量 du dir # 显示dir的总容量以及次目录的容量，KB为单位 du -s dir # 显示dir的容量 测试用户目录权限 sudo -u admin stat /home # 测试用户admin对目录 /home 对权限 scp 获取远程服务器上的文件 # 把远程服务器/root目录下的remote.tar.gz文件下载到本地/home目录下， # 并保存为local." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/" />
+<meta property="og:url" content="//imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/" />
 <meta property="article:published_time" content="2017-02-08T17:21:03+00:00" />
-<meta property="article:modified_time" content="2017-02-08T17:21:03+00:00" /><meta property="og:site_name" content="My Blog" />
+<meta property="article:modified_time" content="2017-02-08T17:21:03+00:00" /><meta property="og:site_name" content="Ziv小威" />
 
 
 
@@ -34,7 +39,12 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="常用的 Linux Shell 命令"/>
 <meta name="twitter:description" content="自己平时有可能会用到的 Shell 命令，之前用 Evenote 记录的比较零散，重新整理了下，以后慢慢补充。
-文件操作 查看文件所属用户 ls -al 动态打印日志 tail -f /var/log/error.log 给指定目录的所属用户权限赋予指定人 #把directry目录下的所有用户指向someone $ sudo chown -R someone:staff directory 查看文件内容 cat filename 查看目录所占磁盘容量 du dir # 显示dir的总容量以及次目录的容量，KB为单位 du -s dir # 显示dir的容量 测试用户目录权限 sudo -u admin stat /home # 测试用户admin对目录 /home 对权限 scp 获取远程服务器上的文件 # 把远程服务器/root目录下的remote.tar.gz文件下载到本地/home目录下， # 并保存为local.tar.gz # -P 表端口参数，2222为端口号 $ scp -P 2222 root@www.example.com:/root/remote.tar.gz /home/local.tar.gz scp 获取远程服务器上的文件目录 # 把远程服务器/root/remote内容拷贝到本地/home/local目录下， # -P 表端口参数，2222为端口号 # -r 表示目录拷贝 $ scp -P 2222 -r root@www."/>
+文件操作 查看文件所属用户 ls -al 动态打印日志 tail -f /var/log/error.log 给指定目录的所属用户权限赋予指定人 # 把directry目录下的所有用户指向someone $ sudo chown -R someone:staff directory 用户组相关操作 查看用户组
+groups 查看各用户与组的关联情况
+id 添加新用户组
+sudo groupadd mynewgroup 添加已存在的用户到一个组
+usermod -a -G exampleGroup exampleUserName 改变用户主要的组
+usermod -g groupName userName 查看文件内容 cat filename 查看目录所占磁盘容量 du dir # 显示dir的总容量以及次目录的容量，KB为单位 du -s dir # 显示dir的容量 测试用户目录权限 sudo -u admin stat /home # 测试用户admin对目录 /home 对权限 scp 获取远程服务器上的文件 # 把远程服务器/root目录下的remote.tar.gz文件下载到本地/home目录下， # 并保存为local."/>
 
 
 
@@ -74,14 +84,14 @@ if (!doNotTrack) {
 
 
 
-<link rel="stylesheet" href="http://imziv.com/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+<link rel="stylesheet" href="//imziv.com/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
 
 
 
-<link rel="stylesheet" href="http://imziv.com/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
+<link rel="stylesheet" href="//imziv.com/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
 
 
-<script src="http://imziv.com/js/loadCSS.js"></script>
+<script src="//imziv.com/js/loadCSS.js"></script>
 <script>
   loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
 </script>
@@ -90,7 +100,7 @@ if (!doNotTrack) {
 
 
   
-    <script src="http://imziv.com/js/toc-collapse.js"></script>
+    <script src="//imziv.com/js/toc-collapse.js"></script>
   
 
 
@@ -107,20 +117,32 @@ if (!doNotTrack) {
 </head><body>
     	<div id="app"><div ref="sideContainer" class="side-container">
     
-    <a class="a-block nav-head false" href="http://imziv.com">
+    <a class="a-block nav-head false" href="//imziv.com">
     
         <div class="nav-title">
             让美的事情发生
         </div>
         
         <div class="nav-subtitle">
-            Ziv小威
+            Ziv 小威
         </div>
         
     </a>
 
     <div class="nav-link-list">
         
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/">
+                网志
+            </a>
+            
         
             
             
@@ -166,9 +188,10 @@ if (!doNotTrack) {
         
         <div class="nav-link-item">
             <a href="https://github.com/wewoor" target="_blank"><i title="Github" class="fab fa-github"></i></a>
+            <a href="//www.instagram.com/wewoor/" target="_blank"><i title="Instagram" class="fab fa-instagram"></i></a>
+            <a href="//slides.com/wewoor" target="_blank"><i title="Slides" class="fab fa-slideshare"></i></a>
             <a href="https://www.zhihu.com/people/zivxiaowei" target="_blank"><i title="Telegram" class="fab fa-zhihu"></i></a>
-            <a href="//weibo.com/zivxiaowei" target="_blank"><i title="Telegram" class="fab fa-weibo"></i></a>
-            <a href="mailto:wewoor@foxmail.com" target="_blank"><i title="Facebook" class="fa fa-envelope"></i></a>
+            <a href="mailto:wewoor@foxmail.com" target="_blank"><i title="Email to me!" class="fa fa-envelope"></i></a>
             <a href="/index.xml" target="_blank"><i title="Feed" class="fas fa-rss"></i></a>
         </div>
     </div>
@@ -177,7 +200,7 @@ if (!doNotTrack) {
         
 &copy;
 	
-	2014-2020 Ziv小威
+	2012-2020 Ziv小威
 	
 	Built by Hugo <a href="https://github.com/amazingrise/hugo-theme-diary">(Diary)</a>
     </div>
@@ -361,6 +384,18 @@ if (!doNotTrack) {
         <div class="drawer-menu">
             
             
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/">
+                    网志
+                </a>
+                
             
                 
                 
@@ -571,7 +606,7 @@ if (!doNotTrack) {
                 menu
             </i>
         </button>
-        <a ref="navTitle" class="navbar-brand" href="http://imziv.com">
+        <a ref="navTitle" class="navbar-brand" href="//imziv.com">
             让美的事情发生
         </a>
         
@@ -588,10 +623,10 @@ if (!doNotTrack) {
 </nav>
 <div class="single-column-header-container" ref="pageHead"
      v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
-    <a href="http://imziv.com">
+    <a href="//imziv.com">
         <div class="single-column-header-title">让美的事情发生</div>
         
-        <div class="single-column-header-subtitle">Ziv小威</div>
+        <div class="single-column-header-subtitle">Ziv 小威</div>
         
 
     </a>
@@ -649,8 +684,19 @@ if (!doNotTrack) {
 </code></pre></div><h5 id="动态打印日志">动态打印日志</h5>
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tail -f /var/log/error.log
 </code></pre></div><h5 id="给指定目录的所属用户权限赋予指定人">给指定目录的所属用户权限赋予指定人</h5>
-<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#228b22">#把directry目录下的所有用户指向someone</span>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#228b22"># 把directry目录下的所有用户指向someone</span>
 $ sudo chown -R someone:staff directory
+</code></pre></div><h5 id="用户组相关操作">用户组相关操作</h5>
+<p>查看用户组</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">groups
+</code></pre></div><p>查看各用户与组的关联情况</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">id
+</code></pre></div><p>添加新用户组</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo groupadd mynewgroup
+</code></pre></div><p>添加已存在的用户到一个组</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">usermod -a -G exampleGroup exampleUserName
+</code></pre></div><p>改变用户主要的组</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">usermod -g groupName userName
 </code></pre></div><h5 id="查看文件内容">查看文件内容</h5>
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat filename
 </code></pre></div><h5 id="查看目录所占磁盘容量">查看目录所占磁盘容量</h5>
@@ -719,13 +765,13 @@ $ systemctl disable firewalld.service
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="http://imziv.com/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/">
+                <a class="newer-posts" href="//imziv.com/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/">
 			下回<br>完整的学习和使用 CSS 动画【翻译】
                 </a>
                 
                 
                 
-                <a class="older-posts" href="http://imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/">
+                <a class="older-posts" href="//imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/">
 			上回<br>Web 前端的状态管理（State Management）
                 </a>
                 
@@ -753,7 +799,7 @@ $ systemctl disable firewalld.service
             </div><div id="single-column-footer">
 &copy;
 	
-	2014-2020 Ziv小威
+	2012-2020 Ziv小威
 	
 	Built by Hugo <a href="https://github.com/amazingrise/hugo-theme-diary">(Diary)</a></div>
             </div>
@@ -857,6 +903,6 @@ app = new Vue({
 });
 </script>
 
-<script src="http://imziv.com/js/journal.js"></script>
+<script src="//imziv.com/js/journal.js"></script>
     </body>
 </html>

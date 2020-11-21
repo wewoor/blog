@@ -24,9 +24,9 @@
 以下是我的 Action 的代码：
 //show image private static Image image = new Image(); public Image getImage() { return image; } public void setImage(Image image) { this.image = image; } //imageDao对象我是Spring注入进来的，你可以用new创建  public static void showImage(){ byte[] itemImage = null; HttpServletResponse response = ServletActionContext.getResponse(); response.reset(); response.setContentType(&#34;image/jpeg&#34;); try { image.setId(0); //通过getBytes()方法将获取的Blob类型数据转换  itemImage = imageDao.getImage(image). getBytes(1, (int)imageDao.getImage(image).length()); OutputStream out = response.getOutputStream(); out.write(itemImage); out.flush(); out.close(); } catch (SQLException e) { // TODO Auto-generated catch block  e." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://imziv.com/posts/2012/%E5%B0%86mysql%E4%B8%AD%E7%9A%84blob%E7%9A%84%E5%9B%BE%E7%89%87%E5%9C%A8jsp%E4%B8%AD%E6%98%BE%E7%A4%BA/" />
+<meta property="og:url" content="//imziv.com/posts/2012/%E5%B0%86mysql%E4%B8%AD%E7%9A%84blob%E7%9A%84%E5%9B%BE%E7%89%87%E5%9C%A8jsp%E4%B8%AD%E6%98%BE%E7%A4%BA/" />
 <meta property="article:published_time" content="2012-09-06T11:32:00+00:00" />
-<meta property="article:modified_time" content="2012-09-06T11:32:00+00:00" /><meta property="og:site_name" content="My Blog" />
+<meta property="article:modified_time" content="2012-09-06T11:32:00+00:00" /><meta property="og:site_name" content="Ziv小威" />
 
 
 
@@ -76,14 +76,14 @@ if (!doNotTrack) {
 
 
 
-<link rel="stylesheet" href="http://imziv.com/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+<link rel="stylesheet" href="//imziv.com/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
 
 
 
-<link rel="stylesheet" href="http://imziv.com/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
+<link rel="stylesheet" href="//imziv.com/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
 
 
-<script src="http://imziv.com/js/loadCSS.js"></script>
+<script src="//imziv.com/js/loadCSS.js"></script>
 <script>
   loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
 </script>
@@ -92,7 +92,7 @@ if (!doNotTrack) {
 
 
   
-    <script src="http://imziv.com/js/toc-collapse.js"></script>
+    <script src="//imziv.com/js/toc-collapse.js"></script>
   
 
 
@@ -109,20 +109,32 @@ if (!doNotTrack) {
 </head><body>
     	<div id="app"><div ref="sideContainer" class="side-container">
     
-    <a class="a-block nav-head false" href="http://imziv.com">
+    <a class="a-block nav-head false" href="//imziv.com">
     
         <div class="nav-title">
             让美的事情发生
         </div>
         
         <div class="nav-subtitle">
-            Ziv小威
+            Ziv 小威
         </div>
         
     </a>
 
     <div class="nav-link-list">
         
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/">
+                网志
+            </a>
+            
         
             
             
@@ -168,9 +180,10 @@ if (!doNotTrack) {
         
         <div class="nav-link-item">
             <a href="https://github.com/wewoor" target="_blank"><i title="Github" class="fab fa-github"></i></a>
+            <a href="//www.instagram.com/wewoor/" target="_blank"><i title="Instagram" class="fab fa-instagram"></i></a>
+            <a href="//slides.com/wewoor" target="_blank"><i title="Slides" class="fab fa-slideshare"></i></a>
             <a href="https://www.zhihu.com/people/zivxiaowei" target="_blank"><i title="Telegram" class="fab fa-zhihu"></i></a>
-            <a href="//weibo.com/zivxiaowei" target="_blank"><i title="Telegram" class="fab fa-weibo"></i></a>
-            <a href="mailto:wewoor@foxmail.com" target="_blank"><i title="Facebook" class="fa fa-envelope"></i></a>
+            <a href="mailto:wewoor@foxmail.com" target="_blank"><i title="Email to me!" class="fa fa-envelope"></i></a>
             <a href="/index.xml" target="_blank"><i title="Feed" class="fas fa-rss"></i></a>
         </div>
     </div>
@@ -179,7 +192,7 @@ if (!doNotTrack) {
         
 &copy;
 	
-	2014-2020 Ziv小威
+	2012-2020 Ziv小威
 	
 	Built by Hugo <a href="https://github.com/amazingrise/hugo-theme-diary">(Diary)</a>
     </div>
@@ -216,6 +229,18 @@ if (!doNotTrack) {
         <div class="drawer-menu">
             
             
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/">
+                    网志
+                </a>
+                
             
                 
                 
@@ -279,7 +304,7 @@ if (!doNotTrack) {
                 menu
             </i>
         </button>
-        <a ref="navTitle" class="navbar-brand" href="http://imziv.com">
+        <a ref="navTitle" class="navbar-brand" href="//imziv.com">
             让美的事情发生
         </a>
         
@@ -296,10 +321,10 @@ if (!doNotTrack) {
 </nav>
 <div class="single-column-header-container" ref="pageHead"
      v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
-    <a href="http://imziv.com">
+    <a href="//imziv.com">
         <div class="single-column-header-title">让美的事情发生</div>
         
-        <div class="single-column-header-subtitle">Ziv小威</div>
+        <div class="single-column-header-subtitle">Ziv 小威</div>
         
 
     </a>
@@ -415,13 +440,13 @@ if (!doNotTrack) {
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="http://imziv.com/posts/2012/%E4%B9%9F%E8%AE%B8%E6%88%91%E4%B8%8D%E6%98%AF%E4%B8%AA%E6%9C%89%E5%A4%A9%E8%B5%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/">
+                <a class="newer-posts" href="//imziv.com/posts/2012/%E4%B9%9F%E8%AE%B8%E6%88%91%E4%B8%8D%E6%98%AF%E4%B8%AA%E6%9C%89%E5%A4%A9%E8%B5%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/">
 			下回<br>也许我不是个有天赋的程序员
                 </a>
                 
                 
                 
-                <a class="older-posts" href="http://imziv.com/posts/2012/%E6%B5%85%E8%81%8A%E8%BF%992%E5%90%84%E6%9C%88%E7%9A%84%E5%AD%A6%E4%B9%A0/">
+                <a class="older-posts" href="//imziv.com/posts/2012/%E6%B5%85%E8%81%8A%E8%BF%992%E5%90%84%E6%9C%88%E7%9A%84%E5%AD%A6%E4%B9%A0/">
 			上回<br>浅聊这 2 各月的学习
                 </a>
                 
@@ -449,7 +474,7 @@ if (!doNotTrack) {
             </div><div id="single-column-footer">
 &copy;
 	
-	2014-2020 Ziv小威
+	2012-2020 Ziv小威
 	
 	Built by Hugo <a href="https://github.com/amazingrise/hugo-theme-diary">(Diary)</a></div>
             </div>
@@ -553,6 +578,6 @@ app = new Vue({
 });
 </script>
 
-<script src="http://imziv.com/js/journal.js"></script>
+<script src="//imziv.com/js/journal.js"></script>
     </body>
 </html>

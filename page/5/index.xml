@@ -1,24 +1,248 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>让美的事情发生</title>
-    <link>http://imziv.com/</link>
+    <link>//imziv.com/</link>
     <description>Recent content on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>2014-2020 Ziv小威</copyright>
-    <lastBuildDate>Tue, 14 Jan 2020 10:28:51 +0000</lastBuildDate>
+    <copyright>2012-2020 Ziv小威</copyright>
+    <lastBuildDate>Sat, 21 Nov 2020 04:00:25 +0000</lastBuildDate>
     
-        <atom:link href="http://imziv.com/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="//imziv.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>HTML5 文件异步上传 — h5uploader.js</title>
+        <link>//imziv.com/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/</link>
+        <pubDate>Thu, 07 May 2015 23:11:53 +0000</pubDate>
+        
+        <guid>//imziv.com/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/ -&lt;p&gt;之前写过一篇 H5 异步文件上传的&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=46&#34;&gt;文章&lt;/a&gt;, 但是很多朋友看着我的这个教程还是出现很多问题，文章写的不是很好，比较早了。其实通过 H5 做异步上传已经非常简单了，通过查看文档，便可以很轻松的完成这个功能，当然，如果你不愿意查看文档自己动手的话，那么就用插件咯。&lt;a href=&#34;https://github.com/wewoor/h5uploader&#34;&gt;h5uploader&lt;/a&gt;是我最近封装的 HTML5 上传插件，代码才白来行，使用的话也比较简单，支持文件大小，类型，progress 等等功能。本篇教程，将向你展示 Nodejs,Java 两种服务端的上传方法，并且附有源代码示例。&lt;/p&gt;
+&lt;h3 id=&#34;插件下载&#34;&gt;插件下载&lt;/h3&gt;
+&lt;p&gt;如果你是&lt;a href=&#34;http://bower.io/docs/api/#register&#34;&gt;&lt;code&gt;bower&lt;/code&gt;&lt;/a&gt;的用户的话，可以直接通过以下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;bower install h5uploader --save
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;当然也可以直接从 Github Clone 此项目：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;git clone https://github.com/wewoor/h5uploader.git
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;html-代码&#34;&gt;HTML 代码&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;input&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;file&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;myfile&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;value&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;myfile&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;multiple&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;multiple&amp;#34;&lt;/span&gt;/&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;button&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploader&amp;#34;&lt;/span&gt;&amp;gt;Upload&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;button&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以上是一个 file 类型的 input 元素以及一个上传触发按钮，后面带有 multiple 属性，表示次处支持文件多选上传，当然，你也可以一次提交多个 input 元素，例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;input&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;file&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;myfile&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;value&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;myfile&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;multiple&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;multiple&amp;#34;&lt;/span&gt;/&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;input&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;file1&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;myfile1&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;value&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;myfile&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;multiple&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;multiple&amp;#34;&lt;/span&gt;/&amp;gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;button&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploader&amp;#34;&lt;/span&gt;&amp;gt;Upload&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;button&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这种方法同样是可以的，只不过服务端解析的时候要更麻烦。&lt;/p&gt;
+&lt;h3 id=&#34;javascript&#34;&gt;Javascript&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&amp;lt;script type=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt; src=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;html5uploader.js&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;/script&amp;gt;&lt;/span&gt;
+    &amp;lt;script type=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt;&amp;gt;
+     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; uploader = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.getElementById(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;uploader&amp;#39;&lt;/span&gt;);
+        uploader.addEventListener(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;click&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(e) {
+
+        H5Uploader.upload({
+            action: &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;upload&amp;#39;&lt;/span&gt;,
+            id: &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;myfile0&amp;#39;&lt;/span&gt;,
+            size: {
+                max: &lt;span style=&#34;color:#b452cd&#34;&gt;5000&lt;/span&gt;, &lt;span style=&#34;color:#228b22&#34;&gt;// 5000kb
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                valide: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(e) {
+                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (e) {
+                        alert(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;The size of &amp;#34;&lt;/span&gt; + e.name + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; is exceed max value!&amp;#34;&lt;/span&gt;);
+                    }
+                }
+            }, &lt;span style=&#34;color:#228b22&#34;&gt;// MB
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            type: {
+                name: &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;csv;png;jpg&amp;#39;&lt;/span&gt;,
+                valide: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(e) {
+                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (e) {
+                        alert(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;The type of &amp;#34;&lt;/span&gt; + e.name + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; is not supported!&amp;#34;&lt;/span&gt;);
+                    }
+                }
+            },
+            progress: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
+                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; p = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;p&amp;#39;&lt;/span&gt;);
+                    p.innerHTML = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploading&amp;#34;&lt;/span&gt;;
+                    p.id = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;loading&amp;#34;&lt;/span&gt;;
+                    &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.body.appendChild(p);
+            },
+            success: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(data) {
+                alert(data);
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (data &amp;amp;&amp;amp; data == &lt;span style=&#34;color:#b452cd&#34;&gt;200&lt;/span&gt;) {
+                    &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.getElementById(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;loading&amp;#39;&lt;/span&gt;).innerHTML = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;The file upload successfully!&amp;#34;&lt;/span&gt;;
+                    alert(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;The file upload successfully.&amp;#34;&lt;/span&gt;);
+                }
+            },
+            fail: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(data) {
+
+            }
+        });
+
+    }, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;);
+    &amp;lt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以上是针对单个 input 元素的上传，&lt;code&gt;H5Uploader.upload()&lt;/code&gt;方法是支持&lt;code&gt;Array&lt;/code&gt;类型和&lt;code&gt;Object&lt;/code&gt;类型的，也就是说，如果你有多个 input 元素同时上传的需求的话，你可以这样写：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;   uploader.addEventListener(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;click&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(e) {
+
+        H5Uploader.upload([{
+            action: &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;upload&amp;#39;&lt;/span&gt;,
+            id: &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;myfile0&amp;#39;&lt;/span&gt;,
+            size: {
+                max: &lt;span style=&#34;color:#b452cd&#34;&gt;5000&lt;/span&gt;, &lt;span style=&#34;color:#228b22&#34;&gt;// 5000kb
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                valide: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(e) {
+               }
+            }, &lt;span style=&#34;color:#228b22&#34;&gt;// MB
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            type: {
+                name: &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;csv;json&amp;#39;&lt;/span&gt;,
+                valide: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(e) {
+               }
+            },
+            progress: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
+                               },
+            success: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(data) {
+            },
+            fail: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(data) {
+
+            }
+        },{
+            action: &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;upload&amp;#39;&lt;/span&gt;,
+            id: &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;myfile1&amp;#39;&lt;/span&gt;,
+            size: {
+                max: &lt;span style=&#34;color:#b452cd&#34;&gt;5000&lt;/span&gt;, &lt;span style=&#34;color:#228b22&#34;&gt;// 5000kb
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                valide: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(e) {
+               }
+            }, &lt;span style=&#34;color:#228b22&#34;&gt;// MB
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            type: {
+                name: &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;png;jpg&amp;#39;&lt;/span&gt;,
+                valide: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(e) {
+               }
+            },
+            progress: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
+            },
+            success: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(data) {
+            },
+            fail: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(data) {
+
+            }
+        }]);
+
+    }, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;nodejs-服务端&#34;&gt;Nodejs 服务端&lt;/h3&gt;
+&lt;p&gt;服务端是 expressjs，利用的一个上传中间件&lt;a href=&#34;https://github.com/expressjs/multer&#34;&gt;&lt;code&gt;multer&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; express = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;express&amp;#39;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; multer = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;multer&amp;#39;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; app = express();
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; done = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;;
+
+app.use(express.&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;./public&amp;#39;&lt;/span&gt;));
+
+&lt;span style=&#34;color:#228b22&#34;&gt;// respond with &amp;#34;hello world&amp;#34; when a GET request is made to the homepage
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;app.post(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;/upload&amp;#39;&lt;/span&gt;,[multer({dest: &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;./uploads/&amp;#39;&lt;/span&gt;}), &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(req, res) {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;try&lt;/span&gt; {
+        console.log(req.body.myfile);
+        console.log(req.files);
+        res.json(&lt;span style=&#34;color:#b452cd&#34;&gt;200&lt;/span&gt;);
+    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt; (e) {
+        console.log(e);
+    }
+}]);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;完整的示例代码，&lt;a href=&#34;https://github.com/wewoor/h5uploader/tree/master/example/expressjs&#34;&gt;请看&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;java-servlet-示例&#34;&gt;Java servlet 示例&lt;/h3&gt;
+&lt;p&gt;此处没有用任何框架或者库，只是&lt;code&gt;Servlet3.0&lt;/code&gt;, 用 tomcat6 的同学要注意哦。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;com.h5uploader.demo&lt;/span&gt;;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.io.File&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.io.FileNotFoundException&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.io.FileOutputStream&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.io.IOException&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.io.InputStream&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.io.OutputStream&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.io.PrintWriter&lt;/span&gt;;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;javax.servlet.ServletException&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;javax.servlet.annotation.MultipartConfig&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;javax.servlet.http.HttpServlet&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;javax.servlet.http.HttpServletRequest&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;javax.servlet.http.HttpServletResponse&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;javax.servlet.http.Part&lt;/span&gt;;
+
+
+&lt;span style=&#34;color:#707a7c&#34;&gt;@MultipartConfig&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;UploaderServlet&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;extends&lt;/span&gt; HttpServlet {
+
+ &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;service&lt;/span&gt;(HttpServletRequest req, HttpServletResponse res)
+   &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;throws&lt;/span&gt; IOException, ServletException {
+  
+  res.&lt;span style=&#34;color:#658b00&#34;&gt;setContentType&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/html;charset=UTF-8&amp;#34;&lt;/span&gt;);
+
+     &lt;span style=&#34;color:#228b22&#34;&gt;// Create path components to save the file
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;final&lt;/span&gt; String path = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;/Users/ziv/Desktop/&amp;#34;&lt;/span&gt;;
+     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;final&lt;/span&gt; Part filePart = req.&lt;span style=&#34;color:#658b00&#34;&gt;getPart&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;myfile0&amp;#34;&lt;/span&gt;);
+     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;final&lt;/span&gt; String fileName = getFileName(filePart);
+
+     OutputStream out = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt;;
+     InputStream filecontent = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt;;
+     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;final&lt;/span&gt; PrintWriter writer = res.&lt;span style=&#34;color:#658b00&#34;&gt;getWriter&lt;/span&gt;();
+
+     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;try&lt;/span&gt; {
+         out = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; FileOutputStream(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; File(path + File.&lt;span style=&#34;color:#658b00&#34;&gt;separator&lt;/span&gt;
+                 + fileName));
+         filecontent = filePart.&lt;span style=&#34;color:#658b00&#34;&gt;getInputStream&lt;/span&gt;();
+
+         &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; read = 0;
+         &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;final&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;byte&lt;/span&gt;[] bytes = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;byte&lt;/span&gt;[1024];
+
+         &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; ((read = filecontent.&lt;span style=&#34;color:#658b00&#34;&gt;read&lt;/span&gt;(bytes)) != -1) {
+             out.&lt;span style=&#34;color:#658b00&#34;&gt;write&lt;/span&gt;(bytes, 0, read);
+         }
+         writer.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;New file &amp;#34;&lt;/span&gt; + fileName + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; created at &amp;#34;&lt;/span&gt; + path);
+
+     } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt; (FileNotFoundException fne) {
+         writer.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;You either did not specify a file to upload or are &amp;#34;&lt;/span&gt;
+                 + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;trying to upload a file to a protected or nonexistent &amp;#34;&lt;/span&gt;
+                 + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;location.&amp;#34;&lt;/span&gt;);
+         writer.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&amp;lt;br/&amp;gt; ERROR: &amp;#34;&lt;/span&gt; + fne.&lt;span style=&#34;color:#658b00&#34;&gt;getMessage&lt;/span&gt;());
+
+
+     } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;finally&lt;/span&gt; {
+         &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (out != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt;) {
+             out.&lt;span style=&#34;color:#658b00&#34;&gt;close&lt;/span&gt;();
+         }
+         &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (filecontent != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt;) {
+             filecontent.&lt;span style=&#34;color:#658b00&#34;&gt;close&lt;/span&gt;();
+         }
+         &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (writer != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt;) {
+             writer.&lt;span style=&#34;color:#658b00&#34;&gt;close&lt;/span&gt;();
+         }
+     }
+ }
+
+ &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;getFileName&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;final&lt;/span&gt; Part part) {
+     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;final&lt;/span&gt; String partHeader = part.&lt;span style=&#34;color:#658b00&#34;&gt;getHeader&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;content-disposition&amp;#34;&lt;/span&gt;);
+     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (String content : part.&lt;span style=&#34;color:#658b00&#34;&gt;getHeader&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;content-disposition&amp;#34;&lt;/span&gt;).&lt;span style=&#34;color:#658b00&#34;&gt;split&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;;&amp;#34;&lt;/span&gt;)) {
+         &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (content.&lt;span style=&#34;color:#658b00&#34;&gt;trim&lt;/span&gt;().&lt;span style=&#34;color:#658b00&#34;&gt;startsWith&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;filename&amp;#34;&lt;/span&gt;)) {
+             &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; content.&lt;span style=&#34;color:#658b00&#34;&gt;substring&lt;/span&gt;(
+                     content.&lt;span style=&#34;color:#658b00&#34;&gt;indexOf&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;=&amp;#39;&lt;/span&gt;) + 1).&lt;span style=&#34;color:#658b00&#34;&gt;trim&lt;/span&gt;().&lt;span style=&#34;color:#658b00&#34;&gt;replace&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;\&amp;#34;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;);
+         }
+     }
+     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt;;
+ }
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以上的上传示例是来自官方的代码，我个人也是测试过的，完整的&lt;a href=&#34;https://github.com/wewoor/h5uploader/tree/master/example/java/h5uploader&#34;&gt;示例&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;另外我还写了一个&lt;code&gt;sails&lt;/code&gt;的版本，有需要的可以点击&lt;a href=&#34;https://github.com/wewoor/h5uploader/tree/master/example/sails&#34;&gt;查看&lt;/a&gt;。&lt;/p&gt;
+&lt;h3 id=&#34;结语&#34;&gt;结语&lt;/h3&gt;
+&lt;p&gt;以上则是这个插件使用的全部内容，如果有什么问题可以直接点击示例代码进行查看，另外插件是我才写出来的，如果有什么问题请告诉我。谢谢，希望它能帮助你！&lt;/p&gt;
+&lt;h4 id=&#34;作者ziv-小威httpimzivcom&#34;&gt;作者：&lt;a href=&#34;http://imziv.com&#34;&gt;Ziv 小威&lt;/a&gt;&lt;/h4&gt;
+&lt;h4 id=&#34;原文地址httpimzivcomblogarticlereadhtmid62httpimzivcomblogarticlereadhtmid62&#34;&gt;原文地址：&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=62&#34;&gt;http://imziv.com/blog/article/read.htm?id=62&lt;/a&gt;&lt;/h4&gt;
+- //imziv.com/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/ - 2012-2020 Ziv小威</description>
+        </item>
     
     
     
         <item>
         <title>利用 Gulp 优化部署 Web 项目</title>
-        <link>http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/</link>
+        <link>//imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/</link>
         <pubDate>Sun, 26 Apr 2015 11:27:16 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/ -&lt;h3 id=&#34;gulp&#34;&gt;Gulp&lt;/h3&gt;
+        <guid>//imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/ -&lt;h3 id=&#34;gulp&#34;&gt;Gulp&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;http://gulpjs.com/&#34;&gt;Gulp&lt;/a&gt;是一款项目自动化的构建工具，与&lt;a href=&#34;http://gruntjs.com/&#34;&gt;Grunt&lt;/a&gt;一样可以通过创建任务（Task）来帮助我们自动完成一些工作流的内容。当然，今天我们的内容并不是讨论这二者的区别，仅仅是介绍介绍如何利用 Gulp 来优化我们的 Web 项目中前端自动化工作流。&lt;/p&gt;
 &lt;h3 id=&#34;引言&#34;&gt;引言&lt;/h3&gt;
 &lt;p&gt;相信不少人看过百度大牛&lt;a href=&#34;https://github.com/fouber&#34;&gt;张云龙&lt;/a&gt;的那篇讲解&lt;a href=&#34;https://github.com/fouber/blog/issues/6&#34;&gt;大公司里怎样开发和部署前端代码?&lt;/a&gt;的文章，如果没有阅读的朋友请戳。由于在项目部署时，我们需要对项目 js，css,image 等文件进行压缩，合并处理，从而减少客户端对服务 Http 请求，已达到增强页面的加载速度，优化服务器带宽压力等等目的。所以本文主要讲的是利用 Gulp 优化我们 Web 部署优化工作。&lt;/p&gt;
@@ -220,18 +444,18 @@ watcher.on(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;change&amp;#39;&lt
 &lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;});
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;总结&#34;&gt;总结&lt;/h3&gt;
 &lt;p&gt;以上基本介绍了如何使用 gulp 来自动完成打包，压缩，合并文件等任务，Gulp 插件非常多，本文只是简单的介绍了几种基本的。总之，使用 gulp，只需要几行命令便可以完成以上任务，使很多优化工作变得十分简单。&lt;/p&gt;
-- http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>利用 javascript 和 WebGL 绘制地球 【翻译】</title>
-        <link>http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/</link>
+        <link>//imziv.com/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/</link>
         <pubDate>Sun, 22 Mar 2015 01:43:59 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/ -&lt;p&gt;原翻译：&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=59&#34;&gt;利用 javascript 和 WebGL 绘制地球 【翻译】&lt;/a&gt;&lt;/p&gt;
+        <guid>//imziv.com/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/ -&lt;p&gt;原翻译：&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=59&#34;&gt;利用 javascript 和 WebGL 绘制地球 【翻译】&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;在我们所有已知的 HTML5API 中，&lt;a href=&#34;https://www.khronos.org/webgl/&#34;&gt;WebGL&lt;/a&gt;可能是最有意思的一个，利用这个 API 我们能够在浏览器中创造出炫酷 3D 场景的能力。本文将完整的向你展示一些炫酷是如何实现的。&lt;/p&gt;
 &lt;p&gt;需要特别指出的是，这篇教程我们将会构建一个地球行星模型，这个模型可以像一个兴奋的人一样环绕的旋转，另外，它可能使我们可以获得一些其他程序员的称赞，好吧，就这么多了。&lt;/p&gt;
 &lt;h2 id=&#34;准备&#34;&gt;准备&lt;/h2&gt;
@@ -326,18 +550,18 @@ earthMat.bumpScale = &lt;span style=&#34;color:#b452cd&#34;&gt;8&lt;/span&gt;;
 &lt;h2 id=&#34;结尾&#34;&gt;结尾&lt;/h2&gt;
 &lt;p&gt;WebGL 和 Three.js 变得越发的具有挑战性，因为他们偶尔会要求我们要像 3D 艺术家一样，利用场景，画布，camera 去完成我们的工作，最终的结果就是做出了一些加令人印象深刻的东西。如果你专注于在这个技术上的话，你可以通过在浏览器中使用 3D 特性创造出一些有趣的可能性。如果坚持它，相信不久你就很可能获取一些非凡的成绩。&lt;/p&gt;
 &lt;p&gt;原文地址：&lt;a href=&#34;http://www.sitepoint.com/building-earth-with-webgl-javascript/?utm_source=html5weekly&amp;amp;utm_medium=email&#34;&gt;Building the Earth with WebGL and JavaScript&lt;/a&gt;&lt;/p&gt;
-- http://imziv.com/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>随笔-家</title>
-        <link>http://imziv.com/posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/</link>
+        <link>//imziv.com/posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/</link>
         <pubDate>Sat, 24 Jan 2015 21:56:59 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/ -&lt;p&gt;全屏功能是浏览器很早就支持的一项功能了，可以让你页面中的 video, image ,div 等等子元素实现全屏浏览，从而带来更好的视觉体验，来看看怎么使用吧。先来看看有哪些 API 和事件支持。&lt;/p&gt;
+        <guid>//imziv.com/posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/ -&lt;p&gt;全屏功能是浏览器很早就支持的一项功能了，可以让你页面中的 video, image ,div 等等子元素实现全屏浏览，从而带来更好的视觉体验，来看看怎么使用吧。先来看看有哪些 API 和事件支持。&lt;/p&gt;
 &lt;h3 id=&#34;api&#34;&gt;API&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;
 &lt;span style=&#34;color:#228b22&#34;&gt;// 元素请求全屏显示  
@@ -472,35 +696,35 @@ fullScreen.addEventListener(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;c
 &lt;p&gt;&lt;a href=&#34;https://fullscreen.spec.whatwg.org/&#34;&gt;Fullscreen API
 Living Standard&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;http://www.sitepoint.com/use-html5-full-screen-api/&#34;&gt;How to Use the HTML5 Full-Screen API (Again)&lt;/a&gt;&lt;/p&gt;
-- http://imziv.com/posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>随笔-家</title>
-        <link>http://imziv.com/posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/</link>
+        <link>//imziv.com/posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/</link>
         <pubDate>Mon, 12 Jan 2015 23:07:08 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/ -&lt;p&gt;最近大家都又开始在 12306 上面开始抢火车票，不禁又提醒我 2014 年已经恰恰流逝。而春节又马上临近，是时候开始买回家的车票了。&lt;/p&gt;
+        <guid>//imziv.com/posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/ -&lt;p&gt;最近大家都又开始在 12306 上面开始抢火车票，不禁又提醒我 2014 年已经恰恰流逝。而春节又马上临近，是时候开始买回家的车票了。&lt;/p&gt;
 &lt;p&gt;突然发觉不知从何时起，我变成了一个不那么爱回家的人了。记得初中那会儿，由于学校离家比较远，我们就开始寄宿学校了，初一初二的时候每周回家 2 次，到初三的时候基本就只能周五回家一次，每次从家补寄下周的粮食。那时候经常和同学下自习 8，9 点后骑自行车回家，穿梭在山边的公路上，伴着一点点月光，虽然路上很漆黑，但是还是会冒着黑夜回家。每次周五放学，都是迫不及待，飞奔着跑向宿舍，拿起行李就跑出了学校。&lt;/p&gt;
 &lt;p&gt;上高中了，这次离家更远了，到了市里的一所高中，每次一个月才能回家一次。前一年我跟初中的时候一样，每逢放假的时候，人都是飞奔出教室的，然后跑进宿舍楼，然后飞出校门，飞进汽车站。后来大二开始，母亲和父亲一同外出打工后，我就开始很少回家了。后来是每次放假，我也不着急了，站在教学楼上看着放假后那些兴奋回家的同学们，直到操场上面寥寥几个人。每次暑假，也就回老家短暂的住上三，二日，便开始了暑假打工的生活。事实上暑期打工从我初中一毕业就开始了，一直到我大学毕业正式参加工作。&lt;/p&gt;
 &lt;p&gt;后来上大学了，相较于那些跨省上学的同学来说，我离家还是比较近的，但是由于父母常年不在老家，所以我也只是像清明节或者其他假期才会回老家住上几晚。这样算下来一年也回不了几次家，算上春节，也就一个月的左右。而每次我发现我对家的依恋的感觉都变得越来越淡。&lt;/p&gt;
 &lt;p&gt;这几年感觉自己就像飘在外面一样，身上染上了很多坏毛病，不喜欢与父母交流，越是亲密的人我可能越是说话刻薄。有时候会很讨厌自己。有时候想改变，但是却不知道怎么改变，想去多关心关心父母，朋友，但是告诫过自己的，临场时确又回到了原点。&lt;/p&gt;
 &lt;p&gt;如今已经离开学校一年左右了，我从一陌生的城市来到了另外一座陌生的城市，曾经有想过回去，但是不知道为什么总有些力量吸引我继续这样的日子，也许是好奇心，也行是我太年轻。&lt;/p&gt;
-- http://imziv.com/posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>NodeJS CSV 导出文件名和内容乱码解决</title>
-        <link>http://imziv.com/posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/</link>
+        <link>//imziv.com/posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/</link>
         <pubDate>Tue, 04 Nov 2014 15:29:19 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ -&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 解决不同浏览器下载文件名称乱码
+        <guid>//imziv.com/posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ -&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 解决不同浏览器下载文件名称乱码
 &lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; userAgent = (req.headers[&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;user-agent&amp;#39;&lt;/span&gt;]||&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;).toLowerCase();
 res.set(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;Content-Type&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;application/octet-stream;charset=utf-8&amp;#39;&lt;/span&gt;);
 
@@ -518,38 +742,38 @@ res.set(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;Content-Type&amp;#39;
 &lt;span style=&#34;color:#228b22&#34;&gt;// 解决excel打开内容乱码
 &lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; dataBuffer = Buffer.concat([&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Buffer(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;\xEF\xBB\xBF&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;binary&amp;#39;&lt;/span&gt;), &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Buffer(data)]);
 res.send(dataBuffer);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ - 2014-2020 Ziv小威</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- //imziv.com/posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>Hybird App ( 混合模式移动应用)开发初体验</title>
-        <link>http://imziv.com/posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/</link>
+        <link>//imziv.com/posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/</link>
         <pubDate>Tue, 28 Oct 2014 18:27:06 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/ -&lt;p&gt;最近 1，2 个月一直都尝试开发一款 hybird app，遇到了很多问题，谈谈自己的体会。&lt;/p&gt;
+        <guid>//imziv.com/posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/ -&lt;p&gt;最近 1，2 个月一直都尝试开发一款 hybird app，遇到了很多问题，谈谈自己的体会。&lt;/p&gt;
 &lt;p&gt;Hybird app (混合模式移动应用），它利用例如安卓端 webview 组件+HTML5 内嵌的方式混合的方式开发的移动应用，
 好处显而易见，由于内嵌的是 Html5, 所以跨平台，扩展性，开发成本都是很不错的优势。&lt;/p&gt;
 &lt;p&gt;Hybird App 拥有很多从开发工具到打包发布的解决方案，比较出名的是来自 Adobe 的 phonegap, 国内有 AppCan,这 2 种解决方案都有比较好的工具平台。这次我采用的的是 Appcan, 需要注意的是 Appcan 的开发工具只有 windows 平台的，另外不得不吐槽的是，方案里面集成的 js 插件脚本，bug 很多。&lt;/p&gt;
 &lt;p&gt;我采用的技术架构，如图：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://imziv.com/posts/2014/img/hybird.png&#34; alt=&#34;hybird&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;//imziv.com/posts/2014/img/hybird.png&#34; alt=&#34;hybird&#34;&gt;&lt;/p&gt;
 &lt;p&gt;其中利用 Appcan 作为应用的打包平台，通过其内置的 JS 组件进行数据请求，请求得到的数据利用 JS 做些业务逻辑处理后，使用 Angular 进行绑定渲染，UI 组件的东西则用的 GMU.js,而 gmu 内置了 zepto.js 和 scroll.js 等等, 页面则是 h5+css3。可以看到的是与传统的 web 相比，其中多了不少 js 框架和库的应用，毕竟把数据的调用和业务处理都移到了 JS 端，所以在这里提醒大家，可以考虑加入 js 模块管理的框架，例如 seajs。数据绑定这块感觉 Angular 真的很棒，写好绑定后，只需要专注后端 JS 数据的业务处理即可，提升了不少开发效率。&lt;/p&gt;
 &lt;p&gt;在编码阶段遇到了不少问题，例如并不能利用 url 像平时那样进行参数传递，发现抓取不到页面跳转后的参数。为了减少请求次数，也尝试采用 LocalStorage 缓存 json。通过 Manifest cache 缓存 html,css,js 文件，来提升界面的响应速度。通过 css3 替代 js 做动画效果，但是效果并不理想，感觉还是没有 js 来的流畅。页面跳转白屏，数据加载的延迟等等状况，加载动画体验需要做的更好，而且尽量减少页面的跳转，把一些功能集中到单个 html 文件。&lt;/p&gt;
 &lt;p&gt;总而言之，采取了很多优化方法，但是显然这种 hybird app 在性能体验等方面还是问题很多，但是例如一些交互简单的 app 话，用这种方案还是可以考虑的。&lt;/p&gt;
-- http://imziv.com/posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>NodeJs 按行读取文件</title>
-        <link>http://imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/</link>
+        <link>//imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/</link>
         <pubDate>Tue, 02 Sep 2014 15:56:41 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/ -&lt;p&gt;次中方法非依赖第三方 package, 当然你可以用。&lt;/p&gt;
+        <guid>//imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/ -&lt;p&gt;次中方法非依赖第三方 package, 当然你可以用。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;line-reader&lt;/li&gt;
 &lt;/ul&gt;
@@ -569,32 +793,32 @@ rd.on(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;line&amp;#39;&lt;/span&
     write(line);
     i++;
 });
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/ - 2014-2020 Ziv小威</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- //imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>2014 年 8 月 9 日我离开了南京</title>
-        <link>http://imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/</link>
+        <link>//imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/</link>
         <pubDate>Sat, 23 Aug 2014 14:53:16 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/ -&lt;p&gt;2012 年 11 月份，我一人来到了南京这座陌生的城市。&lt;/p&gt;
+        <guid>//imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/ -&lt;p&gt;2012 年 11 月份，我一人来到了南京这座陌生的城市。&lt;/p&gt;
 &lt;p&gt;2014 年 8 月 9 日，我离开了这座美丽的城市，只身来到杭州。&lt;/p&gt;
 &lt;p&gt;i love you more when i&amp;rsquo;m missing you.&lt;/p&gt;
-- http://imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>细说 static 关键字及其应用</title>
-        <link>http://imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</link>
+        <link>//imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</link>
         <pubDate>Sat, 19 Jul 2014 12:59:48 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/ -&lt;h2 id=&#34;场景&#34;&gt;场景&lt;/h2&gt;
+        <guid>//imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/ -&lt;h2 id=&#34;场景&#34;&gt;场景&lt;/h2&gt;
 &lt;p&gt;先看段代码，考虑以下场景，其运行结果是什么？&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;Test&lt;/span&gt; {
 
@@ -666,105 +890,7 @@ rd.on(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;line&amp;#39;&lt;/span&
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;该类的构造方法被 private 关键字修饰，意味着该对象不可用 new 关键字进行实例化了，当然我们已经在此类中提供了静态方法 getInstance 通过这个方法获取该类的静态实例对象。由于该对象实例后被保存在了静态变量 INSTANCE 中，所以调用者每次调用的都是这个实例对象。调用示例：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;Singleton c = Singleton.&lt;span style=&#34;color:#658b00&#34;&gt;getInstance&lt;/span&gt;();
 c.&lt;span style=&#34;color:#658b00&#34;&gt;test&lt;/span&gt;(); &lt;span style=&#34;color:#228b22&#34;&gt;// 调用test方法
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/ - 2014-2020 Ziv小威</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>利用 JS 跨域做一个简单的页面访问统计系统</title>
-        <link>http://imziv.com/posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/</link>
-        <pubDate>Mon, 30 Jun 2014 14:48:56 +0000</pubDate>
-        
-        <guid>http://imziv.com/posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/ -&lt;p&gt;其实在大部分互联网 web 产品中，我们通常会用百度统计或者谷歌统计分析系统，通过在程序中引入特定的 JS 脚本，然后便可以在这些统计系统中看到自己网站页面具体的访问情况。但是有些时候，由于一些特殊情况，我们需要自己来设计统计系统。由于前段时间公司的业务需求，我也是自己尝试了下，本文提供的是一个基本思路，统计系统也比较简单。&lt;/p&gt;
-&lt;p&gt;几个基本统计需求：
-1.统计 web 每个页面用户访问量
-2.统计用户访问者的和 IP 地址信息
-3.页面之间的跳转情况
-4.访问高峰时间段&lt;/p&gt;
-&lt;p&gt;服务器结构：
-&lt;img src=&#34;http://imziv.com/posts/2014/img/statistic-system.png&#34; alt=&#34;statistic-system&#34;&gt;
-数据库表设计：&lt;/p&gt;
-&lt;p&gt;以上只是我简单列举的需求，这边简单的就一张统计表，而这张统计表能满足的需求是不仅仅只是上面四个基本的需求的，可以看需求情况再做相应的业务处理。&lt;/p&gt;
-&lt;p&gt;tb_visit_count_log&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;ID&lt;/th&gt;
-&lt;th&gt;ip (varchar)&lt;/th&gt;
-&lt;th&gt;IP 地址&lt;/th&gt;
-&lt;th&gt;title（varchar）标题&lt;/th&gt;
-&lt;th&gt;cur_page(varchar) 当前页面&lt;/th&gt;
-&lt;th&gt;from_page(varchar) 源页面&lt;/th&gt;
-&lt;th&gt;time（datetime）日期时间&lt;/th&gt;
-&lt;th&gt;app(varchar) 应用&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;/table&gt;
-&lt;p&gt;数据采集:&lt;/p&gt;
-&lt;p&gt;我们提交编写一个 JS 脚本，用来抓取当前页面中我们需要的数据，然后通过跨域请求道我们的 Statistics Server 进行存储，便于之后的统计分析业务的操作。&lt;/p&gt;
-&lt;p&gt;JS 跨域：&lt;/p&gt;
-&lt;p&gt;我们都知道在开发 web 应用的时候，我们经常利用&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;去请求其它服务器内的脚本资源，src 是 source 的缩写，指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置。所以利用这一点，我们可以通过 JS 动态创建&lt;!-- raw HTML omitted --&gt;标签，并抓取页面相关的信息后，设置该标签 src 地址为远程 Statistics 服务器地址，将其添加到当前文档中，该标签便会自动将请求发送到指定服务器，而服务器便可解析改请求中的参数和请求信息，将其存储入库。
-　　
-示例代码：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; title = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.getElementsByTagName(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;title&amp;#34;&lt;/span&gt;)[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;].innerHTML, &lt;span style=&#34;color:#228b22&#34;&gt;// 页面标题
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            url = &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.location.href, &lt;span style=&#34;color:#228b22&#34;&gt;// 当前请求路径名称
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        site = &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.location.host, &lt;span style=&#34;color:#228b22&#34;&gt;// 站点host
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;// 此处为从header获取 Refere参数，具体获取看当前的web程序
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            ref = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39; &amp;lt;%=request.getHeader( &amp;#34;Referer&amp;#34;) %&amp;gt;&amp;#39;&lt;/span&gt;,
-            param = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;?title=&amp;#34;&lt;/span&gt;+title+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; &amp;amp;url=&amp;#34;&lt;/span&gt;+url+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; &amp;amp;ref=&amp;#34;&lt;/span&gt;+ref ,     &lt;span style=&#34;color:#228b22&#34;&gt;// 引用页地址
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        script = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.createElement(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;script&amp;#34;&lt;/span&gt;);
-    script.src = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;http://example.com/analysis&amp;#34;&lt;/span&gt;+param;
-    &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.getElementsByTagName(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;head&amp;#34;&lt;/span&gt;)[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;].appendChild(script);
-})();
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;注意：上示例代码中用了一个 JSP 标签，从 header 中获取了 Referer 参数。&lt;/p&gt;
-&lt;p&gt;服务器端：
-本示例服务器框架采用的是 SpringMVC，但是获取参数都是一样的。获取参数：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/**
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* 记录站点统计信息
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* @param request
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
-&lt;span style=&#34;color:#707a7c&#34;&gt;@RequestMapping&lt;/span&gt;( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;/analysis&amp;#34;&lt;/span&gt;)
-&lt;span style=&#34;color:#707a7c&#34;&gt;@ResponseBody&lt;/span&gt;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;visitorLogger&lt;/span&gt;(HttpServletRequest request) {
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;try&lt;/span&gt; {
-        WebsiteVisitCount visitor = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; WebsiteVisitCount();
-        visitor.&lt;span style=&#34;color:#658b00&#34;&gt;setUrl&lt;/span&gt;(request.&lt;span style=&#34;color:#658b00&#34;&gt;getParameter&lt;/span&gt;( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;url&amp;#34;&lt;/span&gt;));
-        String title = request.&lt;span style=&#34;color:#658b00&#34;&gt;getParameter&lt;/span&gt;( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;title&amp;#34;&lt;/span&gt;);
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (title != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt;) {
-                visitor.&lt;span style=&#34;color:#658b00&#34;&gt;setTitle&lt;/span&gt;( &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; String(title.&lt;span style=&#34;color:#658b00&#34;&gt;getBytes&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;ISO-8859-1&amp;#34;&lt;/span&gt; ),
-                            &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;utf-8&amp;#34;&lt;/span&gt;));
-        }
-            &lt;span style=&#34;color:#228b22&#34;&gt;// 用户IP
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        visitor.&lt;span style=&#34;color:#658b00&#34;&gt;setFromUrl&lt;/span&gt;(request.&lt;span style=&#34;color:#658b00&#34;&gt;getParameter&lt;/span&gt;( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;ref&amp;#34;&lt;/span&gt;));
-        visitor.&lt;span style=&#34;color:#658b00&#34;&gt;setUserIp&lt;/span&gt;(getRemortIP(request));
-        visitor.&lt;span style=&#34;color:#658b00&#34;&gt;setApp&lt;/span&gt;(request.&lt;span style=&#34;color:#658b00&#34;&gt;getParameter&lt;/span&gt;( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;site&amp;#34;&lt;/span&gt;));
-            &lt;span style=&#34;color:#228b22&#34;&gt;// 存储数据
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            websiteVisitCountService.&lt;span style=&#34;color:#658b00&#34;&gt;addVisitor&lt;/span&gt;(visitor);
-    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt; (Exception e) {
-            LOGGER.&lt;span style=&#34;color:#658b00&#34;&gt;error&lt;/span&gt;( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;WebsiteVisitCountController.visitorLogger():&amp;#34;&lt;/span&gt;
-                    +request.&lt;span style=&#34;color:#658b00&#34;&gt;getRequestURI&lt;/span&gt;(), e.&lt;span style=&#34;color:#658b00&#34;&gt;getMessage&lt;/span&gt;());
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以上代码中并没有响应给客户端任何可执行的 JS 脚本，当然如果需要，这个是完全没有问题的，在跨域其他需求的时候，完全可以响应服务器 JS 执行脚本。&lt;/p&gt;
-&lt;p&gt;获取访问 IP：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/**
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* 获取客户端IP地址
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* @param request
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* @return
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;getRemortIP&lt;/span&gt;(HttpServletRequest request) {
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (request.&lt;span style=&#34;color:#658b00&#34;&gt;getHeader&lt;/span&gt;( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;x-forwarded-for&amp;#34;&lt;/span&gt; ) == &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt; ) {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; request.&lt;span style=&#34;color:#658b00&#34;&gt;getRemoteAddr&lt;/span&gt;();
-    }
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; request.&lt;span style=&#34;color:#658b00&#34;&gt;getHeader&lt;/span&gt;( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;x-forwarded-for&amp;#34;&lt;/span&gt; );
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以上则是统计的核心代码部分，数据入库后便可以对其进行相应业务上的处理，获取想了解的数据。部署时只需要把 JS 采集脚本添加到要监控的页面即可。&lt;/p&gt;
-- http://imziv.com/posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/ - 2014-2020 Ziv小威</description>
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- //imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/ - 2012-2020 Ziv小威</description>
         </item>
     
     

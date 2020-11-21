@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>JSConf on 让美的事情发生</title>
-    <link>http://imziv.com/tags/jsconf/</link>
+    <link>//imziv.com/tags/jsconf/</link>
     <description>Recent content in JSConf on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>2014-2020 Ziv小威</copyright>
+    <copyright>2012-2020 Ziv小威</copyright>
     <lastBuildDate>Tue, 06 Sep 2016 00:22:28 +0000</lastBuildDate>
     
-	<atom:link href="http://imziv.com/tags/jsconf/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="//imziv.com/tags/jsconf/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>又见南京 - JSConf 之行</title>
-      <link>http://imziv.com/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/</link>
+      <link>//imziv.com/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/</link>
       <pubDate>Tue, 06 Sep 2016 00:22:28 +0000</pubDate>
       
-      <guid>http://imziv.com/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/</guid>
+      <guid>//imziv.com/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/</guid>
       <description>杭州因为这几天要举办G20峰会，所以杭州掀起了出行潮，为大会腾空间。在放假的前天我其实都未决定要离开杭州，准备留杭州泡泡图书馆什么的。而在一顿中午饭过后，得知能聚集人的地方都得关门，我便匆忙的在 12306APP 上购买了回武汉的车票，决定回家。因为票买的太晚，显然这个时候回武汉的车票早已售罄，我便买了一张杭州出发到南京南，然后准备从南京南转车回武汉。
 记得在放假前几天我在公司群里跟小伙伴分享了JSConf在南京举办的消息，并且正好在G20我们放假期间。并且我们开发组尊崇的Vuejs的作者尤雨溪大神也会过来，分享关于Vuejs2.0相关的主题。然而JSConf官网上的门票已经早早卖完了。所以当时也并没有多想了。而且由于过去的一些参会经历，我对这种会议并没有太多好的印象。所以当时并未太想参与。
 当我乘上动车，在抵达南京前，看到几个技术圈里面都在讲明天再南京举办的JSConf的事情，而我想想我回武汉后只能呆在我姐家中，也并没有什么事情可做。所以遂想既然我都要到南京了，就不回去了吧，反正这座城市我也不陌生，不如就去参加JSConf吧，顺便见见老同学，老朋友。没有门票，我想，总会有办法的。

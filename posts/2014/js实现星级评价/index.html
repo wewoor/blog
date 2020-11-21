@@ -25,9 +25,9 @@
  temp_value : 临时的星级值； choice_value : 选择的星级值； mouseenter : 鼠标移入，获取当前所在的星星级别赋予 temp_value，调整当前星星的图片颜色； mouseout : 鼠标移除，通过对比 choice_value 值，重新调整星星图片颜色； click : 鼠标单击后，获取当前的星级值，赋值给 choice_value;（注意在 click 前已经进行过 mouseenter 事件了，click 后进行了 mouseout 事件了） 当完成选定值后，在需要提交评价值的时候，可以通过 JS 去获取变量 choice_value 的值；  HTML 结构代码：
 &lt;h1&gt;评价：&lt;/h1&gt; &lt;ul id=&#34;star&#34;&gt; &lt;li title=&#34;很差&#34; id=&#34;star1&#34; star=&#34;1&#34;&gt;&lt;/li&gt; &lt;li title=&#34;差&#34; id=&#34;star2&#34; star=&#34;2&#34;&gt;&lt;/li&gt; &lt;li title=&#34;一般&#34; id=&#34;star3&#34; star=&#34;3&#34;&gt;&lt;/li&gt; &lt;li title=&#34;好&#34; id=&#34;star4&#34; star=&#34;4&#34;&gt;&lt;/li&gt; &lt;li title=&#34;很好&#34; id=&#34;star5&#34; star=&#34;5&#34;&gt;&lt;/li&gt; &lt;/ul&gt; 注：如果页面中不止一个星级评价，也就是出现多行的情况，这个时候只需要对 Dom 中 li 的 id 进行一些改造，加上动态的下标，从而区分不同的元素。另外有个点就是，我把选定的星级值放入的是 JS 变量中去了，多个评价值的情况下，建议可以在 Dom 中加上隐藏表单域去存放选定的当前星级值。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://imziv.com/posts/2014/js%E5%AE%9E%E7%8E%B0%E6%98%9F%E7%BA%A7%E8%AF%84%E4%BB%B7/" />
+<meta property="og:url" content="//imziv.com/posts/2014/js%E5%AE%9E%E7%8E%B0%E6%98%9F%E7%BA%A7%E8%AF%84%E4%BB%B7/" />
 <meta property="article:published_time" content="2014-01-09T16:55:00+00:00" />
-<meta property="article:modified_time" content="2014-01-09T16:55:00+00:00" /><meta property="og:site_name" content="My Blog" />
+<meta property="article:modified_time" content="2014-01-09T16:55:00+00:00" /><meta property="og:site_name" content="Ziv小威" />
 
 
 
@@ -78,14 +78,14 @@ if (!doNotTrack) {
 
 
 
-<link rel="stylesheet" href="http://imziv.com/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+<link rel="stylesheet" href="//imziv.com/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
 
 
 
-<link rel="stylesheet" href="http://imziv.com/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
+<link rel="stylesheet" href="//imziv.com/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
 
 
-<script src="http://imziv.com/js/loadCSS.js"></script>
+<script src="//imziv.com/js/loadCSS.js"></script>
 <script>
   loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
 </script>
@@ -94,7 +94,7 @@ if (!doNotTrack) {
 
 
   
-    <script src="http://imziv.com/js/toc-collapse.js"></script>
+    <script src="//imziv.com/js/toc-collapse.js"></script>
   
 
 
@@ -111,20 +111,32 @@ if (!doNotTrack) {
 </head><body>
     	<div id="app"><div ref="sideContainer" class="side-container">
     
-    <a class="a-block nav-head false" href="http://imziv.com">
+    <a class="a-block nav-head false" href="//imziv.com">
     
         <div class="nav-title">
             让美的事情发生
         </div>
         
         <div class="nav-subtitle">
-            Ziv小威
+            Ziv 小威
         </div>
         
     </a>
 
     <div class="nav-link-list">
         
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/">
+                网志
+            </a>
+            
         
             
             
@@ -170,9 +182,10 @@ if (!doNotTrack) {
         
         <div class="nav-link-item">
             <a href="https://github.com/wewoor" target="_blank"><i title="Github" class="fab fa-github"></i></a>
+            <a href="//www.instagram.com/wewoor/" target="_blank"><i title="Instagram" class="fab fa-instagram"></i></a>
+            <a href="//slides.com/wewoor" target="_blank"><i title="Slides" class="fab fa-slideshare"></i></a>
             <a href="https://www.zhihu.com/people/zivxiaowei" target="_blank"><i title="Telegram" class="fab fa-zhihu"></i></a>
-            <a href="//weibo.com/zivxiaowei" target="_blank"><i title="Telegram" class="fab fa-weibo"></i></a>
-            <a href="mailto:wewoor@foxmail.com" target="_blank"><i title="Facebook" class="fa fa-envelope"></i></a>
+            <a href="mailto:wewoor@foxmail.com" target="_blank"><i title="Email to me!" class="fa fa-envelope"></i></a>
             <a href="/index.xml" target="_blank"><i title="Feed" class="fas fa-rss"></i></a>
         </div>
     </div>
@@ -181,7 +194,7 @@ if (!doNotTrack) {
         
 &copy;
 	
-	2014-2020 Ziv小威
+	2012-2020 Ziv小威
 	
 	Built by Hugo <a href="https://github.com/amazingrise/hugo-theme-diary">(Diary)</a>
     </div>
@@ -271,6 +284,18 @@ if (!doNotTrack) {
         <div class="drawer-menu">
             
             
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/">
+                    网志
+                </a>
+                
             
                 
                 
@@ -387,7 +412,7 @@ if (!doNotTrack) {
                 menu
             </i>
         </button>
-        <a ref="navTitle" class="navbar-brand" href="http://imziv.com">
+        <a ref="navTitle" class="navbar-brand" href="//imziv.com">
             让美的事情发生
         </a>
         
@@ -404,10 +429,10 @@ if (!doNotTrack) {
 </nav>
 <div class="single-column-header-container" ref="pageHead"
      v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
-    <a href="http://imziv.com">
+    <a href="//imziv.com">
         <div class="single-column-header-title">让美的事情发生</div>
         
-        <div class="single-column-header-subtitle">Ziv小威</div>
+        <div class="single-column-header-subtitle">Ziv 小威</div>
         
 
     </a>
@@ -521,13 +546,13 @@ if (!doNotTrack) {
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="http://imziv.com/posts/2014/%E5%AF%B9%E8%BF%912%E5%B9%B4%E6%9D%A5%E4%BA%92%E8%81%94%E7%BD%91%E6%80%9D%E7%BB%B4%E7%89%A9%E8%81%94%E7%BD%91%E4%BA%91%E8%AE%A1%E7%AE%97%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B0%8F%E7%99%BD%E7%94%A8%E6%88%B7%E7%AD%89%E6%97%B6%E9%AB%A6%E8%AF%8D%E6%B1%87%E7%9A%84%E4%BA%9B%E6%80%9D%E8%80%83/">
+                <a class="newer-posts" href="//imziv.com/posts/2014/%E5%AF%B9%E8%BF%912%E5%B9%B4%E6%9D%A5%E4%BA%92%E8%81%94%E7%BD%91%E6%80%9D%E7%BB%B4%E7%89%A9%E8%81%94%E7%BD%91%E4%BA%91%E8%AE%A1%E7%AE%97%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B0%8F%E7%99%BD%E7%94%A8%E6%88%B7%E7%AD%89%E6%97%B6%E9%AB%A6%E8%AF%8D%E6%B1%87%E7%9A%84%E4%BA%9B%E6%80%9D%E8%80%83/">
 			下回<br>对近 2 年来“互联网思维”、“物联网”、“云计算”、“大数据”，“小白用户”等时髦词汇的些思考
                 </a>
                 
                 
                 
-                <a class="older-posts" href="http://imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/">
+                <a class="older-posts" href="//imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/">
 			上回<br>Spring 中@Component 注解,@Controller 注解详解
                 </a>
                 
@@ -555,7 +580,7 @@ if (!doNotTrack) {
             </div><div id="single-column-footer">
 &copy;
 	
-	2014-2020 Ziv小威
+	2012-2020 Ziv小威
 	
 	Built by Hugo <a href="https://github.com/amazingrise/hugo-theme-diary">(Diary)</a></div>
             </div>
@@ -659,6 +684,6 @@ app = new Vue({
 });
 </script>
 
-<script src="http://imziv.com/js/journal.js"></script>
+<script src="//imziv.com/js/journal.js"></script>
     </body>
 </html>

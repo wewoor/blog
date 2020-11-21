@@ -27,9 +27,9 @@ Hybird App 拥有很多从开发工具到打包发布的解决方案，比较出
 其中利用 Appcan 作为应用的打包平台，通过其内置的 JS 组件进行数据请求，请求得到的数据利用 JS 做些业务逻辑处理后，使用 Angular 进行绑定渲染，UI 组件的东西则用的 GMU.js,而 gmu 内置了 zepto.js 和 scroll.js 等等, 页面则是 h5&#43;css3。可以看到的是与传统的 web 相比，其中多了不少 js 框架和库的应用，毕竟把数据的调用和业务处理都移到了 JS 端，所以在这里提醒大家，可以考虑加入 js 模块管理的框架，例如 seajs。数据绑定这块感觉 Angular 真的很棒，写好绑定后，只需要专注后端 JS 数据的业务处理即可，提升了不少开发效率。
 在编码阶段遇到了不少问题，例如并不能利用 url 像平时那样进行参数传递，发现抓取不到页面跳转后的参数。为了减少请求次数，也尝试采用 LocalStorage 缓存 json。通过 Manifest cache 缓存 html,css,js 文件，来提升界面的响应速度。通过 css3 替代 js 做动画效果，但是效果并不理想，感觉还是没有 js 来的流畅。页面跳转白屏，数据加载的延迟等等状况，加载动画体验需要做的更好，而且尽量减少页面的跳转，把一些功能集中到单个 html 文件。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://imziv.com/posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/" />
+<meta property="og:url" content="//imziv.com/posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/" />
 <meta property="article:published_time" content="2014-10-28T18:27:06+00:00" />
-<meta property="article:modified_time" content="2014-10-28T18:27:06+00:00" /><meta property="og:site_name" content="My Blog" />
+<meta property="article:modified_time" content="2014-10-28T18:27:06+00:00" /><meta property="og:site_name" content="Ziv小威" />
 
 
 
@@ -82,14 +82,14 @@ if (!doNotTrack) {
 
 
 
-<link rel="stylesheet" href="http://imziv.com/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+<link rel="stylesheet" href="//imziv.com/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
 
 
 
-<link rel="stylesheet" href="http://imziv.com/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
+<link rel="stylesheet" href="//imziv.com/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
 
 
-<script src="http://imziv.com/js/loadCSS.js"></script>
+<script src="//imziv.com/js/loadCSS.js"></script>
 <script>
   loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
 </script>
@@ -98,7 +98,7 @@ if (!doNotTrack) {
 
 
   
-    <script src="http://imziv.com/js/toc-collapse.js"></script>
+    <script src="//imziv.com/js/toc-collapse.js"></script>
   
 
 
@@ -115,20 +115,32 @@ if (!doNotTrack) {
 </head><body>
     	<div id="app"><div ref="sideContainer" class="side-container">
     
-    <a class="a-block nav-head false" href="http://imziv.com">
+    <a class="a-block nav-head false" href="//imziv.com">
     
         <div class="nav-title">
             让美的事情发生
         </div>
         
         <div class="nav-subtitle">
-            Ziv小威
+            Ziv 小威
         </div>
         
     </a>
 
     <div class="nav-link-list">
         
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/">
+                网志
+            </a>
+            
         
             
             
@@ -174,9 +186,10 @@ if (!doNotTrack) {
         
         <div class="nav-link-item">
             <a href="https://github.com/wewoor" target="_blank"><i title="Github" class="fab fa-github"></i></a>
+            <a href="//www.instagram.com/wewoor/" target="_blank"><i title="Instagram" class="fab fa-instagram"></i></a>
+            <a href="//slides.com/wewoor" target="_blank"><i title="Slides" class="fab fa-slideshare"></i></a>
             <a href="https://www.zhihu.com/people/zivxiaowei" target="_blank"><i title="Telegram" class="fab fa-zhihu"></i></a>
-            <a href="//weibo.com/zivxiaowei" target="_blank"><i title="Telegram" class="fab fa-weibo"></i></a>
-            <a href="mailto:wewoor@foxmail.com" target="_blank"><i title="Facebook" class="fa fa-envelope"></i></a>
+            <a href="mailto:wewoor@foxmail.com" target="_blank"><i title="Email to me!" class="fa fa-envelope"></i></a>
             <a href="/index.xml" target="_blank"><i title="Feed" class="fas fa-rss"></i></a>
         </div>
     </div>
@@ -185,7 +198,7 @@ if (!doNotTrack) {
         
 &copy;
 	
-	2014-2020 Ziv小威
+	2012-2020 Ziv小威
 	
 	Built by Hugo <a href="https://github.com/amazingrise/hugo-theme-diary">(Diary)</a>
     </div>
@@ -222,6 +235,18 @@ if (!doNotTrack) {
         <div class="drawer-menu">
             
             
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/">
+                    网志
+                </a>
+                
             
                 
                 
@@ -285,7 +310,7 @@ if (!doNotTrack) {
                 menu
             </i>
         </button>
-        <a ref="navTitle" class="navbar-brand" href="http://imziv.com">
+        <a ref="navTitle" class="navbar-brand" href="//imziv.com">
             让美的事情发生
         </a>
         
@@ -302,10 +327,10 @@ if (!doNotTrack) {
 </nav>
 <div class="single-column-header-container" ref="pageHead"
      v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
-    <a href="http://imziv.com">
+    <a href="//imziv.com">
         <div class="single-column-header-title">让美的事情发生</div>
         
-        <div class="single-column-header-subtitle">Ziv小威</div>
+        <div class="single-column-header-subtitle">Ziv 小威</div>
         
 
     </a>
@@ -368,13 +393,13 @@ if (!doNotTrack) {
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="http://imziv.com/posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/">
+                <a class="newer-posts" href="//imziv.com/posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/">
 			下回<br>NodeJS CSV 导出文件名和内容乱码解决
                 </a>
                 
                 
                 
-                <a class="older-posts" href="http://imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/">
+                <a class="older-posts" href="//imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/">
 			上回<br>NodeJs 按行读取文件
                 </a>
                 
@@ -402,7 +427,7 @@ if (!doNotTrack) {
             </div><div id="single-column-footer">
 &copy;
 	
-	2014-2020 Ziv小威
+	2012-2020 Ziv小威
 	
 	Built by Hugo <a href="https://github.com/amazingrise/hugo-theme-diary">(Diary)</a></div>
             </div>
@@ -506,6 +531,6 @@ app = new Vue({
 });
 </script>
 
-<script src="http://imziv.com/js/journal.js"></script>
+<script src="//imziv.com/js/journal.js"></script>
     </body>
 </html>

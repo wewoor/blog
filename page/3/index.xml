@@ -1,24 +1,166 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>让美的事情发生</title>
-    <link>http://imziv.com/</link>
+    <link>//imziv.com/</link>
     <description>Recent content on 让美的事情发生</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>2014-2020 Ziv小威</copyright>
-    <lastBuildDate>Tue, 14 Jan 2020 10:28:51 +0000</lastBuildDate>
+    <copyright>2012-2020 Ziv小威</copyright>
+    <lastBuildDate>Sat, 21 Nov 2020 04:00:25 +0000</lastBuildDate>
     
-        <atom:link href="http://imziv.com/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="//imziv.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>Decorator 简介及实战</title>
+        <link>//imziv.com/posts/2017/decorator-%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%AE%9E%E6%88%98/</link>
+        <pubDate>Sun, 05 Nov 2017 14:36:35 +0000</pubDate>
+        
+        <guid>//imziv.com/posts/2017/decorator-%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%AE%9E%E6%88%98/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2017/decorator-%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%AE%9E%E6%88%98/ -&lt;h3 id=&#34;前言&#34;&gt;前言&lt;/h3&gt;
+&lt;p&gt;用过 Java 的朋友都知道，装饰器（Decorator)是一种十分非常方便改变类运行是行为的一种方式，例如在 Spring 框架中我们用到比较多的注解（@Autowired), 通过它可以自动实例化对象，从而可以精简代码。装饰器是典型的 AOP(Aspect-Oriented-Programming)  编程的应用，类似的 CSS 对于 HTML 的样式也是类似于这种思想，即从切面来改变和影响主对象的行为。&lt;/p&gt;
+&lt;h3 id=&#34;decorator-简介&#34;&gt;Decorator 简介&lt;/h3&gt;
+&lt;p&gt;Decorator 是一种通过注解表达式就可以扩展类或者方法的函数。Decorator 可以应用到任何一个 class 或者 property 上。列如:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;@&lt;/span&gt;myDecorator &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; A {} &lt;span style=&#34;color:#228b22&#34;&gt;// 作用class
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;@&lt;/span&gt;myDecorator
+doSomething() {}  &lt;span style=&#34;color:#228b22&#34;&gt;// 作用表达式
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Javascript Decorator 目前任然是 ES7 提案状态，更多该特性的进度可以访问&lt;a href=&#34;https://github.com/tc39/proposal-decorators&#34;&gt;proposal-decorators&lt;/a&gt;查看。&lt;/p&gt;
+&lt;h3 id=&#34;decorator-原理&#34;&gt;Decorator 原理&lt;/h3&gt;
+&lt;p&gt;说到更改对象的属性或者方法，大家肯定会想到&lt;code&gt;Object.defineProperty(obj, prop, descriptor)&lt;/code&gt;方法，通过该方法，我们可以轻易的修改或者重写对象的行为或者属性，之前 Vue 中提到的双向绑定，即是通过重写&lt;code&gt;set&lt;/code&gt;和&lt;code&gt;get&lt;/code&gt;方法来实现的。所以在我们还未正式用上 Decorator 前，都是通过 Object.defineProperty 方法来实现。先来简单的认识下这个方法：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* obj : 需要修改属性的对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* prop : 需要修改对象的属性名称
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* descriptor: 用来定义属性具体行为的描述对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;**/&lt;/span&gt;
+&lt;span style=&#34;color:#658b00&#34;&gt;Object&lt;/span&gt;.defineProperty(obj, prop, descriptor)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;descriptor-属性说明&#34;&gt;descriptor 属性说明&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;configurable : 定义属性对象是否可以被配置，即如果为 false ，定义修改的描述操作（writeable, get 等等）都无效&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;enumerable : 是否可以通过 for-in 来遍历，或者 Object.keys 列举&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;value : 定义对象 value 属性的值，value 可以是 number, object, function 等等&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;writable: 定义 value 值是否可以被重写&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;get: 一个访问 value 属性时会触发的 function 对象&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;set: 一个设置 value 属性时会触发的 function 对象&lt;/p&gt;
+&lt;p&gt;​&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;修改一个属性为只读（readonly)&lt;/p&gt;
+&lt;p&gt;了解 Object.defineProperty 的基本语法后，我通过它先简单实现一个 readonly 实例。具体代码如下：&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h3 id=&#34;decorator-的基本语法与使用&#34;&gt;Decorator 的基本语法与使用&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt; 定义
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; myDecoration(target, name, descriptor) {}
+
+&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt; 对property使用
+ &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; A {
+  &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;@&lt;/span&gt;myDecorator
+  test() {}
+ }
+
+ &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt; 对class使用
+ &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;@&lt;/span&gt;myDecorator
+ &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; A {}
+
+ &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt; 带参数
+ &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; myDescorator(a) {
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; (target, name, descriptor) {
+   console.llog(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;params:&amp;#39;&lt;/span&gt;, a)
+  }
+ }
+ &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;@&lt;/span&gt;myDescorator(a)
+ &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; A {}
+
+ &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;#&lt;/span&gt; 时使用多个装饰器&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;（&lt;/span&gt;Decorator)
+ &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;@&lt;/span&gt;myDecorator1
+ &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;@&lt;/span&gt;myDecorator2
+ &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; A {}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;利用-decorator-语法糖修改一个属性为只读readonly&#34;&gt;利用 Decorator 语法糖修改一个属性为只读（readonly)&lt;/h5&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h3 id=&#34;利用-decorator-给-react-组件封装-purerender&#34;&gt;利用 Decorator 给 React 组件封装 PureRender&lt;/h3&gt;
+&lt;p&gt;我们都知道，在 React 生命周期里有一个&lt;code&gt;shouldComponentUpdate&lt;/code&gt;方法，该方法通过返回&lt;code&gt;ture&lt;/code&gt; 或者 &lt;code&gt;false&lt;/code&gt; 来确定组件是否重新 render 组件。也就是说，通过该方法我们可以过滤掉些无效的数据渲染事件，从而提升性能。例如我们针对 props 传递过来的数据对象进行对比，如果 props 对象的属性以及值并未变更的情况下，则无需执行 render 方法。&lt;/p&gt;
+&lt;p&gt;显然通过对比 props 下数据对象的属性与值是否变更，这种逻辑是可以复用的，而不是在单独的在每个组件中去在重复的写&lt;code&gt;shouldComponentUpdate&lt;/code&gt;方法。说到改变组件对象的方法行为，这里我们显然就可以使用
+Decorator 来这个特性来做了，即我们对应用 Decorator 对象的 &lt;code&gt;shouldComponentUpdate&lt;/code&gt; 进行重写。通过遍历 props 对象的属性和值，并与老 props 的属性与值进行对比，从而确定是否需要重新渲染。具体代码如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; isEqual(a, b) {
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; key &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;in&lt;/span&gt; a) {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ({}.hasOwnProperty.call(a, key) &amp;amp;&amp;amp;
+      (!{}.hasOwnProperty.call(b, key) || a[key] !== b[key])) {
+      &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;;
+    }
+  }
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; key &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;in&lt;/span&gt; b) {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ({}.hasOwnProperty.call(b, key) &amp;amp;&amp;amp; !{}.hasOwnProperty.call(a, key)) {
+      &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;;
+    }
+  }
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;true&lt;/span&gt;;
+}
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;default&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; pureRender(targetComponent) {
+  targetComponent.prototype.shouldComponentUpdate = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; (props, state) {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; !isEqual(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.state, state) || !isEqual(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.props, props)
+  }
+}
+
+&lt;span style=&#34;color:#228b22&#34;&gt;// 使用
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;@&lt;/span&gt;pureRender
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; ComponentA &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;extends&lt;/span&gt; React.Component {}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;通过-babel-使用-decorator&#34;&gt;通过 Babel 使用 Decorator&lt;/h3&gt;
+&lt;p&gt;由于 Decorator 是 ES7 中的草案，所以现在需要通过 Bable 才能使用。使用方法如下：&lt;/p&gt;
+&lt;h4 id=&#34;安装&#34;&gt;安装&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;npm install &amp;ndash;save-dev babel-plugin-transform-decorators&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;使用&#34;&gt;使用&lt;/h4&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;方法一、 通过配置.babelrc&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;{
+  &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;plugins&amp;#34;&lt;/span&gt;: [&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;transform-decorators&amp;#34;&lt;/span&gt;]
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;!-- raw HTML omitted --&gt;方法二、通过 CLI&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;babel &amp;ndash;plugins transform-decorators script.js&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;方法三、通过 Node API&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;babel-core&amp;#34;&lt;/span&gt;).transform(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;code&amp;#34;&lt;/span&gt;, {
+  plugins: [&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;transform-decorators&amp;#34;&lt;/span&gt;]
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;总结&#34;&gt;总结&lt;/h3&gt;
+&lt;p&gt;通过 Decorator 这种不需要直接在对象或者方法中编写额外逻辑的方式，就可以轻易的扩展对象或者方法的能力，既满足了功能需求，也精简了代码，保证了代码的可维护性，例如我们已经常见的@log, @test, @mixin 等等工具类。所以，以后的工作中可以多多尝试。&lt;/p&gt;
+&lt;h4 id=&#34;原文地址httpimzivcomblogarticlereadhtmid84httpimzivcomblogarticlereadhtmid84&#34;&gt;原文地址：&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=84&#34;&gt;http://imziv.com/blog/article/read.htm?id=84&lt;/a&gt;&lt;/h4&gt;
+&lt;h3 id=&#34;参考&#34;&gt;参考&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.cnblogs.com/whitewolf/p/details-of-ES7-JavaScript-Decorators.html&#34;&gt;细说 ES7 JavaScript Decorators&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://tc39.github.io/proposal-decorators/&#34;&gt;Decorator specification&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841&#34;&gt;Exploring EcmaScript Decorators&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty&#34;&gt;Object.defineProperty&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy&#34;&gt;Babel Legacy Decorator plugin&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/jayphelps/core-decorators&#34;&gt;core-decorators&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+- //imziv.com/posts/2017/decorator-%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%AE%9E%E6%88%98/ - 2012-2020 Ziv小威</description>
+        </item>
     
     
     
         <item>
         <title>我用 Express.js 封装了一个服务器容器小工具</title>
-        <link>http://imziv.com/posts/2017/%E6%88%91%E7%94%A8express.js%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%B9%E5%99%A8%E5%B0%8F%E5%B7%A5%E5%85%B7/</link>
+        <link>//imziv.com/posts/2017/%E6%88%91%E7%94%A8express.js%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%B9%E5%99%A8%E5%B0%8F%E5%B7%A5%E5%85%B7/</link>
         <pubDate>Tue, 28 Feb 2017 17:35:09 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2017/%E6%88%91%E7%94%A8express.js%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%B9%E5%99%A8%E5%B0%8F%E5%B7%A5%E5%85%B7/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2017/%E6%88%91%E7%94%A8express.js%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%B9%E5%99%A8%E5%B0%8F%E5%B7%A5%E5%85%B7/ -&lt;h1 id=&#34;背景&#34;&gt;背景&lt;/h1&gt;
+        <guid>//imziv.com/posts/2017/%E6%88%91%E7%94%A8express.js%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%B9%E5%99%A8%E5%B0%8F%E5%B7%A5%E5%85%B7/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2017/%E6%88%91%E7%94%A8express.js%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%B9%E5%99%A8%E5%B0%8F%E5%B7%A5%E5%85%B7/ -&lt;h1 id=&#34;背景&#34;&gt;背景&lt;/h1&gt;
 &lt;p&gt;我们都知道利用 Node.js 可以非常轻易的就编写一个 Web Server。在没有利用集成 Gulp, Webpack，Web Server 等等脚手架工具前，在做一些简单的 Web 应用的时候，我通常的做法是：用 Express.js 封装好一个 Server.js 文件集成到项目中去，以便于开发和测试。例如通过二维码扫描 Chrome 的开发程序到手机端测试，例如需要跨域调用远程服务器 API, 例如 Ajax 异步加载，等等。当然，偶尔也会用用 Nginx 做测试开发环境，但是 Nginx 这玩意还是感觉太重，并且项目组的有些同学觉得安装麻烦，配置复杂，不易上手。&lt;/p&gt;
 &lt;p&gt;由于我们经常会收到一些活动页面，或者很少页面的开发需求，移动端，PC 端都有，所以如果每次都大张旗鼓的上脚手架，全家桶实在上有点杀鸡用牛刀的感觉。一堆依赖，每次重复的安装，很占用硬盘空间。正因如此，我便希望把现有的基于 Express.js 的 server 给封装成全局的程序，每次在这些小项目需要的时候，直接一个简单的命令行就可以进行开发和测试，要安装简单，轻便，配置简单。于是这个叫&lt;a href=&#34;https://github.com/wewoor/cup&#34;&gt;&lt;code&gt;cup&lt;/code&gt;&lt;/a&gt;的工具就诞生了。&lt;/p&gt;
 &lt;h1 id=&#34;特点&#34;&gt;特点&lt;/h1&gt;
@@ -94,18 +236,18 @@ $ cup -c
 &lt;p&gt;项目地址：&lt;a href=&#34;https://github.com/wewoor/cup&#34;&gt;https://github.com/wewoor/cup&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;原文地址：&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=83&#34;&gt;http://imziv.com/blog/article/read.htm?id=83&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-- http://imziv.com/posts/2017/%E6%88%91%E7%94%A8express.js%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%B9%E5%99%A8%E5%B0%8F%E5%B7%A5%E5%85%B7/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2017/%E6%88%91%E7%94%A8express.js%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%B9%E5%99%A8%E5%B0%8F%E5%B7%A5%E5%85%B7/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>完整的学习和使用 CSS 动画【翻译】</title>
-        <link>http://imziv.com/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/</link>
+        <link>//imziv.com/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/</link>
         <pubDate>Sat, 25 Feb 2017 19:30:23 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/ -&lt;p&gt;一直以来，因为团队项目迭代节奏很快，每次发布的更新日志和版本更新都是通过人肉来完成的。有时候实在忙的团团转，对于手动的写这些更新信息就显得力不从心了。对于团队新来的小伙伴，有时候遇到些紧急情况，就更显的乱糟糟，还是得麻烦团队资深的同学。显然这些工作，用自动化工具再适合不过了。&lt;/p&gt;
+        <guid>//imziv.com/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/ -&lt;p&gt;一直以来，因为团队项目迭代节奏很快，每次发布的更新日志和版本更新都是通过人肉来完成的。有时候实在忙的团团转，对于手动的写这些更新信息就显得力不从心了。对于团队新来的小伙伴，有时候遇到些紧急情况，就更显的乱糟糟，还是得麻烦团队资深的同学。显然这些工作，用自动化工具再适合不过了。&lt;/p&gt;
 &lt;p&gt;本文是一篇项目自动化方面的使用教程，社区里面针对四类问题的解决方案很多，今天这里主要介绍的是 onventional-changelog 方案相关的内容。 如果你正在思考或者试图解决这方面的问题的话，不妨了解一下。&lt;/p&gt;
 &lt;p&gt;conventional-changelog
 conventional-changelog 是一款可以根据项目的 commit 和 metadata 信息自动生成 changelogs 和 release notes 的系列工具，并且在辅助 standard-version 工具的情况下，可以自动帮你完成生成 version、打 tag, 生成 CHANGELOG 等系列过程。&lt;/p&gt;
@@ -235,26 +377,37 @@ echo &amp;ldquo;Release finished.&amp;rdquo;
 &lt;p&gt;最后
 项目的工程化是一件很有意思的事情，通过自动化的工具，可以有效提升项目可维护性和质量，并且避免很多不确定因素。如果你工作中发现了这些问题，而不想继续通过人肉的方法解决这些问题的话，那就赶紧试试~&lt;/p&gt;
 &lt;p&gt;原文地址：&lt;a href=&#34;http://imziv.com/blog/article/index.htm&#34;&gt;http://imziv.com/blog/article/index.htm&lt;/a&gt;&lt;/p&gt;
-- http://imziv.com/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>常用的 Linux Shell 命令</title>
-        <link>http://imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/</link>
+        <link>//imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/</link>
         <pubDate>Wed, 08 Feb 2017 17:21:03 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/ -&lt;p&gt;自己平时有可能会用到的 Shell 命令，之前用 Evenote 记录的比较零散，重新整理了下，以后慢慢补充。&lt;/p&gt;
+        <guid>//imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/ -&lt;p&gt;自己平时有可能会用到的 Shell 命令，之前用 Evenote 记录的比较零散，重新整理了下，以后慢慢补充。&lt;/p&gt;
 &lt;h2 id=&#34;文件操作&#34;&gt;文件操作&lt;/h2&gt;
 &lt;h5 id=&#34;查看文件所属用户&#34;&gt;查看文件所属用户&lt;/h5&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ls -al
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;动态打印日志&#34;&gt;动态打印日志&lt;/h5&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;tail -f /var/log/error.log
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;给指定目录的所属用户权限赋予指定人&#34;&gt;给指定目录的所属用户权限赋予指定人&lt;/h5&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;#把directry目录下的所有用户指向someone&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 把directry目录下的所有用户指向someone&lt;/span&gt;
 $ sudo chown -R someone:staff directory
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;用户组相关操作&#34;&gt;用户组相关操作&lt;/h5&gt;
+&lt;p&gt;查看用户组&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;groups
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;查看各用户与组的关联情况&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;id
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;添加新用户组&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo groupadd mynewgroup
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;添加已存在的用户到一个组&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;usermod -a -G exampleGroup exampleUserName
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;改变用户主要的组&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;usermod -g groupName userName
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;查看文件内容&#34;&gt;查看文件内容&lt;/h5&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cat filename
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;查看目录所占磁盘容量&#34;&gt;查看目录所占磁盘容量&lt;/h5&gt;
@@ -311,18 +464,18 @@ $ systemctl status firewalld.service
 $ systemctl stop firewalld.service
 &lt;span style=&#34;color:#228b22&#34;&gt;# 禁止firewall开机启动&lt;/span&gt;
 $ systemctl disable firewalld.service
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/ - 2014-2020 Ziv小威</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- //imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>Web 前端的状态管理（State Management）</title>
-        <link>http://imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/</link>
+        <link>//imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/</link>
         <pubDate>Sun, 08 Jan 2017 22:38:01 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/ -&lt;h3 id=&#34;背景&#34;&gt;背景&lt;/h3&gt;
+        <guid>//imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/ -&lt;h3 id=&#34;背景&#34;&gt;背景&lt;/h3&gt;
 &lt;p&gt;我相信很多朋友跟我一样，初次听到什么&lt;a href=&#34;https://facebook.github.io/flux/&#34;&gt;Flux&lt;/a&gt;, &lt;a href=&#34;http://cn.redux.js.org/&#34;&gt;Redux&lt;/a&gt;， &lt;a href=&#34;https://vuex.vuejs.org/zh-cn/intro.html&#34;&gt;Vuex&lt;/a&gt;，&lt;code&gt;状态管理&lt;/code&gt;的时候是一脸懵逼的。因为在外面之前前端大部分开发的时候，根本没有那么多的概念。自从 ReactJS 火爆后，什么&lt;code&gt;Flux, Redux，React全家桶&lt;/code&gt;是一套一套接踵而来。搞的很多开发者甚是头大。所谓的 ReactJS 全家桶即&lt;code&gt;ReactJS + Redux + Webpack&lt;/code&gt;，
 当然其中的 Redux 可以用其他例如&lt;a href=&#34;https://github.com/mobxjs/mobx&#34;&gt;Mobx&lt;/a&gt;之类的替换。原本可能只是很简单的一些数据展示需求，当想用尝试使用 ReactJS 时，去 Google 搜索了一些教程，突然发现怎么用个 React 需要这么多东西。正如今年比较有名的一篇文章里面描述的那样 — &lt;a href=&#34;https://www.v2ex.com/t/310767?from=singlemessage&amp;amp;isappinstalled=0&#34;&gt;”在 2016 年学习前端是怎样一种体验&amp;rdquo;&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;很显然，时代在进步，技术在进步，Web 业务需求在进步，浏览器性能的大幅度提升，促使 JS 能处理越来越多的事情。为了满足越来越复杂、丰富的&lt;code&gt;WebApp&lt;/code&gt;需求，越来越多的原本后端处理的业务逻辑开始转移到前端来处理，同时更多复杂的前端业务在浏览器上面催生，原有的很多技术体系、解决方案已经不能很好的支撑这些越来越复杂的需求了。所以当我们在面临各种业务需求的时候，必定会出现各种各样的适合不同业务需求的技术解决方案。&lt;/p&gt;
@@ -348,18 +501,18 @@ $ systemctl disable firewalld.service
 &lt;p&gt;总而言之，并不是所有的 Web 应用和使用场景都需要添加状态管理，很多时候服务端渲染任然是更好的选择，而是否需要添加状态管理框架，是用 Redux，还是 Mobx, 我们可以根据自己的业务实际情况和技术团队的偏好而添加，而有些情况下，自己创建一个全局对象可能是更适合的选择。有的人可能觉得 Redux 这种函数式编程的方式让人难以理解，那么你也可以选择 Mobx 这种面向对象编程思维的状态管理框架。如果你觉得 React 这种骑术门槛太高，适应能力差，我觉得 VueJS, Vuex 可能是更适合你的选择。&lt;/p&gt;
 &lt;p&gt;说了这么多，希望自己能解释清楚前端状态管理是怎么一回事。&lt;/p&gt;
 &lt;h5 id=&#34;原文地址httpimzivcomblogarticlereadhtmid80httpimzivcomblogarticlereadhtmid80&#34;&gt;原文地址&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=80&#34;&gt;http://imziv.com/blog/article/read.htm?id=80&lt;/a&gt;&lt;/h5&gt;
-- http://imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>《明朝那些事》读后感</title>
-        <link>http://imziv.com/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</link>
+        <link>//imziv.com/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</link>
         <pubDate>Tue, 03 Jan 2017 00:23:08 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/ -&lt;p&gt;拿起这本书的时候是 2016 年十一的时候，正好缝上放假回家，为了减轻旅途中的无聊，就在 Kindle 上下载了这本书。这本书火起来的时候，我还是个高中生，而对历史书集的印象只是停留在历史课本的层次。我不得不承认的是，那时的历史课对我而言是相对乏味的，所以一直以来，我对历史相关的读物的兴趣是不大的，而且对于很多历史人物的认知是只知其名，不知其事。&lt;/p&gt;
+        <guid>//imziv.com/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/ -&lt;p&gt;拿起这本书的时候是 2016 年十一的时候，正好缝上放假回家，为了减轻旅途中的无聊，就在 Kindle 上下载了这本书。这本书火起来的时候，我还是个高中生，而对历史书集的印象只是停留在历史课本的层次。我不得不承认的是，那时的历史课对我而言是相对乏味的，所以一直以来，我对历史相关的读物的兴趣是不大的，而且对于很多历史人物的认知是只知其名，不知其事。&lt;/p&gt;
 &lt;p&gt;也不知是什么原因，今年看了好几都讲历史相关的本书，也不知道是不是年纪越来越大的原因 0.0。明朝这书火的时候虽然我没看，但是我对他印象还是很深的。因为高中那会玩过新浪微博，而&lt;code&gt;当年明月&lt;/code&gt;的新浪博客和这本书当时的影响力已经十分大了。所以今年在列书单的时候，看到在豆瓣评价如此之高的情况下，最终我把它装到了我的 Kindle 里。正好在元旦假期把它给看完了。不管如何，看了这么久，读后感还是要写的。&lt;/p&gt;
 &lt;h3 id=&#34;古人很单纯&#34;&gt;古人很单纯&lt;/h3&gt;
 &lt;p&gt;通过历史读物，我认识到，原来几百年前年前的古人原来一点都不单纯（看怎么理解了）！除去当今社会的科学文化的发展外，古人的智力和情商，技术和手段丝毫不比现今社会差。常常会产生种错觉，80 年代的人可能会觉得 70 年代比较单纯，90 年代的人可能会觉得 80 年代的人比较单纯，嗯，也有可能 00 后觉得 90 后比较单纯。这让我忽然想起朝鲜民众见到他们伟大的领袖&lt;code&gt;金正恩&lt;/code&gt;同志时总是热泪盈眶一样的场景，经常感叹，哇，他们好单纯。话说回来，大家身处的环境不同而已，很多事情要相对的看。而人生存始终要和人交织在一起的，而有人的地方，就有江湖，有江湖就有利益，有利益就会有斗争。&lt;/p&gt;
@@ -387,29 +540,29 @@ $ systemctl disable firewalld.service
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;之前从其他渠道看到过这句话，今天也算是知道出处了~&lt;/p&gt;
 &lt;p&gt;总而言之，言而总之，用现在时髦的话说就是：“去做你想做的事，去成为你想成为的人”。&lt;/p&gt;
 &lt;h5 id=&#34;原文地址httpimzivcomblogarticlereadhtmid79httpimzivcomblogarticlereadhtmid79&#34;&gt;原文地址：&lt;a href=&#34;http://imziv.com/blog/article/read.htm?id=79&#34;&gt;http://imziv.com/blog/article/read.htm?id=79&lt;/a&gt;&lt;/h5&gt;
-- http://imziv.com/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>而惑之年</title>
-        <link>http://imziv.com/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/</link>
+        <link>//imziv.com/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/</link>
         <pubDate>Sat, 31 Dec 2016 23:55:56 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/ -- http://imziv.com/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/ - 2014-2020 Ziv小威</description>
+        <guid>//imziv.com/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/ -- //imziv.com/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>写作给我带来的益处</title>
-        <link>http://imziv.com/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/</link>
+        <link>//imziv.com/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/</link>
         <pubDate>Thu, 20 Oct 2016 16:38:52 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/ -&lt;p&gt;刚刚进入工作那会儿， 经常通过搜索引擎搜索到各种大牛的博客，会在里面发现他们写的各种技术文章，人生经历，思考，旅行，人文等等。各种类型的文章。自己平时工作中遇到的问题，也尝尝是从这些文章中获益。所以从那时候自己也开始去培养写博客的习惯。&lt;/p&gt;
+        <guid>//imziv.com/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/ -&lt;p&gt;刚刚进入工作那会儿， 经常通过搜索引擎搜索到各种大牛的博客，会在里面发现他们写的各种技术文章，人生经历，思考，旅行，人文等等。各种类型的文章。自己平时工作中遇到的问题，也尝尝是从这些文章中获益。所以从那时候自己也开始去培养写博客的习惯。&lt;/p&gt;
 &lt;p&gt;刚开始写博客那会，写的大部分内容主要是技术文章，什么算法啊，Java 语言等等方面的知识。最近有回头去看看以前写的东西，从最基本的内容排版，文章内容结构去重新审视，比较粗糙。但是通过近 3 年来自己的断断续续的坚持，发现在写东西方面还是有一些进步。从最开始的写技术，到现在我会写写自己对业界的见闻和看法，会写旅行日记，会写一些思考。技术文章也比以前更有章法，内容组织的也更好。&lt;/p&gt;
 &lt;p&gt;这么久的坚持，我是深深感受到了坚持写作中的受益是巨大的。我就简单的罗列几条。&lt;/p&gt;
 &lt;p&gt;一、增强了自身的语言表达能力&lt;!-- raw HTML omitted --&gt;
@@ -419,18 +572,18 @@ $ systemctl disable firewalld.service
 &lt;p&gt;三、思考沉淀的好方式
 有很多人有些日记，笔记的习惯。而这些都是写作的一种。通过这种写作的方式，与自我对话，与自己内心对话的方式，可以更好的总结，反思，重新认识自己。能让我们队自身有更好的认知。&lt;/p&gt;
 &lt;p&gt;以上是我简单的罗列好处，其实写作的好处简直太多，就不在此一一列举了。希望自己能坚持，坚持到老！&lt;/p&gt;
-- http://imziv.com/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>又见南京 - JSConf 之行</title>
-        <link>http://imziv.com/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/</link>
+        <link>//imziv.com/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/</link>
         <pubDate>Tue, 06 Sep 2016 00:22:28 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/ -&lt;p&gt;杭州因为这几天要举办&lt;a href=&#34;http://www.g20.org/&#34;&gt;G20&lt;/a&gt;峰会，所以杭州掀起了出行潮，为大会腾空间。在放假的前天我其实都未决定要离开杭州，准备留杭州泡泡图书馆什么的。而在一顿中午饭过后，得知能聚集人的地方都得关门，我便匆忙的在 12306APP 上购买了回武汉的车票，决定回家。因为票买的太晚，显然这个时候回武汉的车票早已售罄，我便买了一张杭州出发到南京南，然后准备从南京南转车回武汉。&lt;/p&gt;
+        <guid>//imziv.com/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/ -&lt;p&gt;杭州因为这几天要举办&lt;a href=&#34;http://www.g20.org/&#34;&gt;G20&lt;/a&gt;峰会，所以杭州掀起了出行潮，为大会腾空间。在放假的前天我其实都未决定要离开杭州，准备留杭州泡泡图书馆什么的。而在一顿中午饭过后，得知能聚集人的地方都得关门，我便匆忙的在 12306APP 上购买了回武汉的车票，决定回家。因为票买的太晚，显然这个时候回武汉的车票早已售罄，我便买了一张杭州出发到南京南，然后准备从南京南转车回武汉。&lt;/p&gt;
 &lt;p&gt;记得在放假前几天我在公司群里跟小伙伴分享了&lt;a href=&#34;http://2016.jsconf.cn/&#34;&gt;JSConf&lt;/a&gt;在南京举办的消息，并且正好在&lt;a href=&#34;http://www.g20.org/&#34;&gt;G20&lt;/a&gt;我们放假期间。并且我们开发组尊崇的&lt;a href=&#34;http://vuejs.org/&#34;&gt;Vuejs&lt;/a&gt;的作者&lt;code&gt;尤雨溪&lt;/code&gt;大神也会过来，分享关于&lt;code&gt;Vuejs2.0&lt;/code&gt;相关的主题。然而&lt;a href=&#34;http://2016.jsconf.cn/&#34;&gt;JSConf&lt;/a&gt;官网上的门票已经早早卖完了。所以当时也并没有多想了。而且由于过去的一些参会经历，我对这种会议并没有太多好的印象。所以当时并未太想参与。&lt;/p&gt;
 &lt;p&gt;当我乘上动车，在抵达南京前，看到几个技术圈里面都在讲明天再南京举办的&lt;a href=&#34;http://2016.jsconf.cn/&#34;&gt;JSConf&lt;/a&gt;的事情，而我想想我回武汉后只能呆在我姐家中，也并没有什么事情可做。所以遂想既然我都要到南京了，就不回去了吧，反正这座城市我也不陌生，不如就去参加&lt;a href=&#34;http://2016.jsconf.cn/&#34;&gt;JSConf&lt;/a&gt;吧，顺便见见老同学，老朋友。没有门票，我想，总会有办法的。&lt;/p&gt;
 &lt;p&gt;一切都来得太突然，从中午我突然决定买票回家，然后并在回家的途中，又突然决定在南京停留。这 2 次突然的决定我自己都决定有点随性。不过所幸的是，我突然联系在南京的同学，将可能在他那边宿留的消息告诉他后，并得到了肯定肯定的回答。而第二天，我又幸运的从一位因病不能参会的 JSER 手中获得了一张早鸟票（只有 300 元，其他的票都 4 到 5 百左右）.一切都太突然，而一切又如此顺理成章。&lt;/p&gt;
@@ -438,18 +591,18 @@ $ systemctl disable firewalld.service
 &lt;p&gt;JSConf 还是比我想象中的要好的，还是挺有收获的。不管是干货还是湿货，我觉得这次 JSConf 之行对我而言是次挺难忘的经历。具体的技术点梳理，知乎已经有很多不错的回答了。而且这次来此 Facebook 的分享嘉宾&lt;a href=&#34;http://thejameskyle.com/&#34;&gt;James Kyle&lt;/a&gt;的 Presentation 着实把大家的研究给辣瞎了。本身也在知乎上回复了关于自己 Presentation 的看法(&lt;a href=&#34;https://www.zhihu.com/question/50244455&#34;&gt;详情可以点击&lt;/a&gt;)。参加 JSConf 前，我也就参加过 D2 前端论坛，基本上其他大大小小的也参与过，也看过不少视频，很多的感觉并不是太好。但是这次我还是看到了很多不同东西，看到了很多分享嘉宾大老远从地球的一端飞过来，而给我们分享的内容也就那么几十分钟，其实这一切都挺不易的。具体的技术内容我就不讲了，嘉宾各具特色，精美的 PPT, 各类的开发者，有高中生，还有类似医生转开发者的，还有拖家带口的，例如朴灵大大，当然还有在大会上直接点评甚至喷嘉宾的那位童鞋，等等。很多的因素，让我除了技术上的收获外，更多的是体会到了这个社区很多不一样的一面，很多东西变得更立体，更鲜活。&lt;/p&gt;
 &lt;p&gt;另外这次也跟很多开发者也相互交流过自己所在做的东西，所用到的技术，然后相互获取一些灵感。我觉得这种大会除去一些干货以外，更多的是提供一种平台，促成许多面对面的交流，然后认识一些新的朋友。毕竟线上和现实还是有区别的。&lt;/p&gt;
 &lt;p&gt;嗯，最后希望 JSConf 越办越好， 南京，再见。&lt;/p&gt;
-- http://imziv.com/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2016/%E5%8F%88%E8%A7%81%E5%8D%97%E4%BA%AC-jsconf%E4%B9%8B%E8%A1%8C/ - 2012-2020 Ziv小威</description>
         </item>
     
     
     
         <item>
         <title>不要给自己制造过多的心理包袱</title>
-        <link>http://imziv.com/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/</link>
+        <link>//imziv.com/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/</link>
         <pubDate>Mon, 01 Aug 2016 00:38:08 +0000</pubDate>
         
-        <guid>http://imziv.com/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/ -&lt;p&gt;一直以来，因为团队项目迭代节奏很快，每次发布的更新日志和版本更新都是通过人肉来完成的。有时候实在忙的团团转，对于手动的写这些更新信息就显得力不从心了。对于团队新来的小伙伴，有时候遇到些紧急情况，就更显的乱糟糟，还是得麻烦团队资深的同学。显然这些工作，用自动化工具再适合不过了。&lt;/p&gt;
+        <guid>//imziv.com/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/ -&lt;p&gt;一直以来，因为团队项目迭代节奏很快，每次发布的更新日志和版本更新都是通过人肉来完成的。有时候实在忙的团团转，对于手动的写这些更新信息就显得力不从心了。对于团队新来的小伙伴，有时候遇到些紧急情况，就更显的乱糟糟，还是得麻烦团队资深的同学。显然这些工作，用自动化工具再适合不过了。&lt;/p&gt;
 &lt;p&gt;本文是一篇项目自动化方面的使用教程，社区里面针对四类问题的解决方案很多，今天这里主要介绍的是 onventional-changelog 方案相关的内容。 如果你正在思考或者试图解决这方面的问题的话，不妨了解一下。&lt;/p&gt;
 &lt;p&gt;conventional-changelog
 conventional-changelog 是一款可以根据项目的 commit 和 metadata 信息自动生成 changelogs 和 release notes 的系列工具，并且在辅助 standard-version 工具的情况下，可以自动帮你完成生成 version、打 tag, 生成 CHANGELOG 等系列过程。&lt;/p&gt;
@@ -579,61 +732,7 @@ echo &amp;ldquo;Release finished.&amp;rdquo;
 &lt;p&gt;最后
 项目的工程化是一件很有意思的事情，通过自动化的工具，可以有效提升项目可维护性和质量，并且避免很多不确定因素。如果你工作中发现了这些问题，而不想继续通过人肉的方法解决这些问题的话，那就赶紧试试~&lt;/p&gt;
 &lt;p&gt;原文地址：&lt;a href=&#34;http://imziv.com/blog/article/index.htm&#34;&gt;http://imziv.com/blog/article/index.htm&lt;/a&gt;&lt;/p&gt;
-- http://imziv.com/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/ - 2014-2020 Ziv小威</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>实现图片的异步加载</title>
-        <link>http://imziv.com/posts/2016/%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD/</link>
-        <pubDate>Mon, 27 Jun 2016 11:01:48 +0000</pubDate>
-        
-        <guid>http://imziv.com/posts/2016/%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD/</guid>
-        <description>让美的事情发生 http://imziv.com/posts/2016/%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD/ -&lt;p&gt;图片异步加载功能是现在 web 中非常常见的一个针对 web 做优化的方法。尤其是在移动端，面对大量的图片列表的时候，如果没有做相应的优化，会直接导致页面滑动和加载的卡顿，而且用户会莫名的发现当前应用占用的流量会很大，因为他可能都没有浏览到很多图片，而程序就自动加载了所以的图片，对于一个流量吃紧的人来讲，这个也是很讨厌的。所以实现按浏览需求加载时十分有必要的。&lt;/p&gt;
-&lt;p&gt;其实实现图片异步加载的核心思路十分简单，就是通过判断当图片元素是否出现在视窗范围内后，则去加载图片资源，否则不加载。所以我们需要首先解决判断 img 元素是否处于视图范围内的这个核心问题。让我们看看下面的图：&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;p&gt;通过抓取 img 元素，js 提供了相应的方法让我们可以获取到 img 元素距离视图 top，和 left 的距离，viewport 的高度和宽度等数据。然后通过监听窗口滚动事件，当页面滚动的时候，我们就去动态检测 img 元素的 top 和 left 值，与视窗的高度和宽度作比较，从而判断当前的 img 是否处于视窗范围。计算如下：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;处于垂直范围： 图片距离视窗顶部距离 &amp;gt; 0 &amp;amp;&amp;amp; 图片距离视窗顶部距离 &amp;lt;= 视窗高度 &lt;!-- raw HTML omitted --&gt;
-处于水平范围： 图片距离视窗左边距离 &amp;gt; 0 &amp;amp;&amp;amp; 图片距离视窗左边距离 &amp;lt;= 视窗宽度&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;解决了这个判断图片在可视范围内的核心问题后，那么其他的问题都是否简单了。我们看下详细代码：&lt;/p&gt;
-&lt;h4 id=&#34;获取视窗的高度和宽度&#34;&gt;获取视窗的高度和宽度&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; _viewPortHeight = &lt;span style=&#34;color:#658b00&#34;&gt;Math&lt;/span&gt;.max(&lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.documentElement.clientHeight, &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.innerHeight || &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;),
-    _viewPortWidth = &lt;span style=&#34;color:#658b00&#34;&gt;Math&lt;/span&gt;.max(&lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.documentElement.clientWidth, &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.innerWidth || &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;是否处于垂直范围&#34;&gt;是否处于垂直范围&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; isOnVerticalViewPort(ele) {
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; rect = ele.getBoundingClientRect(); &lt;span style=&#34;color:#228b22&#34;&gt;// 获取距离视窗的位置信息
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; rect.top &amp;gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; &amp;amp;&amp;amp; rect.top &amp;lt;= _viewPortHeight;
-};
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;是否处于水平范围&#34;&gt;是否处于水平范围&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; isOnHorizontalViewPort(ele) {
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; rect = ele.getBoundingClientRect();
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; rect.left &amp;gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; &amp;amp;&amp;amp; rect.left &amp;lt;= _viewPortWidth;
-};
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;有了这核心代码，我们只需要在滚动事件触发后，去动态的判断 img 元素了, 判断的示例代码如下：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt; load(images) {
- &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; images.length; i++) {
-     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; img = images[i];
-     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (isOnVerticalViewPort(img) &amp;amp;&amp;amp; isOnHorizontalViewPort(img)) {
-         &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; url = img.getAttribute(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;lz-src&amp;#39;&lt;/span&gt;); &lt;span style=&#34;color:#228b22&#34;&gt;// 获取图片资源的地址
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;         img.setAttribute(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;src&amp;#34;&lt;/span&gt;, url);
-         img.isload = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;true&lt;/span&gt;; &lt;span style=&#34;color:#228b22&#34;&gt;// 加载过后的图片设置加载标记，以免重复加载
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;     }
- }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;在-html-页面中的-img-元素的引用&#34;&gt;在 html 页面中的 img 元素的引用&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt; &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;img&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;lz-src&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;http://s.cn.bing.net/az/hprichbg/rb/SkunkKit_ZH-CN10809503929_1920x1080.jpg&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;img&lt;/span&gt;&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;通过给 img 元素添加&lt;code&gt;lz-src&lt;/code&gt;标记，告诉异步脚本，这个元素需要异步加载图片。&lt;/p&gt;
-&lt;h4 id=&#34;监听滚动事件&#34;&gt;监听滚动事件&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; images = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.querySelectorAll(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;img[&amp;#39;&lt;/span&gt; + lz-src + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;]&amp;#39;&lt;/span&gt;); &lt;span style=&#34;color:#228b22&#34;&gt;// 按标记获取图片元素
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.addEventListener(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;scroll&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(e) {
-        load(images);
-    }, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;总结&#34;&gt;总结&lt;/h4&gt;
-&lt;p&gt;以上就是图片异步加载的主要代码了。当然里面可以进行跟多的性能优化，例如我这里每次都需要重新遍历图片列表，只是通过单独的加载标记来确认图片是否加载过，我们当然可以用不同的数组列表分别装载加载过和未加载的图片元素，从而降低遍历次数等等。另外也可以给图片添加过度的 loading 动画等等，让这个异步加载插件更完善。我这里有个较为完整的异步加载的代码，有兴趣的朋友可以查看：&lt;a href=&#34;https://github.com/wewoor/sloth&#34;&gt;https://github.com/wewoor/sloth&lt;/a&gt;&lt;/p&gt;
-- http://imziv.com/posts/2016/%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD/ - 2014-2020 Ziv小威</description>
+- //imziv.com/posts/2016/%E4%B8%8D%E8%A6%81%E7%BB%99%E8%87%AA%E5%B7%B1%E5%88%B6%E9%80%A0%E8%BF%87%E5%A4%9A%E7%9A%84%E5%BF%83%E7%90%86%E5%8C%85%E8%A2%B1/ - 2012-2020 Ziv小威</description>
         </item>
     
     
