@@ -13,6 +13,215 @@
     
     
         <item>
+        <title>我所理解的团队</title>
+        <link>//imziv.com/posts/2013/%E6%88%91%E6%89%80%E7%90%86%E8%A7%A3%E7%9A%84%E5%9B%A2%E9%98%9F/</link>
+        <pubDate>Tue, 29 Jan 2013 10:52:00 +0000</pubDate>
+        
+        <guid>//imziv.com/posts/2013/%E6%88%91%E6%89%80%E7%90%86%E8%A7%A3%E7%9A%84%E5%9B%A2%E9%98%9F/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2013/%E6%88%91%E6%89%80%E7%90%86%E8%A7%A3%E7%9A%84%E5%9B%A2%E9%98%9F/ -&lt;p&gt;对于团队这个概念，我小时候的理解就是像国家体育队这样的团体，例如篮球队，或者足球队等。各个运动员在团体中相互发挥自己的优势，从而使整个队伍能发挥出最好的实力。而在我读大学的时候，我选择了软件这个专业，从这个专业中我了解到软件实际工作中，软件开发也是一个非常讲究团队概念的一个工作。只有拥有出色的团队，才能做出优秀的软件产品，然而当我真正踏入这个行业后，对这句话更是深信不疑。&lt;/p&gt;
+&lt;p&gt;在我大一的时候我遇到了我人生中非常重要的一只团队——班级篮球队。可能大家都有过这么个小小的经历，而我把它作为了我的论资。但的确我想表达的是当时的我们真的很团结，很包容。我们不会过分计较个人的失误，我们不会相互埋怨谁，也不会贪图所谓的功劳，有的只是鼓励，相互帮助。正因为如此，我们这支篮球团队在当时才可取得战无不胜的成绩。从此我爱上了团队这词，我觉得团队的力量是无限大的，团队让我们更有成就感。所以当我把这个观念转移到软件开发团队上的时候，我就有了另一些想法，或许是称得上梦想的想法吧。我想某一天我可以身在这样的一直开发团队中，我们创意无限，热爱技术，相互协作的完成各种有创意，有意义的事情，也许能做些在正面影响人们生活的事情。&lt;/p&gt;
+&lt;p&gt;在如今这样一个缺乏凝聚力的社会，如果我们身在的工作岗位上处处是勾心斗角，各种埋怨，我不知道这样工作有什么意思，我也想象不出可以完成什么样的杰作。如果身在一个有凝聚力的团队，相互包容，相互为梦想，为共同的目标去奋斗，不管成功是否，我觉得都是有意思，有意义的。&lt;/p&gt;
+&lt;p&gt;不求在我做程序员的岁月里在多么伟大或者怎样的公司呆过，但求我在这样一支包容，鼓励，团结的团队中为共同目标战斗过！&lt;/p&gt;
+- //imziv.com/posts/2013/%E6%88%91%E6%89%80%E7%90%86%E8%A7%A3%E7%9A%84%E5%9B%A2%E9%98%9F/ - 2012-2020 Ziv小威</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>关于</title>
+        <link>//imziv.com/about/</link>
+        <pubDate>Mon, 03 Dec 2012 23:19:32 +0000</pubDate>
+        
+        <guid>//imziv.com/about/</guid>
+        <description>让美的事情发生 //imziv.com/about/ -&lt;p&gt;&lt;img src=&#34;./img/2020.jpg&#34; alt=&#34;xiaowei&#34;&gt;&lt;/p&gt;
+&lt;p&gt;一名生活在杭州的 90 后 Web 工程师。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一个&lt;code&gt;记录&lt;/code&gt;、&lt;code&gt;调试&lt;/code&gt;、&lt;code&gt;重构&lt;/code&gt;、&lt;code&gt;思考&lt;/code&gt;的自留地&lt;/p&gt;
+&lt;/blockquote&gt;
+- //imziv.com/about/ - 2012-2020 Ziv小威</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>fileloder.js&#43;struts2 实现文件异步上传，无页面刷新效果。</title>
+        <link>//imziv.com/posts/2012/fileloder.js&#43;struts2%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%97%A0%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0%E6%95%88%E6%9E%9C/</link>
+        <pubDate>Thu, 01 Nov 2012 11:11:00 +0000</pubDate>
+        
+        <guid>//imziv.com/posts/2012/fileloder.js&#43;struts2%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%97%A0%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0%E6%95%88%E6%9E%9C/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2012/fileloder.js&#43;struts2%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%97%A0%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0%E6%95%88%E6%9E%9C/ -&lt;h2 id=&#34;一前言&#34;&gt;一、前言&lt;/h2&gt;
+&lt;p&gt;　　之前在写一个 web 的文件上传的功能时，希望在 web 前端对文件的大小，及类型用 js 给验证掉，然后提交到服务器保存入数据库，同时要求达到页面无刷新的异步效果。在网上也看到有很多用 iframe 的方式实现了这样的无刷新效果。不过我在这里给大家介绍的是一款 js 插件，非常强大。在用这款插件前，在网上查询了好久关于 js 对文件类型的验证，当然这样的方法很多，大多数通过正则表达式对文件后缀验证的方式，只不过对文件大小验证这项功能上网上贴出的大多数代码都不靠谱，很多浏览器根本就不支持很多属性操作，比喻说 filesize 这项，而且浏览器的兼容性上考虑起来非常麻烦。不过所幸后来我找到了 fileloader.js 这个插件，前身好像是 ajaxfileupload.js，这款插件可通过 js 提交验证文件的大小及类型、支持拖拽上传。有时间把它的源码研究下也跟大家分享下。fileloader.js 官方地址是：&amp;laquo;&lt;a href=&#34;http://fineuploader.com/%3E&#34;&gt;http://fineuploader.com/&amp;gt;&lt;/a&gt;。当然上面也有很多 DEMO&amp;gt;，大家可以自己去看。&lt;/p&gt;
+&lt;h2 id=&#34;二工作准备&#34;&gt;二、工作准备&lt;/h2&gt;
+&lt;p&gt;　　添加 strut2 框架；将下载的 fileloader.js 的文件添加到页面；将 fileloader.css 文件添加到页面；添加 jquery 包。&lt;/p&gt;
+&lt;h2 id=&#34;三html-页面代码&#34;&gt;三、HTML 页面代码&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;html&lt;/span&gt;&amp;gt;
+
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;head&lt;/span&gt;&amp;gt;
+
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;title&lt;/span&gt;&amp;gt;文件上传&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;title&lt;/span&gt;&amp;gt;
+
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;link&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;href&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;css/fileuploader.css&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;rel&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;stylesheet&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/css&amp;#34;&lt;/span&gt; /&amp;gt;
+
+　　&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;language&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;javascript&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;src&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;js/jquery-1.8.0.js&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt;&amp;gt;
+
+　　&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;language&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;javascript&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;src&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;js/fileuploader.js&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt;&amp;gt;
+　　&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;language&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;javascript&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt;&amp;gt;
+
+　　　　$(document).ready(function() {
+   　　　　 var thumbnailuploader = new qq.FileUploader({　　　　　　//new fileuploader object
+    　　　　  element: $(&amp;#39;#thumbnail-fine-uploader&amp;#39;)[0],　　　　　　//选定页面div元素，这里用了jquery的选择器
+   　　　　   action: &amp;#39;service/uploadImage&amp;#39;,　　　　　　　　　　　　//提交的action地址
+    　　　　  debug: true,
+    　　　　  multiple: false,
+    　　　　  allowedExtensions: [&amp;#39;jpeg&amp;#39;, &amp;#39;jpg&amp;#39;, &amp;#39;gif&amp;#39;, &amp;#39;png&amp;#39;],　　//允许上传的文件类型
+     　　　　 sizeLimit: 500*1024,　　　　　　　　　　　　　　　　//允许上传文件的大小，这里是500KB，500kb = 500*1024KB
+   　　　　   uploadButtonText:&amp;#39;图片上传&amp;#39;,　　　　　　　　　　　　//在页面显示上传按钮
+     　　　　 inputName: &amp;#39;myFile&amp;#39;,　　　　　　　　　　　　　　　　//在input标签中的name属性设置为myFile
+   　　　　   messages:{　　　　　　　　　　　　　　　　　　　　　//设置的提示信息，包括大小类型等的操作
+        　　　　  typeError:&amp;#39;只允许jpeg,jpg,gif,png格式的图片文件{file}&amp;#39;,
+        　　　　  sizeError:&amp;#39;文件大小不能超过{sizeLimit}。{file}&amp;#39;,
+       　　　　   emptyError:&amp;#39;文件不可为空{file}&amp;#39;,
+         　　　　 onLeave:&amp;#39;文件正在上传，离开将终止上传操作？&amp;#39;
+    　　　　  },
+      　　　　showMessage:function(message){　　　　　　　　　　//显示信息
+         　　 alert(message);
+     　　　　 },
+             // 设置返回从服务器反馈的error信息，不过我这里利用这个responseProperty属性反馈msg信息，
+             // 具体的msg内容在服务中设置。
+    　　　　  failedUploadTextDisplay: {
+       　　　　 mode: &amp;#39;custom&amp;#39;,
+      　　　　  maxChars: 40,
+       　　　　 responseProperty: &amp;#39;msg&amp;#39;,
+       　　　　 enableTooltip: true
+    　　  }
+
+  　　　  });
+　　  })　　
+
+　　&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;scripte&lt;/span&gt;&amp;gt;
+
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;head&lt;/span&gt;&amp;gt;
+
+&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
+
+     &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;fieldset&lt;/span&gt;&amp;gt;
+           &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;legend&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;span&lt;/span&gt;&amp;gt;您可以上传一张不超过500kb的图片&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;span&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;legend&lt;/span&gt;&amp;gt;
+            &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;div&lt;/span&gt;&amp;gt;
+                   &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;div&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;thumbnail-fine-uploader&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;div&lt;/span&gt;&amp;gt;  
+             &amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;div&lt;/span&gt;&amp;gt;
+    &amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;fieldset&lt;/span&gt;&amp;gt;
+
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;body&lt;/span&gt;&amp;gt;
+
+&amp;lt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;html&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;三action-服务器端代码&#34;&gt;三、Action 服务器端代码&lt;/h2&gt;
+&lt;p&gt;提示：我在项目中使用了 S2SH 框架，所以注意下自己写代码时候的区别。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.io.File&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.io.FileInputStream&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.io.FileOutputStream&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;java.io.InputStream&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;javax.servlet.http.HttpServletRequest&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;org.apache.struts2.ServletActionContext&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;org.hibernate.Hibernate&lt;/span&gt;;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;com.byg.entity.TableMsgService&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;com.byg.service.SendMessageService&lt;/span&gt;;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;FileHandleAction&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;extends&lt;/span&gt; SessionAction{
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; SendMessageService service;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setService&lt;/span&gt;(SendMessageService service) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;service&lt;/span&gt; = service;
+    }
+    &lt;span style=&#34;color:#228b22&#34;&gt;// myFile属性，即刚才在声明fileuploader 对象时候设置的myFile属性。通过此属性接收file的Name
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; String myFile;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;getMyFile&lt;/span&gt;() {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; myFile;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setMyFile&lt;/span&gt;(String myFile) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;myFile&lt;/span&gt; = myFile;
+    }
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 用于返回json数据，即在刚才在fileuploader对象中的failedUploadTextDisplay
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;// 中设置的responseProperty属性，显示msg的信息
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; String msg;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;getMsg&lt;/span&gt;() {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; msg;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setMsg&lt;/span&gt;(String msg) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;msg&lt;/span&gt; = msg;
+    }
+    &lt;span style=&#34;color:#228b22&#34;&gt;//check file size
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * upload image
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;uploadImage&lt;/span&gt;(){
+        &lt;span style=&#34;color:#228b22&#34;&gt;//声明request对象用于获取文件流
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        HttpServletRequest request = ServletActionContext.&lt;span style=&#34;color:#658b00&#34;&gt;getRequest&lt;/span&gt;();
+
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;getMyFile&lt;/span&gt;()!=&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt;){        &lt;span style=&#34;color:#228b22&#34;&gt;//如果图片名不为空
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+            File myFile = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; File(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;getMyFile&lt;/span&gt;());　　&lt;span style=&#34;color:#228b22&#34;&gt;//用改文件名new 一个文件对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;try&lt;/span&gt; {
+                    InputStream is = request.&lt;span style=&#34;color:#658b00&#34;&gt;getInputStream&lt;/span&gt;();    &lt;span style=&#34;color:#228b22&#34;&gt;//获取文件流
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                    FileOutputStream fout = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; FileOutputStream(myFile);&lt;span style=&#34;color:#228b22&#34;&gt;//定义文件输出流
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+                    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;byte&lt;/span&gt; b[] = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;byte&lt;/span&gt;[1000];
+
+                    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; n ;
+                    &lt;span style=&#34;color:#228b22&#34;&gt;//从inputStream中把获取的文件流写入这个新new的文件对象中
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt;((n=is.&lt;span style=&#34;color:#658b00&#34;&gt;read&lt;/span&gt;(b))!=-1){
+
+                        fout.&lt;span style=&#34;color:#658b00&#34;&gt;write&lt;/span&gt;(b,0,n);
+                    }
+                    is.&lt;span style=&#34;color:#658b00&#34;&gt;close&lt;/span&gt;();
+                    fout.&lt;span style=&#34;color:#658b00&#34;&gt;flush&lt;/span&gt;();
+                    fout.&lt;span style=&#34;color:#658b00&#34;&gt;close&lt;/span&gt;();
+                    &lt;span style=&#34;color:#228b22&#34;&gt;// 我的Image对象的定义是Blob类型，所以这里我通过进一步的转化myFile
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                    FileInputStream in = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; FileInputStream(myFile);
+                    TableMsgService msgService = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; TableMsgService();
+                    &lt;span style=&#34;color:#228b22&#34;&gt;//通过Hibernate的createBlob方法转化,然后设置我的image属性
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                    msgService.&lt;span style=&#34;color:#658b00&#34;&gt;setImage&lt;/span&gt;(Hibernate.&lt;span style=&#34;color:#658b00&#34;&gt;createBlob&lt;/span&gt;(in));
+                    &lt;span style=&#34;color:#228b22&#34;&gt;//最后保存包含这个Blob类型数据的对象，用的Hibernate框架　　
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                    service.&lt;span style=&#34;color:#658b00&#34;&gt;save&lt;/span&gt;(msgService);    &lt;span style=&#34;color:#228b22&#34;&gt;//save this object;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+                    msg = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;文件&amp;#34;&lt;/span&gt;+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;getMyFile&lt;/span&gt;()+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;上传成功&amp;#34;&lt;/span&gt;;　&lt;span style=&#34;color:#228b22&#34;&gt;// msg 设置显示成功
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+            }&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt;(Exception e) {
+                msg = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;文件&amp;#34;&lt;/span&gt;+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;getMyFile&lt;/span&gt;()+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;上传失败&amp;#34;&lt;/span&gt;; &lt;span style=&#34;color:#228b22&#34;&gt;//如果异常 设置msg显示失败
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                e.&lt;span style=&#34;color:#658b00&#34;&gt;printStackTrace&lt;/span&gt;();
+            }
+        }
+
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;succ&amp;#34;&lt;/span&gt;;
+
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;三strutsxml-的配置&#34;&gt;三、Struts.xml 的配置&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;struts&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;constant&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;struts.il8n.encoding&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;utf-8&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&amp;lt;/constant&amp;gt;&lt;/span&gt;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;package&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;extends=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;json-default&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;namespace=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;/service&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+            // 我这里写的是spring配置的Action
+　　        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;action&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploadImage&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;fileHandleAction&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;uploadImage&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;　　
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;result&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;succ&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;type=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;json&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;　// 返回json数据，即msg属性的信息
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/package&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/struts&amp;gt;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;四结语&#34;&gt;四、结语&lt;/h2&gt;
+&lt;p&gt;fileuploader.js 这款插件还是很是强大的，支持进度条的显示，也可以自定义气样式，不过目前我还是没有了解很透这款插件。有时间好好琢磨。希望这篇文章可以对大家有需要的分享下。&lt;/p&gt;
+- //imziv.com/posts/2012/fileloder.js&#43;struts2%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%97%A0%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0%E6%95%88%E6%9E%9C/ - 2012-2020 Ziv小威</description>
+        </item>
+    
+    
+    
+        <item>
         <title>Struts2&#43;Hibernate&#43;Spring 在 mysql 更新 Blob 类型的数据</title>
         <link>//imziv.com/posts/2012/struts2&#43;hibernate&#43;spring-%E5%9C%A8mysql%E6%9B%B4%E6%96%B0blob%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE/</link>
         <pubDate>Thu, 06 Sep 2012 11:43:00 +0000</pubDate>

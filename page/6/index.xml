@@ -13,6 +13,134 @@
     
     
         <item>
+        <title>NodeJs 按行读取文件</title>
+        <link>//imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/</link>
+        <pubDate>Tue, 02 Sep 2014 15:56:41 +0000</pubDate>
+        
+        <guid>//imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/ -&lt;p&gt;次中方法非依赖第三方 package, 当然你可以用。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;line-reader&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;直接上代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; fs = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;fs&amp;#39;&lt;/span&gt;),
+    readline = require(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;readline&amp;#39;&lt;/span&gt;);
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; rd = readline.createInterface({
+    input: fs.createReadStream(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;./test.txt&amp;#39;&lt;/span&gt;),
+    output: process.stdout,
+    terminal: &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;
+});
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+rd.on(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;line&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(line) {
+    console.log(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;第&amp;#39;&lt;/span&gt;+ i +&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;行：&amp;#39;&lt;/span&gt;+ line);
+    write(line);
+    i++;
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- //imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/ - 2012-2020 Ziv小威</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>2014 年 8 月 9 日我离开了南京</title>
+        <link>//imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/</link>
+        <pubDate>Sat, 23 Aug 2014 14:53:16 +0000</pubDate>
+        
+        <guid>//imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/ -&lt;p&gt;2012 年 11 月份，我一人来到了南京这座陌生的城市。&lt;/p&gt;
+&lt;p&gt;2014 年 8 月 9 日，我离开了这座美丽的城市，只身来到杭州。&lt;/p&gt;
+&lt;p&gt;i love you more when i&amp;rsquo;m missing you.&lt;/p&gt;
+- //imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/ - 2012-2020 Ziv小威</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>细说 static 关键字及其应用</title>
+        <link>//imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</link>
+        <pubDate>Sat, 19 Jul 2014 12:59:48 +0000</pubDate>
+        
+        <guid>//imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/ -&lt;h2 id=&#34;场景&#34;&gt;场景&lt;/h2&gt;
+&lt;p&gt;先看段代码，考虑以下场景，其运行结果是什么？&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;Test&lt;/span&gt; {
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = 8;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;printI&lt;/span&gt;() {
+        &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = 88;
+        System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;i&lt;/span&gt;);
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;(String arg[]) {
+        Test t = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Test();
+        t.&lt;span style=&#34;color:#658b00&#34;&gt;printI&lt;/span&gt;();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最后的运行结果是：8&lt;/p&gt;
+&lt;p&gt;如果把 this 关键字去掉的话，则结果是 88 ，当然这里有一些对关于 this 关键字的考察。&lt;/p&gt;
+&lt;h2 id=&#34;static-关键字&#34;&gt;static 关键字&lt;/h2&gt;
+&lt;p&gt;包含了使用 static 关键字声明的变量或者方法与包含它的类实例对象是没有关联的。因为静态化的域或者方法在类实例化前就已经加载入内存当中了，而并非是需要实例化该类声明的对象后，内存中才会为其分配内存。让我们再看看下面的代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;Test&lt;/span&gt; {
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = 8;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;printI&lt;/span&gt;() {
+        System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;i:&amp;#34;&lt;/span&gt;+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;i&lt;/span&gt;);
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;(String arg[]) {
+        System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(Test.&lt;span style=&#34;color:#658b00&#34;&gt;i&lt;/span&gt;);
+        Test.&lt;span style=&#34;color:#658b00&#34;&gt;test&lt;/span&gt;();
+
+        Test.&lt;span style=&#34;color:#658b00&#34;&gt;i&lt;/span&gt;++; &lt;span style=&#34;color:#228b22&#34;&gt;// 自增i
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        Test a = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Test(); &lt;span style=&#34;color:#228b22&#34;&gt;//声明测试对象a
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        a.&lt;span style=&#34;color:#658b00&#34;&gt;printI&lt;/span&gt;();
+        a.&lt;span style=&#34;color:#658b00&#34;&gt;i&lt;/span&gt;++; &lt;span style=&#34;color:#228b22&#34;&gt;// 自增i
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+        Test b = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Test();&lt;span style=&#34;color:#228b22&#34;&gt;//声明测试对象b
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        b.&lt;span style=&#34;color:#658b00&#34;&gt;printI&lt;/span&gt;();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行结果：&lt;/p&gt;
+&lt;p&gt;8&lt;/p&gt;
+&lt;p&gt;i:9&lt;/p&gt;
+&lt;p&gt;i:10&lt;/p&gt;
+&lt;p&gt;正如上面所说的，变量 i 脱离于对象实例化而存在，即使我们在分别声明对象 a 和对象 b ,当我们对 a 对象的 i 进行自增操作后，后面的 b 对象却打印 9，因为对象 a 和 b 是共用变量 i 的。&lt;/p&gt;
+&lt;h2 id=&#34;静态方法&#34;&gt;静态方法&lt;/h2&gt;
+&lt;p&gt;静态方法不可以调用非静态的方法或者变量，反之非静态方法是可以调用静态方法的。例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; j = 10;
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;test&lt;/span&gt;() {
+    System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;j：&amp;#34;&lt;/span&gt;+ j);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;会发现编译器提示这样的错误：Cannot make a static reference to the non-static field j 而我们很容易写出这样的代码。显然静态方法给我们编写代码时带来了非常大的便利，我们无须在调用其方法时需要实例化其对象，我们在封装我们的 Utils 工具类时经常这样做，因为这样做既方便又可提升程序的性能。《Effective Java》中有详细讲到 static 工厂方法。&lt;/p&gt;
+&lt;h2 id=&#34;static-之单例应用&#34;&gt;static 之单例应用&lt;/h2&gt;
+&lt;p&gt;正如上面代码片段 2 中所看到的实例一样，静态变量无须实例化便可调用，且被修饰的域是静态处于内存中的，所以对于那些被频繁实例化的对象，为了避免多次重复的实例化，我们可以通过静态化该对象，从而实现对程序的性能优化。例如我们经常会在 Web 项目里面静态化 JDBC 链接对象，或者业务逻辑层 中的对象,，或者封装工厂方法，然后写个工厂单例类。当然我们已经有了 Spring ，通过利用反射机制，统一管理这些 Bean 对象，实现自动的按需注入。在 Playframework 这个快速开发 Web 的框架中，其 Controller 中的方法都被声明为了静态方法。声明单例的方法有很多种，请看下面的代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;Singleton&lt;/span&gt; {
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;final&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; Singleton INSTANCE = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Singleton();
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;Singleton&lt;/span&gt;() {}
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; Singleton &lt;span style=&#34;color:#008b45&#34;&gt;getInstance&lt;/span&gt;() {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; INSTANCE;
+}
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;test&lt;/span&gt;() {
+    System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;this is a test method.&amp;#34;&lt;/span&gt;);
+}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;该类的构造方法被 private 关键字修饰，意味着该对象不可用 new 关键字进行实例化了，当然我们已经在此类中提供了静态方法 getInstance 通过这个方法获取该类的静态实例对象。由于该对象实例后被保存在了静态变量 INSTANCE 中，所以调用者每次调用的都是这个实例对象。调用示例：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;Singleton c = Singleton.&lt;span style=&#34;color:#658b00&#34;&gt;getInstance&lt;/span&gt;();
+c.&lt;span style=&#34;color:#658b00&#34;&gt;test&lt;/span&gt;(); &lt;span style=&#34;color:#228b22&#34;&gt;// 调用test方法
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- //imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/ - 2012-2020 Ziv小威</description>
+        </item>
+    
+    
+    
+        <item>
         <title>利用 JS 跨域做一个简单的页面访问统计系统</title>
         <link>//imziv.com/posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/</link>
         <pubDate>Mon, 30 Jun 2014 14:48:56 +0000</pubDate>
@@ -781,239 +909,6 @@ NodeJs 让很多前端开发者利用 JS 开发服务器变得异常的简单，
 &lt;/ol&gt;
 &lt;p&gt;　可以检查 setOperationName 中的 QName 参数，其中的 NameSpace 地址是不是有问题，或者 operation 名是否有误&lt;/p&gt;
 - //imziv.com/posts/2014/java%E5%88%A9%E7%94%A8axis%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8webservice%E6%8E%A5%E5%8F%A3-/ - 2012-2020 Ziv小威</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>Java JSON、XML 文件/字符串与 Bean 对象互转解析</title>
-        <link>//imziv.com/posts/2014/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8Ebean%E5%AF%B9%E8%B1%A1%E4%BA%92%E8%BD%AC%E8%A7%A3%E6%9E%90/</link>
-        <pubDate>Mon, 17 Mar 2014 16:12:00 +0000</pubDate>
-        
-        <guid>//imziv.com/posts/2014/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8Ebean%E5%AF%B9%E8%B1%A1%E4%BA%92%E8%BD%AC%E8%A7%A3%E6%9E%90/</guid>
-        <description>让美的事情发生 //imziv.com/posts/2014/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8Ebean%E5%AF%B9%E8%B1%A1%E4%BA%92%E8%BD%AC%E8%A7%A3%E6%9E%90/ -&lt;p&gt;前言&lt;/p&gt;
-&lt;p&gt;在做 web 或者其他项目中，JSON 与 XML 格式的数据是大家经常会碰见的 2 种。在与各种平台做数据对接的时候，JSON 与 XML 格式也是基本的数据传递格式，本文主要简单的介绍 JSON/XML 文件的读写操作，以及与 Bean 之间的转换。示例代码都是经过 Demo 测试的，当然也会把代码上传到 GitHub.需要的朋友可以看看。&lt;/p&gt;
-&lt;p&gt;准备工作&lt;/p&gt;
-&lt;p&gt;我这里对 XML 与 JSON 主要依赖以下 2 个开源库，当然像针对 xml 和 JSON 解析的开源库非常的多，下面这 2 个感觉相对用起来比较简单。需要注意的是如果缺少下面 jar 文件中的一个，可能就会出现 ClassNotFound 异常，如果发现使用的方法在当前库中找不到，则可能是库版本不同造成的，可以去官网查阅。&lt;/p&gt;
-&lt;p&gt;1.JSON 解析库：
-Jackson JSON Processor
-官网：&lt;a href=&#34;http://jackson.codehaus.org/&#34;&gt;http://jackson.codehaus.org/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;2.XML 解析库 :
-Simple XML serialization framework
-官网：&lt;a href=&#34;http://simple.sourceforge.net/home.php&#34;&gt;http://simple.sourceforge.net/home.php&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;JSON 操作详细代码：
-1.JSON 字符串转换为 Bean&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/**
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * JSON字符串转换为对象
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @param src JSON字符串
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @param target 目标Bean
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; */&lt;/span&gt;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &amp;lt;T&amp;gt; T &lt;span style=&#34;color:#008b45&#34;&gt;String2Object&lt;/span&gt;(String src, Class&amp;lt;T&amp;gt; target) &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;throws&lt;/span&gt;
-    JsonParseException, JsonMappingException, IOException {
-
-    ObjectMapper mapper = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; ObjectMapper();
-    &lt;span style=&#34;color:#228b22&#34;&gt;//配置，允许使用单引号字符的JSON
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    mapper.&lt;span style=&#34;color:#658b00&#34;&gt;configure&lt;/span&gt;(JsonParser.&lt;span style=&#34;color:#658b00&#34;&gt;Feature&lt;/span&gt;. ALLOW_SINGLE_QUOTES, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;true&lt;/span&gt;);
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; mapper.&lt;span style=&#34;color:#658b00&#34;&gt;readValue&lt;/span&gt;( &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; StringReader(src), target);
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2.Bean 对象转换为 JSON 字符串&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/***
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* 将对象序列化为JSONObject字符串
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* @param object bean对象
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* @return String JSONString
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;toJSONObjectString&lt;/span&gt;(Object object) {
-    JSONObject jsonObject = JSONObject. &lt;span style=&#34;color:#008b45&#34;&gt;fromObject&lt;/span&gt;(object);
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; jsonObject.&lt;span style=&#34;color:#658b00&#34;&gt;toString&lt;/span&gt;();
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;3.JSON 字符串转换为 ArrayList&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/**
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* 字符串转化为目标List列表
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* @param src 源JSON串
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* @param target 目标类型
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* @return 转化后的列表对象
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
-&lt;span style=&#34;color:#707a7c&#34;&gt;@SuppressWarnings&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;rawtypes&amp;#34;&lt;/span&gt;)
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; List &lt;span style=&#34;color:#008b45&#34;&gt;String2ObjectsList&lt;/span&gt;(String src, Class target)
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;throws&lt;/span&gt; Exception {
-
-    ObjectMapper mapper = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; ObjectMapper();
-    mapper.&lt;span style=&#34;color:#658b00&#34;&gt;configure&lt;/span&gt;(JsonParser.&lt;span style=&#34;color:#658b00&#34;&gt;Feature&lt;/span&gt;. ALLOW_SINGLE_QUOTES, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;true&lt;/span&gt;);
-    List result = mapper.&lt;span style=&#34;color:#658b00&#34;&gt;readValue&lt;/span&gt;( &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; StringReader(src),
-                TypeFactory. &lt;span style=&#34;color:#008b45&#34;&gt;collectionType&lt;/span&gt;(ArrayList.&lt;span style=&#34;color:#658b00&#34;&gt;class&lt;/span&gt;, target));
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; result;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;4.ArrayList 转换为 JSON 字符串&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/**
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* 将List对象序列化为JSON文本
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* @param list
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* @return List &amp;lt;T&amp;gt;
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &amp;lt;T&amp;gt; String &lt;span style=&#34;color:#008b45&#34;&gt;toJSONString&lt;/span&gt;(List&amp;lt;T&amp;gt; list) {
-
-    JSONArray jsonArray = JSONArray. &lt;span style=&#34;color:#008b45&#34;&gt;fromObject&lt;/span&gt;(list);
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; jsonArray.&lt;span style=&#34;color:#658b00&#34;&gt;toString&lt;/span&gt;();
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;其他的一些复杂的 Bean 转换，就不再多介绍了，主要都是围绕 JSONObject,JSONArray,ObjectMapper 这几个对象操作的，具体可以看看官方文档。&lt;/p&gt;
-&lt;p&gt;XML 操作详细代码：
-Simple 这个库通过对 Bean 对象提前通过添加注解的方式，从而简单易懂的方式来达到 Bean 与 XML 之间的转换&lt;/p&gt;
-&lt;p&gt;Bean Example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;org.simpleframework.xml.Attribute&lt;/span&gt;;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;org.simpleframework.xml.Element&lt;/span&gt;;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#008b45;text-decoration:underline&#34;&gt;org.simpleframework.xml.Root&lt;/span&gt;;
-
-&lt;span style=&#34;color:#707a7c&#34;&gt;@Root&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//根节点
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;User&lt;/span&gt; {
-
-     &lt;span style=&#34;color:#707a7c&#34;&gt;@Attribute&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//作为属性
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; Integer id;
-
-     &lt;span style=&#34;color:#707a7c&#34;&gt;@Element&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//作为元素
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; String name;
-
-     &lt;span style=&#34;color:#707a7c&#34;&gt;@Element&lt;/span&gt;
-     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; String email;
-
-     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;User&lt;/span&gt;() {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;super&lt;/span&gt;();
-     }
-
-     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;User&lt;/span&gt;(Integer id, String name, String email) {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;super&lt;/span&gt;();
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;. id = id;
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;. name = name;
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;. email = email;
-     }
-
-     &lt;span style=&#34;color:#228b22&#34;&gt;/**
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;      * the below is getter and setter function
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;      */&lt;/span&gt;
-
-     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; Integer &lt;span style=&#34;color:#008b45&#34;&gt;getId&lt;/span&gt;() {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; id;
-     }
-
-     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setId&lt;/span&gt;(Integer id) {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;. id = id;
-     }
-
-     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;getName&lt;/span&gt;() {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; name;
-     }
-
-     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setName&lt;/span&gt;(String name) {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;. name = name;
-     }
-
-     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#008b45&#34;&gt;getEmail&lt;/span&gt;() {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; email;
-     }
-
-     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setEmail&lt;/span&gt;(String email) {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;. email = email;
-     }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;1.XML 字符串转换为 Bean 对象&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//定义序列化对象
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;Serializer serializer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Persister();
-User user = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; User(1001,&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;wewoor@foxmail.com&amp;#34;&lt;/span&gt; );
-String test = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&amp;lt;user id=&amp;#39;1001&amp;#39;&amp;gt;&amp;lt;name&amp;gt;test12&amp;lt;/name&amp;gt;&amp;lt;email&amp;gt;wewoor@foxmail.com&amp;lt;/email&amp;gt;&amp;lt;/user&amp;gt;&amp;#34;&lt;/span&gt;;
-    &lt;span style=&#34;color:#228b22&#34;&gt;//读取
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;serializer.&lt;span style=&#34;color:#658b00&#34;&gt;read&lt;/span&gt;(user, test);
-System. out.&lt;span style=&#34;color:#658b00&#34;&gt;print&lt;/span&gt;(user.&lt;span style=&#34;color:#658b00&#34;&gt;getId&lt;/span&gt;());
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2.Bean 对象转换为 XML 字符串&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;User user = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; User(1001,&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;wewoor@foxmail.com&amp;#34;&lt;/span&gt; );
-&lt;span style=&#34;color:#228b22&#34;&gt;//定义序列化对象
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;Serializer serializer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Persister();
-    &lt;span style=&#34;color:#228b22&#34;&gt;//输出流
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;OutputStream out = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; ByteArrayOutputStream();
-serializer.&lt;span style=&#34;color:#658b00&#34;&gt;write&lt;/span&gt;(user, out);
-result = out.&lt;span style=&#34;color:#658b00&#34;&gt;toString&lt;/span&gt;();
-System. out.&lt;span style=&#34;color:#658b00&#34;&gt;print&lt;/span&gt;(result);
-out.&lt;span style=&#34;color:#658b00&#34;&gt;close&lt;/span&gt;();
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;3.将 Bean 对象写入 XML 文件&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;file = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; File(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Ziv.xml&amp;#34;&lt;/span&gt;);
-User user = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; User(1001,&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;wewoor@foxmail.com&amp;#34;&lt;/span&gt; );
-    &lt;span style=&#34;color:#228b22&#34;&gt;//定义序列化对象
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;Serializer serializer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Persister();
-    &lt;span style=&#34;color:#228b22&#34;&gt;//将User user 写入ziv.xml
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;serializer.&lt;span style=&#34;color:#658b00&#34;&gt;write&lt;/span&gt;(user, file);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;4.读取 XML 文件转换为 Bean&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;file = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; File( &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Ziv.xml&amp;#34;&lt;/span&gt;);
-User user = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; User();
-    &lt;span style=&#34;color:#228b22&#34;&gt;//定义序列化对象
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;Serializer serializer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Persister();
-    &lt;span style=&#34;color:#228b22&#34;&gt;//读取ziv.xml到User中
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;serializer.&lt;span style=&#34;color:#658b00&#34;&gt;read&lt;/span&gt;(user, file);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- //imziv.com/posts/2014/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8Ebean%E5%AF%B9%E8%B1%A1%E4%BA%92%E8%BD%AC%E8%A7%A3%E6%9E%90/ - 2012-2020 Ziv小威</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>匿名函数块级作用域以及在 JQuery 中的应用</title>
-        <link>//imziv.com/posts/2014/%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%BB%A5%E5%8F%8A%E5%9C%A8jquery%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/</link>
-        <pubDate>Fri, 21 Feb 2014 10:59:00 +0000</pubDate>
-        
-        <guid>//imziv.com/posts/2014/%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%BB%A5%E5%8F%8A%E5%9C%A8jquery%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/</guid>
-        <description>让美的事情发生 //imziv.com/posts/2014/%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%BB%A5%E5%8F%8A%E5%9C%A8jquery%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/ -&lt;p&gt;最近经常回在群里面看到有些朋友问如下这样的 js 写法该如何理解的的问题,虽然可能对匿名函数有些理解，但是有时候看到 JQuery 源码或者其他 JS 库中同样的写法时，就有点不理解了，今天再次分享下这方面的知识点。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;(){
-
-})(JQuery);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;对以上写法的理解：&lt;/p&gt;
-&lt;p&gt;　　上面的这种写法通常叫做“块级作用域”，块级作用域的好处就是可以将匿名方法内部的变量进行私有化，当程序运行结束之后便将一些变量自动销毁。第一个（）号表示次函数为一个函数表达式，其中包含了一个匿名函数，后面的一个（）则表示执行这个函数表达式中的匿名方法，而 JQuery 则作为这个匿名函数的一个参数。&lt;/p&gt;
-&lt;p&gt;匿名函数&lt;/p&gt;
-&lt;p&gt;　　通常声明一个匿名函数的方法是：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//匿名函数
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; getPerson = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() { &lt;span style=&#34;color:#228b22&#34;&gt;//次方法为函数表达式的声明方法
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;}
-getPerson();&lt;span style=&#34;color:#228b22&#34;&gt;//调用匿名方法
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;所以大家又可以把上面的代码看成是这样子的：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
-}();
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;但是，虽然逻辑上是这么一回事，但是你如果按照上面的这种写法，运行的时候会出现语法错误的问题。所以这个时候利用（）这个分组操作符括起这个函数表达式即可，然后括号（）执行此函数。（关于函数声明的方法以及函数表达是的内容可以参考汤姆大叔的这篇文章&lt;a href=&#34;http://www.cnblogs.com/TomXu/archive/2011/12/29/2290308.html&#34;&gt;http://www.cnblogs.com/TomXu/archive/2011/12/29/2290308.html&lt;/a&gt;）&lt;/p&gt;
-&lt;p&gt;JQuery 中的应用：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//此块级作用域中声明了2个参数
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;function&lt;/span&gt;( &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;undefined&lt;/span&gt; ) {
-
-    &lt;span style=&#34;color:#228b22&#34;&gt;// Use the correct document accordingly with window argument (sandbox)
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;var&lt;/span&gt; location = &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.location,
-    &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt; = &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;,
-    docElem = &lt;span style=&#34;color:#658b00&#34;&gt;document&lt;/span&gt;.documentElement,
-
-    &lt;span style=&#34;color:#228b22&#34;&gt;// Map over jQuery in case of overwrite
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    _jQuery = &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.jQuery,
-
-    &lt;span style=&#34;color:#228b22&#34;&gt;// Map over the $ in case of overwrite
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    _$ = &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt;.$;
-
-}( &lt;span style=&#34;color:#658b00&#34;&gt;window&lt;/span&gt; );&lt;span style=&#34;color:#228b22&#34;&gt;//将window对象作为参数传入了方法内
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上面的代码是我截取的 JQuery 源码的一部分。想要了解的朋友可以自己去看。以上就是我对一些理解，有问题的地方或者交流的朋友可以联系我。&lt;/p&gt;
-- //imziv.com/posts/2014/%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%BB%A5%E5%8F%8A%E5%9C%A8jquery%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/ - 2012-2020 Ziv小威</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>对近 2 年来“互联网思维”、“物联网”、“云计算”、“大数据”，“小白用户”等时髦词汇的些思考</title>
-        <link>//imziv.com/posts/2014/%E5%AF%B9%E8%BF%912%E5%B9%B4%E6%9D%A5%E4%BA%92%E8%81%94%E7%BD%91%E6%80%9D%E7%BB%B4%E7%89%A9%E8%81%94%E7%BD%91%E4%BA%91%E8%AE%A1%E7%AE%97%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B0%8F%E7%99%BD%E7%94%A8%E6%88%B7%E7%AD%89%E6%97%B6%E9%AB%A6%E8%AF%8D%E6%B1%87%E7%9A%84%E4%BA%9B%E6%80%9D%E8%80%83/</link>
-        <pubDate>Sun, 16 Feb 2014 15:41:00 +0000</pubDate>
-        
-        <guid>//imziv.com/posts/2014/%E5%AF%B9%E8%BF%912%E5%B9%B4%E6%9D%A5%E4%BA%92%E8%81%94%E7%BD%91%E6%80%9D%E7%BB%B4%E7%89%A9%E8%81%94%E7%BD%91%E4%BA%91%E8%AE%A1%E7%AE%97%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B0%8F%E7%99%BD%E7%94%A8%E6%88%B7%E7%AD%89%E6%97%B6%E9%AB%A6%E8%AF%8D%E6%B1%87%E7%9A%84%E4%BA%9B%E6%80%9D%E8%80%83/</guid>
-        <description>让美的事情发生 //imziv.com/posts/2014/%E5%AF%B9%E8%BF%912%E5%B9%B4%E6%9D%A5%E4%BA%92%E8%81%94%E7%BD%91%E6%80%9D%E7%BB%B4%E7%89%A9%E8%81%94%E7%BD%91%E4%BA%91%E8%AE%A1%E7%AE%97%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B0%8F%E7%99%BD%E7%94%A8%E6%88%B7%E7%AD%89%E6%97%B6%E9%AB%A6%E8%AF%8D%E6%B1%87%E7%9A%84%E4%BA%9B%E6%80%9D%E8%80%83/ -&lt;p&gt;平时喜欢关注科技新闻，所以会在经常科技栏目里看到关于什么“互联网思维”，“物联网”，“小白用户”，”云计算“等等这些热词的文章。但是个人觉得很多文章是过度解读，在给读者相应的一些正面信息的同时，感觉更多的是给很多读者造成了一些负面影响。下面谈谈我自己的一些感受。&lt;/p&gt;
-&lt;p&gt;　　互联网思维&lt;/p&gt;
-&lt;p&gt;　　过度解读的典型，弄得过渡的神秘。自从近些年互联网通过自身强大的力量对传统行业造成了巨大影响后，尤其电商更是炒的沸沸扬扬。然后通过几年便成长期了的小米公司更是达到了市值 100 亿美元，更是让很多传统行业者大跌眼镜，“互联网思维”这个词也就不知不觉经常被谁推到了科技新闻栏中。然后对互联网不是很熟悉的人，因为大家知道，或许很多传统行业的人以前可能不怎么太关心互联网络上面的事情，然后当互联网已经开始冲击自身行业的时候，才发现自己对互联网上那么的不熟。例如，很多人甚至没有玩过 QQ，微博微信，贴吧之类的互联网产品，而且这些东西更像是 80，90 后的代名词。甚至生活中年轻人经常嘴里面冒出来的一句话，一个词都是不能理解其中的含义或者笑点。其实说到底，是由于很多传统行业人，或者老一辈人他们没有去拥抱这个时代。当“互联网思维”这个词进入到很多传统行业人的脑海中去的时候，经常会把这个弄的神乎其神，好像“互联网思维”有多么的难，多么的高大上，而且还经常被各种编者来各种过度解读。“互联网思维”无非就是利用互联网“快速，强大的传播力”等特点，何必搞的那么故弄玄虚。&lt;/p&gt;
-&lt;p&gt;　　物联网&lt;/p&gt;
-&lt;p&gt;　　在一家物联网创业公司工作了一年多，也是有些体会。物联网其实属于互联网的一部分，其主思想应该是智能化，自动化。例如现在流行的是医疗，智能家居等。由于物联网这个新兴概念以及更加先进的传感设备的出现，让很多人看到了新的创业机遇，很多从事传统行业的人也是由于互联网的浪潮所吸引，参与到了物联网行业。关键是很多从传统行业转换过来的创业者并没有理解互联网，和物联网，经常做着做着就跑偏了。例如把物联网产品做成了互联网产品，本来是互联网与硬件的紧密结合，最好搞成了什么电子商务，即时通讯的产品。而且部分创业者老是想把什么农业，家居，方方面面都做，导致最后什么都做不好。大家都知道如今物联网本来就是新兴的东西，产品体验一旦差，根本就做不起来。所以入行请慎重，做产品要专一。&lt;/p&gt;
-&lt;p&gt;　　小白用户&lt;/p&gt;
-&lt;p&gt;　　有没有人跟我一样，听到这个词很蛋疼。什么叫小白用户？没上过网的？或者不会上网的？还是会上网玩 QQ 的？个人觉得目前互联网上的产品，用户体验一是对历史产品设计的一种继承，另一种就是对人类行为分析后的创新设计。不管你是什么用户，在我们进行产品设计的时候，无非就是沿袭目前互联网一贯的用户体验设计，要么就是进行创新新的设计，前者学习成本较低，后者学习成本较高而已，但是为了得到更好的体验，学习是必要的。至于那些没上过网的用户，就是非互联网用户，更谈不上小白用户。每当老板拿这个词来形容一些非互联网用户的时候，我就想吵架！例如之前做物联网产品的时候，老板把我们做的产品给一些就不上网的普通百姓看，本来物联网就是一个新兴的概念，那些连互联网都不了解，甚至连 QQ 都没有的用户，基本上看不懂我们的产品。目前我们设计产品的思路是深受互联网产品的影响的，所以一旦很多用户连互联网产品都不怎么用情况下，一些超前的东西你必须使用某些引导手段才行。所以请不要瞎定义小白用户，然后拿这个词说事儿～&lt;/p&gt;
-&lt;p&gt;　　云计算 大数据&lt;/p&gt;
-&lt;p&gt;　　近 2 年也是非常时髦的 2 个词，虽说的确是进入了大数据，云服务时代，但是这东西不是说拿来撑门面的，不是时髦的什么名牌。我发现很多小公司，还没用户就开始什么大数据，产品没出来老板就在外面大谈什么云服务，云计算。云计算和大数据其实是增强互联网产品的使用体验的有效技术手段，不是拿来显前卫，忽悠领导的时髦。建议做产品的还是脚踏实地，真正该采用什么手段的时候就采用。&lt;/p&gt;
-&lt;p&gt;　　结语&lt;/p&gt;
-&lt;p&gt;　　由于互联网给我们生活的影响，给传统行业的冲击，现在很多传统企业都想在互联网上分得一杯美羹，做房地产的，食品，医疗等等的，都在做自己的电商平台啊什么的。预感这 2 年是互联网的一波小高潮。对于我们程序员来说，嘿嘿，应该是很 happy 的。但是转行需谨慎啊，不懂互联网，很容易被技术团队坑的～&lt;/p&gt;
-&lt;p&gt;　（以上纯属个人闲来时的思考）&lt;/p&gt;
-- //imziv.com/posts/2014/%E5%AF%B9%E8%BF%912%E5%B9%B4%E6%9D%A5%E4%BA%92%E8%81%94%E7%BD%91%E6%80%9D%E7%BB%B4%E7%89%A9%E8%81%94%E7%BD%91%E4%BA%91%E8%AE%A1%E7%AE%97%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B0%8F%E7%99%BD%E7%94%A8%E6%88%B7%E7%AD%89%E6%97%B6%E9%AB%A6%E8%AF%8D%E6%B1%87%E7%9A%84%E4%BA%9B%E6%80%9D%E8%80%83/ - 2012-2020 Ziv小威</description>
         </item>
     
     
