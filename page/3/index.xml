@@ -1,0 +1,662 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>让美的事情发生</title><link>//imziv.com/</link><description>Recent content on 让美的事情发生</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>2012-2020 Ziv小威</copyright><lastBuildDate>Thu, 16 Dec 2021 14:00:00 +0000</lastBuildDate><atom:link href="//imziv.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Webassembly 技术的探索与实践</title><link>//imziv.com/posts/2018/webassembly-%E6%8A%80%E6%9C%AF%E7%9A%84%E6%8E%A2%E7%B4%A2%E4%B8%8E%E5%AE%9E%E8%B7%B5/</link><pubDate>Fri, 05 Jan 2018 21:54:33 +0000</pubDate><guid>//imziv.com/posts/2018/webassembly-%E6%8A%80%E6%9C%AF%E7%9A%84%E6%8E%A2%E7%B4%A2%E4%B8%8E%E5%AE%9E%E8%B7%B5/</guid><description>让美的事情发生 //imziv.com/posts/2018/webassembly-%E6%8A%80%E6%9C%AF%E7%9A%84%E6%8E%A2%E7%B4%A2%E4%B8%8E%E5%AE%9E%E8%B7%B5/ -&lt;h4 id="简介">简介&lt;/h4>
+&lt;p>&lt;code>Webassembly&lt;/code> 是一种可以在浏览器端运行二进制格式代码的技术，他的目标则是想提供接近&lt;code>Native code&lt;/code>的执行效率的技术体验。 相较于文本类型的&lt;code>Javascirpt&lt;/code>而言，它拥有更小的体积，更短的加载时间，和更好的执行性能等特点 。&lt;code>Webassembly&lt;/code> 允许你使用&lt;code>Rust&lt;/code>或者&lt;code>C/C++&lt;/code>等静态语言来编写，并生成目标文件后缀为&lt;code>wasm&lt;/code>的二进制格式文件。通过&lt;code>Fetch&lt;/code>或者&lt;code>Ajax&lt;/code>与&lt;code>Webassembly&lt;/code>提供的 API ，我们可以实现&lt;code>Javascipt&lt;/code>与&lt;code>wasm&lt;/code>模块的混用。&lt;/p>
+&lt;h4 id="asmjs-与-wasm">&lt;code>asm.js&lt;/code> 与 &lt;code>wasm&lt;/code>&lt;/h4>
+&lt;p>相信很多人跟我一样有些疑问，&lt;a href="http://asmjs.org/">asm.js&lt;/a> 和&lt;code>wasm&lt;/code>的关系，&lt;code>asm.js&lt;/code>是&lt;code>Mozila&lt;/code>工程师&lt;code>ALON ZAKAI&lt;/code>提出的一种将静态语言编译为&lt;code>javascript&lt;/code>的一种解决方案，这里有官方的&lt;a href="http://kripken.github.io/mloc_emscripten_talk/#/">PPT&lt;/a>。而 asm.js 则实际上是 Javascript 的一个子集，通过在已有&lt;code>Javascript&lt;/code>语法特上性进行可行的提前优化和性能改进（例如强制类型的一致性、手动的内存管理），从而达到编译器对&lt;code>Javascript&lt;/code>代码提前优化的目的。所以，&lt;code>asm.js&lt;/code> 实际上是一种针对&lt;code>Javascript&lt;/code>编译器进行优化过的&lt;code>Javascript&lt;/code>文本代码，而&lt;code>wasm&lt;/code>则是浏览器直接支持的一种二进制格式文件，所以在加载速度上，文件体积上，执行效率上有更多优势。编写符合规范的&lt;code>asm.js&lt;/code>代码，通过&lt;a href="http://kripken.github.io/emscripten-site/docs/getting_started/Tutorial.html">Emscripten&lt;/a>编译工具来将静态语言编译为&lt;code>asm.js&lt;/code>目标即可。&lt;/p>
+&lt;h5 id="c语言源程序">&lt;code>c&lt;/code>语言源程序&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-c" data-lang="c">&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> &lt;span style="color:#008b45">f&lt;/span> (&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> var) {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> var + &lt;span style="color:#b452cd">1&lt;/span>;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="编译后的asmjs目标文件">编译后的&lt;code>asm.js&lt;/code>目标文件&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">// 通过`|0`提前声明变量和函数的返回类型。
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> f(i) {
+i = i|&lt;span style="color:#b452cd">0&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> (i + &lt;span style="color:#b452cd">1&lt;/span>)|&lt;span style="color:#b452cd">0&lt;/span>;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="cc-文件编译为-asmjs-目标文件的过程">&lt;code>C/C++&lt;/code> 文件编译为 &lt;code>asm.js&lt;/code> 目标文件的过程&lt;/h5>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEB56a415cc2ee776664734fbf5d912cc76?method=download&amp;amp;shareKey=7757bddfdf2f0225dde6dd34d051aad4" alt="graph0">&lt;/p>
+&lt;p>&lt;!-- raw HTML omitted -->注：LLVM 为底层虚拟机（Low Level Virtual Machine）的缩写，一种用 C++编写的, 可以用于优化任何静态语言（例如 Java，Go, Rust, Swift）的底层编译器基础技术。&lt;!-- raw HTML omitted -->&lt;/p>
+&lt;p>具体的编写和编译&lt;code>asm.js&lt;/code>的方法可以查看 &lt;a href="http://kripken.github.io/emscripten-site/docs/getting_started/Tutorial.html">Emscripten&lt;/a> &lt;a href="http://kripken.github.io/emscripten-site/docs/getting_started/Tutorial.html">官方&lt;/a>相关教程。&lt;/p>
+&lt;h4 id="wasm-文件与-javascript-生成机器码的区别">&lt;code>wasm&lt;/code> 文件与 &lt;code>Javascript&lt;/code> 生成机器码的区别&lt;/h4>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEBa1771260e0b8fcf0c5518d263ab1f41b?method=download&amp;amp;shareKey=a2b56853e9811bc6fd9e2c563056b8f3" alt="graph1">&lt;/p>
+&lt;p>对比 2 种文件生成机器码的流程会发现，&lt;code>Javascript&lt;/code> 文件生成机器码需要经过语法解析，代码优化，最后才转换成机器码等过程，而&lt;code>wasm&lt;/code>的优势是本身就是通过编译器并优化过后的二进制文件，可以直接转换为机器码，省去了&lt;code>Javascript&lt;/code>需要解析，优化的工作，所以在加载和执行上本身就具有优势。接下来我们尝试用&lt;code>C/C++&lt;/code>写一个&lt;code>wasm&lt;/code>模块。&lt;/p>
+&lt;h4 id="用-cc-编写一个-wasm-模块">用 &lt;code>C/C++&lt;/code> 编写一个 &lt;code>wasm&lt;/code> 模块&lt;/h4>
+&lt;p>搭建和安装 wasm 编写环境的步骤这里就不写了，具体可以查看&lt;a href="http://webassembly.org/getting-started/developers-guide/">官方&lt;/a>， 这里我会编写一个模块，然后通过浏览器浏览运行结果。在这里我们利用递归算法，编写一个阶乘计算的模块&lt;code>factorial.c&lt;/code>，具体代码如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-c" data-lang="c">&lt;span style="color:#1e889b">#include&lt;/span> &lt;span style="color:#1e889b">&amp;lt;stdio.h&amp;gt;&lt;/span>&lt;span style="color:#1e889b">
+&lt;/span>&lt;span style="color:#1e889b">&lt;/span>
+&lt;span style="color:#00688b;font-weight:bold">long&lt;/span> &lt;span style="color:#008b45">factorial&lt;/span>(&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> num) {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (num &amp;lt;= &lt;span style="color:#b452cd">0&lt;/span>) &lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#b452cd">1&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> num * factorial(num - &lt;span style="color:#b452cd">1&lt;/span>);
+}
+}
+&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> &lt;span style="color:#008b45">main&lt;/span> () {
+&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> num = factorial(&lt;span style="color:#b452cd">10&lt;/span>);
+printf(&lt;span style="color:#cd5555">&amp;#34;The Result: %d &lt;/span>&lt;span style="color:#cd5555">\n&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span>, num);
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>执行&lt;code>gcc factorial.c&lt;/code>命令，生成&lt;code>a.out&lt;/code>文件，执行&lt;code>./a.out&lt;/code>，输出&lt;code>The Result: 3628800&lt;/code>, 测试成功。&lt;/p>
+&lt;h5 id="编译factorialc为-wasm-模块">编译&lt;code>factorial.c&lt;/code>为 &lt;code>wasm&lt;/code> 模块&lt;/h5>
+&lt;p>&lt;code>emcc&lt;/code>命令本身支持多重级别的优化编译选项&lt;code>（-O0 (no optimization), -O1, -O2, -Os, -Oz, and -O3）&lt;/code>，这里我们使用如下命令：&lt;/p>
+&lt;blockquote>
+&lt;p>emcc -o test.html factorial.c -o3 -s WASM=1&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>通过&lt;code>-o test.html&lt;/code>指定&lt;code>Emscripten&lt;/code>生成运行&lt;code>wasm&lt;/code>模块的&lt;code>html&lt;/code>文件&lt;/li>
+&lt;li>&lt;code>-o3&lt;/code>指定优化选项，适合发布构建&lt;/li>
+&lt;li>&lt;code>-s WASM=1&lt;/code> 指定&lt;code>Emscripten&lt;/code>输出格式为&lt;code>wasm&lt;/code>，默认打包为&lt;code>asm.js&lt;/code>文件&lt;/li>
+&lt;/ul>
+&lt;p>执行后会生成如下文件：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>test.html&lt;/code> 编译并实例化 test.wasm 模块，并在浏览器展示&lt;/li>
+&lt;li>&lt;code>test.js&lt;/code> 是&lt;code>C&lt;/code>语言模块与&lt;code>Javascript/wasm&lt;/code>文件(test.wasm)之间进行转换通信的中间代码&lt;/li>
+&lt;li>&lt;code>test.wasm&lt;/code> 二进制的&lt;code>wasm&lt;/code>模块代码&lt;/li>
+&lt;/ul>
+&lt;p>在浏览器中打开&lt;code>test.html&lt;/code>文件，即能看到展示结果:&lt;/p>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEBf4563187ab32775feb89be9452a528a3?method=download&amp;amp;shareKey=732779258eb8696087a27aa992cee187" alt="display_wasm">&lt;/p>
+&lt;p>可以看到是一个比较粗糙的展示界面。&lt;/p>
+&lt;h4 id="wasm-与-javascript-模块混用">&lt;code>wasm&lt;/code> 与 &lt;code>Javascript&lt;/code> 模块混用&lt;/h4>
+&lt;p>在上面的示例中，我们编写了一个&lt;code>C&lt;/code>模块，接下来我们希望在 JS 中调用&lt;code>factorial&lt;/code>方法，想要在浏览器客户端使用&lt;code>wasm&lt;/code>模块，与 JS 模块一样，我们需要先加载，再执行。&lt;/p>
+&lt;h5 id="加载-wasm-模块">加载 &lt;code>wasm&lt;/code> 模块&lt;/h5>
+&lt;p>由于&lt;code>WebAssembly&lt;/code>暂时并不能支持类似于通过&lt;code>&amp;lt;script type=&amp;quot;module&amp;quot;&amp;gt;&lt;/code>或者 ES6 &lt;code>import&lt;/code>来声明引入，所以目前的方式是利用 Fetch 或者 Ajax 的方法来加载，结合&lt;code>WebAssembly.instantiate()&lt;/code>API 来实例化加载过来的&lt;code>wasm&lt;/code>二进制代码来实现的。示例如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">// Fetch
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>fetch(&lt;span style="color:#cd5555">&amp;#39;simple.wasm&amp;#39;&lt;/span>).then(response =&amp;gt;
+response.arrayBuffer()
+).then(bytes =&amp;gt;
+WebAssembly.instantiate(bytes, importObject)
+).then(results =&amp;gt; {
+&lt;span style="color:#228b22">// Do something
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>});
+&lt;span style="color:#228b22">// Ajax
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>request = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> XMLHttpRequest();
+request.open(&lt;span style="color:#cd5555">&amp;#39;GET&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;simple.wasm&amp;#39;&lt;/span>);
+request.responseType = &lt;span style="color:#cd5555">&amp;#39;arraybuffer&amp;#39;&lt;/span>;
+request.send();
+request.onload = &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> bytes = request.response;
+WebAssembly.instantiate(bytes, importObject).then(results =&amp;gt; {
+&lt;span style="color:#228b22">// Do something
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> });
+};
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="调用-cc-中的方法">调用 &lt;code>C/C++&lt;/code> 中的方法&lt;/h5>
+&lt;p>以上只是通过 Fetch API 获取 wasm 文件的方法，想要在 JS 中调用 C 文件里面的方法，我们需要重新打包下&lt;code>factorial.c&lt;/code>源文件&lt;/p>
+&lt;blockquote>
+&lt;p>emcc factorial.c -o3 -s WASM=1 -s ONLY_MY_CODE=1 -s EXPORTED_FUNCTIONS=&amp;rdquo;['_factorial&amp;rsquo;]&amp;rdquo; -o factorial.js&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>-s ONLY_MY_CODE=1 仅仅打包源文件的代码，阻止包含部分 Emscripten 的标准库&lt;/li>
+&lt;li>-s EXPORTED_FUNCTIONS=&amp;rdquo;['_factorial&amp;rsquo;]&amp;rdquo; 指定导出方法（注意：这里的方法名称不加下划线会报错）&lt;/li>
+&lt;/ul>
+&lt;p>与上面的打包示例一样， 执行完命令会生成对应的&lt;code>factorial.wasm&lt;/code>和&lt;code>factorial.js&lt;/code>文件，这里我们只需要 wasm 文件即可。JS 端完整的调用代码：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">// 内存管理
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> memory = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> WebAssembly.Memory({ initial: &lt;span style="color:#b452cd">256&lt;/span>, maximum: &lt;span style="color:#b452cd">256&lt;/span> });
+&lt;span style="color:#228b22">// WebAssembly实例对象的环境配置
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> importObj = {
+&lt;span style="color:#cd5555">&amp;#39;global&amp;#39;&lt;/span>: {},
+env: {
+abortStackOverflow: () =&amp;gt; { &lt;span style="color:#8b008b;font-weight:bold">throw&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> &lt;span style="color:#658b00">Error&lt;/span>(&lt;span style="color:#cd5555">&amp;#39;overflow&amp;#39;&lt;/span>); },
+table: &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> WebAssembly.Table({ initial: &lt;span style="color:#b452cd">0&lt;/span>, maximum: &lt;span style="color:#b452cd">0&lt;/span>, element: &lt;span style="color:#cd5555">&amp;#39;anyfunc&amp;#39;&lt;/span> }),
+tableBase: &lt;span style="color:#b452cd">0&lt;/span>,
+memory: memory,
+memoryBase: &lt;span style="color:#b452cd">1024&lt;/span>,
+STACKTOP: &lt;span style="color:#b452cd">0&lt;/span>,
+STACK_MAX: memory.buffer.byteLength,
+}
+};
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> CModule;
+fetch(&lt;span style="color:#cd5555">&amp;#39;factorial.wasm&amp;#39;&lt;/span>, { credentials: &lt;span style="color:#cd5555">&amp;#39;same-origin&amp;#39;&lt;/span> }).then(res =&amp;gt; {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> res.arrayBuffer()
+}).then(bytes =&amp;gt; {
+console.log(&lt;span style="color:#cd5555">&amp;#39;bytes:&amp;#39;&lt;/span>, bytes)
+&lt;span style="color:#228b22">// 利用WebAssembly.instantiate接口将wasm模块的方法与importObject进行映射
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> WebAssembly.instantiate(bytes, importObj)
+}).then(obj =&amp;gt; {
+console.log(&lt;span style="color:#cd5555">&amp;#39;obj:&amp;#39;&lt;/span>, obj)
+&lt;span style="color:#228b22">// 执行调用factorial
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> CModule = obj.instance.exports;
+})
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> factorial() {
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> num = &lt;span style="color:#658b00">document&lt;/span>.getElementById(&lt;span style="color:#cd5555">&amp;#39;Input&amp;#39;&lt;/span>).value;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> val = CModule._factorial(num)
+&lt;span style="color:#658b00">document&lt;/span>.getElementById(&lt;span style="color:#cd5555">&amp;#39;Dispaly&amp;#39;&lt;/span>).innerHTML = &lt;span style="color:#cd5555">`结果：&lt;/span>&lt;span style="color:#cd5555">${&lt;/span>val&lt;span style="color:#cd5555">}&lt;/span>&lt;span style="color:#cd5555">`&lt;/span>;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>html 部分代码：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span> &lt;span style="color:#658b00">style&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;width: 200px; margin: auto; margin-top: 20px;&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">h2&lt;/span>&amp;gt;阶乘计算&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">h2&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">input&lt;/span> &lt;span style="color:#658b00">type&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;number&amp;#34;&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;Input&amp;#34;&lt;/span>/&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">p&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;Dispaly&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">p&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">button&lt;/span> &lt;span style="color:#658b00">onclick&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;factorial()&amp;#34;&lt;/span>&amp;gt;计算&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">button&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span>&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="以上完整的代码示例请看httpsgithubcomwewoorwasm-labtreemasterexample-1">以上完整的代码示例：&lt;a href="https://github.com/wewoor/wasm-lab/tree/master/example-1">请看&lt;/a>&lt;/h5>
+&lt;h4 id="其他编写-wasm-的方法">其他编写 &lt;code>wasm&lt;/code> 的方法&lt;/h4>
+&lt;p>如果你实在不想用 C/C++来编写的话，实际上目前有多种编写 wasm 的方案，可以配合 Webpack 一起使用。目前我收集了一些方式：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/DenisKolodin/yew">Rust&lt;/a>（Yew）
+Yew is a modern Rust framework inspired by Elm and ReactJS.&lt;/li>
+&lt;li>&lt;a href="https://github.com/AssemblyScript/prototype">AssemblyScript - Typescript&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/ballercat/walt">Walt - JavaScript-like syntax&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>其中&lt;a href="https://github.com/DenisKolodin/yew">Yew&lt;/a>支持在 Rust 代码中直接编写 HTML 标签，官方示例的代码是这样的：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">html! {
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">section&lt;/span> &lt;span style="color:#658b00">class&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;todoapp&amp;#34;&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">header&lt;/span> &lt;span style="color:#658b00">class&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;header&amp;#34;&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">h1&lt;/span>&amp;gt;{ &amp;#34;todos&amp;#34; }&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">h1&lt;/span>&amp;gt;
+{ view_input(&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;amp;&lt;/span>model) }
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">header&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">section&lt;/span> &lt;span style="color:#658b00">class&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;main&amp;#34;&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">input&lt;/span> &lt;span style="color:#658b00">class&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;toggle-all&amp;#34;&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span>
+&lt;span style="color:#658b00">type&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;checkbox&amp;#34;&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span>
+&lt;span style="color:#658b00">checked&lt;/span>=&lt;span style="color:#cd5555">model.is_all_completed(),&lt;/span>
+&lt;span style="color:#658b00">onclick&lt;/span>=&lt;span style="color:#cd5555">|_|&lt;/span> &lt;span style="color:#658b00">Msg::ToggleAll&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span> /&amp;gt;
+{ view_entries(&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;amp;&lt;/span>model) }
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">section&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">section&lt;/span>&amp;gt;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>更多的用法可以去&lt;code>Yew&lt;/code>项目&lt;a href="https://github.com/DenisKolodin/yew">首页&lt;/a>看看。&lt;/p>
+&lt;h4 id="能用-javascript-打包成-wasm-吗">能用 Javascript 打包成 wasm 吗&lt;/h4>
+&lt;p>相信很多人看到这里会问，作为一个主要开发语言是 Javascript 的开发者，当然希望通过一种语言就能完成开发工作，而且
+既然 Javascript 代码最后转换为机器码，中间有那么多步骤，现在开发大部分都是用 Webpack 打包，何不写个编译器，直接把 JS 打包编译成 wasm 不就好了？&lt;/p>
+&lt;p>理论上当然是可以的，所以才有上面列举的类 JS 语法的编译器&lt;a href="https://github.com/ballercat/walt">Walt - JavaScript-like syntax&lt;/a>, 但是如果说想要完全使用 wasm 替代现有的 Javascript，目前来讲不现实，也没什么意义。首先 wasm 的设计目标并非是取代 Javascript，在刚才我们实现 C/C++ 的例子中我们可以体会到，整个使用过程的成本是相当之高的。Javascript 本身是动态脚本语言，在我们使用 Webpack + Babel 编译 JS 之前，简单的 Web 使用 JS 开发交互是十分简单的，不需要所谓的全家桶(Webpack + ReactJS + Redux)， 只需要一个 jQuery , 或者原生 JS 就可以轻松完成，这无疑对开发者而言是成本更小的选择，并且像需要大量交互操作 HTML DOM 的这种事情，显然 JS 会更顺手一些。而正如我们在上面的介绍中介绍 asm.js 一样，wasm 提前编译和优化代码，并直接生成更小的二进制文件，实则在追寻更极致的性能，而这些性能好像更多是那些需要大量计算的游戏，和复杂的 Web 应用而需要的。所以实际上二者更多的是在形成一种互补关系。&lt;/p>
+&lt;p>另外，我们可以看看官方针对这个问题的 Issue &lt;a href="https://github.com/WebAssembly/design/issues/219">Will there be a JS -&amp;gt; WASM compiler&lt;/a>。&lt;/p>
+&lt;h4 id="总结">总结&lt;/h4>
+&lt;p>2017 年 3 月份，WebAssembly 社区小组成员的四大代表（ Chrome, Edge, Firefox, and WebKit）对 WebAssembly API 已经达成基本的共识，表示未来的主流浏览器默认都会支持 wasm 。需要搞清楚的是 wasm 技术并非是为了替代现有 Javascript 而出现的一种技术，而是为了填补 JS 本身的一些不足。例如需要大量 GPU, CPU 计算的游戏或者算法，但是对于需要大量 DOM 交互，常规的 Web 应用而言，Javascript 仍然是不不可替代的。&lt;/p>
+&lt;h4 id="参考">参考&lt;/h4>
+&lt;ul>
+&lt;li>&lt;a href="https://developer.mozilla.org/zh-CN/docs/WebAssembly">MDN&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://zh.wikipedia.org/wiki/Asm.js">Wikipedia asm.js&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://codelabs.developers.google.com/codelabs/web-assembly-intro/index.html?index=..%2F..%2Findex#0">Web-assembly-intro&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://blog.sessionstack.com/how-javascript-works-a-comparison-with-webassembly-why-in-certain-cases-its-better-to-use-it-d80945172d79">How JavaScript works: A comparison with WebAssembly + why in certain cases it’s better to use it over JavaScript&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/WebAssembly/binaryen/issues/670">WasmModule Instantiate&lt;/a>&lt;/li>
+&lt;/ul>
+- //imziv.com/posts/2018/webassembly-%E6%8A%80%E6%9C%AF%E7%9A%84%E6%8E%A2%E7%B4%A2%E4%B8%8E%E5%AE%9E%E8%B7%B5/ - 2012-2020 Ziv小威</description></item><item><title>2017 年小结</title><link>//imziv.com/posts/2018/2017%E5%B9%B4%E5%B0%8F%E7%BB%93/</link><pubDate>Mon, 01 Jan 2018 23:58:20 +0000</pubDate><guid>//imziv.com/posts/2018/2017%E5%B9%B4%E5%B0%8F%E7%BB%93/</guid><description>让美的事情发生 //imziv.com/posts/2018/2017%E5%B9%B4%E5%B0%8F%E7%BB%93/ -&lt;p>前几天大家都在晒 18 岁的照片，感慨时间这把杀猪刀，因为最早的一波 90 后已经快 30，而最后一波 90 后也依然成年了。跟大家一样，对 2017 的感觉就是：快、快、快，而这种感觉以后应该会更加强烈。&lt;/p>
+&lt;p>我依然十分推崇用文字的方式记录生活、工作、学习，但是 17 年这方面我做的并不好。原因大致就是自控力下降了，自己很明显的能感受到，体现在例如我 16 年坚持了一年的阅读习惯 17 年基本残废，还有就是身上越来越多的赘肉，让我难免想到“油腻”这个词 0.0。工作上效率其实还是可以的，但是未来除了“效率”，还是需要注重下“效果”的。&lt;/p>
+&lt;p>翻过以前 QQ 或者博客上写过的东西，忽然发现当时自己的想法很幼稚，觉得怎么会是自己说过这样的话，如今我还是比较看开了这种思维。人的想法一直是在不断变化和修正的，跟一个系统一样，在不断进化，重构，完善，这是必经过程。所以以后也不会排斥各种记录方式。17 年我尝试了一种新的记录方式，利用微信给自己与自己进行了一些对话，当然还有一些看到喜欢的东西给记录了下来。截了图，做个记录：&lt;/p>
+&lt;p>&lt;img src="https://thumbnail0.baidupcs.com/thumbnail/dc484e0625e097ea5fdff31a9f0bfe86?fid=2081318732-250528-875309725440727&amp;amp;time=1514818800&amp;amp;rt=sh&amp;amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-w2y6UuFWz9oIyNg9sBd4UNjONnA%3D&amp;amp;expires=8h&amp;amp;chkv=0&amp;amp;chkbd=0&amp;amp;chkpc=&amp;amp;dp-logid=22982349678306057&amp;amp;dp-callid=0&amp;amp;size=c710_u400&amp;amp;quality=100&amp;amp;vuk=-&amp;amp;ft=video" alt="image-1">&lt;/p>
+&lt;p>&lt;img src="https://thumbnail0.baidupcs.com/thumbnail/a19d8b6697082bf382af2427c299f92e?fid=2081318732-250528-925578012829805&amp;amp;time=1514818800&amp;amp;rt=sh&amp;amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-GfoG9RYFoy4CA6VtgfVtbHQr4GI=&amp;amp;expires=8h&amp;amp;chkv=0&amp;amp;chkbd=0&amp;amp;chkpc=&amp;amp;dp-logid=23027839594498417&amp;amp;dp-callid=0&amp;amp;size=c710_u400&amp;amp;quality=100&amp;amp;vuk=-&amp;amp;ft=video" alt="https://thumbnail0.baidupcs.com/thumbnail/a19d8b6697082bf382af2427c299f92e?fid=2081318732-250528-925578012829805&amp;time=1514818800&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-GfoG9RYFoy4CA6VtgfVtbHQr4GI%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=23027839594498417&amp;dp-callid=0&amp;size=c710\_u400&amp;quality=100&amp;vuk=-&amp;ft=video">&lt;/p>
+&lt;p>&lt;img src="https://thumbnail0.baidupcs.com/thumbnail/f95783aa8cdfa47e7a33efeaa3e982f5?fid=2081318732-250528-350941384596408&amp;amp;time=1514818800&amp;amp;rt=sh&amp;amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-E/jYBOOvuOetpd6rMcEy6LS8DNE=&amp;amp;expires=8h&amp;amp;chkv=0&amp;amp;chkbd=0&amp;amp;chkpc=&amp;amp;dp-logid=23039237604675014&amp;amp;dp-callid=0&amp;amp;size=c710_u400&amp;amp;quality=100&amp;amp;vuk=-&amp;amp;ft=video" alt="https://thumbnail0.baidupcs.com/thumbnail/f95783aa8cdfa47e7a33efeaa3e982f5?fid=2081318732-250528-350941384596408&amp;time=1514818800&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-E%2FjYBOOvuOetpd6rMcEy6LS8DNE%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=23039237604675014&amp;dp-callid=0&amp;size=c710\_u400&amp;quality=100&amp;vuk=-&amp;ft=video">&lt;/p>
+&lt;p>&lt;img src="https://thumbnail0.baidupcs.com/thumbnail/496f8b1db856e7f1e4990d663a1901ec?fid=2081318732-250528-182050408983898&amp;amp;time=1514818800&amp;amp;rt=sh&amp;amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-2gJdM6SiV5Z+fkFQtWyBRykP3iU=&amp;amp;expires=8h&amp;amp;chkv=0&amp;amp;chkbd=0&amp;amp;chkpc=&amp;amp;dp-logid=23048721428210235&amp;amp;dp-callid=0&amp;amp;size=c710_u400&amp;amp;quality=100&amp;amp;vuk=-&amp;amp;ft=video" alt="https://thumbnail0.baidupcs.com/thumbnail/496f8b1db856e7f1e4990d663a1901ec?fid=2081318732-250528-182050408983898&amp;time=1514818800&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-2gJdM6SiV5Z%2BfkFQtWyBRykP3iU%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=23048721428210235&amp;dp-callid=0&amp;size=c710\_u400&amp;quality=100&amp;vuk=-&amp;ft=video">&lt;/p>
+&lt;p>&lt;img src="https://thumbnail0.baidupcs.com/thumbnail/b7613c32a4ef94e836299913c77f7562?fid=2081318732-250528-275246927657202&amp;amp;time=1514818800&amp;amp;rt=sh&amp;amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-KKipoF/n1FeqKBt3PB96W5Z0GBs=&amp;amp;expires=8h&amp;amp;chkv=0&amp;amp;chkbd=0&amp;amp;chkpc=&amp;amp;dp-logid=23056186890618605&amp;amp;dp-callid=0&amp;amp;size=c710_u400&amp;amp;quality=100&amp;amp;vuk=-&amp;amp;ft=video" alt="https://thumbnail0.baidupcs.com/thumbnail/b7613c32a4ef94e836299913c77f7562?fid=2081318732-250528-275246927657202&amp;time=1514818800&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-KKipoF%2Fn1FeqKBt3PB96W5Z0GBs%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=23056186890618605&amp;dp-callid=0&amp;size=c710\_u400&amp;quality=100&amp;vuk=-&amp;ft=video">&lt;/p>
+&lt;p>&lt;img src="https://thumbnail0.baidupcs.com/thumbnail/09a11651772c464e194f3edaadd3b5e2?fid=2081318732-250528-775976235776929&amp;amp;time=1514818800&amp;amp;rt=sh&amp;amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-V+OufuVNyLRWmtGME8/P+cP0YNo=&amp;amp;expires=8h&amp;amp;chkv=0&amp;amp;chkbd=0&amp;amp;chkpc=&amp;amp;dp-logid=23070180082945850&amp;amp;dp-callid=0&amp;amp;size=c710_u400&amp;amp;quality=100&amp;amp;vuk=-&amp;amp;ft=video" alt="https://thumbnail0.baidupcs.com/thumbnail/09a11651772c464e194f3edaadd3b5e2?fid=2081318732-250528-775976235776929&amp;time=1514818800&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-V%2BOufuVNyLRWmtGME8%2FP%2BcP0YNo%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=23070180082945850&amp;dp-callid=0&amp;size=c710\_u400&amp;quality=100&amp;vuk=-&amp;ft=video">&lt;/p>
+&lt;p>&lt;img src="https://thumbnail0.baidupcs.com/thumbnail/04a36c099e29ae90566f51347056a252?fid=2081318732-250528-256929468137175&amp;amp;time=1514818800&amp;amp;rt=sh&amp;amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-K2UPhWJygIAsNXEfQ4jl9mfxhoE=&amp;amp;expires=8h&amp;amp;chkv=0&amp;amp;chkbd=0&amp;amp;chkpc=&amp;amp;dp-logid=23077802095624212&amp;amp;dp-callid=0&amp;amp;size=c710_u400&amp;amp;quality=100&amp;amp;vuk=-&amp;amp;ft=video" alt="https://thumbnail0.baidupcs.com/thumbnail/04a36c099e29ae90566f51347056a252?fid=2081318732-250528-256929468137175&amp;time=1514818800&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-K2UPhWJygIAsNXEfQ4jl9mfxhoE%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=23077802095624212&amp;dp-callid=0&amp;size=c710\_u400&amp;quality=100&amp;vuk=-&amp;ft=video">&lt;/p>
+&lt;p>&lt;img src="https://thumbnail0.baidupcs.com/thumbnail/daaa621729d7314a49654762f318d429?fid=2081318732-250528-30635522220325&amp;amp;time=1514818800&amp;amp;rt=sh&amp;amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-Izm9fVUzIIegleRG0UP1rkA3c/c=&amp;amp;expires=8h&amp;amp;chkv=0&amp;amp;chkbd=0&amp;amp;chkpc=&amp;amp;dp-logid=23086226421883424&amp;amp;dp-callid=0&amp;amp;size=c710_u400&amp;amp;quality=100&amp;amp;vuk=-&amp;amp;ft=video" alt="https://thumbnail0.baidupcs.com/thumbnail/daaa621729d7314a49654762f318d429?fid=2081318732-250528-30635522220325&amp;time=1514818800&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-Izm9fVUzIIegleRG0UP1rkA3c%2Fc%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=23086226421883424&amp;dp-callid=0&amp;size=c710\_u400&amp;quality=100&amp;vuk=-&amp;ft=video">&lt;/p>
+&lt;p>&lt;img src="https://thumbnail0.baidupcs.com/thumbnail/c9c687ea62cb783b9d10f682eadcc93d?fid=2081318732-250528-726892757476553&amp;amp;time=1514818800&amp;amp;rt=sh&amp;amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-yxhIhws1gvh2345WG46wwiXOJpg=&amp;amp;expires=8h&amp;amp;chkv=0&amp;amp;chkbd=0&amp;amp;chkpc=&amp;amp;dp-logid=23111871594009368&amp;amp;dp-callid=0&amp;amp;size=c710_u400&amp;amp;quality=100&amp;amp;vuk=-&amp;amp;ft=video" alt="https://thumbnail0.baidupcs.com/thumbnail/c9c687ea62cb783b9d10f682eadcc93d?fid=2081318732-250528-726892757476553&amp;time=1514818800&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-yxhIhws1gvh2345WG46wwiXOJpg%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=23111871594009368&amp;dp-callid=0&amp;size=c710\_u400&amp;quality=100&amp;vuk=-&amp;ft=video">&lt;/p>
+&lt;h3 id="2018-年">2018 年&lt;/h3>
+&lt;p>18 年我没有太多的期待，有一件事比较重要，就是治疗“拖延症”。过去一年里，我一直被这个词在缠绕，尤其是在生活里，很多事情我都是一拖再拖，能拖接着托。今年希望通过提升自控力来克服，可能需要些新的尝试。&lt;/p>
+&lt;p>最后，看到这篇文章的朋友，希望 2018 能如你所愿~&lt;/p>
+- //imziv.com/posts/2018/2017%E5%B9%B4%E5%B0%8F%E7%BB%93/ - 2012-2020 Ziv小威</description></item><item><title>Decorator 简介及实战</title><link>//imziv.com/posts/2017/decorator-%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%AE%9E%E6%88%98/</link><pubDate>Sun, 05 Nov 2017 14:36:35 +0000</pubDate><guid>//imziv.com/posts/2017/decorator-%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%AE%9E%E6%88%98/</guid><description>让美的事情发生 //imziv.com/posts/2017/decorator-%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%AE%9E%E6%88%98/ -&lt;h3 id="前言">前言&lt;/h3>
+&lt;p>用过 Java 的朋友都知道，装饰器（Decorator)是一种十分非常方便改变类运行是行为的一种方式，例如在 Spring 框架中我们用到比较多的注解（@Autowired), 通过它可以自动实例化对象，从而可以精简代码。装饰器是典型的 AOP(Aspect-Oriented-Programming) 编程的应用，类似的 CSS 对于 HTML 的样式也是类似于这种思想，即从切面来改变和影响主对象的行为。&lt;/p>
+&lt;h3 id="decorator-简介">Decorator 简介&lt;/h3>
+&lt;p>Decorator 是一种通过注解表达式就可以扩展类或者方法的函数。Decorator 可以应用到任何一个 class 或者 property 上。列如:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#a61717;background-color:#e3d2d2">@&lt;/span>myDecorator &lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> A {} &lt;span style="color:#228b22">// 作用class
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>
+&lt;span style="color:#a61717;background-color:#e3d2d2">@&lt;/span>myDecorator
+doSomething() {} &lt;span style="color:#228b22">// 作用表达式
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Javascript Decorator 目前任然是 ES7 提案状态，更多该特性的进度可以访问&lt;a href="https://github.com/tc39/proposal-decorators">proposal-decorators&lt;/a>查看。&lt;/p>
+&lt;h3 id="decorator-原理">Decorator 原理&lt;/h3>
+&lt;p>说到更改对象的属性或者方法，大家肯定会想到&lt;code>Object.defineProperty(obj, prop, descriptor)&lt;/code>方法，通过该方法，我们可以轻易的修改或者重写对象的行为或者属性，之前 Vue 中提到的双向绑定，即是通过重写&lt;code>set&lt;/code>和&lt;code>get&lt;/code>方法来实现的。所以在我们还未正式用上 Decorator 前，都是通过 Object.defineProperty 方法来实现。先来简单的认识下这个方法：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22">* obj : 需要修改属性的对象
+&lt;/span>&lt;span style="color:#228b22">* prop : 需要修改对象的属性名称
+&lt;/span>&lt;span style="color:#228b22">* descriptor: 用来定义属性具体行为的描述对象
+&lt;/span>&lt;span style="color:#228b22">**/&lt;/span>
+&lt;span style="color:#658b00">Object&lt;/span>.defineProperty(obj, prop, descriptor)
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="descriptor-属性说明">descriptor 属性说明&lt;/h5>
+&lt;ul>
+&lt;li>
+&lt;p>configurable : 定义属性对象是否可以被配置，即如果为 false ，定义修改的描述操作（writeable, get 等等）都无效&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>enumerable : 是否可以通过 for-in 来遍历，或者 Object.keys 列举&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>value : 定义对象 value 属性的值，value 可以是 number, object, function 等等&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>writable: 定义 value 值是否可以被重写&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>get: 一个访问 value 属性时会触发的 function 对象&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>set: 一个设置 value 属性时会触发的 function 对象&lt;/p>
+&lt;p>​&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>修改一个属性为只读（readonly)&lt;/p>
+&lt;p>了解 Object.defineProperty 的基本语法后，我通过它先简单实现一个 readonly 实例。具体代码如下：&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;h3 id="decorator-的基本语法与使用">Decorator 的基本语法与使用&lt;/h3>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span> 定义
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> myDecoration(target, name, descriptor) {}
+&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span> 对property使用
+&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> A {
+&lt;span style="color:#a61717;background-color:#e3d2d2">@&lt;/span>myDecorator
+test() {}
+}
+&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span> 对class使用
+&lt;span style="color:#a61717;background-color:#e3d2d2">@&lt;/span>myDecorator
+&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> A {}
+&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span> 带参数
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> myDescorator(a) {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> (target, name, descriptor) {
+console.llog(&lt;span style="color:#cd5555">&amp;#39;params:&amp;#39;&lt;/span>, a)
+}
+}
+&lt;span style="color:#a61717;background-color:#e3d2d2">@&lt;/span>myDescorator(a)
+&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> A {}
+&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span> 时使用多个装饰器&lt;span style="color:#a61717;background-color:#e3d2d2">（&lt;/span>Decorator)
+&lt;span style="color:#a61717;background-color:#e3d2d2">@&lt;/span>myDecorator1
+&lt;span style="color:#a61717;background-color:#e3d2d2">@&lt;/span>myDecorator2
+&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> A {}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="利用-decorator-语法糖修改一个属性为只读readonly">利用 Decorator 语法糖修改一个属性为只读（readonly)&lt;/h5>
+&lt;!-- raw HTML omitted -->
+&lt;h3 id="利用-decorator-给-react-组件封装-purerender">利用 Decorator 给 React 组件封装 PureRender&lt;/h3>
+&lt;p>我们都知道，在 React 生命周期里有一个&lt;code>shouldComponentUpdate&lt;/code>方法，该方法通过返回&lt;code>ture&lt;/code> 或者 &lt;code>false&lt;/code> 来确定组件是否重新 render 组件。也就是说，通过该方法我们可以过滤掉些无效的数据渲染事件，从而提升性能。例如我们针对 props 传递过来的数据对象进行对比，如果 props 对象的属性以及值并未变更的情况下，则无需执行 render 方法。&lt;/p>
+&lt;p>显然通过对比 props 下数据对象的属性与值是否变更，这种逻辑是可以复用的，而不是在单独的在每个组件中去在重复的写&lt;code>shouldComponentUpdate&lt;/code>方法。说到改变组件对象的方法行为，这里我们显然就可以使用
+Decorator 来这个特性来做了，即我们对应用 Decorator 对象的 &lt;code>shouldComponentUpdate&lt;/code> 进行重写。通过遍历 props 对象的属性和值，并与老 props 的属性与值进行对比，从而确定是否需要重新渲染。具体代码如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> isEqual(a, b) {
+&lt;span style="color:#8b008b;font-weight:bold">for&lt;/span> (&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> key &lt;span style="color:#8b008b;font-weight:bold">in&lt;/span> a) {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> ({}.hasOwnProperty.call(a, key) &amp;amp;&amp;amp;
+(!{}.hasOwnProperty.call(b, key) || a[key] !== b[key])) {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">false&lt;/span>;
+}
+}
+&lt;span style="color:#8b008b;font-weight:bold">for&lt;/span> (&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> key &lt;span style="color:#8b008b;font-weight:bold">in&lt;/span> b) {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> ({}.hasOwnProperty.call(b, key) &amp;amp;&amp;amp; !{}.hasOwnProperty.call(a, key)) {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">false&lt;/span>;
+}
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">true&lt;/span>;
+}
+&lt;span style="color:#8b008b;font-weight:bold">export&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">default&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> pureRender(targetComponent) {
+targetComponent.prototype.shouldComponentUpdate = &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> (props, state) {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> !isEqual(&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.state, state) || !isEqual(&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.props, props)
+}
+}
+&lt;span style="color:#228b22">// 使用
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">@&lt;/span>pureRender
+&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> ComponentA &lt;span style="color:#8b008b;font-weight:bold">extends&lt;/span> React.Component {}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="通过-babel-使用-decorator">通过 Babel 使用 Decorator&lt;/h3>
+&lt;p>由于 Decorator 是 ES7 中的草案，所以现在需要通过 Bable 才能使用。使用方法如下：&lt;/p>
+&lt;h4 id="安装">安装&lt;/h4>
+&lt;blockquote>
+&lt;p>npm install &amp;ndash;save-dev babel-plugin-transform-decorators&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="使用">使用&lt;/h4>
+&lt;p>&lt;!-- raw HTML omitted -->方法一、 通过配置.babelrc&lt;!-- raw HTML omitted -->&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">{
+&lt;span style="color:#cd5555">&amp;#34;plugins&amp;#34;&lt;/span>: [&lt;span style="color:#cd5555">&amp;#34;transform-decorators&amp;#34;&lt;/span>]
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;!-- raw HTML omitted -->方法二、通过 CLI&lt;!-- raw HTML omitted -->&lt;/p>
+&lt;blockquote>
+&lt;p>babel &amp;ndash;plugins transform-decorators script.js&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;!-- raw HTML omitted -->方法三、通过 Node API&lt;!-- raw HTML omitted -->&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">require(&lt;span style="color:#cd5555">&amp;#34;babel-core&amp;#34;&lt;/span>).transform(&lt;span style="color:#cd5555">&amp;#34;code&amp;#34;&lt;/span>, {
+plugins: [&lt;span style="color:#cd5555">&amp;#34;transform-decorators&amp;#34;&lt;/span>]
+});
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="总结">总结&lt;/h3>
+&lt;p>通过 Decorator 这种不需要直接在对象或者方法中编写额外逻辑的方式，就可以轻易的扩展对象或者方法的能力，既满足了功能需求，也精简了代码，保证了代码的可维护性，例如我们已经常见的@log, @test, @mixin 等等工具类。所以，以后的工作中可以多多尝试。&lt;/p>
+&lt;h4 id="原文地址httpimzivcomblogarticlereadhtmid84httpimzivcomblogarticlereadhtmid84">原文地址：&lt;a href="http://imziv.com/blog/article/read.htm?id=84">http://imziv.com/blog/article/read.htm?id=84&lt;/a>&lt;/h4>
+&lt;h3 id="参考">参考&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="http://www.cnblogs.com/whitewolf/p/details-of-ES7-JavaScript-Decorators.html">细说 ES7 JavaScript Decorators&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://tc39.github.io/proposal-decorators/">Decorator specification&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841">Exploring EcmaScript Decorators&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">Object.defineProperty&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy">Babel Legacy Decorator plugin&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/jayphelps/core-decorators">core-decorators&lt;/a>&lt;/li>
+&lt;/ul>
+- //imziv.com/posts/2017/decorator-%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%AE%9E%E6%88%98/ - 2012-2020 Ziv小威</description></item><item><title>我用 Express.js 封装了一个服务器容器小工具</title><link>//imziv.com/posts/2017/%E6%88%91%E7%94%A8express.js%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%B9%E5%99%A8%E5%B0%8F%E5%B7%A5%E5%85%B7/</link><pubDate>Tue, 28 Feb 2017 17:35:09 +0000</pubDate><guid>//imziv.com/posts/2017/%E6%88%91%E7%94%A8express.js%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%B9%E5%99%A8%E5%B0%8F%E5%B7%A5%E5%85%B7/</guid><description>让美的事情发生 //imziv.com/posts/2017/%E6%88%91%E7%94%A8express.js%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%B9%E5%99%A8%E5%B0%8F%E5%B7%A5%E5%85%B7/ -&lt;h1 id="背景">背景&lt;/h1>
+&lt;p>我们都知道利用 Node.js 可以非常轻易的就编写一个 Web Server。在没有利用集成 Gulp, Webpack，Web Server 等等脚手架工具前，在做一些简单的 Web 应用的时候，我通常的做法是：用 Express.js 封装好一个 Server.js 文件集成到项目中去，以便于开发和测试。例如通过二维码扫描 Chrome 的开发程序到手机端测试，例如需要跨域调用远程服务器 API, 例如 Ajax 异步加载，等等。当然，偶尔也会用用 Nginx 做测试开发环境，但是 Nginx 这玩意还是感觉太重，并且项目组的有些同学觉得安装麻烦，配置复杂，不易上手。&lt;/p>
+&lt;p>由于我们经常会收到一些活动页面，或者很少页面的开发需求，移动端，PC 端都有，所以如果每次都大张旗鼓的上脚手架，全家桶实在上有点杀鸡用牛刀的感觉。一堆依赖，每次重复的安装，很占用硬盘空间。正因如此，我便希望把现有的基于 Express.js 的 server 给封装成全局的程序，每次在这些小项目需要的时候，直接一个简单的命令行就可以进行开发和测试，要安装简单，轻便，配置简单。于是这个叫&lt;a href="https://github.com/wewoor/cup">&lt;code>cup&lt;/code>&lt;/a>的工具就诞生了。&lt;/p>
+&lt;h1 id="特点">特点&lt;/h1>
+&lt;ol>
+&lt;li>随时随地针对项目目录开启 Server 服务&lt;/li>
+&lt;li>全局安装，简单的 CLI&lt;/li>
+&lt;li>支持自定义服务器端口&lt;/li>
+&lt;li>支持远程服务器代理（Proxy)&lt;/li>
+&lt;/ol>
+&lt;h1 id="基本使用">基本使用&lt;/h1>
+&lt;h4 id="安装">安装&lt;/h4>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">npm install -g mini-cup
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="示例">示例&lt;/h4>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain">| - test
+| - css
+| - styles
+| - index.html
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>例如当你有个项目简单到只有以上一些文件和文件夹时，需要添加 server 容器来调试开发，你只需要在控制台切换到&lt;code>test&lt;/code>项目所在目录，运行：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">cup run &lt;span style="color:#658b00">test&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>cup&lt;/code>默认开启的服务器端口是&lt;code>3000&lt;/code>，如果端口占用，或者需要指定其他端口的情况下，则可以通过如下命令：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">cup run &lt;span style="color:#658b00">test&lt;/span> -p &lt;span style="color:#b452cd">8080&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过选项参数&lt;code>-p&lt;/code>指定端口为&lt;code>8080&lt;/code>&lt;/p>
+&lt;h4 id="其他">其他&lt;/h4>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">cup // 默认为命令行当前目录添加server服务
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="使用自定义配置文件">使用自定义配置文件&lt;/h1>
+&lt;p>当我们的项目中需要跨域调用远程接口时，我们可以给项目添加一个名叫&lt;code>config.cup.json&lt;/code>的简单&lt;code>JSON&lt;/code>配置文件，指定服务器地址和代理地址，然后运行命令行即可，如下：&lt;/p>
+&lt;h4 id="项目目录">项目目录&lt;/h4>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain">| - test
+| - css
+| - styles
+| - index.html
+| - config.cup.json
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="configcupjson-配置">config.cup.json 配置&lt;/h4>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#8b008b;font-weight:bold">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#cd5555">&amp;#34;test&amp;#34;&lt;/span>,
+&lt;span style="color:#8b008b;font-weight:bold">&amp;#34;listen&amp;#34;&lt;/span>: &lt;span style="color:#b452cd">8080&lt;/span>,
+&lt;span style="color:#8b008b;font-weight:bold">&amp;#34;root&amp;#34;&lt;/span>: &lt;span style="color:#cd5555">&amp;#34;./&amp;#34;&lt;/span>,
+&lt;span style="color:#8b008b;font-weight:bold">&amp;#34;location&amp;#34;&lt;/span>: {
+&lt;span style="color:#8b008b;font-weight:bold">&amp;#34;/test/*&amp;#34;&lt;/span>: &lt;span style="color:#cd5555">&amp;#34;./index.html&amp;#34;&lt;/span>,
+&lt;span style="color:#8b008b;font-weight:bold">&amp;#34;/login&amp;#34;&lt;/span>: &lt;span style="color:#cd5555">&amp;#34;./index.html&amp;#34;&lt;/span>
+},
+&lt;span style="color:#8b008b;font-weight:bold">&amp;#34;proxyTable&amp;#34;&lt;/span>: {
+&lt;span style="color:#8b008b;font-weight:bold">&amp;#34;/api&amp;#34;&lt;/span>: {
+&lt;span style="color:#8b008b;font-weight:bold">&amp;#34;target&amp;#34;&lt;/span>: &lt;span style="color:#cd5555">&amp;#34;http://test.api.com&amp;#34;&lt;/span>,
+&lt;span style="color:#8b008b;font-weight:bold">&amp;#34;changeOrigin&amp;#34;&lt;/span>: &lt;span style="color:#8b008b;font-weight:bold">true&lt;/span>
+}
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="参数说明">参数说明&lt;/h4>
+&lt;ul>
+&lt;li>name - 项目名称&lt;/li>
+&lt;li>listen - 监听端口&lt;/li>
+&lt;li>root - 根目录&lt;/li>
+&lt;li>location - 指定请求路径返回到指定页面&lt;/li>
+&lt;li>proxyTable - 代理设置&lt;/li>
+&lt;/ul>
+&lt;h5 id="location">location&lt;/h5>
+&lt;p>如果你现在正在开发一个单页应用，例如使用了 React.js 和 React-Router 的 browserHistory 技术，发现全局刷新页面，路由无法正确解析到指定页面时，便可以通过设置&lt;code>location&lt;/code>参数，指定请求路由到指定页面即可&lt;/p>
+&lt;h5 id="proxytable">proxyTable&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain">&amp;#34;/api&amp;#34;: { // 代理所有api为根路径的请求地址
+&amp;#34;target&amp;#34;: &amp;#34;http://test.api.com&amp;#34;, // 代理目标服务器地址
+&amp;#34;changeOrigin&amp;#34;: true // 是否改变origin
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="运行">运行&lt;/h4>
+&lt;p>通过添加配置的项目，运行 server 只需要如下命令：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ cup config
+或者
+$ cup -c
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="最后">最后&lt;/h1>
+&lt;p>由于这个小工具是在我现有工作环境下的一个产物，所以使用场景肯定是有限的，我也只是想用它解决些小问题。当然我也知道 Github 上肯定有很多类似的工具，但是我就是不去看！！看了我就不会自己动手了~&lt;/p>
+&lt;p>最后，如果这个小玩意能帮你的话，欢迎交流，使用和 star~&lt;/p>
+&lt;blockquote>
+&lt;p>项目地址：&lt;a href="https://github.com/wewoor/cup">https://github.com/wewoor/cup&lt;/a>&lt;/p>
+&lt;p>原文地址：&lt;a href="http://imziv.com/blog/article/read.htm?id=83">http://imziv.com/blog/article/read.htm?id=83&lt;/a>&lt;/p>
+&lt;/blockquote>
+- //imziv.com/posts/2017/%E6%88%91%E7%94%A8express.js%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%B9%E5%99%A8%E5%B0%8F%E5%B7%A5%E5%85%B7/ - 2012-2020 Ziv小威</description></item><item><title>完整的学习和使用 CSS 动画【翻译】</title><link>//imziv.com/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/</link><pubDate>Sat, 25 Feb 2017 19:30:23 +0000</pubDate><guid>//imziv.com/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/</guid><description>让美的事情发生 //imziv.com/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/ -&lt;p>一直以来，因为团队项目迭代节奏很快，每次发布的更新日志和版本更新都是通过人肉来完成的。有时候实在忙的团团转，对于手动的写这些更新信息就显得力不从心了。对于团队新来的小伙伴，有时候遇到些紧急情况，就更显的乱糟糟，还是得麻烦团队资深的同学。显然这些工作，用自动化工具再适合不过了。&lt;/p>
+&lt;p>本文是一篇项目自动化方面的使用教程，社区里面针对四类问题的解决方案很多，今天这里主要介绍的是 onventional-changelog 方案相关的内容。 如果你正在思考或者试图解决这方面的问题的话，不妨了解一下。&lt;/p>
+&lt;p>conventional-changelog
+conventional-changelog 是一款可以根据项目的 commit 和 metadata 信息自动生成 changelogs 和 release notes 的系列工具，并且在辅助 standard-version 工具的情况下，可以自动帮你完成生成 version、打 tag, 生成 CHANGELOG 等系列过程。&lt;/p>
+&lt;p>conventional-changelog 生态主要模块
+conventional-changelog-cli - conventional-changelog 核心命令行工具
+standard-changelog - 针对 angular commit 格式的命令行工具
+conventional-github-releaser - 利用 git metadata 针对 Github 的发布工具
+conventional-commits-detector - commit message 规范引用检测
+commitizen - 针对开发者简单的 commit 规范
+commitlint - commit Lint 工具
+以上是 onventional-changelog 生态重要的几个主要模块，实际工作中这几个工具常常是配套使用的，当然也需要根据自己的情况而定。篇幅有限，今天我们就主要介绍 commitizen、conventional-changelog-cli 、standard-version 这三工具了。&lt;/p>
+&lt;p>commitizen
+commitizen 是一款标准化 git commit 信息的工具。在没有规范的情况下，开发人员的 commit 信息是常常是随意的，这就导致 commit 信息显的很无用。可是当你在做 git log、code review、编写 changelog 等情况时，良好的 commit 规范就显的尤为重要。&lt;/p>
+&lt;p>commitizen 安装
+$ npm install -g commitizen&lt;/p>
+&lt;h1 id="或者本地安装">或者本地安装&lt;/h1>
+&lt;p>$ npm install &amp;ndash;save-dev commitizen
+安装适配器（Adapter)
+因为不同的项目本身的构建方式的不同，commitizen 支持不同适配器的扩展，从而去满足不同的构建需求的。本文主要使用 cz-conventional-changelog 的构建标准，当然你也可以根据具体的情况选择其他的适配器，更多请看。&lt;/p>
+&lt;p>$ npm install -g cz-conventional-changelog
+全局安装完成后，我们需要在项目根目录下添加 .czrc 配置文件，文件内容如下：&lt;/p>
+&lt;p>// path 用来指定适配器
+{ &amp;ldquo;path&amp;rdquo;: &amp;ldquo;cz-conventional-changelog&amp;rdquo; }
+本地安装
+$ npm install cz-conventional-changelog &amp;ndash;save-dev&lt;/p>
+&lt;h1 id="或者使用-commitizen-工具">或者使用 commitizen 工具&lt;/h1>
+&lt;p>$ commitizen init cz-conventional-changelog &amp;ndash;save-dev &amp;ndash;save-exact
+commitizen 工具会自动在 package.json 中添加配置相应的配置，具体如下：&lt;/p>
+&lt;p>&amp;ldquo;config&amp;rdquo;: {
+&amp;ldquo;commitizen&amp;rdquo;: {
+&amp;ldquo;path&amp;rdquo;: &amp;ldquo;cz-conventional-changelog&amp;rdquo;
+}
+}
+安装并添加完后，我们便可以使用 git cz 命令替换 git commit 来使用了。我们修改一个文件并 git add 后，通过 git cz 试一下：&lt;/p>
+&lt;p>git-cz&lt;/p>
+&lt;p>可以看到，git cz 给出了 commit 的几种类型选项，如下：&lt;/p>
+&lt;p>feat 新功能
+fix Bug 修复
+docs 文档更新
+style 代码的格式，标点符号的更新
+refactor 代码重构
+perf 性能优化
+test 测试更新
+build 构建系统或者包依赖更新
+ci CI 配置，脚本文件等更新
+chore 非 src 或者 测试文件的更新
+revert commit 回退
+使用的时候，我们应该根据项目具体变更情况选择。如果想修改已经打好的 commit 信息，我们可以通过 git reset 命令来修复。&lt;/p>
+&lt;p>需要注意的是，仅仅是添加 commit 工具是不够的，为了保证 commit 格式的一致性，这里强烈建议你记得整合 commitlint 工具, 配合 git commit-msg hook 来使用，在这里就不相信介绍了，具体可以查看官方文档。&lt;/p>
+&lt;p>conventional-changelog-cli
+conventional-changelog-cli 默认推荐的 commit 标准是来自 angular 项目,除了 angular 标准以外，目前集成了包括 atom, codemirror, ember, eslint, express, jquery 等项目的标准，具体可以根据自己口味来选用。&lt;/p>
+&lt;p>安装&lt;/p>
+&lt;h1 id="help-conventional-changelog---help">Help conventional-changelog &amp;ndash;help&lt;/h1>
+&lt;p>$ npm install -g conventional-changelog-cli
+基本使用
+$ conventional-changelog -p angular -i CHANGELOG.md -s
+以上命令中参数-p angular 用来指定使用的 commit message 标准，假如想使用 atom 的标准，则是：&lt;/p>
+&lt;p>$ conventional-changelog -p atom -i CHANGELOG.md -s
+参数-i CHANGELOG.md 表示从 CHANGELOG.md 读取 changelog, -s 表示读写 changelog 为同一文件。需要注意的是，上面这条命令产生的 changelog 是基于上次 tag 版本之后的变更（Feature、Fix、Breaking Changes 等等）所产生的，所以如果你想生成之前所有 commit 信息产生的 changelog 则需要使用这条命令：&lt;/p>
+&lt;p>$ conventional-changelog -p angular -i CHANGELOG.md -s -r 0
+其中 -r 表示生成 changelog 所需要使用的 release 版本数量，默认为 1，全部则是 0。&lt;/p>
+&lt;p>自定义参数
+生成的 changlog 中有些常用内容可以通过自定义参数来根据需求更改，例如版本号、commit 地址等等。 changelog 中生成的版本号即是从 package.json 中获取 version 字段来的。commit 连接的仓库地址我们需要修改 package.json 中的 repository 地址，changelog 中 issuse 默认的连接地址也是根据 repository 来生成的。如果你使用了第三方的协作系统（例如 bitbucket）， 那么你可以使用这个标准 conventional-changelog-angular-bitbucket。或者像我们使用 redmine 来管理 isssue ，那么在生成 changelog 后可以使用 replace 工具来处理文本中的原有地址：&lt;/p>
+&lt;p>$ replace &amp;lsquo;&lt;a href="https://github.com/myproject/issues/'">https://github.com/myproject/issues/'&lt;/a> &amp;lsquo;&lt;a href="https://redmine.example.com">https://redmine.example.com&lt;/a>&amp;rsquo; CHANGELOG.md
+最后看看大致生成的效果：&lt;/p>
+&lt;p>changelog&lt;/p>
+&lt;p>conventional-changelog 更多的选项配置可以看这里。&lt;/p>
+&lt;p>standard-version
+standard-version 是一款遵循语义化版本（ semver）和 commit message 标准规范 的版本和 changlog 自动化工具。通常情况线下，我们会在 master 分支进行如下的版本发布操作：&lt;/p>
+&lt;ol>
+&lt;li>git pull origin master&lt;/li>
+&lt;li>根据 pacakage.json 中的 version 更新版本号，更新 changelog&lt;/li>
+&lt;li>git add -A, 然后 git commit&lt;/li>
+&lt;li>git tag 打版本操作&lt;/li>
+&lt;li>push 版本 tag 和 master 分支到仓库
+其中 2，3，4 则是 standard-version 工具会自动完成的工作，配合本地的 shell 脚本，则可以自动完成一系列版本发布的工作了。&lt;/li>
+&lt;/ol>
+&lt;p>安装 &amp;amp; 使用
+在这里我仍然推荐的全局安装：&lt;/p>
+&lt;p>$ npm install -g standard-version&lt;/p>
+&lt;h1 id="或者">或者&lt;/h1>
+&lt;p>$ npm install &amp;ndash;save-dev standard-version
+执行：&lt;/p>
+&lt;h1 id="help-standard-version---help">Help standard-version &amp;ndash;help&lt;/h1>
+&lt;p>$ standard-version
+执行 standard-version 命令，我们会在控制台看到整个执行流程的 log 信息，在这里几个常用的参数需要注意下:&lt;/p>
+&lt;p>&amp;ndash;release-as, -r 指定版本号
+默认情况下，工具会自动根据 主版本（major）,次版本（ minor） or 修订版（patch） 规则生成版本号，例如如果你 package.json 中的 version 为 1.0.0, 那么执行后版本号则是：1.0.1。自定义可以通过：&lt;/p>
+&lt;p>$ standard-version -r minor&lt;/p>
+&lt;h1 id="output-110">output 1.1.0&lt;/h1>
+&lt;p>$ standard-version -r 2.0.0&lt;/p>
+&lt;h1 id="output-200">output 2.0.0&lt;/h1>
+&lt;p>$ standard-version -r 2.0.0-test&lt;/p>
+&lt;h1 id="output-200-test">output 2.0.0-test&lt;/h1>
+&lt;p>需要注意的是，这里的版本名称不是随便的字符，而是需要遵循语义化版本（ semver） 规范的&lt;/p>
+&lt;p>&amp;ndash;prerelease, -p 预发版本命名
+用来生成预发版本, 如果当期的版本号是 2.0.0，例如&lt;/p>
+&lt;p>$ standard-version &amp;ndash;prerelease alpha&lt;/p>
+&lt;h1 id="output-200-alpha0">output 2.0.0-alpha.0&lt;/h1>
+&lt;p>&amp;ndash;tag-prefix, -t 版本 tag 前缀
+用来给生成 tag 标签添加前缀，例如如果前版本号为 2.0.0，则：&lt;/p>
+&lt;p>$ standard-version &amp;ndash;tag-prefix &amp;ldquo;stable-&amp;rdquo;&lt;/p>
+&lt;h1 id="output-tag-stable-v200">output tag: stable-v2.0.0&lt;/h1>
+&lt;p>以上这几个参数可能我们用的比较多，还有其他选项可以通过 standard-version &amp;ndash;help 查看。&lt;/p>
+&lt;p>集成 npm
+最后记得把命令集成到 npm package.json 的 scripts 中, 并配合 shell 脚本使用, 如下：&lt;/p>
+&lt;p>&amp;ldquo;scripts&amp;rdquo;: {
+&amp;ldquo;release&amp;rdquo;: &amp;ldquo;./scripts/release.sh&amp;rdquo;,
+&amp;ldquo;changelog&amp;rdquo;: &amp;ldquo;conventional-changelog -p angular -i CHANGELOG.md -s -r 0 &amp;amp;&amp;amp; git add CHANGELOG.md &amp;amp;&amp;amp; npm run changeissueurl&amp;rdquo;,
+&amp;ldquo;changeissueurl&amp;rdquo;: &amp;ldquo;replace &amp;lsquo;&lt;a href="https://github.com/myproject/issues/'">https://github.com/myproject/issues/'&lt;/a> &amp;lsquo;&lt;a href="https://redmine.example.com/'">https://redmine.example.com/'&lt;/a> CHANGELOG.md&amp;rdquo;
+},&lt;/p>
+&lt;p>// 配置好后使用 npm run 执行发布
+$ npm run release
+添加 release.sh 脚本：&lt;/p>
+&lt;h1 id="binbash">!/bin/bash&lt;/h1>
+&lt;h1 id="release-branch">Release branch&lt;/h1>
+&lt;p>master=&amp;quot;master&amp;rdquo;
+prefix=&amp;quot;DTinsight_v&amp;rdquo;&lt;/p>
+&lt;p>git pull origin $master
+echo &amp;ldquo;Current pull origin $master.&amp;rdquo;&lt;/p>
+&lt;h1 id="auto-generate-version-number-and-tag">Auto generate version number and tag&lt;/h1>
+&lt;p>standard-version -r $release &amp;ndash;tag-prefix $prefix&lt;/p>
+&lt;p>git push &amp;ndash;follow-tags origin $master&lt;/p>
+&lt;p>echo &amp;ldquo;Git push origin $master&amp;rdquo;
+echo &amp;ldquo;Release finished.&amp;rdquo;
+上面的脚本只是做了简单的分支 pull, 执行 standard-version 和最后的版本 push 工作，如果要做一些定制化的执行参数，则需要做定制修改了。&lt;/p>
+&lt;p>最后
+项目的工程化是一件很有意思的事情，通过自动化的工具，可以有效提升项目可维护性和质量，并且避免很多不确定因素。如果你工作中发现了这些问题，而不想继续通过人肉的方法解决这些问题的话，那就赶紧试试~&lt;/p>
+&lt;p>原文地址：&lt;a href="http://imziv.com/blog/article/index.htm">http://imziv.com/blog/article/index.htm&lt;/a>&lt;/p>
+- //imziv.com/posts/2017/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8css%E5%8A%A8%E7%94%BB%E7%BF%BB%E8%AF%91/ - 2012-2020 Ziv小威</description></item><item><title>常用的 Linux Shell 命令</title><link>//imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/</link><pubDate>Wed, 08 Feb 2017 17:21:03 +0000</pubDate><guid>//imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/</guid><description>让美的事情发生 //imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/ -&lt;p>自己平时有可能会用到的 Shell 命令，之前用 Evenote 记录的比较零散，重新整理了下，以后慢慢补充。&lt;/p>
+&lt;h2 id="文件操作">文件操作&lt;/h2>
+&lt;h5 id="查看文件所属用户">查看文件所属用户&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">ls -al
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="动态打印日志">动态打印日志&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">tail -f /var/log/error.log
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="给指定目录的所属用户权限赋予指定人">给指定目录的所属用户权限赋予指定人&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#228b22"># 把directry目录下的所有用户指向someone&lt;/span>
+$ sudo chown -R someone:staff directory
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="用户组相关操作">用户组相关操作&lt;/h5>
+&lt;p>查看用户组&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">groups
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>查看各用户与组的关联情况&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">id
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>添加新用户组&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">sudo groupadd mynewgroup
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>添加已存在的用户到一个组&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">usermod -a -G exampleGroup exampleUserName
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>改变用户主要的组&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">usermod -g groupName userName
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="查看文件内容">查看文件内容&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">cat filename
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="查看目录所占磁盘容量">查看目录所占磁盘容量&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">du dir &lt;span style="color:#228b22"># 显示dir的总容量以及次目录的容量，KB为单位&lt;/span>
+du -s dir &lt;span style="color:#228b22"># 显示dir的容量&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="测试用户目录权限">测试用户目录权限&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">sudo -u admin stat /home &lt;span style="color:#228b22"># 测试用户admin对目录 /home 对权限&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="scp-获取远程服务器上的文件">scp 获取远程服务器上的文件&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#228b22"># 把远程服务器/root目录下的remote.tar.gz文件下载到本地/home目录下，&lt;/span>
+&lt;span style="color:#228b22"># 并保存为local.tar.gz&lt;/span>
+&lt;span style="color:#228b22"># -P 表端口参数，2222为端口号&lt;/span>
+$ scp -P &lt;span style="color:#b452cd">2222&lt;/span> root@www.example.com:/root/remote.tar.gz /home/local.tar.gz
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="scp-获取远程服务器上的文件目录">scp 获取远程服务器上的文件目录&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#228b22"># 把远程服务器/root/remote内容拷贝到本地/home/local目录下，&lt;/span>
+&lt;span style="color:#228b22"># -P 表端口参数，2222为端口号&lt;/span>
+&lt;span style="color:#228b22"># -r 表示目录拷贝&lt;/span>
+$ scp -P &lt;span style="color:#b452cd">2222&lt;/span> -r root@www.example.com:/root/remote /home/local
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="scp-上传本地文件到远程服务器">scp 上传本地文件到远程服务器&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#228b22"># 把本地文件/home/local.tar.gz上传到远程服务器/root目录下，&lt;/span>
+&lt;span style="color:#228b22"># 并命名为remote.tar.gz&lt;/span>
+&lt;span style="color:#228b22"># -P 表端口参数，2222为端口号&lt;/span>
+$ scp -P &lt;span style="color:#b452cd">2222&lt;/span> /home/local.tar.gz root@www.example.com:/root/remote.tar.gz
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="scp-上传本地目录到远程服务器">scp 上传本地目录到远程服务器&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#228b22"># 把本地文件/home/local上传到远程服务器/root/remote目录下，&lt;/span>
+&lt;span style="color:#228b22"># -P 表端口参数，2222为端口号&lt;/span>
+&lt;span style="color:#228b22"># -r 表示目录上传&lt;/span>
+$ scp -P &lt;span style="color:#b452cd">2222&lt;/span> -r /home/local root@www.example.com:/root/remote
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="ssh">ssh&lt;/h2>
+&lt;h5 id="执行-ssh-登录后继续执行命令">执行 ssh 登录后，继续执行命令&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">ssh -t www.example.com &lt;span style="color:#cd5555">&amp;#34;cd /home&amp;#34;&lt;/span> &lt;span style="color:#228b22">#登录www.example.com服务器，并切换到/home下&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="网络操作">网络操作&lt;/h2>
+&lt;h5 id="端口占用查询">端口占用查询&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">netstat -an | grep &lt;span style="color:#b452cd">8080&lt;/span> &lt;span style="color:#228b22"># 方法一&lt;/span>
+lsof -i tcp:8080 &lt;span style="color:#228b22"># 方法二&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="系统">系统&lt;/h2>
+&lt;h5 id="linux-查看指定应用">linux 查看指定应用&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#228b22"># 查看系统中的java应用&lt;/span>
+$ ps -aux | grep java
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="查看系统服务限制">查看系统服务限制&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#658b00">ulimit&lt;/span> -a &lt;span style="color:#228b22"># 查看所有限制信息&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="用户切换">用户切换&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#228b22"># 切换用户到ziv&lt;/span>
+$ su ziv
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="mysql">Mysql&lt;/h2>
+&lt;h5 id="sql-备份">sql 备份&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">mysqldump -u root -p dbname&amp;gt;/home/backup_20170208.sql
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="导入-sql-脚本">导入 Sql 脚本&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#658b00">source&lt;/span> /home/backup.sql
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="防火墙">防火墙&lt;/h2>
+&lt;h3 id="centos">CentOS&lt;/h3>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#228b22"># 防火墙状态查看&lt;/span>
+$ systemctl status firewalld.service
+&lt;span style="color:#228b22"># 防火墙停止&lt;/span>
+$ systemctl stop firewalld.service
+&lt;span style="color:#228b22"># 禁止firewall开机启动&lt;/span>
+$ systemctl disable firewalld.service
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="vim">Vim&lt;/h2>
+&lt;h3 id="移动行">移动行&lt;/h3>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#228b22"># 向下移动一行&lt;/span>
+$ ddp
+&lt;span style="color:#228b22"># 向上移动一行(注意 P 是大写)&lt;/span>
+$ ddkP
+&lt;/code>&lt;/pre>&lt;/div>- //imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/ - 2012-2020 Ziv小威</description></item><item><title>Web 前端的状态管理（State Management）</title><link>//imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/</link><pubDate>Sun, 08 Jan 2017 22:38:01 +0000</pubDate><guid>//imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/</guid><description>让美的事情发生 //imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/ -&lt;h3 id="背景">背景&lt;/h3>
+&lt;p>我相信很多朋友跟我一样，初次听到什么&lt;a href="https://facebook.github.io/flux/">Flux&lt;/a>, &lt;a href="http://cn.redux.js.org/">Redux&lt;/a>， &lt;a href="https://vuex.vuejs.org/zh-cn/intro.html">Vuex&lt;/a>，&lt;code>状态管理&lt;/code>的时候是一脸懵逼的。因为在外面之前前端大部分开发的时候，根本没有那么多的概念。自从 ReactJS 火爆后，什么&lt;code>Flux, Redux，React全家桶&lt;/code>是一套一套接踵而来。搞的很多开发者甚是头大。所谓的 ReactJS 全家桶即&lt;code>ReactJS + Redux + Webpack&lt;/code>，
+当然其中的 Redux 可以用其他例如&lt;a href="https://github.com/mobxjs/mobx">Mobx&lt;/a>之类的替换。原本可能只是很简单的一些数据展示需求，当想用尝试使用 ReactJS 时，去 Google 搜索了一些教程，突然发现怎么用个 React 需要这么多东西。正如今年比较有名的一篇文章里面描述的那样 — &lt;a href="https://www.v2ex.com/t/310767?from=singlemessage&amp;amp;isappinstalled=0">”在 2016 年学习前端是怎样一种体验&amp;rdquo;&lt;/a>。&lt;/p>
+&lt;p>很显然，时代在进步，技术在进步，Web 业务需求在进步，浏览器性能的大幅度提升，促使 JS 能处理越来越多的事情。为了满足越来越复杂、丰富的&lt;code>WebApp&lt;/code>需求，越来越多的原本后端处理的业务逻辑开始转移到前端来处理，同时更多复杂的前端业务在浏览器上面催生，原有的很多技术体系、解决方案已经不能很好的支撑这些越来越复杂的需求了。所以当我们在面临各种业务需求的时候，必定会出现各种各样的适合不同业务需求的技术解决方案。&lt;/p>
+&lt;p>很多朋友刚刚上手 React 的时候，被什么 Redux, 函数式都搞的有点摸不着头脑。因为之前很多时候写前端用一个 jQuery 就足矣，当转换到 ReactJS 时,忽然多出了个 Webpack, Redux, 然而 Redux 里面又包含了什么&lt;code>Reducer&lt;/code>、&lt;code>Action&lt;/code>、&lt;code>State管理&lt;/code>、&lt;code>函数式&lt;/code>等等概念, 搞的人的确很头大。前期较高的学习成本，造成了很多朋友就放弃了 ReactJS 的选型。而且很多开发者初期并不了解这些框架所解决的问题，缺乏足够的实践经验，造成很多人误认为这是把简单的问题越搞越复杂。可能大家回想本来很简单的问题，我用个 jQuery 就能搞定，甚至纯手撸原生 Javascript 都可以，怎么突然多出了这么多东西。例如 ReactJS 只是单纯的 View 层的解决方案，而 Redux 是一种状态管理框架，不仅支持 ReactJS，还支持&lt;code>Angularjs&lt;/code>, 官方宣称的是&lt;code>它可以支持任务其他的视图库&lt;/code>。正因越来越复杂的前端需求，层出不穷的前端解决方案和技术的推陈出新，造就了前端社区异常火爆的局面。而本文主要探讨前端的状态管理（State Management）&lt;/p>
+&lt;h3 id="服务端渲染的-web-开发">服务端渲染的 WEB 开发&lt;/h3>
+&lt;p>&lt;img src="http://divio.qiniudn.com/FitWd_j6zrtRQLpRzKFUfshp_7o6" alt="">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>就在几年前，前端工程师的大部分工作，可能还停留在利用 CSS, HTML 切页面，然后利用 JS 做些简单的动态交互，更进一步的前端开发者可能需要懂 Java, 或者 PHP 之类的语言，因为需要将写好的页面与模板引擎完成整合。&lt;/p>
+&lt;p>用服务端语言（例如&lt;code>NodeJS, Java, Python, Ruby, PHP&lt;/code>等等）写过 Web 的朋友应该都很清楚，以前大部分时候我们写的 Web，尤其经典的 MVC 模型。多年以前，那会还不流行前后端分离式的开发，虽然 Ajax 技术已经很流行，但是 Web 页面的功能和交互并没有那么复杂。大部分的页面点击一个连接，即请求到服务器，服务器控制路由（Router）决定响应的 View，服务器将数据库获取的数据 Model 与 HTML 模板结合，然后生成 HTML 页面响应到浏览器。那时候 Web 大部分的业务都是服务器直接处理的，很多所谓的状态管理也都是服务端直接操作操作缓存（Cache）或者数据库来完成的。所以那时候的前端并没有太多的所谓的状态需要管理，顶多大家有时候会在内存里面用一全局对象，来处理些简单的数据共享。随着 Web 前端的发展，越来越多的后端工作转移到了前端，数据的共享，同步变的异常复杂和麻烦，所以这个时候急需这种完善的状态管理解决方案的出现。&lt;/p>
+&lt;h3 id="前后端分离的单页应用spa">前后端分离的单页应用(SPA）&lt;/h3>
+&lt;p>&lt;img src="http://divio.qiniudn.com/Fm0nF49Z1NcCYGlNbewDHN86jBKe" alt="">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;h4 id="单页应用single-page-application">单页应用（Single Page Application）&lt;/h4>
+&lt;p>利用&lt;code>Ajax&lt;/code>做单页应用，经典的案例肯定就是&lt;code>Gmail了&lt;/code>。早期可能大家都还用 iframe 这种古老的子页面加载方案，随着 Ajax 技术的愈发成熟和盛行，后来越来越多的 Web 应用开始利用浏览器 Hash 做路由转发，Ajax 做页面加载
+的方式写无跳转状态的 Web 应用（即单页应用。后来便有了类似&lt;a href="http://backbonejs.org/">Backbone&lt;/a>, &lt;a href="https://angularjs.org/">Angularjs&lt;/a>为代表的 MVVM 前端框架的诞生。&lt;/p>
+&lt;p>浏览器越来越快的访问性能，早就了越来越多的 PC 应用开始 WebApp 化，很多时候我们不需要安装某个应用，只需要简单的输入一个 URL 地址，便可以轻松访问我们需要的服务，相信很多朋友已经在使用&lt;code>Chrome&lt;/code>上很多强大的 Web 应用了。越来越多的 Web 开始想靠近类似于 Native 应用化的体验，所以 SPA 这种类型的 Web 开发越来越受欢迎，典型的就是我们常常开发的后台管理应用了。&lt;/p>
+&lt;h4 id="组件化与状态管理web-component-and-state-management">组件化与状态管理(Web Component And State Management)&lt;/h4>
+&lt;p>&lt;img src="http://divio.qiniudn.com/FmW_kHibTinrzBFsa-Jx02Ps484b" alt="">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>Web 组件化(Component)一个是被聊透了的话题了，它的益处无需多言，更好的编码效率，更好的代码阅读性，维护性，补充 HTML5 语义化标签的不足。然而，正因为在开发越来越复杂的 SPA 时，开始将各个页面开始模块化，页面公告模块组件化，一个页面拆分成多个子组件，组件的不断复用和重新组合，之前简单的组件端到端（组件到服务器端）的数据请求变的复杂和多余，单个数据源经常在不同页面但相同组件中共享，各种路由信息（Routing）需要处理。&lt;/p>
+&lt;p>我们可以想象一下，当一个页面中，相同的组件获取来自同一个接口的数据，这就意味着组件共享的是相同的数据 Model。 正常逻辑下，其中一个组件如果进行了 Model 更新操作，服务器数据库的数据即相应的发生了改变，但是其他相同数据接口的组件，由于组件直接是相互隔离的，数据 Model 并不是同一个，所以组件与组件直接的数据通信便成为了一个很大的问题。当然，我们有个粗暴的解决方案，就是，在某个组件更新完数据后，我们重新&lt;code>reload&lt;/code>整个页面，可这个时候整个原本想达到的 SPA 效果就没有了，体验大减，而你打开&lt;code>Network&lt;/code>检测工具，你会发现整个页面发送了多个重复的接口请求，这无疑造成了很大的性能损失和资源浪费。所以才会出现 Redux,Vuex 这种专门针对状态管理的技术方案。&lt;/p>
+&lt;h3 id="总结">总结&lt;/h3>
+&lt;p>总而言之，并不是所有的 Web 应用和使用场景都需要添加状态管理，很多时候服务端渲染任然是更好的选择，而是否需要添加状态管理框架，是用 Redux，还是 Mobx, 我们可以根据自己的业务实际情况和技术团队的偏好而添加，而有些情况下，自己创建一个全局对象可能是更适合的选择。有的人可能觉得 Redux 这种函数式编程的方式让人难以理解，那么你也可以选择 Mobx 这种面向对象编程思维的状态管理框架。如果你觉得 React 这种骑术门槛太高，适应能力差，我觉得 VueJS, Vuex 可能是更适合你的选择。&lt;/p>
+&lt;p>说了这么多，希望自己能解释清楚前端状态管理是怎么一回事。&lt;/p>
+&lt;h5 id="原文地址httpimzivcomblogarticlereadhtmid80httpimzivcomblogarticlereadhtmid80">原文地址&lt;a href="http://imziv.com/blog/article/read.htm?id=80">http://imziv.com/blog/article/read.htm?id=80&lt;/a>&lt;/h5>
+- //imziv.com/posts/2017/web%E5%89%8D%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86state-management/ - 2012-2020 Ziv小威</description></item><item><title>《明朝那些事》读后感</title><link>//imziv.com/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</link><pubDate>Tue, 03 Jan 2017 00:23:08 +0000</pubDate><guid>//imziv.com/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</guid><description>让美的事情发生 //imziv.com/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/ -&lt;p>拿起这本书的时候是 2016 年十一的时候，正好缝上放假回家，为了减轻旅途中的无聊，就在 Kindle 上下载了这本书。这本书火起来的时候，我还是个高中生，而对历史书集的印象只是停留在历史课本的层次。我不得不承认的是，那时的历史课对我而言是相对乏味的，所以一直以来，我对历史相关的读物的兴趣是不大的，而且对于很多历史人物的认知是只知其名，不知其事。&lt;/p>
+&lt;p>也不知是什么原因，今年看了好几都讲历史相关的本书，也不知道是不是年纪越来越大的原因 0.0。明朝这书火的时候虽然我没看，但是我对他印象还是很深的。因为高中那会玩过新浪微博，而&lt;code>当年明月&lt;/code>的新浪博客和这本书当时的影响力已经十分大了。所以今年在列书单的时候，看到在豆瓣评价如此之高的情况下，最终我把它装到了我的 Kindle 里。正好在元旦假期把它给看完了。不管如何，看了这么久，读后感还是要写的。&lt;/p>
+&lt;h3 id="古人很单纯">古人很单纯&lt;/h3>
+&lt;p>通过历史读物，我认识到，原来几百年前年前的古人原来一点都不单纯（看怎么理解了）！除去当今社会的科学文化的发展外，古人的智力和情商，技术和手段丝毫不比现今社会差。常常会产生种错觉，80 年代的人可能会觉得 70 年代比较单纯，90 年代的人可能会觉得 80 年代的人比较单纯，嗯，也有可能 00 后觉得 90 后比较单纯。这让我忽然想起朝鲜民众见到他们伟大的领袖&lt;code>金正恩&lt;/code>同志时总是热泪盈眶一样的场景，经常感叹，哇，他们好单纯。话说回来，大家身处的环境不同而已，很多事情要相对的看。而人生存始终要和人交织在一起的，而有人的地方，就有江湖，有江湖就有利益，有利益就会有斗争。&lt;/p>
+&lt;p>辛辛苦苦陪同&lt;code>朱重八&lt;/code>同志打下江山的&lt;code>徐达&lt;/code>，&lt;code>常遇春&lt;/code>, &lt;code>李文忠&lt;/code>等等名将，好不容易拼死拼活的换来大明江山，却最后还是落在了自己的 Boss 手下。&lt;code>重八&lt;/code>同志为了让自己能睡的安稳，自己的私心，把这些曾经跟自己出生入死的兄弟们一个个都送走了。这很明显跟我当年看的香港黑帮片，古惑仔什么的的价值观不不一样啊~&lt;/p>
+&lt;p>书中大量的篇幅讲述了皇帝，大臣，宦官之间的各种明争暗斗，勾心斗角，也是让我领略到了什么是搞政治，什么是厚黑学，也是大开眼界。而我始终相信，人性是人类最大的敌人。&lt;/p>
+&lt;h3 id="理想主义者">理想主义者&lt;/h3>
+&lt;p>整本书记录了从明朝的起源讲到终结，看到评论有人说这是一部&lt;code>厚黑学&lt;/code>史。再次之前我还不太懂这是个什么概念。除去这些政治上的勾心斗角，令我印象更深的反而是那些理想主义者们。例如“知行合一”，心学集大成者——王守仁。不仅是个哲学家，也是个军事家，花了大半辈子，终于发现自己喜欢搞哲学。当时看到讲王圣人的英雄事迹时，实在是大快人心，无比崇拜。在我看来，明朝那个时候，他就开始搞“文艺复兴”了。当然还有其他理想主义者，例如航海家-郑和，著名医学家，《本草纲目》作者李时珍，等等。&lt;/p>
+&lt;h3 id="好人坏人成功">好人，坏人，成功&lt;/h3>
+&lt;p>以前有种错觉，成功人士应该都是好人。然而历史告诉我的是，不管是身处哪个社会阶层，好人，坏人都是并存在。然而成功的方式有很多种，助人行善，普度众生，为人民服务是一种；卑鄙无耻，捞财害命，毫无道义也是一种。位高权重，自称九千岁岁的奸臣魏忠贤，做尽恶事，仍然混到了皇帝身边，甚至影响了整个明朝的历史。显然，好人，坏人，与所谓的成功并没有必然联系。有的只是不同的生存方式。&lt;/p>
+&lt;h3 id="有时候要认命环境很重要">有时候要认命，环境很重要&lt;/h3>
+&lt;p>要知道世上有很多事情，不是光靠努力就可以的。有时候，要看天命，所谓的天命，在我看来就是时下的大环境。崇祯皇帝莫名其妙的就坐上了本来看似与自己无关的皇帝。这个天上掉下的馅饼，似乎并不是个美事。没想到自己接手时的明朝，已是一盘烂摊子。刚上台就要面对魏忠贤这种无耻小人，整个时局是内忧外患，还有天灾人祸，全让他赶上了。纵使他夜以继日的拼命劳作，兢兢业业，也无法挽回明朝的颓势，最终明朝历史戛然而止。这也就是书中所提到的&lt;code>气数已尽&lt;/code>, &lt;code>大势已去&lt;/code>, 努力并不能挽回明朝的终止。当然崇祯皇帝这种态度还是值得肯定的~&lt;/p>
+&lt;h3 id="文明之光">文明之光&lt;/h3>
+&lt;p>前段时间看了&lt;code>吴军&lt;/code>博士的一个系列书籍&lt;a href="https://book.douban.com/subject/25902942/">《文明之光》&lt;/a>，这是一本讲那些看起来似乎微不足道，却对人类文明影响巨大的发明创造的书籍。例如”中国的瓷器“，”轮子和楔形文字“，&amp;ldquo;造纸术“， ”垄耕种植法“等等。作者在书中前言这样说道：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain">在历史上，人类对强者的崇拜，对权力的兴趣比对文明的兴趣更大。
+翻开世界各国尤其是中国历史教科书，基本上都是在讲述王侯将相攻城略地的丰功伟绩,
+帝国的扩展和兴衰，很少讲述世界各地区对文明的贡献。
+那么为什么很多人对那些王侯将相的故事津津乐道呢？
+其实人类几千年的文明史和地球的历史相比，实在太短暂了，
+大约相当于几分钟和一年的关系。依然崇山权力，这本身就说明人类还很年轻。
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain">[当年明月] 在书的最后，通过`徐霞客`的故事，和一句他从不起眼读物上看到的话
+作为结束语：
+“成功只有一个——按照自己的方式，去度过一生“
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>之前从其他渠道看到过这句话，今天也算是知道出处了~&lt;/p>
+&lt;p>总而言之，言而总之，用现在时髦的话说就是：“去做你想做的事，去成为你想成为的人”。&lt;/p>
+&lt;h5 id="原文地址httpsimzivcomposts2017明朝那些事读后感httpsimzivcomposts2017e6988ee69c9de982a3e4ba9be4ba8be8afbbe5908ee6849f">原文地址：&lt;a href="https://imziv.com/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/">https://imziv.com/posts/2017/明朝那些事读后感/&lt;/a>&lt;/h5>
+- //imziv.com/posts/2017/%E6%98%8E%E6%9C%9D%E9%82%A3%E4%BA%9B%E4%BA%8B%E8%AF%BB%E5%90%8E%E6%84%9F/ - 2012-2020 Ziv小威</description></item><item><title>而惑之年</title><link>//imziv.com/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/</link><pubDate>Sat, 31 Dec 2016 23:55:56 +0000</pubDate><guid>//imziv.com/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/</guid><description>让美的事情发生 //imziv.com/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/ -&lt;p>就在告别 2016 年的前一个小时，我又重温了又宫崎骏老爷子编剧的《侧耳倾听》这部平淡温情的动画片。16 年马上就要过去了，而它仿佛一直就在询问我：&amp;rdquo; 我马上就要走了，你是不是该对我说点什么？“。就在今年的 2016 年一月一日，我写下了 2015 年的总结。看着去年的文字，时间整个就像篇书页，就这么翻过去了。&lt;/p>
+&lt;p>如果说今年要让我用一个字来形容整年的生活的话，我可能会选择”惑“这个字。过去很长一段时间里，我坚信是个比较了解自己的人。然而经历过种种，才偶尔发现，有时候自己都搞不懂自己了。变得有些犹豫，变得优柔寡断。&lt;/p>
+&lt;p>实在不知道该对今年的自己说些什么，总而言之就是不满意。身体下滑，自控力下滑，人的状态也下滑。可能是年纪越来越大的原因，单身太久，或许是其他什么原因。圈子越来越小，沟通能力也越来越差，越来越不爱说。总而言之，言而总之，要改变的太多。&lt;/p>
+&lt;p>今年就不多说了，加油吧，少年~！&lt;/p>
+- //imziv.com/posts/2016/%E8%80%8C%E6%83%91%E4%B9%8B%E5%B9%B4/ - 2012-2020 Ziv小威</description></item><item><title>写作给我带来的益处</title><link>//imziv.com/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/</link><pubDate>Thu, 20 Oct 2016 16:38:52 +0000</pubDate><guid>//imziv.com/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/</guid><description>让美的事情发生 //imziv.com/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/ -&lt;p>刚刚进入工作那会儿， 经常通过搜索引擎搜索到各种大牛的博客，会在里面发现他们写的各种技术文章，人生经历，思考，旅行，人文等等。各种类型的文章。自己平时工作中遇到的问题，也尝尝是从这些文章中获益。所以从那时候自己也开始去培养写博客的习惯。&lt;/p>
+&lt;p>刚开始写博客那会，写的大部分内容主要是技术文章，什么算法啊，Java 语言等等方面的知识。最近有回头去看看以前写的东西，从最基本的内容排版，文章内容结构去重新审视，比较粗糙。但是通过近 3 年来自己的断断续续的坚持，发现在写东西方面还是有一些进步。从最开始的写技术，到现在我会写写自己对业界的见闻和看法，会写旅行日记，会写一些思考。技术文章也比以前更有章法，内容组织的也更好。&lt;/p>
+&lt;p>这么久的坚持，我是深深感受到了坚持写作中的受益是巨大的。我就简单的罗列几条。&lt;/p>
+&lt;p>一、增强了自身的语言表达能力&lt;!-- raw HTML omitted -->
+写作是语言的另外一种表达方式，文字有文字的魅力。长期的写作，会锻炼自身语言文字的组织能力。有时候为了去表达清楚一个观点，知识点，你必须去精准，斟词酌句，理清逻辑，不然自己不清不楚，读的人更是一头雾水。所以长期在这种思维的自我要求下，对自身语言的掌控和表达方面一定会有很大的帮助。&lt;/p>
+&lt;p>二、行文内容的组织架构能力&lt;!-- raw HTML omitted -->
+有时候想要去讲清楚一个知识点，观点的时候，为了达到更好的效果，便会理清整个文章的逻辑，模块，然后按模块填充文章的内容，就好比书本的目录一样。这是一个非常好的习惯，让我今后去表述的时候回提前就思考的事情，这种思维模式对工作十分有帮助。&lt;/p>
+&lt;p>三、思考沉淀的好方式
+有很多人有些日记，笔记的习惯。而这些都是写作的一种。通过这种写作的方式，与自我对话，与自己内心对话的方式，可以更好的总结，反思，重新认识自己。能让我们队自身有更好的认知。&lt;/p>
+&lt;p>以上是我简单的罗列好处，其实写作的好处简直太多，就不在此一一列举了。希望自己能坚持，坚持到老！&lt;/p>
+- //imziv.com/posts/2016/%E5%86%99%E4%BD%9C%E7%BB%99%E6%88%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%9B%8A%E5%A4%84/ - 2012-2020 Ziv小威</description></item></channel></rss>

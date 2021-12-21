@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html><head>
+<title></title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="author" content="Ziv小威">
+<meta name="Keywords" content="Ziv小威, Ziv, Web 前端, Web 开发者">
+<meta name="email" content="wewoor@foxmail.com">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:title" content="" />
+<meta property="og:description" content="一种轻量级的插件式、组件化的 WEB IDE UI 开发框架 说明书摘要 本发明提供了一种插件式、组件化的 Web IDE UI 开发框架。其特征在于：可通过声明式的 React UI 组件快速完成一个轻量化、高性能的 WEB IDE 的搭建，通过框架提供的 Workbench、Theme、Locals、Language、Keybinding、Setting、Layout、Extension 等服务，轻松的完成对已有 IDE 应用的扩展和自定义开发。另外框架内置相应的状态管理、事件总线等功能模块，可轻松的完成对 React 应用的交互和扩展。所以，通过该框架，可轻松完成一种可扩展式的 Web IDE 的搭建。
+摘要附图 （图-1） 基础组成架构
+权利要求书   基于 React 声明式 的 IDE UI 组件库；其特征在于： 是根据现代 Desktop IDE UI 交互研发的基础 声明式 UI 组件库；
+  可自定义、持续迭代的扩展（Extension）服务模块； 扩展会包括名称、类型、状态、描述、执行程序等基本部分组成，Extension 服务会通过 Provider 接口接收开发者自定义的插件，并在整个框架 Ready 后自动加载插件，另外，用户可在运行时随时禁用/启用该自定义扩展。
+  Workbench 扩展服务模块； 通过 Workbench 服务，在框架提供的接口的基础上，进行 React UI 的自定义，从而满足所需要的扩展需求。
+  Theme 扩展服务模块； Theme 服务可通过加载一个简单的 JSON 配置文件，即可完成 IDE UI 的样式切换，另通过适配，可兼容市面上主流 IDE 的 Theme。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="//imziv.com/posts/2020/%E4%B8%80%E7%A7%8D%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84%E6%8F%92%E4%BB%B6%E5%BC%8F%E7%BB%84%E4%BB%B6%E5%8C%96%E7%9A%84-web-ide-%E6%A1%86%E6%9E%B6/" />
+<meta property="og:site_name" content="My Blog" />
+
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="一种轻量级的插件式、组件化的 WEB IDE UI 开发框架 说明书摘要 本发明提供了一种插件式、组件化的 Web IDE UI 开发框架。其特征在于：可通过声明式的 React UI 组件快速完成一个轻量化、高性能的 WEB IDE 的搭建，通过框架提供的 Workbench、Theme、Locals、Language、Keybinding、Setting、Layout、Extension 等服务，轻松的完成对已有 IDE 应用的扩展和自定义开发。另外框架内置相应的状态管理、事件总线等功能模块，可轻松的完成对 React 应用的交互和扩展。所以，通过该框架，可轻松完成一种可扩展式的 Web IDE 的搭建。
+摘要附图 （图-1） 基础组成架构
+权利要求书   基于 React 声明式 的 IDE UI 组件库；其特征在于： 是根据现代 Desktop IDE UI 交互研发的基础 声明式 UI 组件库；
+  可自定义、持续迭代的扩展（Extension）服务模块； 扩展会包括名称、类型、状态、描述、执行程序等基本部分组成，Extension 服务会通过 Provider 接口接收开发者自定义的插件，并在整个框架 Ready 后自动加载插件，另外，用户可在运行时随时禁用/启用该自定义扩展。
+  Workbench 扩展服务模块； 通过 Workbench 服务，在框架提供的接口的基础上，进行 React UI 的自定义，从而满足所需要的扩展需求。
+  Theme 扩展服务模块； Theme 服务可通过加载一个简单的 JSON 配置文件，即可完成 IDE UI 的样式切换，另通过适配，可兼容市面上主流 IDE 的 Theme。"/>
+
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-50390715-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
+<link type="text/css" rel="stylesheet" href="/vendor/fontawesome/css/brands.min.css">
+
+
+
+
+<link rel="icon" href="/images/favicon.png">
+
+
+
+
+<link rel="stylesheet" href="//imziv.com/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+
+
+
+<link rel="stylesheet" href="//imziv.com/scss/dark-mode.min.832f90e2bc07191c85a3b6c0310607f539897546b1126dd04df64aff22316ecd.css" integrity="sha256-gy&#43;Q4rwHGRyFo7bAMQYH9TmJdUaxEm3QTfZK/yIxbs0=" media="screen">
+
+
+<script src="//imziv.com/js/loadCSS.js"></script>
+<script>
+  loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
+</script>
+
+
+
+
+  
+    <script src="//imziv.com/js/toc-collapse.js"></script>
+  
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue-disqus@3/dist/vue-disqus.js"></script>
+
+
+</head><body>
+    	<div id="app"><div ref="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="//imziv.com">
+    
+        <div class="nav-title">
+            让美的事情发生
+        </div>
+        
+        <div class="nav-subtitle">
+            Ziv小威
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                分类
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                标签
+            </a>
+            
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/posts">
+                归档
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/about">
+                关于
+            </a>
+            
+        
+        <div class="nav-link-item">
+            <a href="https://github.com/wewoor" target="_blank"><i title="Github" class="fab fa-github"></i></a>
+            <a href="https://www.zhihu.com/people/zivxiaowei" target="_blank"><i title="Telegram" class="fab fa-zhihu"></i></a>
+            <a href="//weibo.com/zivxiaowei" target="_blank"><i title="Telegram" class="fab fa-weibo"></i></a>
+            <a href="mailto:wewoor@foxmail.com" target="_blank"><i title="Facebook" class="fa fa-envelope"></i></a>
+            <a href="/index.xml" target="_blank"><i title="Feed" class="fas fa-rss"></i></a>
+        </div>
+    </div>
+
+    <div class="nav-footer">
+        
+&copy;
+	
+	2014-2020 Ziv小威
+	
+	Built by Hugo <a href="https://github.com/amazingrise/hugo-theme-diary">(Diary)</a>
+    </div>
+    
+</div><div ref="extraContainer" class="extra-container">
+    
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- 目录 -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%b8%80%e7%a7%8d%e8%bd%bb%e9%87%8f%e7%ba%a7%e7%9a%84%e6%8f%92%e4%bb%b6%e5%bc%8f%e7%bb%84%e4%bb%b6%e5%8c%96%e7%9a%84-web-ide-ui-%e5%bc%80%e5%8f%91%e6%a1%86%e6%9e%b6" onclick="onNavClick(`#一种轻量级的插件式组件化的-web-ide-ui-开发框架-nav`)" id="一种轻量级的插件式组件化的-web-ide-ui-开发框架-nav">
+									一种轻量级的插件式、组件化的 WEB IDE UI 开发框架
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								<ul class="collapse" data-toggle="collapse">
+							
+						
+						
+							<li>
+								<a href="#%e8%af%b4%e6%98%8e%e4%b9%a6%e6%91%98%e8%a6%81" onclick="onNavClick(`#说明书摘要-nav`)" id="说明书摘要-nav">
+									说明书摘要
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								<ul class="collapse" data-toggle="collapse">
+							
+						
+						
+							<li>
+								<a href="#%e6%91%98%e8%a6%81%e9%99%84%e5%9b%be" onclick="onNavClick(`#摘要附图-nav`)" id="摘要附图-nav">
+									摘要附图
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%9d%83%e5%88%a9%e8%a6%81%e6%b1%82%e4%b9%a6" onclick="onNavClick(`#权利要求书-nav`)" id="权利要求书-nav">
+									权利要求书
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%af%b4%e6%98%8e%e4%b9%a6" onclick="onNavClick(`#说明书-nav`)" id="说明书-nav">
+									说明书
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								<ul class="collapse" data-toggle="collapse">
+							
+						
+						
+							<li>
+								<a href="#%e9%a2%86%e5%9f%9f" onclick="onNavClick(`#领域-nav`)" id="领域-nav">
+									领域
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%83%8c%e6%99%af" onclick="onNavClick(`#背景-nav`)" id="背景-nav">
+									背景
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%8f%91%e6%98%8e%e5%86%85%e5%ae%b9" onclick="onNavClick(`#发明内容-nav`)" id="发明内容-nav">
+									发明内容
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e9%99%84%e5%9b%be%e8%af%b4%e6%98%8e" onclick="onNavClick(`#附图说明-nav`)" id="附图说明-nav">
+									附图说明
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%85%b7%e4%bd%93%e5%ae%9e%e6%96%bd%e6%96%b9%e5%bc%8f" onclick="onNavClick(`#具体实施方式-nav`)" id="具体实施方式-nav">
+									具体实施方式
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e8%af%b4%e6%98%8e%e4%b9%a6%e9%99%84%e5%9b%be" onclick="onNavClick(`#说明书附图-nav`)" id="说明书附图-nav">
+									说明书附图
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a class="pagination-action" v-on:click="toggleDarkMode">
+            <i class="material-icons pagination-action-icon" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons pagination-action-icon" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </a>
+        
+        
+    </div>
+</div><div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    分类
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    标签
+                </a>
+                
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/posts">
+                    归档
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/about">
+                    关于
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- 目录 -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%b8%80%e7%a7%8d%e8%bd%bb%e9%87%8f%e7%ba%a7%e7%9a%84%e6%8f%92%e4%bb%b6%e5%bc%8f%e7%bb%84%e4%bb%b6%e5%8c%96%e7%9a%84-web-ide-ui-%e5%bc%80%e5%8f%91%e6%a1%86%e6%9e%b6" onclick="onNavClick(`#一种轻量级的插件式组件化的-web-ide-ui-开发框架-nav`)" id="一种轻量级的插件式组件化的-web-ide-ui-开发框架-nav">
+									一种轻量级的插件式、组件化的 WEB IDE UI 开发框架
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								<ul class="collapse" data-toggle="collapse">
+							
+						
+						
+							<li>
+								<a href="#%e8%af%b4%e6%98%8e%e4%b9%a6%e6%91%98%e8%a6%81" onclick="onNavClick(`#说明书摘要-nav`)" id="说明书摘要-nav">
+									说明书摘要
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								<ul class="collapse" data-toggle="collapse">
+							
+						
+						
+							<li>
+								<a href="#%e6%91%98%e8%a6%81%e9%99%84%e5%9b%be" onclick="onNavClick(`#摘要附图-nav`)" id="摘要附图-nav">
+									摘要附图
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%9d%83%e5%88%a9%e8%a6%81%e6%b1%82%e4%b9%a6" onclick="onNavClick(`#权利要求书-nav`)" id="权利要求书-nav">
+									权利要求书
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%af%b4%e6%98%8e%e4%b9%a6" onclick="onNavClick(`#说明书-nav`)" id="说明书-nav">
+									说明书
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								<ul class="collapse" data-toggle="collapse">
+							
+						
+						
+							<li>
+								<a href="#%e9%a2%86%e5%9f%9f" onclick="onNavClick(`#领域-nav`)" id="领域-nav">
+									领域
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%83%8c%e6%99%af" onclick="onNavClick(`#背景-nav`)" id="背景-nav">
+									背景
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%8f%91%e6%98%8e%e5%86%85%e5%ae%b9" onclick="onNavClick(`#发明内容-nav`)" id="发明内容-nav">
+									发明内容
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e9%99%84%e5%9b%be%e8%af%b4%e6%98%8e" onclick="onNavClick(`#附图说明-nav`)" id="附图说明-nav">
+									附图说明
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%85%b7%e4%bd%93%e5%ae%9e%e6%96%bd%e6%96%b9%e5%bc%8f" onclick="onNavClick(`#具体实施方式-nav`)" id="具体实施方式-nav">
+									具体实施方式
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e8%af%b4%e6%98%8e%e4%b9%a6%e9%99%84%e5%9b%be" onclick="onNavClick(`#说明书附图-nav`)" id="说明书附图-nav">
+									说明书附图
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="//imziv.com">
+            让美的事情发生
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" v-on:click="toggleDarkMode">
+            <i class="material-icons" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="//imziv.com">
+        <div class="single-column-header-title">让美的事情发生</div>
+        
+        <div class="single-column-header-subtitle">Ziv小威</div>
+        
+
+    </a>
+</div>
+            <div id="content">
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                
+            >
+                <div class="post-title">
+                    
+                    
+                    <div class="post-meta">
+                        
+
+                        
+
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <h1 id="一种轻量级的插件式组件化的-web-ide-ui-开发框架">一种轻量级的插件式、组件化的 WEB IDE UI 开发框架</h1>
+<h2 id="说明书摘要">说明书摘要</h2>
+<p>本发明提供了一种插件式、组件化的  Web IDE UI 开发框架。其特征在于：可通过声明式的 React UI 组件快速完成一个轻量化、高性能的 WEB IDE 的搭建，通过框架提供的 Workbench、Theme、Locals、Language、Keybinding、Setting、Layout、Extension 等服务，轻松的完成对已有 IDE 应用的扩展和自定义开发。另外框架内置相应的状态管理、事件总线等功能模块，可轻松的完成对 React 应用的交互和扩展。所以，通过该框架，可轻松完成一种可扩展式的 Web IDE 的搭建。</p>
+<h3 id="摘要附图">摘要附图</h3>
+<p><img src="./img/molecule-arch.png" alt="arch">
+（图-1） 基础组成架构</p>
+<h2 id="权利要求书">权利要求书</h2>
+<ol>
+<li>
+<p>基于 React 声明式 的 IDE UI 组件库；其特征在于：
+是根据现代 Desktop IDE UI 交互研发的基础 声明式 UI 组件库；</p>
+</li>
+<li>
+<p>可自定义、持续迭代的扩展（Extension）服务模块；
+扩展会包括名称、类型、状态、描述、执行程序等基本部分组成，Extension 服务会通过 Provider 接口接收开发者自定义的插件，并在整个框架 Ready 后自动加载插件，另外，用户可在运行时随时禁用/启用该自定义扩展。</p>
+</li>
+<li>
+<p>Workbench 扩展服务模块；
+通过 Workbench 服务，在框架提供的接口的基础上，进行 React UI 的自定义，从而满足所需要的扩展需求。</p>
+</li>
+<li>
+<p>Theme 扩展服务模块；
+Theme 服务可通过加载一个简单的 JSON 配置文件，即可完成 IDE UI 的样式切换，另通过适配，可兼容市面上主流 IDE 的 Theme。</p>
+</li>
+<li>
+<p>Locals 扩展服务模块；
+Locals 服务通过一个简单的 JSON 扩展配置，就可在应用中完成本地化的切换。达到 本地化与本身程序的分离，从而提升其本地化的扩展性。</p>
+</li>
+<li>
+<p>Language  扩展服务模块；
+通过 Language 服务，可以加载不同类型的文件，并支持在线高亮、编辑，自定义交互等功能。该扩展包括另名称、类型，执行程序，渲染方式等等部分。</p>
+</li>
+<li>
+<p>Keybinding 扩展服务模块；
+通过 Keybinding 服务，我们可以在扩展程序中，完成制定的 keyboard、鼠标等事件的自定义，从而丰富我们的 IDE 交互。</p>
+</li>
+<li>
+<p>Setting 扩展服务模块；
+Setting 服务，提供了操作编辑用户信息、Theme、Extension、Layout 等等功能的接口，其通过一种 JSON 配置化或者可视化的方式，让我们可以轻松
+修改和自定义 IDE。</p>
+</li>
+<li>
+<p>Layout 扩展服务模块；
+Layout 服务提供了框架内置布局和自定义布局的 API，通过该服务可以实时操作 IDE 基本布局。</p>
+</li>
+<li>
+<p>数据缓存服务模块；
+内置的客户端存储（Storage）服务，用来缓存当前 Workspace 的相关信息。</p>
+</li>
+<li>
+<p>应用状态管理（State Management)模块；
+该模块提供了获取、更新 IDE 服务、Workspace 等状态的API，另外可通过该模块可扩展自己的应用状态</p>
+</li>
+<li>
+<p>事件总线模块；
+该模块用于模块、组件直接的数据通信</p>
+</li>
+<li>
+<p>基于数据驱动视图的的 React 渲染模块；
+该模块可将 IDE 视图的状态绑定到 React 组件，并实时渲染</p>
+</li>
+</ol>
+<h2 id="说明书">说明书</h2>
+<h3 id="领域">领域</h3>
+<p>本发明涉及 Web 技术领域，特别是基于Web技术的 IDE 开发框架领域。</p>
+<h3 id="背景">背景</h3>
+<p>随着 浏览器、Web、云技术的发展，越来越多的传统桌面（Desktop）端开发 IDE 工具开始云化，通过 Web 的形式给开发者提供在线编程的能力。例如微软的 <code>Visual Studio Codespaces</code>。Web 技术的优势就是，磨平了本地开发环境搭建的复杂性、本地计算能力、存储容量等等的局限性、让开发者打开浏览器即可马上进行在线可视化的开发、发布、运维等工作。所以拥有一款可扩展式的 IDE 框架，可轻松的完成此类应用的搭建和功能扩展。</p>
+<h3 id="发明内容">发明内容</h3>
+<p>该发明提供了一种可快速搭建的、可自定义的、可扩展式的 Web IDE 框架。为了达到以上目标，具体实现如下：</p>
+<p>其一，基于 Web 技术强大的渲染能力和 React.js UI组件开发库，我们研发了一套适用于 IDE 交互的组件库。另外自主研发的 React 应用框架，我们可以轻松的完成对视图的控制，并可提供对外操作视图的服务接口，从而达到 Workbench 可扩展的目的；其二，定义 Theme, Settings, Keybinding, Locals, Language, Layout 服务接口和和扩展程序的协议，开发者通过制定接口和扩展协议，可自定义开发满足框架要求的扩展程序，通过扩展（Extension）服务可动态加载、执行其扩展程序；其三，根据 一、二，我们提供了一套基本的 Workbench UI，开发者通过入口（Entry) 应用，可在自己的 Web 应用在快速引入默认的 IDE Workbench, 通过自定义扩展，从而提供基本的 IDE 开发功能；其四，如果框架默认的 Workbench 无法满足开发者需求，通过框架内置的组件库，服务程序可按自己的需求，重新组合各功能部件，完成 DIY。</p>
+<p>其中，基础组件库的部分，依靠 React 组件化的技术，通过借鉴原桌面的的交互，研发相对应Web端的UI部件，这些基础组件可进行更高阶的自由组合（Compose），通过数据的变更，实现渲染内容的控制。例如 ContextMenu, Sidebar, Tree 等组件。</p>
+<p>其中，数据和视图映射的部分，是通过定义可观察的（Observable）视图 Model，通过一个视图和Model的映射（Mapping）程序进行交互。当视图 Model 变更后，映射程序会自动更新对应的视图。</p>
+<p>其中，扩展（Extension)服务对象，是向开发者提供组件，基础服务扩展的一个窗口。通过加载一个保含扩展定义的 Javascript 对象，扩展服务会待框架基础服务（WorkbenchService, SettingService 等）加载完毕后，当应用处于Ready阶段后，自动加载各扩展对象。加载过程中，扩展服务会根据其类型选择具体的扩展服务进行解析扩展程序，不符合规范的扩展程序，会通过异常的方式通知开发者，符合规范的扩展则会默认激活（active）执行。</p>
+<p>其中，自定义 IDE Workbench 功能，则是通过该框架丰富的声明式组件，基础服务（React Mapping 程序，状态管理、事件模块等）对象，可自己 DIY 整个 IDE 交互界面。</p>
+<h3 id="附图说明">附图说明</h3>
+<p>为了更清楚地说明本发明实施例的技术方案，下面将对实施例描述中所需要使用的附图作简单地介绍，显而易见地，下面描述中的附图仅仅是本发明的一些实施例：</p>
+<ul>
+<li>
+<p>图-2 展示了该框架扩展（Extension）程序的加载和激活的流程；</p>
+</li>
+<li>
+<p>图-3 展示了数据 Model , 服务（Services)、视图(Views)组件、和扩展程序（Extension)的依赖关系；</p>
+</li>
+</ul>
+<h3 id="具体实施方式">具体实施方式</h3>
+<p>为了更清楚地说明本发明实施例的技术方案，下面将对实施例描述中所需要使用的附图作简单地介绍，显而易见地，下面描述中的附图仅仅是本发明的一些实施例：</p>
+<p>实施示例1: 定义扩展程序：</p>
+<p><img src="./img/extension-definition.png" alt="extension-definition"></p>
+<p>通过 Extension 服务定义自己的扩展程序</p>
+<p>实施示例2: 使用默认的 IDE UI，框架快速完成 IDE UI 搭建：</p>
+<p><img src="./img/extension-usage.png" alt="extension-usage"></p>
+<p>实施示例3: 自定义 Workbench：</p>
+<p><img src="./img/custom-workbench.png" alt="custom-workbench"></p>
+<p>可以看到，通过该框架提供的API接口，我们可快速的成一个插件式的 WEB IDE UI 应用，还可以轻松的实现 DIY 的需求。</p>
+<h2 id="说明书附图">说明书附图</h2>
+<p><img src="./img/init-molecule-extension.svg" alt="init-molecule-extension.png"></p>
+<p>（图-2）</p>
+<p><img src="./img/molecule-model-service-view-extension.svg" alt="molecule-model-service-view-extension.svg">
+（图-3）</p>
+
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="//imziv.com/posts/2020/fed-weekly/">
+			下回<br>
+                </a>
+                
+                
+                
+                <a class="older-posts" href="//imziv.com/posts/2020/%E4%B8%93%E5%88%A9%E6%A8%A1%E6%9D%BF/">
+			上回<br>
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+<div class="comments">
+    <vue-disqus shortname="imziv"></vue-disqus>
+</div>
+<noscript><noscript>请开启 JavaScript 以便使用评论服务。</noscript></noscript>
+<a href="https://disqus.com/" class="dsq-brlink">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div><div id="single-column-footer">
+&copy;
+	
+	2014-2020 Ziv小威
+	
+	Built by Hugo <a href="https://github.com/amazingrise/hugo-theme-diary">(Diary)</a></div>
+            </div>
+    <script>
+let app;
+
+app = new Vue({
+    el: '#app',
+    data: {
+        scrollY: 0,
+        navOpacity: 0,
+        isDrawerOpen: false,
+        mounted: false,
+        isDarkMode: false
+    },
+    methods: {
+            sgn(t, x) {
+                let k = 1. / (1. - 2 * t);
+                if (x <= t) return 0;
+                else if (x >= 1 - t) return 1;
+                else {
+                    return k * (x - t);
+                }
+            },
+            handleScroll() {
+                this.scrollY = window.scrollY;
+                this.navOpacity = this.sgn(.0, Math.min(1, Math.max(0, window.scrollY / (this.pageHeadHeight() - this.navBarHeight() * 0.8))));
+                const {navBar, navBackground, navTitle, extraContainer, streamContainer} = this.$refs;
+
+                if (this.navOpacity >= 1) {
+                    navBackground.style.opacity = 1;
+                    navTitle.style.opacity = 1;
+                } else {
+                    navBackground.style.opacity = 0;
+                    navTitle.style.opacity = 0;
+                }
+            },
+            handleResize() {
+                const {navBar, navBackground, navTitle, extraContainer, streamContainer} = this.$refs;
+                extraContainer.style.left = (streamContainer.offsetWidth - extraContainer.offsetWidth) + 'px';
+            },
+            navBarHeight() {
+                return this.$refs.navBar.offsetHeight;
+            },
+            pageHeadHeight() {
+                return this.$refs.pageHead.offsetHeight;
+            },
+            toggleDrawer() {
+                this.isDrawerOpen = !this.isDrawerOpen;
+                document.getElementsByTagName('html')[0].style.overflow = this.isDrawerOpen ? 'hidden' : 'unset';
+            },
+            closeDrawer() {
+                this.isDrawerOpen = false;
+                document.getElementsByTagName('html')[0].style.overflow = this.isDrawerOpen ? 'hidden' : 'unset';
+            },
+            toggleDarkMode() {
+                this.isDarkMode = !this.isDarkMode;
+                if (this.isDarkMode==true){
+                    document.cookie = "night=1;path=/";
+                    document.body.classList.add("night");
+                } else {
+                    document.cookie = "night=0;path=/";
+                    document.body.classList.remove("night");
+                }
+            }
+    },
+    created() {
+        window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('resize', this.handleResize);
+        window._nonDesktop = function () {
+            let check = false;
+            (function (a) {
+                if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
+            })(navigator.userAgent || navigator.vendor || window.opera);
+            return check;
+        };
+        
+        var night = document.cookie.replace(/(?:(?:^|.*;\s*)night\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        if (night==""){
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                
+            }
+        }else{
+            
+            if (night=="1") {
+                this.toggleDarkMode();
+            }
+        }
+    },
+    mounted() {
+        this.handleScroll();
+        this.handleResize();
+        this.mounted = true;
+
+        
+    },
+    destroyed() {
+        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('resize', this.handleResize);
+    }
+});
+</script>
+
+<script src="//imziv.com/js/journal.js"></script>
+    </body>
+</html>

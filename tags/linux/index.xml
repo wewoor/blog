@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on 让美的事情发生</title><link>//imziv.com/tags/linux/</link><description>Recent content in Linux on 让美的事情发生</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>2012-2020 Ziv小威</copyright><lastBuildDate>Wed, 08 Feb 2017 17:21:03 +0000</lastBuildDate><atom:link href="//imziv.com/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>常用的 Linux Shell 命令</title><link>//imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/</link><pubDate>Wed, 08 Feb 2017 17:21:03 +0000</pubDate><guid>//imziv.com/posts/2017/%E5%B8%B8%E7%94%A8%E7%9A%84linux-shell%E5%91%BD%E4%BB%A4/</guid><description>自己平时有可能会用到的 Shell 命令，之前用 Evenote 记录的比较零散，重新整理了下，以后慢慢补充。
+文件操作 查看文件所属用户 ls -al 动态打印日志 tail -f /var/log/error.log 给指定目录的所属用户权限赋予指定人 # 把directry目录下的所有用户指向someone $ sudo chown -R someone:staff directory 用户组相关操作 查看用户组
+groups 查看各用户与组的关联情况
+id 添加新用户组
+sudo groupadd mynewgroup 添加已存在的用户到一个组
+usermod -a -G exampleGroup exampleUserName 改变用户主要的组
+usermod -g groupName userName 查看文件内容 cat filename 查看目录所占磁盘容量 du dir # 显示dir的总容量以及次目录的容量，KB为单位 du -s dir # 显示dir的容量 测试用户目录权限 sudo -u admin stat /home # 测试用户admin对目录 /home 对权限 scp 获取远程服务器上的文件 # 把远程服务器/root目录下的remote.tar.gz文件下载到本地/home目录下， # 并保存为local.</description></item></channel></rss>

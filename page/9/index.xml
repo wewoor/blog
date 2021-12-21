@@ -1,0 +1,434 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>让美的事情发生</title><link>//imziv.com/</link><description>Recent content on 让美的事情发生</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>2012-2020 Ziv小威</copyright><lastBuildDate>Thu, 16 Dec 2021 14:00:00 +0000</lastBuildDate><atom:link href="//imziv.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Play Framework 常用标签 list,set,如何遍历 list、map 类型数据</title><link>//imziv.com/posts/2013/play-framework%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BElistset%E5%A6%82%E4%BD%95%E9%81%8D%E5%8E%86listmap%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE/</link><pubDate>Tue, 29 Jan 2013 10:52:00 +0000</pubDate><guid>//imziv.com/posts/2013/play-framework%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BElistset%E5%A6%82%E4%BD%95%E9%81%8D%E5%8E%86listmap%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE/</guid><description>让美的事情发生 //imziv.com/posts/2013/play-framework%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BElistset%E5%A6%82%E4%BD%95%E9%81%8D%E5%8E%86listmap%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE/ -&lt;p>最近一段时间的项目都是在 Play 这个框架上进行开发的，挺强大的，但不足之处也挺多的。今天分享下 play 中强大的标签，遍历 list,map 类型的数据的用法。&lt;/p>
+&lt;p>遍历单纯的 list 数据,例如：List&lt;!-- raw HTML omitted --> peoples;&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{list peoples,as:&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>people&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>} &lt;span style="color:#228b22">//peoples为list对象，people为实体变量名 ，name则为实体相对应的属性值
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> ${people.&lt;span style="color:#658b00">name&lt;/span>}
+&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{/list}
+遍历list中泛化的map类型&lt;span style="color:#a61717;background-color:#e3d2d2">，&lt;/span>例如&lt;span style="color:#a61717;background-color:#e3d2d2">：&lt;/span>List&amp;lt;Map&amp;lt;People&amp;gt;&amp;gt; peoples;
+&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{list peoples,as:&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>people&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>} &lt;span style="color:#228b22">//peoples为list对象，people为实体变量名 ，name则为实体相对应的属性值
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{list people,as:&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>map&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>}${map.&lt;span style="color:#658b00">value&lt;/span>.&lt;span style="color:#658b00">property&lt;/span>}&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{/list}
+&lt;span style="color:#228b22">//第二个list将people再次转换，map取值则像正常的取值，value为map的value,可是对象类型，property则为对象类型的属性值
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{/list}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>遍历单纯的 Map 类型，例如：Map&amp;lt;id,People&amp;gt; people;&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#228b22">//如果知道map的key值，则可以直接通过一下方式获取：
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>${people.&lt;span style="color:#658b00">get&lt;/span>(key).&lt;span style="color:#658b00">name&lt;/span>}
+&lt;span style="color:#228b22">//如果是要遍历一个map,同样适用list标签
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{list people,as:&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>peo&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>}
+${peo.&lt;span style="color:#658b00">value&lt;/span>.&lt;span style="color:#658b00">name&lt;/span>} &lt;span style="color:#228b22">//peo为map变量，value为key的值，name为属性值
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{/list}
+&lt;span style="color:#228b22">//如果id是一个对象的话，获取其对象的值则可以这样：
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{list people,as:&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>peo&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>}
+${peo.&lt;span style="color:#658b00">key&lt;/span>.&lt;span style="color:#658b00">name&lt;/span>} &lt;span style="color:#228b22">//peo为map变量，key为对象，key为实体对象，name为属性值
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{/list}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>遍历 map 与 list 的组合，例如：Map&amp;lt;id,List&lt;!-- raw HTML omitted -->&amp;gt; people;&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#228b22">//知道ID的情况下可以这样,通过get方法获取对象
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{list people.&lt;span style="color:#658b00">get&lt;/span>(id),as:&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>peo&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>}
+　　${peo.&lt;span style="color:#658b00">name&lt;/span>}
+&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{list}
+&lt;span style="color:#228b22">//如果people是多个map对象，则可以
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{list people,as: &lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>map&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>}
+　　&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{list map.&lt;span style="color:#658b00">value&lt;/span>,as:&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>people&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>set,if,break 标签的使用:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#228b22">//模拟遍历list时的计数器
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{set count:0}&lt;span style="color:#228b22">//设置变量count
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{list data,as:&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>li&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#39;&lt;/span>}
+　　&amp;lt;h1&amp;gt;${count}&amp;lt;/h1&amp;gt;
+&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> count == 2}
+　　&amp;lt;% &lt;span style="color:#8b008b;font-weight:bold">break&lt;/span> %&amp;gt; &lt;span style="color:#228b22">//跳出
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{/&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>}
+&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{ifelse count == 3}
+&amp;lt;h1&amp;gt;${count}&amp;lt;/h1}
+&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{/ifelse}
+&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{&lt;span style="color:#8b008b;font-weight:bold">else&lt;/span>}
+&amp;lt;h1&amp;gt;${count}&amp;lt;/h1&amp;gt;
+&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{/&lt;span style="color:#8b008b;font-weight:bold">else&lt;/span>}
+&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{set count:count+1}&lt;span style="color:#228b22">//自增
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>{/list}
+&lt;/code>&lt;/pre>&lt;/div>- //imziv.com/posts/2013/play-framework%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BElistset%E5%A6%82%E4%BD%95%E9%81%8D%E5%8E%86listmap%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE/ - 2012-2020 Ziv小威</description></item><item><title>我所理解的团队</title><link>//imziv.com/posts/2013/%E6%88%91%E6%89%80%E7%90%86%E8%A7%A3%E7%9A%84%E5%9B%A2%E9%98%9F/</link><pubDate>Tue, 29 Jan 2013 10:52:00 +0000</pubDate><guid>//imziv.com/posts/2013/%E6%88%91%E6%89%80%E7%90%86%E8%A7%A3%E7%9A%84%E5%9B%A2%E9%98%9F/</guid><description>让美的事情发生 //imziv.com/posts/2013/%E6%88%91%E6%89%80%E7%90%86%E8%A7%A3%E7%9A%84%E5%9B%A2%E9%98%9F/ -&lt;p>对于团队这个概念，我小时候的理解就是像国家体育队这样的团体，例如篮球队，或者足球队等。各个运动员在团体中相互发挥自己的优势，从而使整个队伍能发挥出最好的实力。而在我读大学的时候，我选择了软件这个专业，从这个专业中我了解到软件实际工作中，软件开发也是一个非常讲究团队概念的一个工作。只有拥有出色的团队，才能做出优秀的软件产品，然而当我真正踏入这个行业后，对这句话更是深信不疑。&lt;/p>
+&lt;p>在我大一的时候我遇到了我人生中非常重要的一只团队——班级篮球队。可能大家都有过这么个小小的经历，而我把它作为了我的论资。但的确我想表达的是当时的我们真的很团结，很包容。我们不会过分计较个人的失误，我们不会相互埋怨谁，也不会贪图所谓的功劳，有的只是鼓励，相互帮助。正因为如此，我们这支篮球团队在当时才可取得战无不胜的成绩。从此我爱上了团队这词，我觉得团队的力量是无限大的，团队让我们更有成就感。所以当我把这个观念转移到软件开发团队上的时候，我就有了另一些想法，或许是称得上梦想的想法吧。我想某一天我可以身在这样的一直开发团队中，我们创意无限，热爱技术，相互协作的完成各种有创意，有意义的事情，也许能做些在正面影响人们生活的事情。&lt;/p>
+&lt;p>在如今这样一个缺乏凝聚力的社会，如果我们身在的工作岗位上处处是勾心斗角，各种埋怨，我不知道这样工作有什么意思，我也想象不出可以完成什么样的杰作。如果身在一个有凝聚力的团队，相互包容，相互为梦想，为共同的目标去奋斗，不管成功是否，我觉得都是有意思，有意义的。&lt;/p>
+&lt;p>不求在我做程序员的岁月里在多么伟大或者怎样的公司呆过，但求我在这样一支包容，鼓励，团结的团队中为共同目标战斗过！&lt;/p>
+- //imziv.com/posts/2013/%E6%88%91%E6%89%80%E7%90%86%E8%A7%A3%E7%9A%84%E5%9B%A2%E9%98%9F/ - 2012-2020 Ziv小威</description></item><item><title>关于</title><link>//imziv.com/about/</link><pubDate>Mon, 03 Dec 2012 23:19:32 +0000</pubDate><guid>//imziv.com/about/</guid><description>让美的事情发生 //imziv.com/about/ -&lt;p>&lt;img src="./img/2020.jpg" alt="xiaowei">&lt;/p>
+&lt;p>一名生活在杭州的 90 后 Web 工程师。&lt;/p>
+&lt;blockquote>
+&lt;p>一个&lt;code>记录&lt;/code>、&lt;code>调试&lt;/code>、&lt;code>重构&lt;/code>、&lt;code>思考&lt;/code>的自留地&lt;/p>
+&lt;/blockquote>
+- //imziv.com/about/ - 2012-2020 Ziv小威</description></item><item><title>fileloder.js+struts2 实现文件异步上传，无页面刷新效果。</title><link>//imziv.com/posts/2012/fileloder.js+struts2%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%97%A0%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0%E6%95%88%E6%9E%9C/</link><pubDate>Thu, 01 Nov 2012 11:11:00 +0000</pubDate><guid>//imziv.com/posts/2012/fileloder.js+struts2%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%97%A0%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0%E6%95%88%E6%9E%9C/</guid><description>让美的事情发生 //imziv.com/posts/2012/fileloder.js+struts2%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%97%A0%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0%E6%95%88%E6%9E%9C/ -&lt;h2 id="一前言">一、前言&lt;/h2>
+&lt;p>　　之前在写一个 web 的文件上传的功能时，希望在 web 前端对文件的大小，及类型用 js 给验证掉，然后提交到服务器保存入数据库，同时要求达到页面无刷新的异步效果。在网上也看到有很多用 iframe 的方式实现了这样的无刷新效果。不过我在这里给大家介绍的是一款 js 插件，非常强大。在用这款插件前，在网上查询了好久关于 js 对文件类型的验证，当然这样的方法很多，大多数通过正则表达式对文件后缀验证的方式，只不过对文件大小验证这项功能上网上贴出的大多数代码都不靠谱，很多浏览器根本就不支持很多属性操作，比喻说 filesize 这项，而且浏览器的兼容性上考虑起来非常麻烦。不过所幸后来我找到了 fileloader.js 这个插件，前身好像是 ajaxfileupload.js，这款插件可通过 js 提交验证文件的大小及类型、支持拖拽上传。有时间把它的源码研究下也跟大家分享下。fileloader.js 官方地址是：&amp;laquo;&lt;a href="http://fineuploader.com/%3E">http://fineuploader.com/&amp;gt;&lt;/a>。当然上面也有很多 DEMO&amp;gt;，大家可以自己去看。&lt;/p>
+&lt;h2 id="二工作准备">二、工作准备&lt;/h2>
+&lt;p>　　添加 strut2 框架；将下载的 fileloader.js 的文件添加到页面；将 fileloader.css 文件添加到页面；添加 jquery 包。&lt;/p>
+&lt;h2 id="三html-页面代码">三、HTML 页面代码&lt;/h2>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">html&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">head&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">title&lt;/span>&amp;gt;文件上传&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">title&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">link&lt;/span> &lt;span style="color:#658b00">href&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;css/fileuploader.css&amp;#34;&lt;/span> &lt;span style="color:#658b00">rel&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;stylesheet&amp;#34;&lt;/span> &lt;span style="color:#658b00">type&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;text/css&amp;#34;&lt;/span> /&amp;gt;
+　　&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">script&lt;/span> &lt;span style="color:#658b00">language&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;javascript&amp;#34;&lt;/span> &lt;span style="color:#658b00">type&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;text/javascript&amp;#34;&lt;/span> &lt;span style="color:#658b00">src&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;js/jquery-1.8.0.js&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">script&lt;/span>&amp;gt;
+　　&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">script&lt;/span> &lt;span style="color:#658b00">language&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;javascript&amp;#34;&lt;/span> &lt;span style="color:#658b00">type&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;text/javascript&amp;#34;&lt;/span> &lt;span style="color:#658b00">src&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;js/fileuploader.js&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">script&lt;/span>&amp;gt;
+　　&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">script&lt;/span> &lt;span style="color:#658b00">language&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;javascript&amp;#34;&lt;/span> &lt;span style="color:#658b00">type&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;text/javascript&amp;#34;&lt;/span>&amp;gt;
+　　　　$(document).ready(function() {
+　　　　 var thumbnailuploader = new qq.FileUploader({　　　　　　//new fileuploader object
+　　　　 element: $(&amp;#39;#thumbnail-fine-uploader&amp;#39;)[0],　　　　　　//选定页面div元素，这里用了jquery的选择器
+　　　　 action: &amp;#39;service/uploadImage&amp;#39;,　　　　　　　　　　　　//提交的action地址
+　　　　 debug: true,
+　　　　 multiple: false,
+　　　　 allowedExtensions: [&amp;#39;jpeg&amp;#39;, &amp;#39;jpg&amp;#39;, &amp;#39;gif&amp;#39;, &amp;#39;png&amp;#39;],　　//允许上传的文件类型
+　　　　 sizeLimit: 500*1024,　　　　　　　　　　　　　　　　//允许上传文件的大小，这里是500KB，500kb = 500*1024KB
+　　　　 uploadButtonText:&amp;#39;图片上传&amp;#39;,　　　　　　　　　　　　//在页面显示上传按钮
+　　　　 inputName: &amp;#39;myFile&amp;#39;,　　　　　　　　　　　　　　　　//在input标签中的name属性设置为myFile
+　　　　 messages:{　　　　　　　　　　　　　　　　　　　　　//设置的提示信息，包括大小类型等的操作
+　　　　 typeError:&amp;#39;只允许jpeg,jpg,gif,png格式的图片文件{file}&amp;#39;,
+　　　　 sizeError:&amp;#39;文件大小不能超过{sizeLimit}。{file}&amp;#39;,
+　　　　 emptyError:&amp;#39;文件不可为空{file}&amp;#39;,
+　　　　 onLeave:&amp;#39;文件正在上传，离开将终止上传操作？&amp;#39;
+　　　　 },
+　　　　showMessage:function(message){　　　　　　　　　　//显示信息
+　　 alert(message);
+　　　　 },
+// 设置返回从服务器反馈的error信息，不过我这里利用这个responseProperty属性反馈msg信息，
+// 具体的msg内容在服务中设置。
+　　　　 failedUploadTextDisplay: {
+　　　　 mode: &amp;#39;custom&amp;#39;,
+　　　　 maxChars: 40,
+　　　　 responseProperty: &amp;#39;msg&amp;#39;,
+　　　　 enableTooltip: true
+　　 }
+　　　 });
+　　 })　　
+　　&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">scripte&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">head&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">body&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">fieldset&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">legend&lt;/span>&amp;gt;&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">span&lt;/span>&amp;gt;您可以上传一张不超过500kb的图片&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">span&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">legend&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;thumbnail-fine-uploader&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">fieldset&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">body&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">html&lt;/span>&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="三action-服务器端代码">三、Action 服务器端代码&lt;/h2>
+&lt;p>提示：我在项目中使用了 S2SH 框架，所以注意下自己写代码时候的区别。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.io.File&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.io.FileInputStream&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.io.FileOutputStream&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.io.InputStream&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">javax.servlet.http.HttpServletRequest&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">org.apache.struts2.ServletActionContext&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">org.hibernate.Hibernate&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">com.byg.entity.TableMsgService&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">com.byg.service.SendMessageService&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> &lt;span style="color:#008b45;font-weight:bold">FileHandleAction&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">extends&lt;/span> SessionAction{
+&lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> SendMessageService service;
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">setService&lt;/span>(SendMessageService service) {
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.&lt;span style="color:#658b00">service&lt;/span> = service;
+}
+&lt;span style="color:#228b22">// myFile属性，即刚才在声明fileuploader 对象时候设置的myFile属性。通过此属性接收file的Name
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> String myFile;
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> String &lt;span style="color:#008b45">getMyFile&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> myFile;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">setMyFile&lt;/span>(String myFile) {
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.&lt;span style="color:#658b00">myFile&lt;/span> = myFile;
+}
+&lt;span style="color:#228b22">// 用于返回json数据，即在刚才在fileuploader对象中的failedUploadTextDisplay
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#228b22">// 中设置的responseProperty属性，显示msg的信息
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> String msg;
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> String &lt;span style="color:#008b45">getMsg&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> msg;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">setMsg&lt;/span>(String msg) {
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.&lt;span style="color:#658b00">msg&lt;/span> = msg;
+}
+&lt;span style="color:#228b22">//check file size
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22"> * upload image
+&lt;/span>&lt;span style="color:#228b22"> */&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> String &lt;span style="color:#008b45">uploadImage&lt;/span>(){
+&lt;span style="color:#228b22">//声明request对象用于获取文件流
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> HttpServletRequest request = ServletActionContext.&lt;span style="color:#658b00">getRequest&lt;/span>();
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.&lt;span style="color:#658b00">getMyFile&lt;/span>()!=&lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>){ &lt;span style="color:#228b22">//如果图片名不为空
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>
+File myFile = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> File(&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.&lt;span style="color:#658b00">getMyFile&lt;/span>());　　&lt;span style="color:#228b22">//用改文件名new 一个文件对象
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">try&lt;/span> {
+InputStream is = request.&lt;span style="color:#658b00">getInputStream&lt;/span>(); &lt;span style="color:#228b22">//获取文件流
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> FileOutputStream fout = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> FileOutputStream(myFile);&lt;span style="color:#228b22">//定义文件输出流
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>
+&lt;span style="color:#00688b;font-weight:bold">byte&lt;/span> b[] = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> &lt;span style="color:#00688b;font-weight:bold">byte&lt;/span>[1000];
+&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> n ;
+&lt;span style="color:#228b22">//从inputStream中把获取的文件流写入这个新new的文件对象中
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">while&lt;/span>((n=is.&lt;span style="color:#658b00">read&lt;/span>(b))!=-1){
+fout.&lt;span style="color:#658b00">write&lt;/span>(b,0,n);
+}
+is.&lt;span style="color:#658b00">close&lt;/span>();
+fout.&lt;span style="color:#658b00">flush&lt;/span>();
+fout.&lt;span style="color:#658b00">close&lt;/span>();
+&lt;span style="color:#228b22">// 我的Image对象的定义是Blob类型，所以这里我通过进一步的转化myFile
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> FileInputStream in = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> FileInputStream(myFile);
+TableMsgService msgService = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> TableMsgService();
+&lt;span style="color:#228b22">//通过Hibernate的createBlob方法转化,然后设置我的image属性
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> msgService.&lt;span style="color:#658b00">setImage&lt;/span>(Hibernate.&lt;span style="color:#658b00">createBlob&lt;/span>(in));
+&lt;span style="color:#228b22">//最后保存包含这个Blob类型数据的对象，用的Hibernate框架　　
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> service.&lt;span style="color:#658b00">save&lt;/span>(msgService); &lt;span style="color:#228b22">//save this object;
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>
+msg = &lt;span style="color:#cd5555">&amp;#34;文件&amp;#34;&lt;/span>+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.&lt;span style="color:#658b00">getMyFile&lt;/span>()+&lt;span style="color:#cd5555">&amp;#34;上传成功&amp;#34;&lt;/span>;　&lt;span style="color:#228b22">// msg 设置显示成功
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>
+}&lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span>(Exception e) {
+msg = &lt;span style="color:#cd5555">&amp;#34;文件&amp;#34;&lt;/span>+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.&lt;span style="color:#658b00">getMyFile&lt;/span>()+&lt;span style="color:#cd5555">&amp;#34;上传失败&amp;#34;&lt;/span>; &lt;span style="color:#228b22">//如果异常 设置msg显示失败
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> e.&lt;span style="color:#658b00">printStackTrace&lt;/span>();
+}
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#cd5555">&amp;#34;succ&amp;#34;&lt;/span>;
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="三strutsxml-的配置">三、Struts.xml 的配置&lt;/h2>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-xml" data-lang="xml">
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;struts&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;constant&lt;/span> &lt;span style="color:#658b00">name=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;struts.il8n.encoding&amp;#34;&lt;/span> &lt;span style="color:#658b00">value=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&amp;lt;/constant&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;package&lt;/span> &lt;span style="color:#658b00">name=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;test&amp;#34;&lt;/span> &lt;span style="color:#658b00">extends=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;json-default&amp;#34;&lt;/span> &lt;span style="color:#658b00">namespace=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;/service&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&lt;/span>
+// 我这里写的是spring配置的Action
+　　 &lt;span style="color:#8b008b;font-weight:bold">&amp;lt;action&lt;/span> &lt;span style="color:#658b00">name=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;uploadImage&amp;#34;&lt;/span> &lt;span style="color:#658b00">class=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;fileHandleAction&amp;#34;&lt;/span> &lt;span style="color:#658b00">method=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;uploadImage&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&lt;/span>　　
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;result&lt;/span> &lt;span style="color:#658b00">name=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;succ&amp;#34;&lt;/span> &lt;span style="color:#658b00">type=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;json&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">/&amp;gt;&lt;/span>　// 返回json数据，即msg属性的信息
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/action&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/package&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/struts&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="四结语">四、结语&lt;/h2>
+&lt;p>fileuploader.js 这款插件还是很是强大的，支持进度条的显示，也可以自定义气样式，不过目前我还是没有了解很透这款插件。有时间好好琢磨。希望这篇文章可以对大家有需要的分享下。&lt;/p>
+- //imziv.com/posts/2012/fileloder.js+struts2%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%97%A0%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0%E6%95%88%E6%9E%9C/ - 2012-2020 Ziv小威</description></item><item><title>Struts2+Hibernate+Spring 在 mysql 更新 Blob 类型的数据</title><link>//imziv.com/posts/2012/struts2+hibernate+spring-%E5%9C%A8mysql%E6%9B%B4%E6%96%B0blob%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE/</link><pubDate>Thu, 06 Sep 2012 11:43:00 +0000</pubDate><guid>//imziv.com/posts/2012/struts2+hibernate+spring-%E5%9C%A8mysql%E6%9B%B4%E6%96%B0blob%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE/</guid><description>让美的事情发生 //imziv.com/posts/2012/struts2+hibernate+spring-%E5%9C%A8mysql%E6%9B%B4%E6%96%B0blob%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE/ -&lt;p>看了好多别人写的，不是写的很复杂，就是写的简单的不靠谱。其实很简单 0 0.&lt;/p>
+&lt;p>以下的代码是更新指定 id 里面的 image 文件的方法。具体代码如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">public boolean updateImage(Image image) {
+// 这里我用的是Spring 的HibernateTemplate 模板
+Session session = template.getSessionFactory().openSession();
+// 当然你可以直接用Hibernate获取session对象
+Transaction transaction = session.beginTransaction();
+session.saveOrUpdate(image);
+session.flush();
+transaction.commit();
+session.close();
+return true;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>下面是我的 Image class&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> &lt;span style="color:#008b45;font-weight:bold">Image&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> &lt;span style="color:#00688b;font-weight:bold">int&lt;/span> id;
+&lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> Blob image;
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">int&lt;/span> &lt;span style="color:#008b45">getId&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> id;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">setId&lt;/span>(&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> id) {
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.&lt;span style="color:#658b00">id&lt;/span> = id;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> Blob &lt;span style="color:#008b45">getImage&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> image;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">setImage&lt;/span>(Blob image) {
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.&lt;span style="color:#658b00">image&lt;/span> = image;
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>下面是我的 Struts2 的 Action&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> String &lt;span style="color:#008b45">uploadImage&lt;/span>(){
+&lt;span style="color:#8b008b;font-weight:bold">try&lt;/span> {
+FileInputStream input = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> FileInputStream(file);
+Blob blob = Hibernate.&lt;span style="color:#658b00">createBlob&lt;/span>(input);
+image.&lt;span style="color:#658b00">setImage&lt;/span>(blob); &lt;span style="color:#228b22">//Action 把上传过来的文件进行转换后给Image set value.
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>
+imageDao.&lt;span style="color:#658b00">updateImage&lt;/span>(image);
+} &lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span> (FileNotFoundException e) {
+e.&lt;span style="color:#658b00">printStackTrace&lt;/span>();
+} &lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span> (IOException e) {
+e.&lt;span style="color:#658b00">printStackTrace&lt;/span>();
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#cd5555">&amp;#34;succ&amp;#34;&lt;/span>;
+}
+&lt;/code>&lt;/pre>&lt;/div>- //imziv.com/posts/2012/struts2+hibernate+spring-%E5%9C%A8mysql%E6%9B%B4%E6%96%B0blob%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE/ - 2012-2020 Ziv小威</description></item><item><title>Strut2 与 Hibernate 的一个 web 分页功能</title><link>//imziv.com/posts/2012/strut2%E4%B8%8Ehibernate%E7%9A%84%E4%B8%80%E4%B8%AAweb%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD/</link><pubDate>Thu, 06 Sep 2012 11:32:00 +0000</pubDate><guid>//imziv.com/posts/2012/strut2%E4%B8%8Ehibernate%E7%9A%84%E4%B8%80%E4%B8%AAweb%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD/</guid><description>让美的事情发生 //imziv.com/posts/2012/strut2%E4%B8%8Ehibernate%E7%9A%84%E4%B8%80%E4%B8%AAweb%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD/ -&lt;p>代码没有进行过多的封装，可能看起来有点 action 代码部分，hibernate 在这里只起到了一个查询记录集的作用。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.util.ArrayList&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.util.List&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.util.Map&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">org.apache.struts2.interceptor.SessionAware&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">org.hibernate.Criteria&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">org.hibernate.Session&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">com.HibernateSessionFactory&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">com.hibertest1.dto.MyMessage&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> &lt;span style="color:#008b45;font-weight:bold">FenYeAction&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">implements&lt;/span> SessionAware{
+&lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> &lt;span style="color:#00688b;font-weight:bold">int&lt;/span> start = 0;
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">int&lt;/span> &lt;span style="color:#008b45">getStart&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> start;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">setStart&lt;/span>(&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> start) {
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.&lt;span style="color:#658b00">start&lt;/span> = start;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> String &lt;span style="color:#008b45">getMessage&lt;/span>(){
+List&amp;lt;MyMessage&amp;gt; msgs = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> ArrayList&amp;lt;MyMessage&amp;gt;();
+Session se = HibernateSessionFactory.&lt;span style="color:#658b00">getSession&lt;/span>();
+Criteria crit = se.&lt;span style="color:#658b00">createCriteria&lt;/span>(MyMessage.&lt;span style="color:#658b00">class&lt;/span>); &lt;span style="color:#228b22">//创建Criteria 对象
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>
+msgs = crit.&lt;span style="color:#658b00">list&lt;/span>();
+&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> size = msgs.&lt;span style="color:#658b00">size&lt;/span>(); &lt;span style="color:#228b22">//获得查询出来的总量
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(size&amp;gt;5)
+{
+session.&lt;span style="color:#658b00">put&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;pageCount&amp;#34;&lt;/span>,size%5);
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(size-start&amp;lt;5) &lt;span style="color:#228b22">//如果起点位置到记录结束位置在5条结果之内
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> {
+session.&lt;span style="color:#658b00">put&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;subMsg&amp;#34;&lt;/span>,msgs.&lt;span style="color:#658b00">subList&lt;/span>(start, size)); &lt;span style="color:#228b22">//那么我们就取值到结束点的位置
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> }&lt;span style="color:#8b008b;font-weight:bold">else&lt;/span>
+{
+session.&lt;span style="color:#658b00">put&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;subMsg&amp;#34;&lt;/span>,msgs.&lt;span style="color:#658b00">subList&lt;/span>(start, start+5)); &lt;span style="color:#228b22">//否则一次获取5条记录来
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> }
+}
+&lt;span style="color:#8b008b;font-weight:bold">else&lt;/span>
+{
+session.&lt;span style="color:#658b00">put&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;subMsg&amp;#34;&lt;/span>, msgs); &lt;span style="color:#228b22">//如果小于等于5条记录就全部放入session
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> }
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#cd5555">&amp;#34;succ&amp;#34;&lt;/span>;
+}
+&lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> Map&amp;lt;String,Object&amp;gt; session;
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">setSession&lt;/span>(Map&amp;lt;String, Object&amp;gt; arg0) {
+&lt;span style="color:#228b22">// TODO Auto-generated method stub
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.&lt;span style="color:#658b00">session&lt;/span> = arg0;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>一下是 jsp 页面的代码，主要用到 struts2 的 ognl 标签,下面的例子主要用的一张用户表，两个属性，id 和 name,所以至于 hibernat 和 actine 的配置我就不列举出来了&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">body&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">center&lt;/span>&amp;gt;
+&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;lt;&lt;/span>%@taglib prefix=&amp;#34;s&amp;#34; uri=&amp;#34;/struts-tags&amp;#34;%&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">table&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">tr&lt;/span>&amp;gt;&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">td&lt;/span>&amp;gt;用户ID&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">td&lt;/span>&amp;gt;&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">td&lt;/span>&amp;gt;用户名称&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">td&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">tr&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">s:iterator&lt;/span> &lt;span style="color:#658b00">value&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;#session[&amp;#34;&lt;/span>&lt;span style="color:#658b00">subMsg&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#34;]&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">tr&lt;/span>&amp;gt;&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">td&lt;/span>&amp;gt;&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">s:property&lt;/span> &lt;span style="color:#658b00">value&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;id&amp;#34;&lt;/span>/&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">td&lt;/span>&amp;gt;&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">td&lt;/span>&amp;gt;&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">s:property&lt;/span> &lt;span style="color:#658b00">value&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;name&amp;#34;&lt;/span>/&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">td&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">tr&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">s:iterator&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">table&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">s:if&lt;/span> &lt;span style="color:#658b00">test&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;#session[&amp;#34;&lt;/span>&lt;span style="color:#658b00">pageCount&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#34;]!=&lt;/span>&lt;span style="color:#658b00">null&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">s:iterator&lt;/span> &lt;span style="color:#658b00">var&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;i&amp;#34;&lt;/span> &lt;span style="color:#658b00">begin&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;0&amp;#34;&lt;/span> &lt;span style="color:#658b00">end&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;#session[&amp;#34;&lt;/span>&lt;span style="color:#658b00">pageCount&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#34;]&amp;#34;&lt;/span> &lt;span style="color:#658b00">step&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;1&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">a&lt;/span> &lt;span style="color:#658b00">href&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;http://wewoor.blog.163.com/blog/hirb/nextPage?start=&amp;lt;s:property value=&amp;#34;&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">#&lt;/span>&lt;span style="color:#658b00">i&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">*&lt;/span>&lt;span style="color:#658b00">5&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#34;&lt;/span>/&amp;gt;&amp;#34;&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">s:property&lt;/span> &lt;span style="color:#658b00">value&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;#i+1&amp;#34;&lt;/span>/&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">a&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">s:iterator&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">s:if&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">center&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">body&lt;/span>&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>- //imziv.com/posts/2012/strut2%E4%B8%8Ehibernate%E7%9A%84%E4%B8%80%E4%B8%AAweb%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD/ - 2012-2020 Ziv小威</description></item><item><title>Struts2 与 Spring 的整合</title><link>//imziv.com/posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/</link><pubDate>Thu, 06 Sep 2012 11:32:00 +0000</pubDate><guid>//imziv.com/posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/</guid><description>让美的事情发生 //imziv.com/posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/ -&lt;p>今天倒腾了半天，终于是把这个两个框架整合到一起了。还是要写一下总结，同时给大家一些帮助。&lt;/p>
+&lt;p>开发环境：myeclipse 9.0(不好用！）tomcat6.0
+1.准备工作&lt;/p>
+&lt;p>需要导入的包：struts2 与 spring 基本的包就不用说了，我用的是 struts2.1 Spring 3.0，&lt;/p>
+&lt;p>尤其要注意 别少导入的几个是:Spring3.0 Web Libraries ;
+struts 支持 spring 的插件：struts2-spring-plugin-2.1.8.1.jar 将这个 jar 文件放到 lib 目录下
+2.web.xml 的配置&lt;/p>
+&lt;p>除了 struts2 的核心配置外，我们还要加入 spring 的配置，代码如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-xml" data-lang="xml">
+&lt;span style="color:#228b22">&amp;lt;!--指明spring配置文件的位置!--&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;context-param&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;param-name&amp;gt;&lt;/span>contextConfigLocation&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/param-name&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;param-value&amp;gt;&lt;/span>classpath*:applicationContext*.xml&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/param-value&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/context-param&amp;gt;&lt;/span>
+&lt;span style="color:#1e889b">&amp;lt;!-加载spring的配置文件!--&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;listener&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;listener-class&amp;gt;&lt;/span>
+org.springframework.web.context.ContextLoaderListener
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/listener-class&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/listener&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>注：如果你在运行的时候发现有 no found class org.springframework.web.context.LoaderListener 的异常 ，那你要注意你的 Spring3.0 Web 包的导入了&lt;/p>
+&lt;p>3.application.xml 的配置&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-xml" data-lang="xml">
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;beans&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;bean&lt;/span> &lt;span style="color:#658b00">id=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;userService&amp;#34;&lt;/span> &lt;span style="color:#658b00">class=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;com.test.service.UserServiceImpl&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&amp;lt;/bean&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;bean&lt;/span> &lt;span style="color:#658b00">id=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;userAction&amp;#34;&lt;/span> &lt;span style="color:#658b00">class=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;com.test.action.UserAction&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;property&lt;/span> &lt;span style="color:#658b00">name=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;userService&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;ref&lt;/span> &lt;span style="color:#658b00">bean=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;userService&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">/&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/property&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/bean&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/beans&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>4.UserAction 类 这个不用多说，注意的是 userService 属性的 getter 和 setter 方法&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> &lt;span style="color:#008b45;font-weight:bold">UserAction&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> User user = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> User();
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> User &lt;span style="color:#008b45">getUser&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> user;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">setUser&lt;/span>(User user) {
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.&lt;span style="color:#658b00">user&lt;/span> = user;
+}
+&lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> UserService userService;
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> UserService &lt;span style="color:#008b45">getUserService&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> userService;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">setUserService&lt;/span>(UserService userService) {
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.&lt;span style="color:#658b00">userService&lt;/span> = userService;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> String &lt;span style="color:#008b45">checkLogin&lt;/span>(){
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(userService.&lt;span style="color:#658b00">checkLogin&lt;/span>(user))
+{
+System.&lt;span style="color:#658b00">out&lt;/span>.&lt;span style="color:#658b00">println&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;ok&amp;#34;&lt;/span>);
+}&lt;span style="color:#8b008b;font-weight:bold">else&lt;/span>
+System.&lt;span style="color:#658b00">out&lt;/span>.&lt;span style="color:#658b00">println&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;sorry&amp;#34;&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#cd5555">&amp;#34;succ&amp;#34;&lt;/span>;
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>5.struts.xml 的配置,把原先 class 的路径换成 spring 中配置 action 的 bean 的 id&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-xml" data-lang="xml">
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;struts&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;package&lt;/span> &lt;span style="color:#658b00">name=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;test&amp;#34;&lt;/span> &lt;span style="color:#658b00">extends=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;struts-default&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;action&lt;/span> &lt;span style="color:#658b00">name=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;login&amp;#34;&lt;/span> &lt;span style="color:#658b00">class=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;userAction&amp;#34;&lt;/span> &lt;span style="color:#658b00">method=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;checkLogin&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;result&lt;/span> &lt;span style="color:#658b00">name=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;succ&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&lt;/span>index.jsp&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/result&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/action&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/package&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/struts&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>- //imziv.com/posts/2012/struts2%E4%B8%8Espring%E7%9A%84%E6%95%B4%E5%90%88/ - 2012-2020 Ziv小威</description></item><item><title>也许我不是个有天赋的程序员</title><link>//imziv.com/posts/2012/%E4%B9%9F%E8%AE%B8%E6%88%91%E4%B8%8D%E6%98%AF%E4%B8%AA%E6%9C%89%E5%A4%A9%E8%B5%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/</link><pubDate>Thu, 06 Sep 2012 11:32:00 +0000</pubDate><guid>//imziv.com/posts/2012/%E4%B9%9F%E8%AE%B8%E6%88%91%E4%B8%8D%E6%98%AF%E4%B8%AA%E6%9C%89%E5%A4%A9%E8%B5%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/</guid><description>让美的事情发生 //imziv.com/posts/2012/%E4%B9%9F%E8%AE%B8%E6%88%91%E4%B8%8D%E6%98%AF%E4%B8%AA%E6%9C%89%E5%A4%A9%E8%B5%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/ -&lt;p>当我刚刚接触到编程这个词汇的时候，经常会听到某某大牛的技术怎么样怎么样，然而当我步入大学后，我决然的选择了我向往已经的专业—软件开发。&lt;/p>
+&lt;p>我一直认为，只要通过自己努力，什么技术的一样我可以学的很好，就算高中的时候数学不好，英语也不是很好，但是我同样可以学习，来填充自己，就算我不是一个在编程方面有特别天赋的人，或者说我可能并不是很适合编程，其实我自己也不知道，可是我知道我自己喜欢编程这件事情。那些技术的大牛就像武侠中的高手，可以深藏不漏的隐居生活，也可以扬名立万，总之技术在我眼里就像武学一样，各种技术就是各种武学。所以，作为男孩子的我，当然向往这种感觉，喜欢做大侠的感觉。我喜欢把自己的各种想法，用自己喜欢的方式做成 web，去实现它，然后和他人分享我的东西，我喜欢这种感觉，我喜欢弄出不一样的东西，用编程做出有创造性的东西是我喜欢它的一个很重要的原因。&lt;/p>
+&lt;p>　　我不得不承认我在数学方面没有太多的天赋，从小学的时候到大学，我的数学就是一般般，可能也是由于自己当时没有认真学习吧，因为我发现我的逻辑思维还是可以的。我一直觉得，我并不想成为编程界的多么有成就的人物，数学不好我可以学，所以这并不能阻挡我成为一个高手的动力。经过了 2 年多的学习，事实证明，我可以完成很多同学都不能完成的作品，或许是他们不愿意学习去做的原因吧，因为我觉得，如果他们愿意，这些同样难倒不了他们。同样我也不断的在学习着英语，因为英语决定了我将来可以站在多高的舞台上面，理所当然我想变的更好。&lt;/p>
+&lt;p>　　也许我不是一个有天赋的程序员，对于某些算法的东西，对于有天赋的人来说，他们可能一个小时就可以搞定，可是我可能需要 2 个小时，或者更久等等，但是我并没有放弃对问题的思索，对答案的渴求。所以我一直觉得只要努力，可能你并不是一个有天赋的程序员，但至少你也可以成为一位优秀的程序员，stay hungry ,stay foolish.&lt;/p>
+&lt;p>　　马上就要毕业了，就要踏上社会，找到适合的工作，可能找到适合自己的工作很难，这仅仅只是一个开始，希望能保持自己的初衷，在这条道路中不断的探索，前进！&lt;/p>
+- //imziv.com/posts/2012/%E4%B9%9F%E8%AE%B8%E6%88%91%E4%B8%8D%E6%98%AF%E4%B8%AA%E6%9C%89%E5%A4%A9%E8%B5%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/ - 2012-2020 Ziv小威</description></item><item><title>将 mysql 中的 Blob 的图片在 jsp 中显示</title><link>//imziv.com/posts/2012/%E5%B0%86mysql%E4%B8%AD%E7%9A%84blob%E7%9A%84%E5%9B%BE%E7%89%87%E5%9C%A8jsp%E4%B8%AD%E6%98%BE%E7%A4%BA/</link><pubDate>Thu, 06 Sep 2012 11:32:00 +0000</pubDate><guid>//imziv.com/posts/2012/%E5%B0%86mysql%E4%B8%AD%E7%9A%84blob%E7%9A%84%E5%9B%BE%E7%89%87%E5%9C%A8jsp%E4%B8%AD%E6%98%BE%E7%A4%BA/</guid><description>让美的事情发生 //imziv.com/posts/2012/%E5%B0%86mysql%E4%B8%AD%E7%9A%84blob%E7%9A%84%E5%9B%BE%E7%89%87%E5%9C%A8jsp%E4%B8%AD%E6%98%BE%E7%A4%BA/ -&lt;p>本来我的例子是用 Struts2+Hibernate+Spring 三个框架搭建的，但是没有什么大碍，我们只有知道核心部分在怎么实现的就行。&lt;/p>
+&lt;p>以下是我的 Action 的代码：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">
+&lt;span style="color:#228b22">//show image
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> Image image = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Image();
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> Image &lt;span style="color:#008b45">getImage&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> image;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">setImage&lt;/span>(Image image) {
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.&lt;span style="color:#658b00">image&lt;/span> = image;
+}
+&lt;span style="color:#228b22">//imageDao对象我是Spring注入进来的，你可以用new创建
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">showImage&lt;/span>(){
+&lt;span style="color:#00688b;font-weight:bold">byte&lt;/span>[] itemImage = &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>;
+HttpServletResponse response = ServletActionContext.&lt;span style="color:#658b00">getResponse&lt;/span>();
+response.&lt;span style="color:#658b00">reset&lt;/span>();
+response.&lt;span style="color:#658b00">setContentType&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;image/jpeg&amp;#34;&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">try&lt;/span> {
+image.&lt;span style="color:#658b00">setId&lt;/span>(0);
+&lt;span style="color:#228b22">//通过getBytes()方法将获取的Blob类型数据转换
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> itemImage = imageDao.&lt;span style="color:#658b00">getImage&lt;/span>(image).
+getBytes(1, (&lt;span style="color:#00688b;font-weight:bold">int&lt;/span>)imageDao.&lt;span style="color:#658b00">getImage&lt;/span>(image).&lt;span style="color:#658b00">length&lt;/span>());
+OutputStream out = response.&lt;span style="color:#658b00">getOutputStream&lt;/span>();
+out.&lt;span style="color:#658b00">write&lt;/span>(itemImage);
+out.&lt;span style="color:#658b00">flush&lt;/span>();
+out.&lt;span style="color:#658b00">close&lt;/span>();
+} &lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span> (SQLException e) {
+&lt;span style="color:#228b22">// TODO Auto-generated catch block
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> e.&lt;span style="color:#658b00">printStackTrace&lt;/span>();
+} &lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span> (IOException e) {
+&lt;span style="color:#228b22">// TODO Auto-generated catch block
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> e.&lt;span style="color:#658b00">printStackTrace&lt;/span>();
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以下是 ImageDAO 的 method&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> Blob &lt;span style="color:#008b45">getImage&lt;/span>(Image image) {
+Image img = (Image) template.&lt;span style="color:#658b00">get&lt;/span>(Image.&lt;span style="color:#658b00">class&lt;/span>, image.&lt;span style="color:#658b00">getId&lt;/span>()); &lt;span style="color:#228b22">//按指定id获取的image对象
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>
+Blob blob = img.&lt;span style="color:#658b00">getImage&lt;/span>();
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> blob; &lt;span style="color:#228b22">//return blob 对象
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> }
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>JSP 的代码为：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html"> &amp;lt;&lt;span style="color:#8b008b;font-weight:bold">img&lt;/span> &lt;span style="color:#658b00">src&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;&amp;lt;http://wewoor.blog.163.com/blog/&amp;lt;s:url&amp;gt; value=&amp;#34;&lt;/span>&lt;span style="color:#658b00">show&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;#34;&lt;/span> /&amp;gt;&amp;#34; border=&amp;#34;0&amp;#34; width=&amp;#34;100&amp;#34; height=&amp;#34;100&amp;#34;&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>- //imziv.com/posts/2012/%E5%B0%86mysql%E4%B8%AD%E7%9A%84blob%E7%9A%84%E5%9B%BE%E7%89%87%E5%9C%A8jsp%E4%B8%AD%E6%98%BE%E7%A4%BA/ - 2012-2020 Ziv小威</description></item><item><title>浅聊这 2 各月的学习</title><link>//imziv.com/posts/2012/%E6%B5%85%E8%81%8A%E8%BF%992%E5%90%84%E6%9C%88%E7%9A%84%E5%AD%A6%E4%B9%A0/</link><pubDate>Thu, 06 Sep 2012 11:32:00 +0000</pubDate><guid>//imziv.com/posts/2012/%E6%B5%85%E8%81%8A%E8%BF%992%E5%90%84%E6%9C%88%E7%9A%84%E5%AD%A6%E4%B9%A0/</guid><description>让美的事情发生 //imziv.com/posts/2012/%E6%B5%85%E8%81%8A%E8%BF%992%E5%90%84%E6%9C%88%E7%9A%84%E5%AD%A6%E4%B9%A0/ -&lt;p>从今年的 7 月份学校放暑假，到如今马上又要开学，忽然间 2 个月的时间已匆匆过去。这两天也没有做出什么具有效率成果的事情，编写一文章做点总结吧。&lt;/p>
+&lt;p>当暑假即将来临的那会，我已经在着急忙忙的四处寻找能够实习的机会，希望能找到一个能尽快提升自己技术的公司来充实 2 个月的自己，无论工资多少，但我想一 定得在技术上面有一定的突破，这是我最初所期望的。但是事实总是曲折的，在寻找实习期间，遇到大多数的电话都是培训机构的，不过当时海辉当时打电话应聘我 Android 的实习生，但很不幸的是我当时一时的激动还是说错了几个问题，这也让我最终意识到自己的不足。培训机构始终给我的感觉就是如果自己去培训就 是对自己的不肯定、不自信，而我更觉得搞技术还是要靠自己的摸索和自学。培训只不过是给自己的路找个台阶罢了，而我，不需要。我要靠自己。&lt;/p>
+&lt;p>接下来的日子让我意识到了一些问题。首先，对于我这样一位才大二刚刚毕业的学生来讲，企业是不希望招到一位实习玩 2 月的未毕业的学生就开溜大吉的，也不希 望要一位没有生产能力的员工。其次，那个时候的我主要是 java，熟练 js,servlet,jsp,+struts2 框架的开发，在学校中做了很多相关 数据库操作的小型项目的练习（例如：宠物系统、考试系统），其次还会 c#,.net 但后者并不是我的拿手项。其实后来做了几次面试试卷，发现自己在 java 实战开发上确实还是有一定的经验，但 java 基础并没有自己想象的那么牢固，很多 知识我都还是理解的不够深、不够透，比喻一些修饰符的应用，一些包、类的作用，区别，等等。所以我决心利用暑假两个月，好好修炼自己，而地点则是在学校寝 室里面。&lt;/p>
+&lt;p>在放假之前我计划给自己搭建一个博客的，也是自己用 struts2 这么一个框架写的，非常简单的一些功能，例如常见的：分页，相册，和常见的数据增删改查 操作。但并未过多的应用 js+Ajax 技术。大约用了 1 到 2 个星期的时间，我把这个简单的博客给完成了，采用了我一贯喜欢的简洁风格，最后找了一个适用的 Linux 服务器，在上面测试了一段时间，也发现了不少问题，也相继的修复了些 Bug.还是挺有意思的，之后的时间我想把这博客尽量的完善。&lt;/p>
+&lt;p>其次，我发现 Ajax 技术还有 Spring，Hibernate 这几个技术在实际开发中的应用是非常频繁，而且也是非常重要的。Ajax 主要在 Web 页面 的体验上面做出来很好的表现，Spring 的话则主要对整个系统的性能上有很大的改善，而 Hibernate 则让我们对数据库的开发上变的更的心应手。所 以我觉得接下来的时间把这 3 个技术搞定，然后做一些小项目，同时提升自己的实战经验。
+大约花了半个多月的时间，我差不多把 Ajax，Spring,Hibernate 的基本应用给搞清楚了，其中包括 Spring+Hibernate 的整 合，Spring+Struts2 的整合，在网上看了很多人写的博客，最好整合后，自己也写了些自己整合的经验总结。&lt;/p>
+&lt;p>在学完这 2 个框架的基本开发后，我便拿着这两个框架去完成自己脑袋中的一些小小的创想，在实际中完整自己知识，让我对这 2 个框架有更进一步的学习和认识。 我觉得通过这种拿自己的创想去完成一些东西也成为了自己的一种小小动力。项目期间同时也把之前的纯 javascript 用 Jquery 这个技术引入了页面 的开发，渐渐让自己的页面变得更生动，js 代码更加简洁。总之收获很多。&lt;/p>
+&lt;p>在天气晴朗的时候，我也会抽时间晚上去跑步，跑好远好远，一个人可以静静的想通很多问题，也可以想到很多好玩的。不经意的一次发现自己挺喜欢阅读文章，后 来在淘宝上面买了个声卡，和麦，为同学的一个小 FM 网站上面录了文章，感觉还不错，虽然在发音上面还是有很多问题，但我觉得挺好的，在自己写代码累了后， 我便会找几篇文章，尝试找到有感觉的背景音乐，然后尝试去诠释它。真的挺好的一种感觉。&lt;/p>
+&lt;p>暑假过完了，同时也涌现了很多新的方向，新的目标，但这个暑假我觉得过的真的挺不错的，收获很多。同时也想通了很多。以后也会写更多的日志，来总结自己，鞭策自己。&lt;/p>
+- //imziv.com/posts/2012/%E6%B5%85%E8%81%8A%E8%BF%992%E5%90%84%E6%9C%88%E7%9A%84%E5%AD%A6%E4%B9%A0/ - 2012-2020 Ziv小威</description></item></channel></rss>

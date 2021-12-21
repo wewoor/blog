@@ -1,0 +1,891 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>让美的事情发生</title><link>//imziv.com/</link><description>Recent content on 让美的事情发生</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>2012-2020 Ziv小威</copyright><lastBuildDate>Thu, 16 Dec 2021 14:00:00 +0000</lastBuildDate><atom:link href="//imziv.com/index.xml" rel="self" type="application/rss+xml"/><item><title>让大象飞？</title><link>//imziv.com/posts/2019/%E8%AE%A9%E5%A4%A7%E8%B1%A1%E9%A3%9E/</link><pubDate>Sun, 02 Jun 2019 22:47:29 +0000</pubDate><guid>//imziv.com/posts/2019/%E8%AE%A9%E5%A4%A7%E8%B1%A1%E9%A3%9E/</guid><description>让美的事情发生 //imziv.com/posts/2019/%E8%AE%A9%E5%A4%A7%E8%B1%A1%E9%A3%9E/ -&lt;p>如果你刚好有好的 idea，有创业打算的话，《让大象飞》可能是一本能给你一些帮助的书。&lt;/p>
+&lt;p>作者在书中对拥有了好的 idea 的情况下，如何才能让idea转化为真实的产品，以及如何迭代完善，如何保证最后得到市场的认可，有了比较结构性的阐述。创业也讲究&lt;code>天时地利人和&lt;/code>, 产品开发其实也是&lt;code>唯快不破&lt;/code>。作者在书中给出了很多可能违法我们直觉的一些观点，例如：&lt;/p>
+&lt;ul>
+&lt;li>初创团队并不是人越多越好；&lt;/li>
+&lt;li>创业初期过多的资金可能是毒药；&lt;/li>
+&lt;li>产品早期不要追求完美；&lt;/li>
+&lt;li>技术并没我们想的那么重要。&lt;/li>
+&lt;/ul>
+&lt;p>很显然这些内容是有前提上下文的，而直接套用这些观点则是件很危险的事情。&lt;/p>
+&lt;p>书往往是作者在十分理性状态思考，并写下的总结，有参考意义，可毕竟现实情况总是各种因素交织交措。所有成功的公司都很类似，但每家失败的公司都有其各自的原因？&lt;/p>
+- //imziv.com/posts/2019/%E8%AE%A9%E5%A4%A7%E8%B1%A1%E9%A3%9E/ - 2012-2020 Ziv小威</description></item><item><title>数栈前端项目的 Code Review 实践小结</title><link>//imziv.com/posts/2019/%E6%95%B0%E6%A0%88%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E7%9A%84-code-review-%E5%AE%9E%E8%B7%B5%E5%B0%8F%E7%BB%93/</link><pubDate>Fri, 12 Apr 2019 08:48:17 +0000</pubDate><guid>//imziv.com/posts/2019/%E6%95%B0%E6%A0%88%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E7%9A%84-code-review-%E5%AE%9E%E8%B7%B5%E5%B0%8F%E7%BB%93/</guid><description>让美的事情发生 //imziv.com/posts/2019/%E6%95%B0%E6%A0%88%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E7%9A%84-code-review-%E5%AE%9E%E8%B7%B5%E5%B0%8F%E7%BB%93/ -&lt;h3 id="背景">背景&lt;/h3>
+&lt;p>近两年我都在同一个项目上共献代码，算起来这算是我参与过最大的前端项目了。项目最开始只有我一个人做编码工作，后来陆陆续续一共有 8 个同学给项目贡献过代码，到现在稳定在 4 个人都在同时给项目提交代码。参与的同学有经验丰富一些的，也有工作一两年的小伙伴，还有实习的同学。&lt;/p>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEB956669b07f625c82bea8398ef5ac7c7a?method=download&amp;amp;shareKey=a68263d418c25fc54fffbe89382c4428" alt="cloc-codes">&lt;/p>
+&lt;p>两年多的时间里，我一直在间接的接手或者被接手彼此同伴的代码。 由于早期同时参与的时候最多也就 2 个同学，所以项目一开始并没有 CodeReview，大概过了一年多后，项目代码量已经达到了一定规模，业务逻辑也有了较大的积累了，此时已经有 5，6 个同学参与过这个项目了。这期间逐渐暴露出来一些问题摆在眼前：&lt;/p>
+&lt;ul>
+&lt;li>已完成的功能模块经常容易改出新问题&lt;/li>
+&lt;li>重复的 API, 模块封装&lt;/li>
+&lt;li>奇怪的框架使用方法&lt;/li>
+&lt;li>代码质量参差不齐&lt;/li>
+&lt;li>闷头开发，对彼此的工作（代码）并不熟悉，缺少交流&lt;/li>
+&lt;/ul>
+&lt;h2 id="阻碍疑虑">阻碍&amp;amp;疑虑&lt;/h2>
+&lt;ul>
+&lt;li>迭代节奏紧迫（时间担忧）&lt;/li>
+&lt;li>需求变更频繁&lt;/li>
+&lt;li>形式主义，增加工作量，没有太大意义&lt;/li>
+&lt;/ul>
+&lt;p>其实一开始我自己也有这些潜意识的疑虑，项目时间这么紧，都做不完，还做代码审查。后来我去查了下资料，然后参考了一些开源项目的 review 情况。最后总结下来，其实增加 code review 并不会占用太多的时间（当然也有需要投入较多时间的情况），另外大部分的 code review 沦为了一种形式，没有达到应有的效果，这主要还是因为姿势不对的原因。&lt;/p>
+&lt;h2 id="利用-gitlab-做-code-review">利用 Gitlab 做 Code Review&lt;/h2>
+&lt;p>code review 作为一项十分成熟的软件构建环节，自然会配套十分成熟
+的 review 工具。通过工具可以大大提供 review 效率和质量。&lt;/p>
+&lt;h4 id="常见的一些-reivew-工具">常见的一些 reivew 工具&lt;/h4>
+&lt;ul>
+&lt;li>Phabircator （Facebook)&lt;/li>
+&lt;li>Gerrit (Google)&lt;/li>
+&lt;li>Gitlab / Github&lt;/li>
+&lt;li>&amp;hellip;&lt;/li>
+&lt;/ul>
+&lt;p>考虑到公司本身在使用 gitlab，索性我们就选择 gitlab 作为工具，采用基于 Merge request 的 code review 流程了，而在我们熟知的 Github 中则是 pull request。&lt;/p>
+&lt;h4 id="gitlab-code-review-基本流程">Gitlab Code Review 基本流程&lt;/h4>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEB8f0cb0cab85853c93fb4660713df45bd?method=download&amp;amp;shareKey=c8ae3328db2c9d855eec7bc315406d2e" alt="codereview workflow">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>这也是从参考社区后指定的一个流程，目前其中的自动化 CI 工具我们还没打通。为了更顺利默契的进行这个环境，我们还是指定了一个基础的规范，主要包含 reviewer 和 checklist 两个部分：&lt;/p>
+&lt;h5 id="mr-注意项">MR 注意项&lt;/h5>
+&lt;ul>
+&lt;li>保持独立的 feature, bugfix、refactor 作为分支进行 MR&lt;/li>
+&lt;li>提交的 commit 需要是有意义的描述，并带上响应的 issue ID&lt;/li>
+&lt;li>复杂的 MR 内容，必要情况需添加 description 内容&lt;/li>
+&lt;li>MR 紧急，可以线下通知 Reviewers&lt;/li>
+&lt;/ul>
+&lt;h5 id="reviewer-注意项">Reviewer 注意项&lt;/h5>
+&lt;ul>
+&lt;li>指定模块最近参与修改的单个或多个同学作为 Reviewer&lt;/li>
+&lt;li>指定参与相关模块讨论和 Desgin 过的人 Review&lt;/li>
+&lt;li>项目核心开发者&lt;/li>
+&lt;li>如有必要 reviewer 可分配给其他相关人&lt;/li>
+&lt;/ul>
+&lt;h5 id="checklist">CheckList&lt;/h5>
+&lt;ul>
+&lt;li>错误、重复的 API 调用或者封装&lt;/li>
+&lt;li>配置、接口类的设计问题（合理性、友好性）&lt;/li>
+&lt;li>架构类问题（业务/技术）&lt;/li>
+&lt;li>功能，逻辑的遗漏缺陷&lt;/li>
+&lt;li>是否清理无用的注释代码&lt;/li>
+&lt;li>变量、模块的命名的可维护性、可读性等&lt;/li>
+&lt;li>是否缺少应有的单元测试或者文档&lt;/li>
+&lt;li>页面展示类的 review, 时间允许最好在浏览器检查&lt;/li>
+&lt;/ul>
+&lt;p>当然上面列举的一些规则，随着不断的认知可以完善更新。&lt;/p>
+&lt;h4 id="配合工具更佳">配合工具更佳&lt;/h4>
+&lt;p>为了提升工作效率，我们可以在我们的 IDE 工具中安装相关的各种插件，提升整个 Review 效率，由于我们大部分同学都在使用 VSCode，这里我就列举部分插件以作参考：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint">ESLint&lt;/a> 代码静态检测, 解决基本的代码风格不统一的问题，避免一些低级 bug。当然 ESLint 最好集成到 dev 构建环节中去&lt;/li>
+&lt;li>&lt;a href="https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens">GitLens&lt;/a> 非常好的 git 可视化管理插件&lt;/li>
+&lt;li>&lt;a href="https://marketplace.visualstudio.com/items?itemName=jasonn-porch.gitlab-mr">Gitlab MR&lt;/a> 协助快速创建 MR 请求&lt;/li>
+&lt;/ul>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>作为一个需要长期维护的商业软件，并在可预见的范围内，项目仍然有很长的成长空间的情况来下，这些问题无疑会使眼下这条路走得不轻松。无论是在传统的&lt;code>瀑布模型（Waterfall Model）&lt;/code>的迭代方法，还是当下使用最多的&lt;code>敏捷开发&lt;/code>，代码审查都是很重要的一环。&lt;/p>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEB070c733c59fdd2c58edecbf7c68cf3a9?method=download&amp;amp;shareKey=044bc0a6a10604d0882629a4a2ebc0be" alt="the check rate of bugs">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>我大概统计了下，截止 3 月底，数栈项目进行了约 350 + 次 merge 操作，有记录的 comment 约 90 + 次，我计算了下，平均每次 MR 操作约会产生 0.25 次交流。这个数值应该不算高。后来大家总结下来跟我们的预期有一些差别，例如检出 Bug 的概率不高，检出的 Bug 也都是比较明显，能一眼看出的，当然这可能跟我们评审质量有关系。最明显就是代码质量的的改善了，像重复、遗漏、可读性等问题都很明显的改善。&lt;/p>
+&lt;p>总而言之，大家总结下来结果对 codereview 这个环境还是比较满意的，当然还有很多不足点需要改善。想减少产品缺陷光靠代码审查一个环节显然是不足够的，正如上图（图 2）所示，我们必须在构建各个环节上做出相应的措施，最终才可能得到比较满意的结果。&lt;/p>
+- //imziv.com/posts/2019/%E6%95%B0%E6%A0%88%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E7%9A%84-code-review-%E5%AE%9E%E8%B7%B5%E5%B0%8F%E7%BB%93/ - 2012-2020 Ziv小威</description></item><item><title>小径分叉的花园</title><link>//imziv.com/posts/2019/%E5%B0%8F%E5%BE%84%E5%88%86%E5%8F%89%E7%9A%84%E8%8A%B1%E5%9B%AD/</link><pubDate>Sun, 31 Mar 2019 23:23:03 +0000</pubDate><guid>//imziv.com/posts/2019/%E5%B0%8F%E5%BE%84%E5%88%86%E5%8F%89%E7%9A%84%E8%8A%B1%E5%9B%AD/</guid><description>让美的事情发生 //imziv.com/posts/2019/%E5%B0%8F%E5%BE%84%E5%88%86%E5%8F%89%E7%9A%84%E8%8A%B1%E5%9B%AD/ -&lt;p>我叫余准，前青岛大学英文老师。曾祖父彭㝡曾是云南省份的总督，精通天文、占星、棋艺，同时又是著名的诗人和书法家。为了理想抛弃高官厚禄，隐匿于明虚宅十三年。&lt;/p>
+&lt;p>第一次世界大战时，我在德国留学期间，无意卷入了德国间谍的行列，后被送往英国执行间谍任务。&lt;/p>
+&lt;p>一九一六年七月二十四日，英国准备使用一千四百门大炮对赛尔-蒙托邦防线进行进攻。不久我便得知，我的间谍同伴维克多死于英国方面一个心狠手辣的特务手中—理查德·马登。这意味日落之前，我也会遭次命运。&lt;/p>
+&lt;p>我是个懦弱的人，但是我决定向那个瞧不起我们种族的德国人证明 ，一个黄种人可以拯救他一只军队。我制订了一个计划， 我决定去距离半小时火车路程的芬顿郊区见一个人。&lt;/p>
+&lt;p>我带上了一把手枪和唯一剩下的几个硬币便出发了。坐上火车后，在月台上看到了理查德·马登，下一班火车则会晚于我半小时后发车，而我还有半个多小时的时间完成我的计划。火车抵达“阿什格罗夫”后，在几个小孩子的指引下，经过迷宫般的岔路口，我找到了“斯蒂芬·艾伯特”博士的家。&lt;/p>
+&lt;p>“艾伯特”博士曾在天津做过传教士，会说一口流利的汉语，出于对汉文化的痴迷，现如今在英国是一位知名的汉学家。尤其对我曾祖父死后的遗作（一本杂乱无序的小说和一个象牙雕刻的迷宫）有着极深的研究。&lt;/p>
+&lt;p>我被“艾伯特”博士带到他建立的迷宫花园中，在得知我是彭㝡的后代后，兴奋的与我谈起了曾祖父的遗作 —— 小径分叉的花园。&lt;/p>
+&lt;p>这部小说里面都是一些自相矛盾的内容，例如：主人公在第三回死了，却在第四回中又活过来了，而在其他章节主人公可能又有其他境遇。在错综复杂的小说中，主人公选择了所有的可能性，这样一来，每种选择在不同的时间产生了不同的后世。这是一本关于时间的书，但书中却连“时间”这个词一次都没有出现过，存在的只有这样无限循环、周而复始，没完没了的剧情。&lt;/p>
+&lt;p>“艾伯特”博士花费了很大的精力研究这本小说和迷宫其中的奥秘，甚至不惜代价，重新建造了这座迷宫。而他与我谈起后来是通过牛津大学给他的一份彭㝡手稿，他才终于恍然大悟其奥秘的:&lt;/p>
+&lt;blockquote>
+&lt;p>“小径分叉的花园是一个庞大的谜语，或者是寓言故事，谜底是时间；这一隐秘的原因不允许手稿中出现时间这个词。自始至终删掉一个词，采用笨拙的隐喻、明显的迂回，也许是挑明谜底最好的办法。”&lt;/p>
+&lt;p>显而易见，&lt;code>小径分叉的花园&lt;/code>是彭㝡心目中宇宙的不完整然而绝非虚假的形象。&lt;/p>
+&lt;p>“您的祖先和牛顿、叔本华不同的地方是他认为时间没有同一性和绝对性。他认为时间有无数序列、背离的、汇合的和平行的时间织成一张不断增长、错综复杂的网。由相互靠拢、分歧、交错或者永远互不相干的时间织成的网络包含了所有的可能性。”&lt;/p>
+&lt;p>“在大部分时间里，我们并不存在；在某些时间，有你而没有我；在另一些时间，有我而没有你；再有一些时间，你我都在。目前这个时刻，偶然的机会使您光临寒舍间；在另一个时刻，您穿过花园，发现我已死去；再在另一个时刻，我说着目前所说的话，不过我是个错误，是个幽灵。”&lt;/p>
+&lt;/blockquote>
+&lt;p>“在所有时刻”，我微颤的补了一句，在他说完这些后。我抬起头，发现黄黑的花园只有一个人，那是“理查德·马登”。&lt;/p>
+&lt;p>我对艾伯特博士说了一句。“我能再看看那封包含彭㝡手稿的信吗？”&lt;/p>
+&lt;p>他打开存放信件的抽屉，有几秒钟的功夫，他背对着我。我特别小心的扣动了扳机，他倒下了。&lt;/p>
+&lt;p>我被逮捕并被判处了绞刑。临刑前，我在报纸上看到了德国飞机针对“艾伯特”进行轰炸的消息，报上还有另一则新闻，著名的汉学家“斯蒂芬·艾伯特”博士被一位叫余准的陌生人暗杀身亡。&lt;/p>
+&lt;h4 id="后记">后记&lt;/h4>
+&lt;p>&lt;code>小径分叉的花园&lt;/code>是博尔豪斯《小径分叉的花园》中最后的一个故事，也是我印象最深的一篇.原文中故事的时间线更复杂一些，读起来稍费劲儿些，我便用更直白的方式把故事重新总结了一遍。&lt;/p>
+- //imziv.com/posts/2019/%E5%B0%8F%E5%BE%84%E5%88%86%E5%8F%89%E7%9A%84%E8%8A%B1%E5%9B%AD/ - 2012-2020 Ziv小威</description></item><item><title>晚来的 2018 小结</title><link>//imziv.com/posts/2019/%E6%99%9A%E6%9D%A5%E7%9A%842018%E5%B0%8F%E7%BB%93/</link><pubDate>Sun, 27 Jan 2019 23:58:20 +0000</pubDate><guid>//imziv.com/posts/2019/%E6%99%9A%E6%9D%A5%E7%9A%842018%E5%B0%8F%E7%BB%93/</guid><description>让美的事情发生 //imziv.com/posts/2019/%E6%99%9A%E6%9D%A5%E7%9A%842018%E5%B0%8F%E7%BB%93/ -&lt;p>年初刚刚过完春节，匆匆返回公司就开始忙碌公司项目上的事情了，当时由于任务比较紧，一度由于人员不足的情况，倍感压力，不过好在后面小伙伴的补入，让项目迭代逐渐走入了正轨。不过后来还是有 2 个小伙伴因为各种原因，离开了团队，选择了新的生活，当然这里面就说来话长了。&lt;/p>
+&lt;p>春节离家的那一日，我去给在院子里晒太阳的奶奶送饭。当时我坐在她旁边跟她聊天，我跟她说我要去工作了，吃完午饭就走。她平静的跟说这可能是我最后一次看到她了，当时听她说完这一席话的时候，我低着头不敢看她。4 月份清明节后几天，我接到家里的通知——奶奶去世了。接到电话那会，内心出奇的平静，奶奶说的是真的。下完班骑车回家的路上，想到有次回武汉去福利院看她，她说要给我介绍女朋友的事情，我还是没能忍住眼泪。&lt;/p>
+&lt;p>6 月份的时候，我搬离了住了接近四年的房子，这是我来杭州后第一次搬家。从适应能力上讲我并不是一个害怕新环境的人，但是从情感上讲，某些时候我是个比较恋旧的人。想起来，我最舍不得的应该是楼下一家早餐店里面的拌面了，算起来“拌面”是我在杭生活几年里觉得最好吃的早餐了。在这个冬天，能把我从被窝里拉起来的，也就是一顿有拌面的早餐了~&lt;/p>
+&lt;p>2018 年去过最远的地方就是内蒙了(团建）。说起来，这也是我到过地球最北的地方了！7 月份的内蒙，比我想起来的还是要更干燥些，不过相较于杭州的炎热，内蒙显然是更舒适些。下飞机到内蒙已是晚上 7，8 点了，而呼和浩特的天空仍然是一片明亮，满是霞光。在内蒙辗转了 5 天，生平第一次去看了沙漠，然后就是内蒙的&amp;quot;大草原“，遗憾的是，我去的草原没有草。&lt;/p>
+&lt;p>说起来有段时间，特别抵触去陌生人多的地方，感觉极为不自在。想到这里，才后知后觉是由于缺少与人交流，产生了社交恐惧。自认为生活中还是个比较活泼偏外向的人，长时间的生活失衡还是能轻易的去改变一个人。过惯了加班的日子，突然来个周末，一时还不知道该如何应付，有了想法，还犹犹豫豫，大部分时候就变成了浑浑噩噩的宅居生活。说起来也是奇怪，明明身体是你的，思想也是你脑袋里的，可有时候你发现这 2 者就像一对倔强的情侣，开心的时候一起做什么都顺顺心心，闹别扭的时候，谁也劝服不了谁。顿时感受到所谓的“身心合一”、“知行合一”的艰难，能达到的若不是圣人，那应该就是机器人了。&lt;/p>
+- //imziv.com/posts/2019/%E6%99%9A%E6%9D%A5%E7%9A%842018%E5%B0%8F%E7%BB%93/ - 2012-2020 Ziv小威</description></item><item><title>人为什么会褪去毛这么保暖的东西？</title><link>//imziv.com/posts/2019/%E4%BA%BA%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E8%A4%AA%E5%8E%BB%E6%AF%9B%E8%BF%99%E4%B9%88%E4%BF%9D%E6%9A%96%E7%9A%84%E4%B8%9C%E8%A5%BF/</link><pubDate>Sun, 27 Jan 2019 17:30:34 +0000</pubDate><guid>//imziv.com/posts/2019/%E4%BA%BA%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E8%A4%AA%E5%8E%BB%E6%AF%9B%E8%BF%99%E4%B9%88%E4%BF%9D%E6%9A%96%E7%9A%84%E4%B8%9C%E8%A5%BF/</guid><description>让美的事情发生 //imziv.com/posts/2019/%E4%BA%BA%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E8%A4%AA%E5%8E%BB%E6%AF%9B%E8%BF%99%E4%B9%88%E4%BF%9D%E6%9A%96%E7%9A%84%E4%B8%9C%E8%A5%BF/ -&lt;p>其实原因可能与你想的正相反：退毛是为了排热。&lt;/p>
+&lt;p>正好在 @河森堡老师《进击的巨人》中讲“智人与尼安德特人”这一章节有看到这个话题的讲解。这里我把章节里面的部分内容简述下。&lt;/p>
+&lt;p>关于为什么人会腿毛，实际上要好几种说法。&lt;/p>
+&lt;p>其一，由于水生环境。人类祖先早期生活的环境经常被水淹没，有毛的个体在水中行动极不便利，而无毛的情况则在这种环境生存更有优势。&lt;/p>
+&lt;p>其二，出于健康原因。毛发这种东西极易滋长寄生虫这种东西，例如虱子，这是大家都知道的事情。而且浓密的毛发极其不容易打理理。所以，出于健康的考量，腿毛是非常有必要的选择。&lt;/p>
+&lt;p>其三，为了散热。大家都知道智人是来自非洲，根据发掘的智人化石推测，主要起源地是非洲东部的埃塞俄比亚（19.5 万年前）。不过最新的考古发现，在摩洛哥发现了 30 万年前的智人化石。大家都知道非洲大陆被赤道横中穿过，而背靠撒哈拉沙漠的非洲北部。而在摩洛哥发现化石的地区，有历史记载的最高气温可达 58 摄氏度。所以可想而知，智人想在在这种条件下生存，散热是非常重要的问题。如果无法解决散热问题，那么运动能力就大大受限，运动能力受限，这也就意味着采集、狩猎能力受限。书中还举了个有趣的例子，撒哈拉沙漠南部的“布须曼人”以一种“耐力狩猎”的方式来追逐猎物。&lt;/p>
+&lt;p>现在最被认可的是第三种假设。但是我觉得原因可能并不是单一的，因为这三种情况同时在 30 万年前出现并不冲突，而退毛对于智人而言，遇到上面三种情况都是有利的。&lt;/p>
+&lt;p>哈哈，更详细的内容，有兴趣的朋友可以自己去翻翻看~&lt;/p>
+- //imziv.com/posts/2019/%E4%BA%BA%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E8%A4%AA%E5%8E%BB%E6%AF%9B%E8%BF%99%E4%B9%88%E4%BF%9D%E6%9A%96%E7%9A%84%E4%B8%9C%E8%A5%BF/ - 2012-2020 Ziv小威</description></item><item><title>git commit 、CHANGELOG 和版本发布的标准自动化</title><link>//imziv.com/posts/2018/git-commit-changelog-%E5%92%8C%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E7%9A%84%E6%A0%87%E5%87%86%E8%87%AA%E5%8A%A8%E5%8C%96/</link><pubDate>Sat, 08 Dec 2018 15:36:48 +0000</pubDate><guid>//imziv.com/posts/2018/git-commit-changelog-%E5%92%8C%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E7%9A%84%E6%A0%87%E5%87%86%E8%87%AA%E5%8A%A8%E5%8C%96/</guid><description>让美的事情发生 //imziv.com/posts/2018/git-commit-changelog-%E5%92%8C%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E7%9A%84%E6%A0%87%E5%87%86%E8%87%AA%E5%8A%A8%E5%8C%96/ -&lt;blockquote>
+&lt;p>一直以来，因为团队项目迭代节奏很快，每次发布的更新日志和版本更新都是通过人肉来完成的。有时候实在忙的团团转，对于手动的写这些更新信息就显得力不从心了。对于团队新来的小伙伴，有时候遇到些紧急情况，就更显的乱糟糟，还是得麻烦团队资深的同学。显然这些工作，用自动化工具再适合不过了。&lt;/p>
+&lt;/blockquote>
+&lt;p>本文通过主要内容为介绍 &lt;code>conventional-changelog&lt;/code> 的几个常用工具&lt;/p>
+&lt;h2 id="onventional-changelog">onventional-changelog&lt;/h2>
+&lt;p>&lt;a href="https://github.com/conventional-changelog">onventional-changelog&lt;/a> 是一款根据项目中的&lt;code>commit&lt;/code> 和 &lt;code>metadata&lt;/code>信息自动生成 &lt;code>changelogs&lt;/code> 和 &lt;code>release notes&lt;/code>的系列工具，并且在辅助 &lt;a href="https://github.com/conventional-changelog/standard-version">standard-version&lt;/a> 工具的情况下，可以自动帮你完成生成&lt;code>version&lt;/code>、打&lt;code>tag&lt;/code>, 生成&lt;code>CHANGELOG&lt;/code>等系列过程。
+&lt;a href="https://github.com/conventional-changelog">onventional-changelog&lt;/a>。&lt;/p>
+&lt;h3 id="onventional-changelog-生态主要模块">onventional-changelog 生态主要模块&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-cli">conventional-changelog-cli&lt;/a> - 全功能的命令行工具&lt;/li>
+&lt;li>&lt;a href="https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/standard-changelog">standard-changelog&lt;/a> - 针对 angular commit 格式的命令行工具&lt;/li>
+&lt;li>&lt;a href="https://github.com/conventional-changelog/conventional-github-releaser">conventional-github-releaser&lt;/a> - 根据 git metadata 生成 Github release&lt;/li>
+&lt;li>&lt;a href="https://github.com/conventional-changelog/conventional-commits-detector">conventional-commits-detector&lt;/a> - commit message 规范引用检测&lt;/li>
+&lt;li>&lt;a href="https://github.com/commitizen/cz-cli">commitizen&lt;/a> - 针对开发者简单的 commit 规范&lt;/li>
+&lt;li>&lt;a href="https://github.com/marionebl/commitlint">commitlint&lt;/a> - commit Lint 工具&lt;/li>
+&lt;/ul>
+&lt;p>以上是 &lt;a href="https://github.com/conventional-changelog">onventional-changelog&lt;/a> 生态重要的几个主要模块，今天我们主要介绍 &lt;a href="https://github.com/commitizen/cz-cli">commitizen&lt;/a>、&lt;a href="https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-cli">conventional-changelog-cli&lt;/a> 、&lt;a href="https://github.com/conventional-changelog/standard-version">standard-version&lt;/a> 这几个常用工具。&lt;/p>
+&lt;h2 id="commitizen">commitizen&lt;/h2>
+&lt;p>&lt;a href="https://github.com/commitizen/cz-cli">commitizen&lt;/a> 是一款标准化 git commit 信息的工具。在没有规范的情况下，开发人员的 commit 信息是常常是随意的，这就导致 commit 信息显的很无用。可是当你在做&lt;code>git log&lt;/code> 、&lt;code>code review&lt;/code>、编写&lt;code>changelog&lt;/code>等情况时，良好的 commit 规范就显的尤为重要。&lt;/p>
+&lt;h5 id="标准化-commit-message-的安装">标准化 commit message 的安装&lt;/h5>
+&lt;ul>
+&lt;li>全局安装&lt;code>commitizen&lt;/code>工具&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>npm install -g commitizen&lt;/p>
+&lt;/blockquote>
+&lt;h5 id="安装适配器adapter">安装适配器（Adapter)&lt;/h5>
+&lt;p>因为不同的项目本身的构建方式的不同，所以&lt;code>commitizen&lt;/code>本身是保持自身作为扩展，从而去满足不同的构建需求的。本文主要使用&lt;code>cz-conventional-changelog&lt;/code>的构建标准，当然你也可以根据具体的情况选择其他的适配器，&lt;a href="https://github.com/commitizen/cz-cli">更多请看&lt;/a>。&lt;/p>
+&lt;blockquote>
+&lt;p>npm install -g cz-conventional-changelog&lt;/p>
+&lt;/blockquote>
+&lt;p>安装完成后，需要在项目添加配置，主要有两种方式：&lt;/p>
+&lt;ul>
+&lt;li>在项目根目录下添加 &lt;code>.czrc&lt;/code>文件，文件内容&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">{ &lt;span style="color:#cd5555">&amp;#34;path&amp;#34;&lt;/span>: &lt;span style="color:#cd5555">&amp;#34;cz-conventional-changelog&amp;#34;&lt;/span> }
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>在&lt;code>package.json&lt;/code>中添加配置&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript"> &lt;span style="color:#cd5555">&amp;#34;config&amp;#34;&lt;/span>: {
+&lt;span style="color:#cd5555">&amp;#34;commitizen&amp;#34;&lt;/span>: {
+&lt;span style="color:#cd5555">&amp;#34;path&amp;#34;&lt;/span>: &lt;span style="color:#cd5555">&amp;#34;cz-conventional-changelog&amp;#34;&lt;/span>
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装并添加完后，我们便可以使用 &lt;code>git cz&lt;/code> 命令替换 &lt;code>git commit&lt;/code>来使用了。我们修改一个文件，&lt;code>git add&lt;/code> 后试一下：&lt;/p>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEBee9436ba77018d27cadecd21329dfd0c?method=download&amp;amp;shareKey=927efb864ac48fcc6e0175bc35d0ed97" alt="git-cz">&lt;/p>
+&lt;p>可以看到，git cz 给出了 commiting 的几种类型选项，如下：&lt;/p>
+&lt;ul>
+&lt;li>feat 新功能&lt;/li>
+&lt;li>fix Bug 修复&lt;/li>
+&lt;li>docs 文档更新&lt;/li>
+&lt;li>style 代码的格式，标点符号的更新&lt;/li>
+&lt;li>refactor 代码重构&lt;/li>
+&lt;li>perf 性能优化&lt;/li>
+&lt;li>test 测试更新&lt;/li>
+&lt;li>build 构建系统或者包依赖更新&lt;/li>
+&lt;li>ci CI 配置，脚本文件等更新&lt;/li>
+&lt;li>chore 非 src 或者 测试文件的更新&lt;/li>
+&lt;li>revert commit 回退&lt;/li>
+&lt;/ul>
+&lt;p>使用的时候，我们应该根据项目具体变更情况选择。如果想修改已经打好的 commit 信息，我们可以通过 &lt;code>git reset&lt;/code>命令来修复。&lt;/p>
+&lt;h2 id="conventional-changelog-cli">conventional-changelog-cli&lt;/h2>
+&lt;p>&lt;a href="https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-cli">conventional-changelog-cli&lt;/a> 默认推荐的 commit changelog 标准是来自&lt;code>angular&lt;/code>项目的标准,作为一个标准工具，它自然可以扩展成不同的项目标准，例如 &lt;code>atom, codemirror, ember, eslint, express, jquery&lt;/code>等项目的标准。&lt;/p>
+&lt;h5 id="安装">安装&lt;/h5>
+&lt;blockquote>
+&lt;p>npm install -g conventional-changelog-cli&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="基本使用">基本使用&lt;/h4>
+&lt;blockquote>
+&lt;p>conventional-changelog -p angular -i CHANGELOG.md -s&lt;/p>
+&lt;/blockquote>
+&lt;p>以上命令中参数&lt;code>-p angular&lt;/code>用来指定使用的 commit message 标准，假如想使用&lt;code>atom&lt;/code>的标准，则是：&lt;/p>
+&lt;blockquote>
+&lt;p>conventional-changelog -p atom -i CHANGELOG.md -s
+参数&lt;code>-i CHANGELOG.md&lt;/code>表示从 CHANGELOG.md 读取 changelog, &lt;code>-s&lt;/code> 表示读写 changelog 为同一文件。需要注意的是，上面这条命令产生的 changelog 是基于上次 tag 版本之后的变更（Feature、Fix、Breaking Changes 等等）所产生的，所以如果你想生成之前所有 commit 产生的 changelog 则需要使用一下命令：
+conventional-changelog -p angular -i CHANGELOG.md -s -r 0
+其中 &lt;code>-r&lt;/code> 表示生成 changelog 所需要使用的 release 版本数量，默认为 1，0 则表示全部&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="自定义参数">自定义参数&lt;/h4>
+&lt;p>生成的 changlog 中有些常用内容可以通过自定义参数来根据需求更改，例如版本号、commit 地址等等。
+changelog 中生成的版本号即是从 &lt;code>package.json&lt;/code> 中获取 version 字段来的，commit 连接的仓库地址 我们需要修改 &lt;code>package.json&lt;/code> 中的&lt;code>repository&lt;/code>地址，changelog 中 issuse 默认的连接地址也是根据 &lt;code>repository&lt;/code> 来生成的。如果是你使用了第三方协作系统，需要自定义则需要一些方法了。例如 bitbucket， 那么你可以使用这个标准&lt;a href="https://github.com/uglow/conventional-changelog-angular-bitbucket">conventional-changelog-angular-bitbucket&lt;/a>。或者像我们使用 redmine 来管理 isssue ，那么生成 changelog 后使用&lt;a href="https://www.npmjs.com/package/replace">replace&lt;/a>工具，替换文本中的原有地址：&lt;/p>
+&lt;blockquote>
+&lt;p>replace &amp;lsquo;&lt;a href="https://github.com/myproject/issues/'">https://github.com/myproject/issues/'&lt;/a> &amp;lsquo;&lt;a href="https://redmine.example.com">https://redmine.example.com&lt;/a>&amp;rsquo; CHANGELOG.md&lt;/p>
+&lt;/blockquote>
+&lt;p>最后看看大致生成的效果：&lt;/p>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEB60476802c9725abcedd80a5e78a8024f?method=download&amp;amp;shareKey=afee20905f1805a5e6cab8168d97bca6" alt="changelog">&lt;/p>
+&lt;p>conventional-changelog 更多的选项配置可以看&lt;a href="https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-core">这里。&lt;/a>&lt;/p>
+&lt;h2 id="standard-version">standard-version&lt;/h2>
+&lt;p>&lt;a href="https://github.com/conventional-changelog/standard-version">standard-version&lt;/a> 是一款遵循&lt;a href="https://semver.org/">语义化版本（ semver）&lt;/a>和 &lt;a href="https://conventionalcommits.org/">commit message 标准规范&lt;/a> 的打版本和 changlog 自动化工具。通常我们在 master 分支进行如下的版本发布操作：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">1. git pull origin master
+2. 根据 pacakage.json 中的version, 更新版本号，更新 changelog
+3. git add -A, 然后 git commit
+4. git tag 打版本操作
+5. push 版本 tag 和 master 分支到仓库
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中 2，3，4 则是 standard-version 工具会自动完成的工作，配合本地的 shell 脚本，则可以自动完成一系列版本发布的工作了。&lt;/p>
+&lt;h4 id="使用">使用&lt;/h4>
+&lt;p>在这里我仍然推荐的全局安装：&lt;/p>
+&lt;blockquote>
+&lt;p>npm i -g standard-version&lt;/p>
+&lt;/blockquote>
+&lt;p>执行生成版本：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#228b22"># Help standard-version --help &amp;lt;br/&amp;gt;&lt;/span>
+$ standard-version
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里有几个有用的参数需要注意下:&lt;/p>
+&lt;h4 id="--release-as--r-指定版本号">&amp;ndash;release-as, -r 指定版本号&lt;/h4>
+&lt;p>默认情况下，工具会自动根据 主版本（major）,次版本（ minor） or 修订版（patch） 规则生成版本号，例如如果你 package.json 中的 version 为 1.0.0, 那么执行后版本号则是：1.0.1。自定义可以通过：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ standard-version -r minor
+&lt;span style="color:#228b22"># output 1.1.0&lt;/span>
+$ standard-version -r 2.0.0
+&lt;span style="color:#228b22"># output 2.0.0&lt;/span>
+$ standard-version -r 2.0.0-test
+&lt;span style="color:#228b22"># output 2.0.0-test&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>需要注意的是，这里的版本名称不是随便的字符，而是需要遵循&lt;a href="https://semver.org/">语义化版本（ semver）&lt;/a> 规范的&lt;/p>
+&lt;h4 id="--prerelease--p-语法版本命名">&amp;ndash;prerelease, -p 语法版本命名&lt;/h4>
+&lt;p>用来生成预发版本, 如果当期的版本号是 2.0.0，例如&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ standard-version --prerelease alpha
+&lt;span style="color:#228b22"># output 2.0.0-alpha.0&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="--tag-prefix--t-语法版本命名">&amp;ndash;tag-prefix, -t 语法版本命名&lt;/h4>
+&lt;p>用来给生成 tag 标签添加前缀，例如如果前版本号为 2.0.0，则：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ standard-version --tag-prefix &lt;span style="color:#cd5555">&amp;#34;stable-&amp;#34;&lt;/span>
+&lt;span style="color:#228b22"># output tag: stable-v2.0.0&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上几个参数为我们可能频繁使用的参数，还有其他选项可以通过 &lt;code>standard-version --help&lt;/code> 查看。
+最后记得把命令集成到&lt;code>package.json&lt;/code>的 scripts 中, 如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#cd5555">&amp;#34;scripts&amp;#34;&lt;/span>: {
+&lt;span style="color:#cd5555">&amp;#34;release&amp;#34;&lt;/span>: &lt;span style="color:#cd5555">&amp;#34;./scripts/release.sh&amp;#34;&lt;/span>,
+&lt;span style="color:#cd5555">&amp;#34;changelog&amp;#34;&lt;/span>: &lt;span style="color:#cd5555">&amp;#34;conventional-changelog -p angular -i CHANGELOG.md -s -r 0 &amp;amp;&amp;amp; git add CHANGELOG.md &amp;amp;&amp;amp; npm run changeissueurl&amp;#34;&lt;/span>,
+&lt;span style="color:#cd5555">&amp;#34;changeissueurl&amp;#34;&lt;/span>: &lt;span style="color:#cd5555">&amp;#34;replace &amp;#39;https://github.com/myproject/issues/&amp;#39; &amp;#39;https://redmine.example.com/&amp;#39; CHANGELOG.md&amp;#34;&lt;/span>
+},
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>添加 &lt;code>release.sh&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#1e889b">#!/bin/bash
+&lt;/span>&lt;span style="color:#1e889b">&lt;/span>
+&lt;span style="color:#228b22"># Release branch&lt;/span>
+&lt;span style="color:#00688b">master&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;master&amp;#34;&lt;/span>
+&lt;span style="color:#00688b">prefix&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;DTinsight_v&amp;#34;&lt;/span>
+git pull origin &lt;span style="color:#00688b">$master&lt;/span>
+&lt;span style="color:#658b00">echo&lt;/span> &lt;span style="color:#cd5555">&amp;#34;Current pull origin &lt;/span>&lt;span style="color:#00688b">$master&lt;/span>&lt;span style="color:#cd5555">.&amp;#34;&lt;/span>
+&lt;span style="color:#228b22"># Auto generate version number and tag&lt;/span>
+standard-version -r &lt;span style="color:#00688b">$release&lt;/span> --tag-prefix &lt;span style="color:#00688b">$prefix&lt;/span>
+git push --follow-tags origin &lt;span style="color:#00688b">$master&lt;/span>
+&lt;span style="color:#658b00">echo&lt;/span> &lt;span style="color:#cd5555">&amp;#34;Git push origin &lt;/span>&lt;span style="color:#00688b">$master&lt;/span>&lt;span style="color:#cd5555">&amp;#34;&lt;/span>
+&lt;span style="color:#658b00">echo&lt;/span> &lt;span style="color:#cd5555">&amp;#34;Release finished.&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用 npm 发布&lt;/p>
+&lt;blockquote>
+&lt;p>npm run release&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="最后">最后&lt;/h2>
+&lt;p>还在犹豫什么？如果不想继续通过人肉的方法解决这些问题的话，赶紧试试吧~！！！&lt;/p>
+- //imziv.com/posts/2018/git-commit-changelog-%E5%92%8C%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E7%9A%84%E6%A0%87%E5%87%86%E8%87%AA%E5%8A%A8%E5%8C%96/ - 2012-2020 Ziv小威</description></item><item><title>【译】理解 Javascript 中常用的一些设计模式</title><link>//imziv.com/posts/2018/%E8%AF%91%E7%90%86%E8%A7%A3-javascript-%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link><pubDate>Fri, 23 Nov 2018 17:24:48 +0000</pubDate><guid>//imziv.com/posts/2018/%E8%AF%91%E7%90%86%E8%A7%A3-javascript-%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid><description>让美的事情发生 //imziv.com/posts/2018/%E8%AF%91%E7%90%86%E8%A7%A3-javascript-%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/ -&lt;blockquote>
+&lt;p>原文地址: &lt;a href="https://blog.bitsrc.io/understanding-design-patterns-in-javascript-13345223f2dd">Understanding Design Patterns in JavaScript&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>当我们开始一个新的项目的时候，通常不会立刻开始实际编码的工作，而是首先会理清楚项目的一些需求、问题和目标。在我们可以开始编写代码后， 或者如果你正在处理的是一个更复杂的项目的话，那么我们应该考虑去选择一种最适合项目的设计模式去帮助我们完成工作。&lt;/p>
+&lt;h2 id="如何理解设计模式">如何理解设计模式&lt;/h2>
+&lt;p>在软件工程中，设计模式是一种用来解决软件设计中一些共通问题的解决方案。设计模式往往是开发工程师最佳实践后的经验总结。通常我们可以把一个设计模式理解为是一个编程模板。&lt;/p>
+&lt;h2 id="为什么我们需要设计模式">为什么我们需要设计模式&lt;/h2>
+&lt;p>大部分的开发者通常认为设计模式是在浪费时间，或者说他们也并不太知如何适当的去使用这些设计模式。但是适当的使用设计模式的确可以帮助我们编写出更好健壮的代码。&lt;/p>
+&lt;p>更重要的是，设计模式往往为我们提供了一些沟通上的便利，它可以及时的向正在学习你代码的人展示出你代码意图。例如，如果你在项目中使用了装饰者模式的话，那么一个新的开发者可能马上就知道了你的代码是在干什么，他们可以更多的去关注业务本身，而无需花费过度的精力去理解你的代码。&lt;/p>
+&lt;p>好了，接让我们看看我们在 Javascript 中常用的一些设计模式吧。&lt;/p>
+&lt;h2 id="模块模式module-pattern">模块模式（Module Pattern）&lt;/h2>
+&lt;p>模块是指一个包含自身完整逻辑代码的代码块，当我们去更新模块中的代码时而不用影响其他代码的部分。模块可以让我们轻易的规避命名空间的污染问题，例如模块拥有自己独立的变量作用域，我们也可以在其他项目中复用我们的模块。&lt;/p>
+&lt;p>&lt;code>模块&lt;/code>是现代 Javascript 应用开发里的不可或缺的部分，它帮助我们轻易的组织和维护代码。在 Javascript 中模块化的方式有很多，通常我们把这些模块化的方法称之为&lt;code>模块化模式&lt;/code>。像 &lt;a href="https://bitsrc.io/">Bit&lt;/a> 这个工具，它不需要任何重构工作，就可以把我们的模块或者组件转换成其他任何项目中可以复用的代码了。&lt;/p>
+&lt;p>Javascript 并没有像其他编程语言拥有访问修饰符的特性（现在 Typescript 之类的语言包含这些特性），例如你无法声明变量为私有（private）或者公开（public)。所以模块化模式也常常被用来去模拟封装（Encapsulation) 的理念。&lt;/p>
+&lt;p>这种模式我们可以通过&lt;code>即行函数 IIFE（immediately-invoked function expression)、闭包和函数作用域&lt;/code>来模拟，例如：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> myModule = (&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> privateVariable = &lt;span style="color:#cd5555">&amp;#39;Hello World&amp;#39;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> privateMethod() {
+console.log(privateVariable);
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> {
+publicMethod: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+privateMethod();
+}
+}
+})();
+myModule.publicMethod();
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>上面的代码是&lt;code>即行函数&lt;/code>的方法，通过立即执行函数，并把返回结果指向了 &lt;code>myModule&lt;/code> 变量。由于闭包、返回的对象仍然可以访问定义在即行函数内的函数和变量，当然这些操作是在执行完&lt;code>即行函数&lt;/code>产生实例之后了。我们可以看到，变量和方法被定义在&lt;code>即行函数&lt;/code>内部，对于模块外部的作用域来说即达到了 &lt;code>private&lt;/code> 的效果。&lt;/p>
+&lt;p>当代码被执行后，变量 &lt;code>myModule&lt;/code> 类似于：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> myModule = {
+publicMethod: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+privateMethod();
+}
+};
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>所以，当我们调用 &lt;code>publicMethod&lt;/code> 后，会转而调用&lt;code>privateMethod&lt;/code> 方法，示例：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain">// Prints &amp;#39;Hello World&amp;#39;
+module.publicMethod();
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="揭示模块revealing-module-pattern">揭示模块（Revealing Module Pattern）&lt;/h2>
+&lt;p>揭示模块模式是 Christian Heilmann 对模块化做到一个改进版本。模块模式本身的问题是每次我们都需要创建一个公共方法，然而仅仅是为了调用私有方法和变量。 通过揭示模块模式，我们将返回对象的属性映射到我们想要暴露的&lt;code>即行函数&lt;/code>内部的&lt;code>私有函数&lt;/code>上。这就是为什么我们称这个方法&lt;code>揭示模式&lt;/code>的原因了。请看示例：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> myRevealingModule = (&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">let&lt;/span> privateVar = &lt;span style="color:#cd5555">&amp;#39;Peter&amp;#39;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> publicVar = &lt;span style="color:#cd5555">&amp;#39;Hello World&amp;#39;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> privateFunction() {
+console.log(&lt;span style="color:#cd5555">&amp;#39;Name: &amp;#39;&lt;/span>+ privateVar);
+}
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> publicSetName(name) {
+privateVar = name;
+}
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> publicGetName() {
+privateFunction();
+}
+&lt;span style="color:#228b22">/** reveal methods and variables by assigning them to object properties */&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> {
+setName: publicSetName,
+greeting: publicVar,
+getName: publicGetName
+};
+})();
+myRevealingModule.setName(&lt;span style="color:#cd5555">&amp;#39;Mark&amp;#39;&lt;/span>);
+&lt;span style="color:#228b22">// prints Name: Mark
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>myRevealingModule.getName();
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到的是，这种模式让我们可以更容易理解哪些方法和变量是公开的，可读性有了一定的提升。当代码执行后，&lt;code>myRevealingModule&lt;/code>看起来类似于这样子：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> myRevealingModule = {
+setName: publicSetName,
+greeting: publicVar,
+getName: publicGetName
+};
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>myRevealingModule.setName('Mark')&lt;/code> 和 &lt;code>myRevealingModule.getName()&lt;/code> 分别执行了所引用的&lt;code>publicSetName&lt;/code>和&lt;code>publicGetName&lt;/code> 方法。如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain">myRevealingModule.setName(&amp;#39;Mark&amp;#39;);
+// prints Name: Mark
+myRevealingModule.getName();
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="揭示模式相对于模块模式的优点">揭示模式相对于模块模式的优点&lt;/h4>
+&lt;ul>
+&lt;li>我们可以通过修改返回声明中的代码，轻易的修改属性成员是否为公开或者私有。&lt;/li>
+&lt;li>返回对象无需包含方法定义，所有右侧的表达式都是定义在即行函数内部的，代码更精简可读性也更好。&lt;/li>
+&lt;/ul>
+&lt;h2 id="es6-模块es6-modules">ES6 模块（ES6 Modules）&lt;/h2>
+&lt;p>在 ES6 之前，JavaScript 是并没有内置&lt;code>模块系统&lt;/code>的，所以开发者不得不依赖第三方库或者模块模式去实现模块化，好在 ES6 让 Javascript 拥有原生模块化的能力了。&lt;/p>
+&lt;p>ES6 的模块是被存储在文件中的。每个文件只能有一个模块。模块内部的任何东西默认都是私有的。函数、变量、类都是需要通过&lt;code>export&lt;/code>关键字来向外暴露。 模块内的代码通常运行在 &lt;code>strict&lt;/code> 模式。&lt;/p>
+&lt;h4 id="导出模块">导出模块&lt;/h4>
+&lt;p>这里有 2 中导出函数和变量的声明方法：&lt;/p>
+&lt;ul>
+&lt;li>通过直接在函数、变量前添加 &lt;code>export&lt;/code> 关键字声明：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">// utils.js
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">export&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> greeting = &lt;span style="color:#cd5555">&amp;#39;Hello World&amp;#39;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">export&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> sum(num1, num2) {
+console.log(&lt;span style="color:#cd5555">&amp;#39;Sum:&amp;#39;&lt;/span>, num1, num2);
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> num1 + num2;
+}
+&lt;span style="color:#8b008b;font-weight:bold">export&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> subtract(num1, num2) {
+console.log(&lt;span style="color:#cd5555">&amp;#39;Subtract:&amp;#39;&lt;/span>, num1, num2);
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> num1 - num2;
+}
+&lt;span style="color:#228b22">// This is a private function
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> privateLog() {
+console.log(&lt;span style="color:#cd5555">&amp;#39;Private Function&amp;#39;&lt;/span>);
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>通过在包含函数或者变量代码的尾部添加 &lt;code>export&lt;/code> 导出关键字，例如：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">// utils.js
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> multiply(num1, num2) {
+console.log(&lt;span style="color:#cd5555">&amp;#39;Multiply:&amp;#39;&lt;/span>, num1, num2);
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> num1 * num2;
+}
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> divide(num1, num2) {
+console.log(&lt;span style="color:#cd5555">&amp;#39;Divide:&amp;#39;&lt;/span>, num1, num2);
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> num1 / num2;
+}
+&lt;span style="color:#228b22">// This is a private function
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> privateLog() {
+console.log(&lt;span style="color:#cd5555">&amp;#39;Private Function&amp;#39;&lt;/span>);
+}
+&lt;span style="color:#8b008b;font-weight:bold">export&lt;/span> {multiply, divide};
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="导入模块">导入模块&lt;/h4>
+&lt;p>与导出模块类似，这里也有 2 种使用&lt;code>import&lt;/code>关键字导入模块的方法。看例子：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">// main.js
+&lt;/span>&lt;span style="color:#228b22">// importing multiple items
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> { sum, multiply } from &lt;span style="color:#cd5555">&amp;#39;./utils.js&amp;#39;&lt;/span>;
+console.log(sum(&lt;span style="color:#b452cd">3&lt;/span>, &lt;span style="color:#b452cd">7&lt;/span>));
+console.log(multiply(&lt;span style="color:#b452cd">3&lt;/span>, &lt;span style="color:#b452cd">7&lt;/span>));
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>导入所有模块&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">// main.js
+&lt;/span>&lt;span style="color:#228b22">// importing all of module
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> * as utils from &lt;span style="color:#cd5555">&amp;#39;./utils.js&amp;#39;&lt;/span>;
+console.log(utils.sum(&lt;span style="color:#b452cd">3&lt;/span>, &lt;span style="color:#b452cd">7&lt;/span>));
+console.log(utils.multiply(&lt;span style="color:#b452cd">3&lt;/span>, &lt;span style="color:#b452cd">7&lt;/span>));
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="重命名导入导出模块">重命名导入/导出模块&lt;/h4>
+&lt;p>如果有时候你想避免命名冲突，你可以在导出或者导入模块时进行重命名操作。例如：&lt;/p>
+&lt;ul>
+&lt;li>导出重命名&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">// utils.js
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> sum(num1, num2) {
+console.log(&lt;span style="color:#cd5555">&amp;#39;Sum:&amp;#39;&lt;/span>, num1, num2);
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> num1 + num2;
+}
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> multiply(num1, num2) {
+console.log(&lt;span style="color:#cd5555">&amp;#39;Multiply:&amp;#39;&lt;/span>, num1, num2);
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> num1 * num2;
+}
+&lt;span style="color:#8b008b;font-weight:bold">export&lt;/span> {sum as add, multiply};
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>导入重命名&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">// main.js
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> { add, multiply as mult } from &lt;span style="color:#cd5555">&amp;#39;./utils.js&amp;#39;&lt;/span>;
+console.log(add(&lt;span style="color:#b452cd">3&lt;/span>, &lt;span style="color:#b452cd">7&lt;/span>));
+console.log(mult(&lt;span style="color:#b452cd">3&lt;/span>, &lt;span style="color:#b452cd">7&lt;/span>));
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="单例模式singleton-pattern">单例模式（Singleton Pattern）&lt;/h2>
+&lt;p>单例是一个仅仅只能被实例化一次的对象，如果单例实例不存在，单例模式就会创建一个新的类实例，如果实例存在的话，则会直接返回实例对象的引用，任何重复性的执行构造函数只会返回同一个实例对象。&lt;/p>
+&lt;p>JavaScript 语言本身就是支持单例模式的，不过我们一般并不称它为单例模式，我们通常叫它&lt;code>字面量对象&lt;/code>，例如：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> user = {
+name: &lt;span style="color:#cd5555">&amp;#39;Peter&amp;#39;&lt;/span>,
+age: &lt;span style="color:#b452cd">25&lt;/span>,
+job: &lt;span style="color:#cd5555">&amp;#39;Teacher&amp;#39;&lt;/span>,
+greet: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+console.log(&lt;span style="color:#cd5555">&amp;#39;Hello!&amp;#39;&lt;/span>);
+}
+};
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>JavaScript 中的每个对象在内存中都是唯一的，当我们调用 &lt;code>User&lt;/code>对象时，实质上也是返回的对象引用地址。假如我们想要拷贝某个对象到另外一个变量，并且修改变量，该如何办呢？如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> user1 = user;
+user1.name = &lt;span style="color:#cd5555">&amp;#39;Mark&amp;#39;&lt;/span>;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们会得到结果是两个对象的&lt;code>name&lt;/code>都被修改了, 因为赋值的时候是引用赋值，而不是值赋值。所以内存中只有一份对象。请看：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">// prints &amp;#39;Mark&amp;#39;
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>console.log(user.name);
+&lt;span style="color:#228b22">// prints &amp;#39;Mark&amp;#39;
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>console.log(user1.name);
+&lt;span style="color:#228b22">// prints true
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>console.log(user === user1);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>单例模式可以通过构造函数来实现，看代码：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">let&lt;/span> instance = &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> User() {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(instance) {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> instance;
+}
+instance = &lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.name = &lt;span style="color:#cd5555">&amp;#39;Peter&amp;#39;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.age = &lt;span style="color:#b452cd">25&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> instance;
+}
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> user1 = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> User();
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> user2 = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> User();
+&lt;span style="color:#228b22">// prints true
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>console.log(user1 === user2);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>当执行&lt;code>User&lt;/code>构造函数的时候，首先会检测对象实例是否存在，如果存在直接返回，否则会把 this 对象赋值&lt;code>instance&lt;/code>, 最后返回&lt;code>instance&lt;/code>。单例模式也可以通过&lt;code>模块化&lt;/code>的方法实现，如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> singleton = (&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">let&lt;/span> instance;
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> init() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> {
+name: &lt;span style="color:#cd5555">&amp;#39;Peter&amp;#39;&lt;/span>,
+age: &lt;span style="color:#b452cd">24&lt;/span>,
+};
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> {
+getInstance: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(!instance) {
+instance = init();
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> instance;
+}
+}
+})();
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> instanceA = singleton.getInstance();
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> instanceB = singleton.getInstance();
+&lt;span style="color:#228b22">// prints true
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>console.log(instanceA === instanceB);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>上面的代码中，我们通过调用&lt;code>singleton.getInstance&lt;/code>方法创建了一个新的实例。如果实例已经存在，这个方法将会直接返回实例，否则将会通过&lt;code>init()&lt;/code>方法创建并返回一个新的实例对象。&lt;/p>
+&lt;h2 id="工厂模式factory-pattern">工厂模式（Factory Pattern）&lt;/h2>
+&lt;p>工厂模式是一种使用工厂函数来创建对象的设计模式，该模式不用指定被创建对象准确的类或者构造函数。这种模式通常用来去创建一些不用暴露实例化逻辑的对象。例如我们可以根据依赖对象中传递的不同实例化条件来动态生成所需要的对象：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> Car{
+constructor(options) {
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.doors = options.doors || &lt;span style="color:#b452cd">4&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.state = options.state || &lt;span style="color:#cd5555">&amp;#39;brand new&amp;#39;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.color = options.color || &lt;span style="color:#cd5555">&amp;#39;white&amp;#39;&lt;/span>;
+}
+}
+&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> Truck {
+constructor(options) {
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.doors = options.doors || &lt;span style="color:#b452cd">4&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.state = options.state || &lt;span style="color:#cd5555">&amp;#39;used&amp;#39;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.color = options.color || &lt;span style="color:#cd5555">&amp;#39;black&amp;#39;&lt;/span>;
+}
+}
+&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> VehicleFactory {
+createVehicle(options) {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(options.vehicleType === &lt;span style="color:#cd5555">&amp;#39;car&amp;#39;&lt;/span>) {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Car(options);
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(options.vehicleType === &lt;span style="color:#cd5555">&amp;#39;truck&amp;#39;&lt;/span>) {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Truck(options);
+}
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里我分别定义了一个&lt;code>Car&lt;/code> 和一个&lt;code>Truck&lt;/code>类，并给对象添加了默认值，这 2 个类分别用来创建各自的 &lt;code>car&lt;/code> 和 &lt;code>truck&lt;/code> 对象。然后我定义了一个&lt;code>VehicleFactory&lt;/code>类，根据&lt;code>options&lt;/code>对象中&lt;code>vehicleType&lt;/code>属性来创建和返回新的对象。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> factory = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> VehicleFactory();
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> car = factory.createVehicle({
+vehicleType: &lt;span style="color:#cd5555">&amp;#39;car&amp;#39;&lt;/span>,
+doors: &lt;span style="color:#b452cd">4&lt;/span>,
+color: &lt;span style="color:#cd5555">&amp;#39;silver&amp;#39;&lt;/span>,
+state: &lt;span style="color:#cd5555">&amp;#39;Brand New&amp;#39;&lt;/span>
+});
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> truck= factory.createVehicle({
+vehicleType: &lt;span style="color:#cd5555">&amp;#39;truck&amp;#39;&lt;/span>,
+doors: &lt;span style="color:#b452cd">2&lt;/span>,
+color: &lt;span style="color:#cd5555">&amp;#39;white&amp;#39;&lt;/span>,
+state: &lt;span style="color:#cd5555">&amp;#39;used&amp;#39;&lt;/span>
+});
+&lt;span style="color:#228b22">// Prints Car {doors: 4, state: &amp;#34;Brand New&amp;#34;, color: &amp;#34;silver&amp;#34;}
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>console.log(car);
+&lt;span style="color:#228b22">// Prints Truck {doors: 2, state: &amp;#34;used&amp;#34;, color: &amp;#34;white&amp;#34;}
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>console.log(truck);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里我用 &lt;code>VehicleFactory&lt;/code> 类创建了一个工厂对象，然后分别指定两个&lt;code>options&lt;/code>对象
+&lt;code>vehicleType&lt;/code>属性的值为&lt;code>car&lt;/code> 和 &lt;code>truck&lt;/code>，通过 &lt;code>factory.createVehicle&lt;/code> 方法分别创建了 &lt;code>Car&lt;/code> 和 &lt;code>Truck&lt;/code> 对象。&lt;/p>
+&lt;h2 id="装饰器模式decorator-pattern">装饰器模式（Decorator Pattern）&lt;/h2>
+&lt;p>装饰器是一种无须修改类或者构造函数即可扩展类对象能力的方法。这种模式可以用来给对象动态添加一些功能，而不需要修改类的底层代码。看下面的简单示例：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> Car(name) {
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.name = name;
+&lt;span style="color:#228b22">// Default values
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.color = &lt;span style="color:#cd5555">&amp;#39;White&amp;#39;&lt;/span>;
+}
+&lt;span style="color:#228b22">// Creating a new Object to decorate
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> tesla= &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Car(&lt;span style="color:#cd5555">&amp;#39;Tesla Model 3&amp;#39;&lt;/span>);
+&lt;span style="color:#228b22">// Decorating the object with new functionality
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>tesla.setColor = &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(color) {
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.color = color;
+}
+tesla.setPrice = &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(price) {
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.price = price;
+}
+tesla.setColor(&lt;span style="color:#cd5555">&amp;#39;black&amp;#39;&lt;/span>);
+tesla.setPrice(&lt;span style="color:#b452cd">49000&lt;/span>);
+&lt;span style="color:#228b22">// prints black
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>console.log(tesla.color);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们来看看装饰器另外一个的实践场景：&lt;/p>
+&lt;p>不同的车的成本是由其自身拥有的功能决定的。如果不用装饰器，我们可能为了不同的功能去创建不同的功能类，而每个类都有一个成本计算函数，例如：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> Car() {
+}
+&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> CarWithAC() {
+}
+&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> CarWithAutoTransmission {
+}
+&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> CarWithPowerLocks {
+}
+&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> CarWithACandPowerLocks {
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>但是使用装饰器模式，我们可以创建一个&lt;code>Car&lt;/code> 基类，然后通过装饰函数来给对象添加不同功能配置的成本计算方法。如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> Car {
+constructor() {
+&lt;span style="color:#228b22">// Default Cost
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.cost = &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#b452cd">20000&lt;/span>;
+}
+}
+}
+&lt;span style="color:#228b22">// Decorator function
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> carWithAC(car) {
+car.hasAC = &lt;span style="color:#8b008b;font-weight:bold">true&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> prevCost = car.cost();
+car.cost = &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> prevCost + &lt;span style="color:#b452cd">500&lt;/span>;
+}
+}
+&lt;span style="color:#228b22">// Decorator function
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> carWithAutoTransmission(car) {
+car.hasAutoTransmission = &lt;span style="color:#8b008b;font-weight:bold">true&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> prevCost = car.cost();
+car.cost = &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> prevCost + &lt;span style="color:#b452cd">2000&lt;/span>;
+}
+}
+&lt;span style="color:#228b22">// Decorator function
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> carWithPowerLocks(car) {
+car.hasPowerLocks = &lt;span style="color:#8b008b;font-weight:bold">true&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> prevCost = car.cost();
+car.cost = &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> prevCost + &lt;span style="color:#b452cd">500&lt;/span>;
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>首先，我们创建了一个用来创建&lt;code>Car&lt;/code> 对象的基类，然后我们为了不同的功能创建了装饰函数，这些函数接收一个 &lt;code>car&lt;/code> 对象作为参数。然后我们重载了 &lt;code>car&lt;/code> 对象的&lt;code>cost&lt;/code> 函数，该方法返回更新过后的 &lt;code>car&lt;/code> 的 &lt;code>cost&lt;/code> 值，并且在 &lt;code>car&lt;/code> 对象上添加了用来标记对应的功能的属性。所以，当我们去添加一个新的功能时，我们可以像这样来操作：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> car = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Car();
+console.log(car.cost());
+carWithAC(car);
+carWithAutoTransmission(car);
+carWithPowerLocks(car);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>最后我们可以这样计算这个车的估价：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">// Calculating total cost of the car
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>console.log(car.cost());
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="结语">结语&lt;/h2>
+&lt;p>我们学习了一些在 JavaScript 应用的设计模式，但是这里提到的仅仅是众多设计模式中的一小部分而已。了解设计模式重要，但是了解如何避免过度使用设计模式同样重要。在使用某种设计模式前，你应该仔细的思考你所处的问题是否有合适的设计模式可以解决。想要知道这个设计模式是否适合解决你的问题，除了学习设计模式的思想，也应该多去了解它的应用场景才行。&lt;/p>
+- //imziv.com/posts/2018/%E8%AF%91%E7%90%86%E8%A7%A3-javascript-%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/ - 2012-2020 Ziv小威</description></item><item><title>利用 Atomic 构建 React 项目工作流</title><link>//imziv.com/posts/2018/%E5%88%A9%E7%94%A8-atomic-%E6%9E%84%E5%BB%BA-react-%E9%A1%B9%E7%9B%AE%E5%B7%A5%E4%BD%9C%E6%B5%81/</link><pubDate>Thu, 01 Nov 2018 20:52:46 +0000</pubDate><guid>//imziv.com/posts/2018/%E5%88%A9%E7%94%A8-atomic-%E6%9E%84%E5%BB%BA-react-%E9%A1%B9%E7%9B%AE%E5%B7%A5%E4%BD%9C%E6%B5%81/</guid><description>让美的事情发生 //imziv.com/posts/2018/%E5%88%A9%E7%94%A8-atomic-%E6%9E%84%E5%BB%BA-react-%E9%A1%B9%E7%9B%AE%E5%B7%A5%E4%BD%9C%E6%B5%81/ -&lt;blockquote>
+&lt;p>原文地址: &lt;a href="http://imziv.com/blog/article/read.htm?id=89">http://imziv.com/blog/article/read.htm?id=89&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>用过 React 的朋友都知道，React 项目文件夹的划分是有很多种的，在 React 官方关于&lt;a href="https://reactjs.org/docs/faq-structure.html">文件结构&lt;/a>这个部分给出了一些社区比较常见的构建方式的示例。例如有通过 features 或者 routes 进行分组的，也有通过模块类型（type) 划分的。在文档提到了一种针对 components 进行细化组织的方法 —— &lt;a href="http://bradfrost.com/blog/post/atomic-web-design/">Atomic Design&lt;/a>。如果还没了解过这个设计方法的朋友，不妨来看一看。&lt;/p>
+&lt;h2 id="什么是-atomic">什么是 Atomic&lt;/h2>
+&lt;p>&lt;a href="http://bradfrost.com/blog/post/atomic-web-design/">Atomic&lt;/a> 是一套指导设计前端组件（Components）架构的方法。在我们的日常工作中，如何更好的划分和管理前端组件常常会是我们碰到的问题。&lt;a href="http://bradfrost.com/blog/post/atomic-web-design/">Atomic&lt;/a> 通过一系列设计思想和原则，可以很好指导我们的项目架构。用 Atomic 作者自己的话说，这套设计方法的灵感是来自于自己曾经学习过的化学课，以及对自然知识本身的思考。作者通过&lt;code>原子（Atoms)&lt;/code>、&lt;code>分子(Molecules)&lt;/code>、 &lt;code>有机体(Organisms)&lt;/code>、&lt;code>模板(Templates)&lt;/code>, &lt;code>页面(Pages)&lt;/code> 这 5 种基本类型组件，通过灵活的组合，从而来满足我们日常的页面开发需求。
+&lt;img src="http://atomicdesign.bradfrost.com/images/content/atomic-design-process.png" alt="atomicDesign">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>让我们先一一了解这 5 中不同类型的组件类型。&lt;/p>
+&lt;h4 id="原子atoms">原子（Atoms)&lt;/h4>
+&lt;p>正如化学知识中所表述的，原子（Atoms)是元素能保持其化学性质的最小单位，所以正好利用原子的概念，可以用来组件系统中的最小单位的组件，或者说抽象到最小粒度的组件，即我们在 HTML 中常见的一些基本元素，例如：按钮（buttons)，表单标签(labels)，输入控件（input)等等。既然是最小单位，Atom 类型的组件显然是无法再进行任何拆分了，如果能继续拆分，那么该组件应该被划分为分子组件（Molecules）。&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;h4 id="分子molecules">分子（Molecules)&lt;/h4>
+&lt;p>我们都知道，在化学概念中，分子是有若干原子组成。通过组合各种原子组件，我们可以轻易的可以组合出某种功能的分子组件。例如通过组合 input 控件和 button 组件，我们可以得到一个搜索（Search)分子组件，通过组合 button 和 a 标签，可以可以组合分页（Pagination）组件。&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;h4 id="有机体organisms">有机体（Organisms)&lt;/h4>
+&lt;p>仅靠分子组件和分子组件的抽象，仍然是不能满足我们实际工作中对组件复用的需求，例如我们我们大部分项目中都有导航栏（Navigation Bar)、页头（Header)、页脚（Footer)、边栏（Sidebar)、列表（List) 等等组件，显然可以根据需要可以抽象成独立组件，以便后来的项目可以直接使用。可以看到的是，在有原子和分子组件的情况下，我们通过灵活组合这些原子、分子组件的方式，便可轻易达到我们的需求。而通过这类方式组合的组件类型我们便称之为有机体组件（Organisms)。&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;h4 id="模板templates">模板（Templates)&lt;/h4>
+&lt;p>到这里，模板层就很好理解了。很显然，模板层是原子、分子、有机组件的结合体。例如包含头部（Header、Content、Footer)常见部分的首页模板、又或者各种左右上下布局模板组件等等。&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;h4 id="页面pages">页面（Pages)&lt;/h4>
+&lt;p>页面这一层可能是复用率最低的一层了，因为业务需求大部分时候各不相同的，当然也不排除有复用页面的情况。页面组件自然就是个包含了其他四种组件类型的综合体了。有了前几层组件的抽象，可以轻松的应对各种业务页面，并且不断地可以丰富新组件到各类型自己中去，以便后面的项目中持续使用。&lt;/p>
+&lt;p>综合看下来，通过这 5 种组件的划分，就可以很好的满足我们实际项目中对页面组件进行划分和管理了。&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;h2 id="atomic-实践">Atomic 实践&lt;/h2>
+&lt;p>根据 Atomic 的思路, 以 src 目录为基础，在 React 项目中，我可以得到了类似如下的开发目录：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain">| - src
+| - components
+| - atoms
+| - image
+| - button
+| - input
+| - molecules
+| - logo
+| - search-input
+| - menu
+| - organisms
+| - form
+| - navbar
+| - header
+| - templates
+| - login
+| - register
+| - pages
+| - homepage
+| - styles
+| - utils
+app.js
+index.js
+router.js
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>当然，像我通常喜欢把 pages 的层级提高，也就是把他与 components 同层，也就是：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain">| - src
+| - components
+| - atoms
+| - image
+| - button
+| - input
+| - molecules
+| - logo
+| - search-input
+| - menu
+| - organisms
+| - form
+| - navbar
+| - header
+| - templates
+| - login
+| - register
+| - pages
+| - homepage
+| - styles
+| - utils
+app.js
+index.js
+router.js
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里有个仓库 Demo 可以参考： &lt;a href="https://github.com/wewoor/atomic-example">https://github.com/wewoor/atomic-example&lt;/a>&lt;/p>
+&lt;h2 id="最后">最后&lt;/h2>
+&lt;p>在实际工作中，往往我们会引用第三方的组件库，所以很多粒度组件都不需要我们编写，或者说需要我们独立编写的只有很少一部分，那么可以根据自己的实际状况来适当的缩减目录结构，包括目录名称，在跟项目成员沟通达成一致的情况下，也可以用其他的命名规则。如果你正在设计一个完整的 UI 组件系统的话，或者你在开发一个大型的 Web 系统，那么更详细的划分规则可能会更有利于后期的维护和开发了。&lt;/p>
+&lt;p>Atomic 始终是一套设计思想，在实践中我们可以更灵活的根据自己业务，团队的情况进行合适的调整，从而更好的满足我们的开发需求。更详细内请看&lt;a href="http://atomicdesign.bradfrost.com/table-of-contents/">Atomic Design&lt;/a>。&lt;/p>
+- //imziv.com/posts/2018/%E5%88%A9%E7%94%A8-atomic-%E6%9E%84%E5%BB%BA-react-%E9%A1%B9%E7%9B%AE%E5%B7%A5%E4%BD%9C%E6%B5%81/ - 2012-2020 Ziv小威</description></item><item><title>《卓有成效的管理者》读后感</title><link>//imziv.com/posts/2018/%E5%8D%93%E6%9C%89%E6%88%90%E6%95%88%E7%9A%84%E7%AE%A1%E7%90%86%E8%80%85%E8%AF%BB%E5%90%8E%E6%84%9F/</link><pubDate>Sat, 13 Oct 2018 15:35:05 +0000</pubDate><guid>//imziv.com/posts/2018/%E5%8D%93%E6%9C%89%E6%88%90%E6%95%88%E7%9A%84%E7%AE%A1%E7%90%86%E8%80%85%E8%AF%BB%E5%90%8E%E6%84%9F/</guid><description>让美的事情发生 //imziv.com/posts/2018/%E5%8D%93%E6%9C%89%E6%88%90%E6%95%88%E7%9A%84%E7%AE%A1%E7%90%86%E8%80%85%E8%AF%BB%E5%90%8E%E6%84%9F/ -&lt;p>通篇阅读下来，其实并没有太多令我印象深刻或者惊喜的点，或许因为这是本纯理论型的管理类书籍的原因。整本书总览的话，在我看来强调的最多的应当是&lt;code>成效&lt;/code>二字。此书出版于 2005 年，距今已经过去 13 年之久， 彼得·德鲁克作为管理学大师，其作品和思想早已通过各种传播途径深入并影响这现代企业的管理者，所以文中很多的点，我们在其他地方或许多多少少也都接触过一些了。文章开篇就首要传达出&lt;code>卓有成效是可以通过学习，并且做到可控的&lt;/code>, 同时也是为接下来阐述影响“成效”的一些主要因素做了铺垫。阅完全文，我对一观点做了些个人理解。&lt;/p>
+&lt;h4 id="所为管理者的承诺">所为管理者的承诺&lt;/h4>
+&lt;p>德鲁克提到的承诺，我的理解是例如企业成立之初的初心、价值观；产品设计时的为客户解决的核心需求。大部分时候，事情随着时间渐渐推移，我们往往会忘记当时为何出发，为何开始，所以对于事情最后产生的结果，往往也并不能如我们最初所愿。在这里，让我想到&lt;code>第一性原理&lt;/code>，无论事情如何发展，我们应该更关注和看重（事情/事物）本质，围绕核心问题去开展工作。&lt;/p>
+&lt;h4 id="专业人员如何发挥成效">专业人员如何发挥成效&lt;/h4>
+&lt;p>要求专业人员要以更全局的视角和考量去执行工作，而不是局限固有角色，固有职责。例如从研发整个产品而言，作为开发人员应该更多的思考甚至参与产品设计、测试、运维等方面的事情，其他角色也是如此。说到底不是为了工作而工作，是为了要解决的核心问题和目标而工作。&lt;/p>
+&lt;h4 id="正确的人际关系">正确的人际关系&lt;/h4>
+&lt;p>强调的更多的是对管理者的自我要求，例如&lt;code>互相沟通、团队合作、自我发展、培养他人&lt;/code>等方面的能力。作为一个技术出身的人，某种程度上这可能是对自我最大的挑战。与人沟通打交道的的复杂度，可能远困难于计算机。然而关于如何提升这些能力，书中并没有太多具体的方法论。我想解决的办法的话，一方面需要提示自己工作中更积极主动的沟通，另一方面也可以通过阅读，协作训练自己的表达技巧。&lt;/p>
+&lt;h4 id="发挥人的长处">发挥人的长处&lt;/h4>
+&lt;p>段落开篇就提到管理者应该发挥人的长处，扬长辟短的观点，这自然是无需多说的道理。如何避免用短，德鲁克提到了一些基本方法，例如通过&lt;code>设置组织和规则&lt;/code>来减少因为人的缺点而带来的影响，又例如我们应该&lt;code>因事用人，而非因人设事&lt;/code>。实际工作中，发现长处对管理者而言可能也是种能力要求，所以而如何培养发觉优点的能力也是需要关注和解决的问题。&lt;/p>
+&lt;h3 id="决策的五要素">决策的五要素&lt;/h3>
+&lt;p>原文过于术语，用自己的理解调整了下：&lt;/p>
+&lt;ul>
+&lt;li>确定问题的性质，例如是经常性的，还是偶发特例，从而便于确立用何种方式解决，例如是否通过建立规则或者原则来解决问题。&lt;/li>
+&lt;li>设置问题边界（觉得这个原则，对于产品需求设计同样有用）&lt;/li>
+&lt;li>根据实际条件，思考问题解决方案&lt;/li>
+&lt;li>解决方案应该包含实际意义的可执行计划&lt;/li>
+&lt;li>执行中注重时刻反馈，以便印证和调整决策&lt;/li>
+&lt;/ul>
+&lt;h4 id="最后">最后&lt;/h4>
+&lt;p>其实读下来，甚至感觉讲了很多专业的词汇和概念，当然也引用了一些名人事迹和实例。这本书对“成效管理”的方法论阐述的比较全面了，但是应用到实际缺也是另一种挑战了。&lt;/p>
+- //imziv.com/posts/2018/%E5%8D%93%E6%9C%89%E6%88%90%E6%95%88%E7%9A%84%E7%AE%A1%E7%90%86%E8%80%85%E8%AF%BB%E5%90%8E%E6%84%9F/ - 2012-2020 Ziv小威</description></item><item><title>你不知道的 Console</title><link>//imziv.com/posts/2018/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-console/</link><pubDate>Sat, 07 Jul 2018 16:16:51 +0000</pubDate><guid>//imziv.com/posts/2018/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-console/</guid><description>让美的事情发生 //imziv.com/posts/2018/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-console/ -&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEBd28c625404535b29c348237ea99e6bea?method=download&amp;amp;shareKey=cd80b3e880005325a095d7bbcec2ce89" alt="img">&lt;/p>
+&lt;p>相信很多 Web 开发者跟我一样有个习惯，经常会不自觉的打开感兴趣网站的控制台（Console)。很多公司会在控制台中打印一些招聘或者安全警告的信息。作为一位开发者，当然更多的关心的是这些效果是如何实现的。今天我们不妨来重写认识下 &lt;code>Console&lt;/code> 这个 &lt;code>API&lt;/code> 对象。&lt;/p>
+&lt;h3 id="简介">简介&lt;/h3>
+&lt;p>&lt;code>Javascript console&lt;/code>是被提供用来访问浏览器&lt;code>Debug&lt;/code>控制台的一个全局对象，一般我们可以直接通过&lt;code>console&lt;/code>或者 &lt;code>window.console&lt;/code> 的方式访问该对象。通常我们会利用该对象 debug 调试，当然你也可以跟其他公司一样，在上面发招聘信息。&lt;/p>
+&lt;p>其实除去我们平时常用的&lt;code>console.log、console.error、console.warn、console.info&lt;/code> 方法外，其实&lt;code>console&lt;/code>还有很多非常有用的 API。 当然，事先已经知道的同学当我没说。先看下列这张表：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>方法&lt;/th>
+&lt;th>用途&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>console.assert()&lt;/td>
+&lt;td>判断第一个参数是否为真，false 的话抛出异常并且在控制台输出相应信息。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.clear()&lt;/td>
+&lt;td>清空控制台&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.count()&lt;/td>
+&lt;td>以参数为标识记录调用的次数，调用时在控制台打印标识以及调用次数。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.debug()&lt;/td>
+&lt;td>console.log 方法的别称，使用方法可以参考 console.log()&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.dir()&lt;/td>
+&lt;td>打印一条以三角形符号开头的语句，可以点击三角展开查看对象的属性。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.dirxml()&lt;/td>
+&lt;td>如果可以，打印 XML/HTML 元素表示的指定对象，或者 JavaScript 对象视图。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.error()&lt;/td>
+&lt;td>打印一条错误信息，使用方法可以参考&lt;a href="https://developer.mozilla.org/en-US/docs/Web/API/console#Using_string_substitutions">string substitution&lt;/a>。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.group()&lt;/td>
+&lt;td>打印树状结构，配合 groupcollapsed 以及 groupEnd 方法;&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.groupcollapsed()&lt;/td>
+&lt;td>创建一个新的内联 group。使用方法和 group 相同，不同的是 groupcollapsed 打印出来的内容默认是折叠的。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.groupEnd()&lt;/td>
+&lt;td>结束当前 Tree&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.info()&lt;/td>
+&lt;td>打印以感叹号字符开始的信息，使用方法和 log 相同&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.log()&lt;/td>
+&lt;td>打印字符串，使用方法比较类似 c 的 printf 格式输出，可参考 string substitution 。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.profile()&lt;/td>
+&lt;td>可以以第一个参数为标识，开始 javascript 执行过程的数据收集。和 chrome 控制台选项开 Profiles 比较类似，具体可参考 chrome profiles&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.profileEnd()&lt;/td>
+&lt;td>配合 profile 方法，作为数据收集的结束。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.table()&lt;/td>
+&lt;td>将数据打印成表格。console.table [en-US]&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.time()&lt;/td>
+&lt;td>计时器，接受一个参数作为标识。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.timeEnd()&lt;/td>
+&lt;td>接受一个参数作为标识，结束特定的计时器。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.timeStamp()&lt;/td>
+&lt;td>添加一个标记到浏览器的 Timeline 或 Waterfall 工具.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.trace()&lt;/td>
+&lt;td>打印&lt;a href="https://developer.mozilla.org/en-US/docs/Web/API/console#Stack_traces">stack trace&lt;/a>.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>console.warn()&lt;/td>
+&lt;td>打印一个警告信息，使用方法可以参考 string substitution。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted -->来自&lt;a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Console">MDN&lt;/a>&lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted --> &lt;!-- raw HTML omitted -->&lt;/p>
+&lt;p>&lt;code>console&lt;/code>的 API 非常多, 当然，我们平常只会用到那么简单的几个，这里我主要挑几个特别和有用的 API 来介绍。&lt;/p>
+&lt;h3 id="consolelog">console.log&lt;/h3>
+&lt;p>&lt;code>console.log&lt;/code> 可能是其中我们用到最多的 API 了，通常我们会用来打印调试信息，当然我们用的都比较简单，其实&lt;code>console.log&lt;/code> 有一些很方便和特别的用法。&lt;/p>
+&lt;ul>
+&lt;li>使用占位符&lt;/li>
+&lt;/ul>
+&lt;p>通过一些占位符对我们的输出进行控制，可以轻易的丰富我们的输出结果，例如添加各种样式，结果组合等等。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>占位符&lt;/th>
+&lt;th>输出&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>%s&lt;/td>
+&lt;td>输出字符串&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>%d 或者%i&lt;/td>
+&lt;td>输出数值或者整型&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>%o 或者%O&lt;/td>
+&lt;td>输出对象&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>%f&lt;/td>
+&lt;td>输出浮点值&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>%c&lt;/td>
+&lt;td>使用 CSS 样式输出&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain">var a = &amp;#39;a&amp;#39;, b = &amp;#39;b&amp;#39;, c = 222;
+console.log(&amp;#39;String %s, String %s, Number %d &amp;#39;, a, b,c)
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>添加样式&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain">// console.log
+var text = &amp;#39;使用CSS样式&amp;#39;
+console.log(
+&amp;#34;%c&amp;#34;+text,&amp;#34;font-family: Cabin, Helvetica, Arial, sans-serif;
+text-align: left;font-size:32px;color:#B21212;&amp;#34;
+);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>结果：&lt;/p>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEBcc4a26d7e0f1412b901fad936e3e434e?method=download&amp;amp;shareKey=7ef62c2c04bf026f604fb856d770d9c8" alt="console style">&lt;/p>
+&lt;h3 id="consoletable">console.table&lt;/h3>
+&lt;p>&lt;code>console.table&lt;/code>非常适合打印那种需要格式化输出以便于查看的&lt;code>JSON&lt;/code>对象，例如当我们打印数组对象的时候，它会自动转换成表格，查看非常直观。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript"> &lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> tableData = [{
+name: &lt;span style="color:#cd5555">&amp;#39;t1&amp;#39;&lt;/span>,
+age: &lt;span style="color:#b452cd">25&lt;/span>,
+},{
+name: &lt;span style="color:#cd5555">&amp;#39;t2&amp;#39;&lt;/span>,
+age: &lt;span style="color:#b452cd">25&lt;/span>,
+}]
+&lt;span style="color:#228b22">// console.log(tableData);
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> console.table(tableData);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>结果：&lt;/p>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEB7bb9a7f6a09d6e392aa6d2db457bfe87?method=download&amp;amp;shareKey=4552d70ce08a0d7b2b7f95ca7ee67184" alt="console-table">&lt;/p>
+&lt;h3 id="consolegroup">console.group&lt;/h3>
+&lt;p>&lt;code>console.group&lt;/code> 允许你将多个&lt;code>console.log&lt;/code> 进行组合，以便于我们组织复杂的输出结果。使用&lt;code>console.group&lt;/code>，通常会结合&lt;code>console.groupcollapsed&lt;/code> 与 &lt;code>console.groupEnd&lt;/code>使用。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain">// console.group
+console.group(&amp;#39;action&amp;#39;, &amp;#39;A&amp;#39;);
+console.log(&amp;#39;%c prev state&amp;#39;, &amp;#34;color: #dddddd&amp;#34;, &amp;#39;\n&amp;#39;, {
+name: &amp;#39;a&amp;#39;
+});
+console.log(&amp;#39;%c next state&amp;#39;, &amp;#34;color: #dddddd&amp;#34;, &amp;#39;\n&amp;#39;, {
+name: &amp;#39;b&amp;#39;
+});
+console.groupCollapsed();
+console.log(&amp;#39;我是group折叠内容&amp;#39;);
+console.groupEnd();
+console.groupEnd();
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>结果：&lt;/p>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEBa6f38fe79e7f832cd6fd4f6dd1683b1f?method=download&amp;amp;shareKey=6341a21230f0d37b634b5aed86a70e19" alt="console group">&lt;/p>
+&lt;h3 id="consoleassert">console.assert&lt;/h3>
+&lt;p>&lt;code>console.assert&lt;/code>为断言输出。第一个参数的表达式值为&lt;code>false&lt;/code>时，则打印输出后面参数的值，否则为 &lt;code>true&lt;/code>，则无输出并继续执行程序。例如：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain">function notEqual(a, b) {
+console.assert(a === b, {
+msg: &amp;#39;a is not equal b&amp;#39;,
+a: a,
+b: b
+});
+}
+// console.assert
+notEqual({a: 1}, {a: 2});
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>结果：&lt;/p>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEBb889a68290d65755764e8deb587c4b6a?method=download&amp;amp;shareKey=1324e6bb6b621c1a3400a7edfae5dd37" alt="console assert">&lt;/p>
+&lt;h3 id="结语">结语&lt;/h3>
+&lt;p>以上我只是简单的介绍了下可能会常用的几个 API, 这几个 API 对我们的日常开发工作还是有一定的帮助的，无论你是写工具造轮子，还是想在产品的控制台上做文章，都是可以的。当然，如果你想实现更复杂的字符图案，则需要学习了解相关的图案算法了。&lt;/p>
+&lt;h4 id="更多参考">更多参考&lt;/h4>
+&lt;ul>
+&lt;li>&lt;a href="https://developer.mozilla.org/en-US/docs/Web/API/console#Outputting_text_to_the_console">https://developer.mozilla.org/en-US/docs/Web/API/console#Outputting_text_to_the_console&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Console">https://developer.mozilla.org/zh-CN/docs/Web/API/Console&lt;/a>&lt;/li>
+&lt;/ul>
+- //imziv.com/posts/2018/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-console/ - 2012-2020 Ziv小威</description></item></channel></rss>

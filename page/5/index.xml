@@ -1,0 +1,780 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>让美的事情发生</title><link>//imziv.com/</link><description>Recent content on 让美的事情发生</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>2012-2020 Ziv小威</copyright><lastBuildDate>Thu, 16 Dec 2021 14:00:00 +0000</lastBuildDate><atom:link href="//imziv.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Cordova 开发环境的搭建</title><link>//imziv.com/posts/2015/cordova%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/</link><pubDate>Mon, 23 Nov 2015 13:58:34 +0000</pubDate><guid>//imziv.com/posts/2015/cordova%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/</guid><description>让美的事情发生 //imziv.com/posts/2015/cordova%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/ -&lt;p>Cordova 为目前做混合式开发中比较受欢迎的一个解决方案了，并且拥有比较丰富的插件资源。本文介绍了 Cordova 开发的环境搭建过程。 由于 Cordova 命令行工具发布在了 npm 包管理平台上，npm 为 nodejs 内置的包管理工具，所以安装 cordova 前需要先确认你是否已经安装过 Nodejs。&lt;/p>
+&lt;h2 id="nodejs-安装">Nodejs 安装&lt;/h2>
+&lt;p>打开 Nodejs 官网下载页，根据自己当前的操作系统平台，选择对应的 nodejs 版本，下载完后直接点击安装程序，下一步完成即可。测试 nodejs 安装，打开控制台，输入：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> node -v // 查看node版本plain
+npm -v // 查看npm版本
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果控制台成功输出当前程序安装的版本，那么你已经安装成功了。&lt;/p>
+&lt;h2 id="nodejs-版本管理工具nvm">Nodejs 版本管理工具(Nvm)&lt;/h2>
+&lt;p>由于 Nodejs 目前的更迭速度很快，有时候项目组人员的版本可能各不相同，为了避免出现不必要的问题，尽量统一管理 node 的版本，所以我们需要 nvm 这样一个版本管理工具，来轻松的达到自由切换 nodejs 和 npm 版本的问题。&lt;/p>
+&lt;p>Linux 平台，Mac 安装和更新
+curl -o- &lt;a href="https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh">https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh&lt;/a> | bash
+或者&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> wget -qO- &amp;lt;https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh&amp;gt; | bashplain
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>打开控制台输&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> nvm --version // 查看nvm版本
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果成功输出，那么 nvm 就安装成功了。更多的 nvm 可以在控制台通过 nvm &amp;ndash;help 查看。&lt;/p>
+&lt;p>当然如果发现控制台找不到 nvm 这个全局变量的话，那么我们可以尝试手动添加的方式。&lt;/p>
+&lt;p>打开~/.bashrc, ~/.profile, ~/.bash_profile , 或者~/.zshrcc 文件，在文件后面添加变量环境导出的代码：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#658b00">export&lt;/span> &lt;span style="color:#00688b">NVM_DIR&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;&lt;/span>&lt;span style="color:#00688b">$HOME&lt;/span>&lt;span style="color:#cd5555">/.nvm&amp;#34;&lt;/span>plain
+[ -s &lt;span style="color:#cd5555">&amp;#34;&lt;/span>&lt;span style="color:#00688b">$NVM_DIR&lt;/span>&lt;span style="color:#cd5555">/nvm.sh&amp;#34;&lt;/span> ] &amp;amp;&amp;amp; . &lt;span style="color:#cd5555">&amp;#34;&lt;/span>&lt;span style="color:#00688b">$NVM_DIR&lt;/span>&lt;span style="color:#cd5555">/nvm.sh&amp;#34;&lt;/span> &lt;span style="color:#228b22"># This loads nvm&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>同样的，进行完变量导出后，可通过上面的 nvm &amp;ndash;version 查看安装结果。&lt;/p>
+&lt;h3 id="windows-安装">windows 安装&lt;/h3>
+&lt;p>nvm 提供了 windows 上的安装器，可以在这里下载, 然后直接点击安装即可。&lt;/p>
+&lt;h2 id="cordova-安装">Cordova 安装&lt;/h2>
+&lt;p>好了，搭建完这些基本工具后，终于可以安装 cordova 了。&lt;/p>
+&lt;p>在 OSX 或者 Linux 平台：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">sudo npm install -g cordovaplainplain
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Windows 平台:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">C:&lt;span style="color:#cd5555">\&amp;gt;&lt;/span>npm install -g cordovaplainplain
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>同样的，安装完成后，可以通过&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">cordova -vplainplain
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>命令查看安装结果。成功输出当前的 cordova 版本，那么你就安装成功了。&lt;/p>
+&lt;h2 id="创建-cordova-项目和模拟器运行">创建 Cordova 项目和模拟器运行&lt;/h2>
+&lt;p>切换到你的 workspace 目录，执行&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">cordova create hello com.example.hello HelloWorldplain
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个命令会帮我们自动在 workspace 目录下创建一个名为 hello(即第一个参数）的文件夹，里面会包含几个子文件目录，第二个参数 com.example.hello 即为项目包的一个标识符，就像 java 项目中的某个包名一样。当然你可以在创建的时候就添加上去，如果不添加，cordova 会帮你自动生成，而你之后可以在根目录下的 config.xml 下手动去更改这个项目标识名称。最后一个 HelloWord 为程序显示的标题名称。同样如果不写 cordova 会自动生成，也可以在 config.xml 下手动配置。创建完后，我们一个可以看到 workspace 下为我们生成的这个项目目录以及相关初始化文件。&lt;/p>
+&lt;p>添加运行平台：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">cordova platform add android // 安卓plain
+cordova platform add ios // 苹果
+cordova platform add wp8 // wp8
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>查看添加的运行平台：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">cordova platform lsplain
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>构建命令：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">cordova build // 自动构建所以你添加的平台
+cordova build platformName // 根据平台名称构建
+cordova build android // 构建安卓平台
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在模拟器运行安卓（这里假设你电脑装了安卓 SDK 的环境）&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">cordova emulate androidplainplainplain
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>另外，你也可以直接连上你的手机直接测试，运行：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">cordova run androidplainplain
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行命令后，程序会自动构建初始化，并打开模拟器，然后运行当前的程序。&lt;/p>
+&lt;h2 id="安装安卓-sdk">安装安卓 SDK&lt;/h2>
+&lt;p>上面的运行示例中直接假设你已经安装好了安卓的运行环境，如果没有安装的话，那么可以参考下面的教程。&lt;/p>
+&lt;h3 id="下载安装">下载安装&lt;/h3>
+&lt;p>打开安卓 SDK 安装的页面，当然如果你没有使用 Android Studio 的话，那么就直接点击下载 SDK, 下载完后直接解压到一个例如 andoid-sdk 的目录下面即可。&lt;/p>
+&lt;p>解压完后，我们可以切换到解压文件下 android-sdk/tools 目录下，我们可以通过./android 命令运行 SDK 程序，运行后，应该就会打开一个 SDK 管理界面，然后根据所需下载相应版本的 SDK。由于谷歌被墙，所以如果你身边的同事已经有安卓开发环境的话，最好直接从他们那边拷贝环境即可，不然这个非常难下载。&lt;/p>
+&lt;h3 id="配置-sdk-环境变量">配置 SDK 环境变量&lt;/h3>
+&lt;p>上面我们安装完后，可以在 tools 目录下通过命令直接打开 SDK 管理工具，但是为了更方便的全局访问，我们给它添加全局变量。在 OSX 或者 Linux 下，我们打开或者创建~/.bash_profile 文件，然后添加如下代码：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#658b00">export&lt;/span> &lt;span style="color:#00688b">PATH&lt;/span>=&lt;span style="color:#cd5555">${&lt;/span>&lt;span style="color:#00688b">PATH&lt;/span>&lt;span style="color:#cd5555">}&lt;/span>:/Users/ziv/Documents/development-android/android-sdk
+/platforms:/Users/ziv/Documents/development-android/android-sdk/toolsplain
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上是我电脑上面配置的实例代码。配置好后，在控制台直接输入：android 命令，如果成功打开 SDK 管理工具，那么就成功了。至于 windows 的环境变量配置，这里就不多说了。&lt;/p>
+&lt;h3 id="创建模拟器">创建模拟器&lt;/h3>
+&lt;p>成功安装完 SDK 管理工具后，我们需要创建一个模拟器：&lt;/p>
+&lt;p>运行 android 命令，打开包管理工具
+选择菜单上面的 tools -&amp;gt; Manage AVDs
+在模拟器管理界面选择 create
+根据你所要的 SDK 版本，设备，硬件参数来创建一个模拟器
+填写完毕后点击 OK 即可
+配置好这一切后，我们再用 cordova emulate android 命令启动模拟器。模拟器如果成功启动，则会直接打开我们的这个 HelloWorld 应用。在使用途中我们会发现，安卓 SDK 自带的模拟器相当的卡顿，反应异常慢，所要跟安卓同事交流后，他们推荐我使用 Genymotion.&lt;/p>
+&lt;h2 id="genymotion-模拟器的安装使用">Genymotion 模拟器的安装使用&lt;/h2>
+&lt;p>打开 genymotion 的下载页面，这里我们需要下载个人版本的 genymotion, 因为其他版本需要收费，另外你要先在这个网站注册一个账号。&lt;/p>
+&lt;p>下载 Genymotion 完并安装后，点击运行发现出现了无法运行的情况，提示你需要安装 VirtualBox，因为 Genymotion 依赖 VirtualBox 虚拟机, 所以我们打开 VirtualBox, 找到下载按钮点击下载安装包程序，下载完成后直接点击安装即可。&lt;/p>
+&lt;p>安装完成后，运行 Genymotion, 然后点击 add，创建一个模拟器，如图&lt;/p>
+&lt;p>图中的 Custom Phone 则为我已经创建好的。创建好后，点击 start 即可。如果发现启动时 VirtualBox 出现无法启动并抛出类似权限异常的情况下，我们可以通过如下命令赋权：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> sudo chmod -R &lt;span style="color:#b452cd">777&lt;/span> /Applicationsplain
+sudo chmod -R &lt;span style="color:#b452cd">777&lt;/span> /Applications/VirtualBox.app
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后重新启动。正常情况下，genymotion 会打你之前添加的模拟器，然后在 cordova 中运行 genymotion 模拟器，直接通过运行如下命令：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> cordova run android
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>程序会自动在 genymotion 中运行起来。&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;p>&lt;a href="https://nodejs.org/en/download/">https://nodejs.org/en/download/&lt;/a>
+&lt;a href="https://github.com/creationix/nvmhttp://cordova.apache.org/docs/en/latest/guide/cli/index.html">https://github.com/creationix/nvmhttp://cordova.apache.org/docs/en/latest/guide/cli/index.html&lt;/a>
+&lt;a href="http://developer.android.com/sdk/installing/index.html?pkg=tools">http://developer.android.com/sdk/installing/index.html?pkg=tools&lt;/a>
+&lt;a href="https://www.genymotion.com/#!/developers/user-guide">https://www.genymotion.com/#!/developers/user-guide&lt;/a>&lt;/p>
+- //imziv.com/posts/2015/cordova%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/ - 2012-2020 Ziv小威</description></item><item><title>Atom 在 Ubuntu 上中文乱码解决</title><link>//imziv.com/posts/2015/atom%E5%9C%A8ubuntu%E4%B8%8A%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/</link><pubDate>Wed, 05 Aug 2015 14:18:33 +0000</pubDate><guid>//imziv.com/posts/2015/atom%E5%9C%A8ubuntu%E4%B8%8A%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/</guid><description>让美的事情发生 //imziv.com/posts/2015/atom%E5%9C%A8ubuntu%E4%B8%8A%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ -&lt;p>之前一直用的是 Sublime Text2, 但是 Sublime 在 Ubuntu 上不支持中文输入,着实让人蛋疼,当然也有一些解决方案,我都试过,比较麻烦.得知 Atom 即将发布 1.0, 所以下载了 Atom 0.9 多的版本,但是同样发现中文乱码.以下记录了 Atom 0.9 以及 1.0 版本在 Ubuntu 上的方块乱码以及 markdown-preview 乱码的解决方法.&lt;/p>
+&lt;p>Atom 乱码解决
+首先你的确认你电脑上面是否安装过文泉驿正黑字体,默认情况下 Ubuntu 是没有这个字体的,所以如果没有那么请使用以下命令安装:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">sudo apt-get install ttf-wqy-*
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装完成后或者确认已安装改字体的情况下, 使用快捷键&amp;rsquo;ctrl + ,&amp;rsquo; 或者点击&amp;rsquo;edit &amp;gt; Perferences &amp;gt; setting&amp;rsquo;, 找到&amp;rsquo;Editor Settings&amp;rsquo;下的&amp;rsquo;font-family&amp;rsquo;, 然后设置其字体为:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#cd5555">&amp;#39;DejaVu Sans Mono&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;文泉驿正黑&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后查看下编辑器中文乱码是否已经显示正常.&lt;/p>
+&lt;p>&lt;strong>markdown-preview 乱码&lt;/strong>&lt;/p>
+&lt;p>得知 Atom 自带 markdown 实时预览功能, 我也是很开心. 但是使用后发现, markdown-preview 也出现乱码问题. 我当时 0.9 版本上面进行设置的, 后来更新到 1.0 版本后,发现之前的设置都失效了.所以下面两种方式都会列出来.&lt;/p>
+&lt;p>老版本版本
+由于 markdown-preview 是读取插件本身的样式, 所以在这里我们是手动更改插件的字体样式为&amp;rsquo;DejaVu Sans Mono&amp;rsquo;, &amp;lsquo;文泉驿正黑&amp;rsquo;即可&lt;/p>
+&lt;p>打开 Perferences &amp;gt; 选择 Package-&amp;gt; 搜索 markdown-preview-&amp;gt; 然后点击 markdown-preview 插件下的 settings - &amp;gt; 点击左侧导航栏的&amp;rsquo;Open Config Folder&amp;rsquo; 即可定位 到 markdown-preview.less 文件&lt;/p>
+&lt;p>或者直接在控制台通过 vim 打开这个文件:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">vim /usr/share/atom/resources/app/node_modules/markdown-preview/styles/markdown-preview.less
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>替换文件中的@font-family 为&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#cd5555">&amp;#39;DejaVu Sans Mono&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;文泉驿正黑&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>当然我更换的很彻底, 把里面所以其他的 font-family 都设置成了以上字体.&lt;/p>
+&lt;p>1.0 版本
+后来升级 Atom 后,发现之前的 markdown-preview 失效了, 随按之前的方法打开 markdown-preview.less, 发现 node_modules 下根本就找不到这个文件了, 后来仔细查看,应该是 Atom 与这个插件应该做了整合,所以之前的配置也是没有用了.所以我们换成了另外一种方法.&lt;/p>
+&lt;p>打开&amp;rsquo;edit 菜单&amp;rsquo; -&amp;gt; 选择&amp;rsquo;Open Your Stylesheet&amp;rsquo;. 这个文件文件里面为 atom 自定义样式表文件, 所以通过这个文件我们可以对 markdwon-preview 甚至整个 Atom 字体 进行设置.刚开始我使用了:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-css" data-lang="css">.&lt;span style="color:#008b45;font-weight:bold">markdown-preview&lt;/span>{
+&lt;span style="color:#8b008b;font-weight:bold">font-family&lt;/span>: &lt;span style="color:#8b008b;font-weight:bold">sans-serif&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;文泉驿正黑&amp;#39;&lt;/span> &lt;span style="color:#1e889b">!important&lt;/span>;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>进行设置,但是发现预览字体好了,但是文件导航上的小选项卡字体乱码, 所以我直接用了一个比较暴力的样式设定:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-css" data-lang="css">* {
+&lt;span style="color:#8b008b;font-weight:bold">font-family&lt;/span>: &lt;span style="color:#8b008b;font-weight:bold">sans-serif&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;文泉驿正黑&amp;#39;&lt;/span> &lt;span style="color:#1e889b">!important&lt;/span>;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>经过这个设置可以看到,预览文件里乱码以及好了.&lt;/p>
+- //imziv.com/posts/2015/atom%E5%9C%A8ubuntu%E4%B8%8A%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ - 2012-2020 Ziv小威</description></item><item><title>小游厦门</title><link>//imziv.com/posts/2015/%E5%B0%8F%E6%B8%B8%E5%8E%A6%E9%97%A8/</link><pubDate>Mon, 27 Jul 2015 23:53:20 +0000</pubDate><guid>//imziv.com/posts/2015/%E5%B0%8F%E6%B8%B8%E5%8E%A6%E9%97%A8/</guid><description>让美的事情发生 //imziv.com/posts/2015/%E5%B0%8F%E6%B8%B8%E5%8E%A6%E9%97%A8/ -&lt;p>说起厦门，大家自然而然的就会想到&lt;code>厦门大学&lt;/code>,&lt;code>鼓浪屿&lt;/code>,&lt;code>厦门国际马拉松赛&lt;/code>等等标志性的词语。厦门市的别称叫“鹭岛”，据说以前是白鹭的栖息之地，不过这次旅途当中我倒是一只白鹭也没见到，不知是季节的原因还是环境原因。&lt;/p>
+&lt;h3 id="厦门大学">厦门大学&lt;/h3>
+&lt;p>最早接触到厦门这座城市还是当年初中（已记不太清）时，通过中央 3 套的《同一首歌-走进厦门大学》这个节目认识的，当时通过电视机里面的镜头，给我展示了一个美丽，清新的印象，所以我当时甚至还告诉自己，以后我也要去厦门大学念书，可惜当年不努力，沦落成了学渣。&lt;/p>
+&lt;p>厦门大学的校区众多，正如我当时座公交听到当地人所说的一样，整个厦门市到处都是厦大建的房子，可见厦大在整个厦门市的地位。现如今到厦门旅游的游客众多，厦大已成为游客去厦门旅游必去的景点之一。而厦门大学现在更是被冠上了&amp;quot;恋爱圣地”， “谈恋爱，到厦大”等等标签，许多旅游网站都是打着这样宣传标语。&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2015/img/xiamen-1.jpg" alt="芙蓉湖里的黑天鹅">&lt;/p>
+&lt;p>芙蓉湖里的黑天鹅&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2015/img/xiamen-2.jpg" alt="体育场">
+体育场&lt;/p>
+&lt;p>在我们打车去厦大途中得知，厦大采取了每日限额参观，去厦门大学（思明校区）需要刷身份证进入，入口则是厦大群贤校门，其他入口貌似不能进，所以千万别走错了。&lt;/p>
+&lt;p>芙蓉隧道是厦大另一个有意思的地方，隧道墙壁上被学生涂鸦绘画了各种图案，有我们熟悉的卡通动漫，也有自己创作的。据说大部分都是毕业学生的作品，以此来告别自己生活四年的大学时光。&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2015/img/xiamen-3.jpg" alt="高数不会离开你">
+高数不会离开你&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2015/img/xiamen-4.jpg" alt="小卡通">
+小卡通&lt;/p>
+&lt;p>由于这次出行比较匆忙，去厦大安排的时间并不是很充足，所以很多地方也没有细逛。&lt;/p>
+&lt;h3 id="鼓浪屿">鼓浪屿&lt;/h3>
+&lt;p>鼓浪屿是厦门旅游路线中另一个重要的点。鼓浪屿有“钢琴之乡”，“音乐之乡”等等的名头，这与岛上很有艺术风格的建筑还是比较相称的。小岛上的民居错落有致，很多建筑也是中西结合，各种穿插的小巷，这里面的街道布满了各种小吃，小玩意，台湾小商品，显的比较文艺清新。登上日光岩，可以俯瞰大半个厦门和整个鼓浪屿，整好我们去的那天天气晴朗，视野十分开阔，整体上给人的感觉还是比较棒的。&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2015/img/xiamen-5.jpg" alt="日光岩俯瞰">
+日光岩俯瞰&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2015/img/xiamen-6.jpg" alt="世界很大，我想去看看">
+世界很大，我想去看看&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2015/img/xiamen-7.jpg" alt="萌萌哒">
+萌萌哒&lt;/p>
+&lt;h3 id="曾厝垵">曾厝垵&lt;/h3>
+&lt;p>曾厝（cuo)垵是我们这次旅程的住宿的地方,在去之前这个字(厝）我还不认识 0.0。选这个地点主要有几个好处，曾厝垵门口就是环岛南路，29 路公交到达的景点很多,包括去中山路和一号码头，而门口就是海边沙滩。从厦门北站有到曾厝垵的旅行大巴，20 块一个人，不过返回的时候则是 30 块，大巴到机场饶了一圈，赶时间的朋友要记得划算，到北站需要一个半小时左右。曾厝垵同样是一个小吃遍地的地方，错综复杂的小街里面各种海鲜小吃，酒吧，对了，之前在微博看到&lt;a href="http://weibo.com/u/1663559265?topnav=1&amp;amp;wvr=6&amp;amp;topsug=1">大冰&lt;/a>在厦门新开了一个“大冰的小屋”没想到就在这里，所以我们当天晚上去街上扫完吃的后就去这个民谣小屋座了半天，听了听音乐和他们的吹牛 X。&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2015/img/xiamen-8.png" alt="曾厝垵">
+曾厝垵&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2015/img/xiamen-9.jpg" alt="大冰的小屋">
+大冰的小屋&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2015/img/xiamen-10.jpg" alt="雨后的小街">
+雨后的小街&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2015/img/xiamen-11.jpg" alt="陶吧小体验">
+陶吧小体验&lt;/p>
+&lt;h3 id="注意事项总结">注意事项&amp;amp;总结&lt;/h3>
+&lt;p>由于厦门旅游的各种开发，游人的增多，当地环境保护的欠缺，我们在鼓浪屿旁边的沙滩游玩时，发现海水里面各种垃圾不断漂浮到沙滩上，着实很脏。在网络上定住宿的地方还是得仔细谨慎些，照片还是很容易糊弄人的，这个我们吃了些小亏，也是长了记性。厦门的黄牛疯狂，去厦大可以找黄牛不用排队，去鼓浪屿的门票本来 35 元硬是吵到了 100~150 甚至更高。这些黄牛先通过刷票攒到自己手中，然后当游客去轮渡中心购票时发现没票，这一点也是我们之前没有仔细搞清楚的地方，吃了个亏，票也是从黄牛手里面买的。所以去游玩的朋友一定要注意，尽量提交订票，甚至找旅行社。还有就是去鼓浪屿岛上游玩的景点同样是需要门票的，这个也应该提交网上订好，到岛上去了以后再领。&lt;/p>
+&lt;p>另一个坑人的地方，由于从鼓浪屿返回的人众多，所以排队轮渡情况糟糕的话要花上 2~3 个小时，但是这些黄牛却说可以快速上传。后来由于实在是时间原因，我们花了 40 块，最后得知他们只是给我们带到了一个叫&lt;code>內厝澳码头&lt;/code>的地方，这个地方基本上人来就可以上船，排队很快。原来只要通过身份证购票的游客，都可以通过这些提供刷卡的码头，大部分游客不知，便都挤到了&lt;code>三秋田码头&lt;/code>。所以很坑啊~&lt;/p>
+&lt;p>总之厦门还是一个值得去的地方，如今每个旅游城市人都是很多，很多情况需要做好心理准备，还有旅游攻略，像我们上面碰到的坑都是功课没有做足的后果。如果提前预防了这些问题，那么整个行程的麻烦将会少上许多，影响心情的因素自然也会少上一些。&lt;/p>
+&lt;p>最后放几张美食照：&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2015/img/xiamen-12.jpg" alt="大肠包小肠">
+大肠包小肠&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2015/img/xiamen-13.jpg" alt="榴莲酥">
+榴莲酥&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2015/img/xiamen-14.jpg" alt="海鲜排挡">
+海鲜排挡&lt;/p>
+&lt;blockquote>
+&lt;p>2015/07/27 于杭州&lt;/p>
+&lt;/blockquote>
+- //imziv.com/posts/2015/%E5%B0%8F%E6%B8%B8%E5%8E%A6%E9%97%A8/ - 2012-2020 Ziv小威</description></item><item><title>使用网易云音乐，丢掉 QQ 音乐吧</title><link>//imziv.com/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/</link><pubDate>Thu, 28 May 2015 23:07:27 +0000</pubDate><guid>//imziv.com/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/</guid><description>让美的事情发生 //imziv.com/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/ -&lt;p>我是一个听音乐的重度用户，基本上每天大约有三分之一的时间里我在使用网易云音乐去听音乐。包括工作写代码的时候，跑步的时候，去上班的途中我都去听。首先需要声明的是，在这里我不是故意的去抹黑其他的音乐产品，我只是谈谈我一个真实用户的真切感受。
+由于喜欢听音乐的原因，自从开始接触互联网后，我便开始接触了很多音乐播放类产品，从早期的千千静听，酷我音乐，酷狗音乐，QQ 音乐，豆瓣 FM，虾米音乐，JingFM, 多米音乐，落网等等，有太多的音乐产品，我都数不过来。其实不难看出，网易做音乐类产品还是近两年才发力，早期根本没有涉足此类的音乐市场，除了给我印象深刻的网易邮箱里内置的在线音乐播放器以外。&lt;/p>
+&lt;p>在使用网易云音乐之前，豆瓣 FM 和 QQ 音乐是我主要的听音乐产品。豆瓣给人的印象就是，小资，独立，经常可以听到和发现一些市面上比较小众，但是又很耐人寻味的音乐，而且豆瓣本身就聚集了一大批的热爱文艺的人，所以如果你遇上喜爱曲风相近的人，那么分享出来的音乐也就比较容易合你的胃口。QQ 音乐由于与 QQ 账号绑定的原因，早期的时候，结合 QQ 客户端，它的账号同步功能占了很大的优势，而且利用 QQ 社交的影响，加上它足够丰富的曲库，让大部分用户都难以割舍它。但是这些并不能掩饰 QQ 音乐是一个做的比较烂的产品。我相信那时很大一部分音乐重度用户泡在虾米和豆瓣上。而今天我主要讨论的产品则是网易云音乐和 QQ 音乐。&lt;/p>
+&lt;p>产品外观
+相信使用过网易云音乐产品的朋友第一次都会被其整洁，简练，精致的的外观所吸引，从整个 Web 产品到 PC 端，移动应用，都保持着高度一致的美感。其标准性的碟片播放界面十分讨用户喜爱，罗永浩（这个人比较凶悍）甚至直接在锤子手机中引入了网易云音乐。而反观 QQ 音乐层次不齐，细节上面远远没有网易云音乐用心。外观对于一款产品的作用的不言而喻的，就好比你第一次见到两道菜，你肯定会更倾向于菜色更佳的，当然你也会说，光看菜色不行啊，口感才是最重要的，而不巧的是，网易云音乐的口感同样于外观一样出色。&lt;/p>
+&lt;p>网易云音乐&lt;/p>
+&lt;p>QQ 音乐&lt;/p>
+&lt;p>以上只是两个 PC 端的一角，我记得之前的 QQ 音乐客户端不是长这样的，也不知道是不是参考过网易云音乐 0.0。&lt;/p>
+&lt;p>内容
+如果说像豆瓣，落网这种音乐产品适合那些喜欢小资，独立且口味挑剔的用户的话，那么网易云音乐则是包揽各种类型，但是网易云音乐比较人性化的一个地方就是，他会通过你听音乐的喜欢，通过云端的计算帮你推荐适合你口味的歌单。歌单这东西其实 QQ 音乐和其他同类型的音乐产品早就有的东西，但是 QQ 音乐的这个功能真的不好用！网易云音乐对用户提出的歌曲，歌词补充，歌词翻译也是有求必应，响应的很及时，在知乎上经常可以看到用户对网易这一点而赞不绝口。&lt;/p>
+&lt;p>网易云音乐的每首歌曲下面的评论面板也是一大特色，继承了网易新闻评论面板的基因。经常能看到很多有趣，感同身受的人。音乐本身就是很神奇的东西，当你感受到欢喜，悲伤等等情绪或者其他美妙的时刻时，有时候也想找人分享这一刻你的感受，而在评论面板上面你可以找到一批这样的人！&lt;/p>
+&lt;p>网易云音乐还有一大特点就是，上面音乐的音质都很不错，相较于 QQ 音乐来讲，还没做好就开始想让我们冲绿钻来体验，网易简直就是太有良心了。还有就是应用上面的 MV,配合着漂亮的应用界面，简直就是相当享受。总之，在网易云音乐上，你想听老歌，小资，乡村迪斯科（《我的滑板鞋》之类），还是乡村音乐，另类偏门，总之基本上你全都能找到。而且网易云音乐上现今的 DJ 节目同样做的很出色，简直就是应有尽有，关键是主动帮您挑选。&lt;/p>
+&lt;p>网易云音乐同样引入了不错的社交，除了刚才上面提到的评论功能，其使用了开放的注册策略，微博，自家的网易账号，腾讯微博，手机账号等等，并不像 QQ 等其他产品，封闭的只能使用 QQ。虽然没有 QQ 音乐天然的社交优势，但是在网易云音乐上，同样依靠这这些开放的注册策略，你可以关注一些有同样音乐类型的人，听他们分享的音乐。&lt;/p>
+&lt;p>为什么我要写这篇文章
+前段时间，微信，QQZone 利用自己垄断的优势，直接屏蔽了网易云音乐其重要的分享社交功能，虽然网易云音乐通过一些方式实现了微信上面的分享，但是 QQZone 直接过滤了。本来用户想和其他人分享自己的心情，分享好的音乐的，这样利用自己的垄断打击竞争对手，完全不顾用户的感受，简直是可耻！如果自家产品用心，让用户感受到用心的话，我相信像网易这种后起之秀是根本不会得到任何机会的，只怪自己产品太烂，为用户做的太少，最后利用这种手段，实在让人心寒，国内的互联网公司就这种尿性吗?&lt;/p>
+&lt;p>最后说一句：&lt;/p>
+&lt;p>赶紧卸掉 QQ 音乐吧！&lt;/p>
+- //imziv.com/posts/2015/%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%A2%E6%8E%89qq%E9%9F%B3%E4%B9%90%E5%90%A7/ - 2012-2020 Ziv小威</description></item><item><title>HTML5 文件异步上传 — h5uploader.js</title><link>//imziv.com/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/</link><pubDate>Thu, 07 May 2015 23:11:53 +0000</pubDate><guid>//imziv.com/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/</guid><description>让美的事情发生 //imziv.com/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/ -&lt;p>之前写过一篇 H5 异步文件上传的&lt;a href="http://imziv.com/blog/article/read.htm?id=46">文章&lt;/a>, 但是很多朋友看着我的这个教程还是出现很多问题，文章写的不是很好，比较早了。其实通过 H5 做异步上传已经非常简单了，通过查看文档，便可以很轻松的完成这个功能，当然，如果你不愿意查看文档自己动手的话，那么就用插件咯。&lt;a href="https://github.com/wewoor/h5uploader">h5uploader&lt;/a>是我最近封装的 HTML5 上传插件，代码才白来行，使用的话也比较简单，支持文件大小，类型，progress 等等功能。本篇教程，将向你展示 Nodejs,Java 两种服务端的上传方法，并且附有源代码示例。&lt;/p>
+&lt;h3 id="插件下载">插件下载&lt;/h3>
+&lt;p>如果你是&lt;a href="http://bower.io/docs/api/#register">&lt;code>bower&lt;/code>&lt;/a>的用户的话，可以直接通过以下命令：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain">bower install h5uploader --save
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>当然也可以直接从 Github Clone 此项目：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain">git clone https://github.com/wewoor/h5uploader.git
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="html-代码">HTML 代码&lt;/h3>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">input&lt;/span> &lt;span style="color:#658b00">type&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;file&amp;#34;&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;myfile&amp;#34;&lt;/span> &lt;span style="color:#658b00">value&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#658b00">name&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;myfile&amp;#34;&lt;/span> &lt;span style="color:#658b00">multiple&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;multiple&amp;#34;&lt;/span>/&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">button&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;uploader&amp;#34;&lt;/span>&amp;gt;Upload&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">button&lt;/span>&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上是一个 file 类型的 input 元素以及一个上传触发按钮，后面带有 multiple 属性，表示次处支持文件多选上传，当然，你也可以一次提交多个 input 元素，例如：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">input&lt;/span> &lt;span style="color:#658b00">type&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;file&amp;#34;&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;myfile&amp;#34;&lt;/span> &lt;span style="color:#658b00">value&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#658b00">name&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;myfile&amp;#34;&lt;/span> &lt;span style="color:#658b00">multiple&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;multiple&amp;#34;&lt;/span>/&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">input&lt;/span> &lt;span style="color:#658b00">type&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;file1&amp;#34;&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;myfile1&amp;#34;&lt;/span> &lt;span style="color:#658b00">value&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#658b00">name&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;myfile&amp;#34;&lt;/span> &lt;span style="color:#658b00">multiple&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;multiple&amp;#34;&lt;/span>/&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">button&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;uploader&amp;#34;&lt;/span>&amp;gt;Upload&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">button&lt;/span>&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这种方法同样是可以的，只不过服务端解析的时候要更麻烦。&lt;/p>
+&lt;h3 id="javascript">Javascript&lt;/h3>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&amp;lt;script type=&lt;span style="color:#cd5555">&amp;#34;text/javascript&amp;#34;&lt;/span> src=&lt;span style="color:#cd5555">&amp;#34;html5uploader.js&amp;#34;&lt;/span>&amp;gt;&amp;lt;&lt;span style="color:#a61717;background-color:#e3d2d2">/script&amp;gt;&lt;/span>
+&amp;lt;script type=&lt;span style="color:#cd5555">&amp;#34;text/javascript&amp;#34;&lt;/span>&amp;gt;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> uploader = &lt;span style="color:#658b00">document&lt;/span>.getElementById(&lt;span style="color:#cd5555">&amp;#39;uploader&amp;#39;&lt;/span>);
+uploader.addEventListener(&lt;span style="color:#cd5555">&amp;#34;click&amp;#34;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(e) {
+H5Uploader.upload({
+action: &lt;span style="color:#cd5555">&amp;#39;upload&amp;#39;&lt;/span>,
+id: &lt;span style="color:#cd5555">&amp;#39;myfile0&amp;#39;&lt;/span>,
+size: {
+max: &lt;span style="color:#b452cd">5000&lt;/span>, &lt;span style="color:#228b22">// 5000kb
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> valide: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(e) {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (e) {
+alert(&lt;span style="color:#cd5555">&amp;#34;The size of &amp;#34;&lt;/span> + e.name + &lt;span style="color:#cd5555">&amp;#34; is exceed max value!&amp;#34;&lt;/span>);
+}
+}
+}, &lt;span style="color:#228b22">// MB
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> type: {
+name: &lt;span style="color:#cd5555">&amp;#39;csv;png;jpg&amp;#39;&lt;/span>,
+valide: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(e) {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (e) {
+alert(&lt;span style="color:#cd5555">&amp;#34;The type of &amp;#34;&lt;/span> + e.name + &lt;span style="color:#cd5555">&amp;#34; is not supported!&amp;#34;&lt;/span>);
+}
+}
+},
+progress: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> p = &lt;span style="color:#658b00">document&lt;/span>.createElement(&lt;span style="color:#cd5555">&amp;#39;p&amp;#39;&lt;/span>);
+p.innerHTML = &lt;span style="color:#cd5555">&amp;#34;uploading&amp;#34;&lt;/span>;
+p.id = &lt;span style="color:#cd5555">&amp;#34;loading&amp;#34;&lt;/span>;
+&lt;span style="color:#658b00">document&lt;/span>.body.appendChild(p);
+},
+success: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(data) {
+alert(data);
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (data &amp;amp;&amp;amp; data == &lt;span style="color:#b452cd">200&lt;/span>) {
+&lt;span style="color:#658b00">document&lt;/span>.getElementById(&lt;span style="color:#cd5555">&amp;#39;loading&amp;#39;&lt;/span>).innerHTML = &lt;span style="color:#cd5555">&amp;#34;The file upload successfully!&amp;#34;&lt;/span>;
+alert(&lt;span style="color:#cd5555">&amp;#34;The file upload successfully.&amp;#34;&lt;/span>);
+}
+},
+fail: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(data) {
+}
+});
+}, &lt;span style="color:#8b008b;font-weight:bold">false&lt;/span>);
+&amp;lt;&lt;span style="color:#a61717;background-color:#e3d2d2">/script&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上是针对单个 input 元素的上传，&lt;code>H5Uploader.upload()&lt;/code>方法是支持&lt;code>Array&lt;/code>类型和&lt;code>Object&lt;/code>类型的，也就是说，如果你有多个 input 元素同时上传的需求的话，你可以这样写：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript"> uploader.addEventListener(&lt;span style="color:#cd5555">&amp;#34;click&amp;#34;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(e) {
+H5Uploader.upload([{
+action: &lt;span style="color:#cd5555">&amp;#39;upload&amp;#39;&lt;/span>,
+id: &lt;span style="color:#cd5555">&amp;#39;myfile0&amp;#39;&lt;/span>,
+size: {
+max: &lt;span style="color:#b452cd">5000&lt;/span>, &lt;span style="color:#228b22">// 5000kb
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> valide: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(e) {
+}
+}, &lt;span style="color:#228b22">// MB
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> type: {
+name: &lt;span style="color:#cd5555">&amp;#39;csv;json&amp;#39;&lt;/span>,
+valide: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(e) {
+}
+},
+progress: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+},
+success: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(data) {
+},
+fail: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(data) {
+}
+},{
+action: &lt;span style="color:#cd5555">&amp;#39;upload&amp;#39;&lt;/span>,
+id: &lt;span style="color:#cd5555">&amp;#39;myfile1&amp;#39;&lt;/span>,
+size: {
+max: &lt;span style="color:#b452cd">5000&lt;/span>, &lt;span style="color:#228b22">// 5000kb
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> valide: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(e) {
+}
+}, &lt;span style="color:#228b22">// MB
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> type: {
+name: &lt;span style="color:#cd5555">&amp;#39;png;jpg&amp;#39;&lt;/span>,
+valide: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(e) {
+}
+},
+progress: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+},
+success: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(data) {
+},
+fail: &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(data) {
+}
+}]);
+}, &lt;span style="color:#8b008b;font-weight:bold">false&lt;/span>);
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="nodejs-服务端">Nodejs 服务端&lt;/h3>
+&lt;p>服务端是 expressjs，利用的一个上传中间件&lt;a href="https://github.com/expressjs/multer">&lt;code>multer&lt;/code>&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> express = require(&lt;span style="color:#cd5555">&amp;#39;express&amp;#39;&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> multer = require(&lt;span style="color:#cd5555">&amp;#39;multer&amp;#39;&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> app = express();
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> done = &lt;span style="color:#8b008b;font-weight:bold">false&lt;/span>;
+app.use(express.&lt;span style="color:#8b008b;font-weight:bold">static&lt;/span>(&lt;span style="color:#cd5555">&amp;#39;./public&amp;#39;&lt;/span>));
+&lt;span style="color:#228b22">// respond with &amp;#34;hello world&amp;#34; when a GET request is made to the homepage
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>app.post(&lt;span style="color:#cd5555">&amp;#39;/upload&amp;#39;&lt;/span>,[multer({dest: &lt;span style="color:#cd5555">&amp;#39;./uploads/&amp;#39;&lt;/span>}), &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(req, res) {
+&lt;span style="color:#8b008b;font-weight:bold">try&lt;/span> {
+console.log(req.body.myfile);
+console.log(req.files);
+res.json(&lt;span style="color:#b452cd">200&lt;/span>);
+} &lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span> (e) {
+console.log(e);
+}
+}]);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>完整的示例代码，&lt;a href="https://github.com/wewoor/h5uploader/tree/master/example/expressjs">请看&lt;/a>&lt;/p>
+&lt;h3 id="java-servlet-示例">Java servlet 示例&lt;/h3>
+&lt;p>此处没有用任何框架或者库，只是&lt;code>Servlet3.0&lt;/code>, 用 tomcat6 的同学要注意哦。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#8b008b;font-weight:bold">package&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">com.h5uploader.demo&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.io.File&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.io.FileNotFoundException&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.io.FileOutputStream&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.io.IOException&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.io.InputStream&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.io.OutputStream&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.io.PrintWriter&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">javax.servlet.ServletException&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">javax.servlet.annotation.MultipartConfig&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">javax.servlet.http.HttpServlet&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">javax.servlet.http.HttpServletRequest&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">javax.servlet.http.HttpServletResponse&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">javax.servlet.http.Part&lt;/span>;
+&lt;span style="color:#707a7c">@MultipartConfig&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> &lt;span style="color:#008b45;font-weight:bold">UploaderServlet&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">extends&lt;/span> HttpServlet {
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">service&lt;/span>(HttpServletRequest req, HttpServletResponse res)
+&lt;span style="color:#8b008b;font-weight:bold">throws&lt;/span> IOException, ServletException {
+res.&lt;span style="color:#658b00">setContentType&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;text/html;charset=UTF-8&amp;#34;&lt;/span>);
+&lt;span style="color:#228b22">// Create path components to save the file
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">final&lt;/span> String path = &lt;span style="color:#cd5555">&amp;#34;/Users/ziv/Desktop/&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">final&lt;/span> Part filePart = req.&lt;span style="color:#658b00">getPart&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;myfile0&amp;#34;&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">final&lt;/span> String fileName = getFileName(filePart);
+OutputStream out = &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>;
+InputStream filecontent = &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">final&lt;/span> PrintWriter writer = res.&lt;span style="color:#658b00">getWriter&lt;/span>();
+&lt;span style="color:#8b008b;font-weight:bold">try&lt;/span> {
+out = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> FileOutputStream(&lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> File(path + File.&lt;span style="color:#658b00">separator&lt;/span>
++ fileName));
+filecontent = filePart.&lt;span style="color:#658b00">getInputStream&lt;/span>();
+&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> read = 0;
+&lt;span style="color:#8b008b;font-weight:bold">final&lt;/span> &lt;span style="color:#00688b;font-weight:bold">byte&lt;/span>[] bytes = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> &lt;span style="color:#00688b;font-weight:bold">byte&lt;/span>[1024];
+&lt;span style="color:#8b008b;font-weight:bold">while&lt;/span> ((read = filecontent.&lt;span style="color:#658b00">read&lt;/span>(bytes)) != -1) {
+out.&lt;span style="color:#658b00">write&lt;/span>(bytes, 0, read);
+}
+writer.&lt;span style="color:#658b00">println&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;New file &amp;#34;&lt;/span> + fileName + &lt;span style="color:#cd5555">&amp;#34; created at &amp;#34;&lt;/span> + path);
+} &lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span> (FileNotFoundException fne) {
+writer.&lt;span style="color:#658b00">println&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;You either did not specify a file to upload or are &amp;#34;&lt;/span>
++ &lt;span style="color:#cd5555">&amp;#34;trying to upload a file to a protected or nonexistent &amp;#34;&lt;/span>
++ &lt;span style="color:#cd5555">&amp;#34;location.&amp;#34;&lt;/span>);
+writer.&lt;span style="color:#658b00">println&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;&amp;lt;br/&amp;gt; ERROR: &amp;#34;&lt;/span> + fne.&lt;span style="color:#658b00">getMessage&lt;/span>());
+} &lt;span style="color:#8b008b;font-weight:bold">finally&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (out != &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>) {
+out.&lt;span style="color:#658b00">close&lt;/span>();
+}
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (filecontent != &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>) {
+filecontent.&lt;span style="color:#658b00">close&lt;/span>();
+}
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (writer != &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>) {
+writer.&lt;span style="color:#658b00">close&lt;/span>();
+}
+}
+}
+&lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> String &lt;span style="color:#008b45">getFileName&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">final&lt;/span> Part part) {
+&lt;span style="color:#8b008b;font-weight:bold">final&lt;/span> String partHeader = part.&lt;span style="color:#658b00">getHeader&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;content-disposition&amp;#34;&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">for&lt;/span> (String content : part.&lt;span style="color:#658b00">getHeader&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;content-disposition&amp;#34;&lt;/span>).&lt;span style="color:#658b00">split&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;;&amp;#34;&lt;/span>)) {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (content.&lt;span style="color:#658b00">trim&lt;/span>().&lt;span style="color:#658b00">startsWith&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;filename&amp;#34;&lt;/span>)) {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> content.&lt;span style="color:#658b00">substring&lt;/span>(
+content.&lt;span style="color:#658b00">indexOf&lt;/span>(&lt;span style="color:#cd5555">&amp;#39;=&amp;#39;&lt;/span>) + 1).&lt;span style="color:#658b00">trim&lt;/span>().&lt;span style="color:#658b00">replace&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;\&amp;#34;&amp;#34;&lt;/span>, &lt;span style="color:#cd5555">&amp;#34;&amp;#34;&lt;/span>);
+}
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>;
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上的上传示例是来自官方的代码，我个人也是测试过的，完整的&lt;a href="https://github.com/wewoor/h5uploader/tree/master/example/java/h5uploader">示例&lt;/a>&lt;/p>
+&lt;p>另外我还写了一个&lt;code>sails&lt;/code>的版本，有需要的可以点击&lt;a href="https://github.com/wewoor/h5uploader/tree/master/example/sails">查看&lt;/a>。&lt;/p>
+&lt;h3 id="结语">结语&lt;/h3>
+&lt;p>以上则是这个插件使用的全部内容，如果有什么问题可以直接点击示例代码进行查看，另外插件是我才写出来的，如果有什么问题请告诉我。谢谢，希望它能帮助你！&lt;/p>
+&lt;h4 id="作者ziv-小威httpimzivcom">作者：&lt;a href="http://imziv.com">Ziv 小威&lt;/a>&lt;/h4>
+&lt;h4 id="原文地址httpimzivcomblogarticlereadhtmid62httpimzivcomblogarticlereadhtmid62">原文地址：&lt;a href="http://imziv.com/blog/article/read.htm?id=62">http://imziv.com/blog/article/read.htm?id=62&lt;/a>&lt;/h4>
+- //imziv.com/posts/2015/html5-%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0-h5uploader.js/ - 2012-2020 Ziv小威</description></item><item><title>利用 Gulp 优化部署 Web 项目</title><link>//imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/</link><pubDate>Sun, 26 Apr 2015 11:27:16 +0000</pubDate><guid>//imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/</guid><description>让美的事情发生 //imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/ -&lt;h3 id="gulp">Gulp&lt;/h3>
+&lt;p>&lt;a href="http://gulpjs.com/">Gulp&lt;/a>是一款项目自动化的构建工具，与&lt;a href="http://gruntjs.com/">Grunt&lt;/a>一样可以通过创建任务（Task）来帮助我们自动完成一些工作流的内容。当然，今天我们的内容并不是讨论这二者的区别，仅仅是介绍介绍如何利用 Gulp 来优化我们的 Web 项目中前端自动化工作流。&lt;/p>
+&lt;h3 id="引言">引言&lt;/h3>
+&lt;p>相信不少人看过百度大牛&lt;a href="https://github.com/fouber">张云龙&lt;/a>的那篇讲解&lt;a href="https://github.com/fouber/blog/issues/6">大公司里怎样开发和部署前端代码?&lt;/a>的文章，如果没有阅读的朋友请戳。由于在项目部署时，我们需要对项目 js，css,image 等文件进行压缩，合并处理，从而减少客户端对服务 Http 请求，已达到增强页面的加载速度，优化服务器带宽压力等等目的。所以本文主要讲的是利用 Gulp 优化我们 Web 部署优化工作。&lt;/p>
+&lt;h3 id="安装初始化">安装&amp;amp;初始化&lt;/h3>
+&lt;p>首先你得确保你的电脑上面是否已经安装了 Nodejs, 如果没有安装的话，那么请&lt;a href="https://nodejs.org/">移步&lt;/a>。假定有如下一个 Nodejs 的 Web 项目（当然你也可以是其他的例如 Java，.Net 的 Web 项目，且具体开发目录如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">|- project
+|- src // 前端项目的源文件
+|- js
+|- html
+|- images
+|- css
+|- bower_component // bower 前端依赖包管理
+|- node_component // nodejs 插件
+|- server
+|- api
+|- views
+|- app
+|- assets // 前端静态文件存放目录
+|- js
+|- css
+|- images
+|- templates
+|- ... // 其他目录就不一一列出了
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>src&lt;/code>文件夹为前端的&lt;code>js&lt;/code>，&lt;code>css&lt;/code>, &lt;code>html&lt;/code>, &lt;code>image&lt;/code>的开发目录, 我们会通过 gulp 将这些源文件进行压缩合并后打包到目标目录，也就是&lt;code>assets&lt;/code>目录下相应的&lt;code>js&lt;/code>,&lt;code>css&lt;/code>目录，html 视图文件会打包到&lt;code>views&lt;/code>下的&lt;code>app&lt;/code>文件夹和&lt;code>assets&lt;/code>下的&lt;code>templates&lt;/code>模板文件夹，具体视情况而定。其中的&lt;code>bower_component&lt;/code>为&lt;a href="http://bower.io/">bower&lt;/a>前端包管理，我们可以用 bower 直接下载几乎任何我们前端日常所需的库，框架,而且可以任选版本，例如&lt;code>JQuery&lt;/code>,&lt;code>Bootstrap&lt;/code>,&lt;code>Angular&lt;/code>，只需执行&lt;code>bower install packageName&lt;/code>即可，不同版本只需&lt;code>bower install packageName#version&lt;/code>,更多内容，可以去&lt;a href="http://bower.io/">官网&lt;/a>自行查阅，这里就不展开了。至于&lt;code>node_component&lt;/code> 文件夹即是用&lt;code>npm&lt;/code>安装的我们打包会用到的插件资源了。&lt;/p>
+&lt;ol>
+&lt;li>全局安装 Gulp&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain"> npm install --global gulp
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>安装 Gulp 到开发项目中&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain"> npm install --save-dev gulp
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>在 src 创建&lt;code>gulpfile.js&lt;/code>文件，这个文件用来配置我们所需的&lt;code>task&lt;/code>,接下来会具体讲解。&lt;/li>
+&lt;li>执行&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-plain" data-lang="plain">$ gulp
+或者
+$ gulp taskName
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>gulp 会执行&lt;code>gulpfile.js&lt;/code>文件下定义的&lt;code>default&lt;/code>任务，如果我们需要执行特定的 task，则需要执行下面的命令&lt;/p>
+&lt;h3 id="gulpfilejs-文件">gulpfile.js 文件&lt;/h3>
+&lt;p>&lt;code>gulpfile.js&lt;/code>用来定义我们需要自动化的任务，里面包含了很多依赖关系。这里我们会创建 4 个 Task，第一个&lt;code>develop task&lt;/code>,用于开发时使用，另一个&lt;code>release task&lt;/code>,用于部署发布时用的，还有一个&lt;code>watch task&lt;/code>, 用于实时监听文件修改行为，可及时打包，最后一个&lt;code>default task&lt;/code>, gulp 默认执行的 task.&lt;/p>
+&lt;h4 id="创建-default-task">创建 Default Task&lt;/h4>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript"> &lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> gulp = require(&lt;span style="color:#cd5555">&amp;#39;gulp&amp;#39;&lt;/span>);
+gulp.task(&lt;span style="color:#cd5555">&amp;#39;default&amp;#39;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#228b22">// place code for your default task here
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> });
+&lt;span style="color:#228b22">// 如果默认情况下我们会执行一个叫develop的task，则这么写，执行gulp命令时，
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#228b22">// 会自动调用develop
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> gulp.task(&lt;span style="color:#cd5555">&amp;#39;default&amp;#39;&lt;/span>, [&lt;span style="color:#cd5555">&amp;#39;develop&amp;#39;&lt;/span>]);
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="创建-develop-task">创建 Develop Task&lt;/h4>
+&lt;h5 id="创建develop-task前先介绍下我们今天要用到的一些插件">创建&lt;code>develop task&lt;/code>前，先介绍下我们今天要用到的一些插件&lt;/h5>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/terinjokes/gulp-uglify">gulp-uglify&lt;/a> Js 压缩插件&lt;/li>
+&lt;li>&lt;a href="https://github.com/jonathanepollack/gulp-minify-css">gulp-minify-css&lt;/a> Css 压缩插件&lt;/li>
+&lt;li>&lt;a href="https://github.com/sindresorhus/gulp-imagemin">gulp-imagemin&lt;/a> 图片压缩插件，支持格式： PNG, JPEG, GIF and SVG images&lt;/li>
+&lt;li>&lt;a href="https://github.com/sindresorhus/gulp-strip-debug">gulp-strip-debug&lt;/a> 清除源文件 console,debugger 代码&lt;/li>
+&lt;li>&lt;a href="https://github.com/jonkemp/gulp-useref">gulp-useref&lt;/a> 合并压缩 html 文件中的文件&lt;/li>
+&lt;/ul>
+&lt;p>以上列出的插件为我个人常用的一些插件，如果你还有 fonts 文件的话，也可以添加进去，gulp 有很多其他或者相似的插件，都可以去 google 搜索。安装方法则是正常的&lt;code>npm&lt;/code>安装，可以戳进官网去查看。&lt;/p>
+&lt;h5 id="首先我们需要为我们要压缩的源文件配置路径以及导入插件假设我们-bower-里面已有-jquery-和-bootstrap-插件以及其他源文件目录如下">首先我们需要为我们要压缩的源文件配置路径以及导入插件，假设我们 bower 里面已有 jquery 和 bootstrap 插件，以及其他源文件目录，如下&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">// 引入插件
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> uglify = require(&lt;span style="color:#cd5555">&amp;#39;gulp-uglify&amp;#39;&lt;/span>); &lt;span style="color:#228b22">// 压缩
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> minifyCss = require(&lt;span style="color:#cd5555">&amp;#39;gulp-minify-css&amp;#39;&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> stripDebug = require(&lt;span style="color:#cd5555">&amp;#39;gulp-strip-debug&amp;#39;&lt;/span>); &lt;span style="color:#228b22">// 该插件用来去掉console和debugger语句
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> useref = require(&lt;span style="color:#cd5555">&amp;#39;gulp-useref&amp;#39;&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> imagemin = require(&lt;span style="color:#cd5555">&amp;#39;gulp-imagemin&amp;#39;&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> pngquant = require(&lt;span style="color:#cd5555">&amp;#39;imagemin-pngquant&amp;#39;&lt;/span>);
+&lt;span style="color:#228b22">// 任务处理的文件路径配置
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> paths = {
+js: [ &lt;span style="color:#228b22">// js目录
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#cd5555">&amp;#39;app/*&amp;#39;&lt;/span>
+],
+css: [
+&lt;span style="color:#cd5555">&amp;#39;css/*&amp;#39;&lt;/span>
+],
+img: [
+&lt;span style="color:#cd5555">&amp;#39;images/*&amp;#39;&lt;/span>
+],
+html: [
+&lt;span style="color:#cd5555">&amp;#39;html/*&amp;#39;&lt;/span>
+],
+lib: { &lt;span style="color:#228b22">// 第三方依赖文件
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> js: [
+&lt;span style="color:#cd5555">&amp;#39;bower_components/bootstrap/dist/js/bootstrap.js&amp;#39;&lt;/span>,
+&lt;span style="color:#cd5555">&amp;#39;bower_components/jquery/jquery.js&amp;#39;&lt;/span>
+],
+css: [
+&lt;span style="color:#cd5555">&amp;#39;bower_components/bootstrap/dist/css/bootstrap.css&amp;#39;&lt;/span>
+],
+img: [
+&lt;span style="color:#cd5555">&amp;#39;bower_components/bootstrap/dist/images/*&amp;#39;&lt;/span>
+]
+}
+};
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="定义develop-task">定义&lt;code>develop task&lt;/code>&lt;/h4>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> output = &lt;span style="color:#cd5555">&amp;#34;../server/assets/&amp;#34;&lt;/span>; &lt;span style="color:#228b22">// output
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>
+&lt;span style="color:#228b22">/* 开发环境 */&lt;/span>
+gulp.task(&lt;span style="color:#cd5555">&amp;#39;develop&amp;#39;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+gulp.src(paths.js)
+.pipe(gulp.dest(output + &lt;span style="color:#cd5555">&amp;#39;/js&amp;#39;&lt;/span>));
+gulp.src(paths.lib.js)
+.pipe(gulp.dest(output + &lt;span style="color:#cd5555">&amp;#39;/js&amp;#39;&lt;/span>));
+gulp.src(paths.css)
+.pipe(gulp.dest(output + &lt;span style="color:#cd5555">&amp;#39;/css&amp;#39;&lt;/span>));
+gulp.src(paths.lib.css)
+.pipe(gulp.dest(output + &lt;span style="color:#cd5555">&amp;#39;/css&amp;#39;&lt;/span>));
+gulp.src(paths.img)
+.pipe(gulp.dest(output + &lt;span style="color:#cd5555">&amp;#39;/images&amp;#39;&lt;/span>));
+gulp.src(paths.lib.img)
+.pipe(gulp.dest(output + &lt;span style="color:#cd5555">&amp;#39;/images&amp;#39;&lt;/span>));
+});
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>上面的 develop task 直接将代码都输出到了我们的 server 目录下，并未通过插件进行相应的处理，主要是因为我们等会还会创建&lt;code>release task&lt;/code>， 当真正部署的时候我们才进行压缩合并这些处理。&lt;/p>
+&lt;h4 id="定义release-task">定义&lt;code>release task&lt;/code>&lt;/h4>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">/* 部署环境 */&lt;/span>
+gulp.task(&lt;span style="color:#cd5555">&amp;#39;release&amp;#39;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+gulp.src(paths.js)
+.pipe(stripDebug())
+.pipe(gulp.dest(output + &lt;span style="color:#cd5555">&amp;#39;/js&amp;#39;&lt;/span>));
+gulp.src(paths.lib.js)
+.pipe(stripDebug())
+.pipe(gulp.dest(output + &lt;span style="color:#cd5555">&amp;#39;/js&amp;#39;&lt;/span>));
+gulp.src(paths.css)
+.pipe(gulp.dest(output + &lt;span style="color:#cd5555">&amp;#39;/css&amp;#39;&lt;/span>));
+gulp.src(paths.lib.css)
+.pipe(gulp.dest(output + &lt;span style="color:#cd5555">&amp;#39;/css&amp;#39;&lt;/span>));
+gulp.src(paths.img)
+.pipe(imagemin({
+progressive: &lt;span style="color:#8b008b;font-weight:bold">true&lt;/span>,
+svgoPlugins: [{removeViewBox: &lt;span style="color:#8b008b;font-weight:bold">false&lt;/span>}],
+use: [pngquant()]
+}))
+.pipe(gulp.dest(output + &lt;span style="color:#cd5555">&amp;#39;/images&amp;#39;&lt;/span>));
+gulp.src(paths.lib.img)
+.pipe(imagemin({
+progressive: &lt;span style="color:#8b008b;font-weight:bold">true&lt;/span>,
+svgoPlugins: [{removeViewBox: &lt;span style="color:#8b008b;font-weight:bold">false&lt;/span>}],
+use: [pngquant()]
+}))
+.pipe(gulp.dest(output + &lt;span style="color:#cd5555">&amp;#39;/images&amp;#39;&lt;/span>));
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> assets = useref.assets();
+gulp.src(paths.html)
+.pipe(assets)
+.pipe(gulpif(&lt;span style="color:#cd5555">&amp;#39;*.js&amp;#39;&lt;/span>, uglify()))
+.pipe(gulpif(&lt;span style="color:#cd5555">&amp;#39;*.css&amp;#39;&lt;/span>, minifyCss()))
+.pipe(assets.restore())
+.pipe(useref())
+.pipe(gulp.dest(output + &lt;span style="color:#cd5555">&amp;#39;/templates&amp;#39;&lt;/span>));
+});
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>上面的代码首先是先打包静态文件到指定包，去掉多余的 console,debugger,给图片文件进行压缩处理，最后利用&lt;code>useref&lt;/code>插件对 ejs 视图文件中的 js,css 进行压缩合并处理，并打包到指定目录。&lt;/p>
+&lt;h4 id="利用useref对-html-内部的文件进行压缩合并">利用&lt;code>useref&lt;/code>对 html 内部的文件进行压缩合并&lt;/h4>
+&lt;p>上面的&lt;code>release&lt;/code>中我们以及定义了对 app 目录下 html 文件内部的 js，css 进行压缩何必，仅仅配置 task 是还不够的，我还需要在 html 内部做如下配置：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">html&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">head&lt;/span>&amp;gt;
+&lt;span style="color:#228b22">&amp;lt;!-- build:css css/main.css --&amp;gt;&lt;/span>
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">link&lt;/span> &lt;span style="color:#658b00">href&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;css/style.css&amp;#34;&lt;/span> &lt;span style="color:#658b00">rel&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;stylesheet&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">link&lt;/span> &lt;span style="color:#658b00">href&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;css/bootstrap.cs.css&amp;#34;&lt;/span> &lt;span style="color:#658b00">rel&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;stylesheet&amp;#34;&lt;/span>&amp;gt;
+&lt;span style="color:#228b22">&amp;lt;!-- endbuild --&amp;gt;&lt;/span>
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">head&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">body&lt;/span>&amp;gt;
+&lt;span style="color:#228b22">&amp;lt;!-- build:js scripts/main.js --&amp;gt;&lt;/span>
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">script&lt;/span> &lt;span style="color:#658b00">type&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;text/javascript&amp;#34;&lt;/span> &lt;span style="color:#658b00">src&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;js/bootstrap.js&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">script&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">script&lt;/span> &lt;span style="color:#658b00">type&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;text/javascript&amp;#34;&lt;/span> &lt;span style="color:#658b00">src&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;js/jquery.js&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">script&lt;/span>&amp;gt;
+&lt;span style="color:#228b22">&amp;lt;!-- endbuild --&amp;gt;&lt;/span>
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">body&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">html&lt;/span>&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>经过合并后的文件：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">html&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">head&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">link&lt;/span> &lt;span style="color:#658b00">rel&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;stylesheet&amp;#34;&lt;/span> &lt;span style="color:#658b00">href&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;css/main.css&amp;#34;&lt;/span>/&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">head&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">body&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">script&lt;/span> &lt;span style="color:#658b00">type&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;text/javascript&amp;#34;&lt;/span> &lt;span style="color:#658b00">src&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;js/main.js&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">script&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">body&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">htm&lt;/span>&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>更多关于&lt;a href="https://github.com/jonkemp/gulp-useref">gulp-useref&lt;/a>的使用方法&lt;a href="https://github.com/jonkemp/gulp-useref">请戳&lt;/a>。&lt;/p>
+&lt;h4 id="定义watch-task">定义&lt;code>watch Task&lt;/code>&lt;/h4>
+&lt;p>&lt;code>watch task&lt;/code> 是为了监听文件发生改变后立即触发的任务，已便于我们开发。代码如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> watcher = gulp.watch(paths.scripts, [&lt;span style="color:#cd5555">&amp;#39;develop&amp;#39;&lt;/span>]);
+watcher.on(&lt;span style="color:#cd5555">&amp;#39;change&amp;#39;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> (event) {
+console.log(&lt;span style="color:#cd5555">&amp;#39;Event type: &amp;#39;&lt;/span> + event.type); &lt;span style="color:#228b22">// added, changed, or deleted
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> console.log(&lt;span style="color:#cd5555">&amp;#39;Event path: &amp;#39;&lt;/span> + event.path); &lt;span style="color:#228b22">// The path of the modified file
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>});
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="总结">总结&lt;/h3>
+&lt;p>以上基本介绍了如何使用 gulp 来自动完成打包，压缩，合并文件等任务，Gulp 插件非常多，本文只是简单的介绍了几种基本的。总之，使用 gulp，只需要几行命令便可以完成以上任务，使很多优化工作变得十分简单。&lt;/p>
+- //imziv.com/posts/2015/%E5%88%A9%E7%94%A8gulp%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2web%E9%A1%B9%E7%9B%AE/ - 2012-2020 Ziv小威</description></item><item><title>利用 javascript 和 WebGL 绘制地球 【翻译】</title><link>//imziv.com/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/</link><pubDate>Sun, 22 Mar 2015 01:43:59 +0000</pubDate><guid>//imziv.com/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/</guid><description>让美的事情发生 //imziv.com/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/ -&lt;p>原翻译：&lt;a href="http://imziv.com/blog/article/read.htm?id=59">利用 javascript 和 WebGL 绘制地球 【翻译】&lt;/a>&lt;/p>
+&lt;p>在我们所有已知的 HTML5API 中，&lt;a href="https://www.khronos.org/webgl/">WebGL&lt;/a>可能是最有意思的一个，利用这个 API 我们能够在浏览器中创造出炫酷 3D 场景的能力。本文将完整的向你展示一些炫酷是如何实现的。&lt;/p>
+&lt;p>需要特别指出的是，这篇教程我们将会构建一个地球行星模型，这个模型可以像一个兴奋的人一样环绕的旋转，另外，它可能使我们可以获得一些其他程序员的称赞，好吧，就这么多了。&lt;/p>
+&lt;h2 id="准备">准备&lt;/h2>
+&lt;p>这篇教程我们将会用到一个令人着迷的&lt;a href="https://www.khronos.org/webgl/">WebGL&lt;/a>插件:&lt;a href="http://threejs.org/">three.js&lt;/a>. 这个插件跟 JQuery 有点像，不过它是针对&lt;a href="https://www.khronos.org/webgl/">WebGL&lt;/a>的，它将很多复杂的原生 API 访问接口进行了抽象，从而让我们可以更轻易的利用&lt;a href="https://www.khronos.org/webgl/">WebGL&lt;/a>的特性。&lt;/p>
+&lt;p>在 HTML 中，我们的可以通过正常的 script 标签引入这个插件，如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-xml" data-lang="xml">&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;script&lt;/span> &lt;span style="color:#658b00">src=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;//cdnjs.cloudflare.com/ajax/libs/three.js/r63/three.min.js&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&amp;lt;/script&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>此处我们引用的是 CDN 版本，如果你有必要，可以使用本地的方法引入。然后我们需要确保&lt;a href="https://www.khronos.org/webgl/">WebGL&lt;/a>有东西可以在上面进行渲染。这里我们有个灵活的做法：我们可以直接将一般的 Div 或者 Canvas 写到 HTML 中，或者我们可以另外用 JS 创建并且追加 canvas 元素到 Dom 里后再去渲染。这里我们采用第一种容易点的方法，如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-xml" data-lang="xml">&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;body&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;div&lt;/span> &lt;span style="color:#658b00">id=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;container&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&amp;lt;/div&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;script&lt;/span> &lt;span style="color:#658b00">src=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;earth.js&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&amp;lt;/script&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/body&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>添加完&lt;strong>script&lt;/strong>标签连接到 Dom 中后，我们的 HTML 部分差不多就完成了。&lt;/p>
+&lt;h2 id="下一步">下一步&lt;/h2>
+&lt;p>Tree.js 本身是趋向把东西做的非常接近真实的 3D 桌面程序的。我们拥有一个场景，有一些东西现场直播，然后通过摄像机去浏览，然后有些灯光，特效，渲染在整场景上面，当然他们自身也全都是 3D 对象。这个场景的元素列表似乎有点吓人，在我们的&lt;strong>earth.js&lt;/strong>文件里，所有的这些元素都可以当成形状变量，&lt;strong>Javascript&lt;/strong>文件如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> scene,
+camera,
+light,
+renderer,
+earthObject;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> WIDTH = &lt;span style="color:#658b00">window&lt;/span>.innerWidth - &lt;span style="color:#b452cd">30&lt;/span>,
+HEIGHT = &lt;span style="color:#658b00">window&lt;/span>.innerHeight - &lt;span style="color:#b452cd">30&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> angle = &lt;span style="color:#b452cd">45&lt;/span>,
+aspect = WIDTH / HEIGHT,
+near = &lt;span style="color:#b452cd">0.1&lt;/span>,
+far = &lt;span style="color:#b452cd">3000&lt;/span>;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>有些额外的变量也定义在这里了，WIDTH,HEIGHT 变量用来获取我们画布的宽与高，下面的其他变量之后将会用来设置我们相机的位置。对于几乎所有的 3D 对象来说，所有这些元素都是共通的，无论是平台还是环境，所以在这里我们习惯性的将这些家伙写到一起。然而利用 Three.js 我们可以轻松的实现，我们将看看所有这些元素是如何在同一时刻融合到项目中的。&lt;/p>
+&lt;h2 id="环境">环境&lt;/h2>
+&lt;p>首先，我们需要启用新变量并初始化他们，从而使我们的地球模型可以展示的更炫。我们可以先设置每个处理环境因素的变量：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> container = &lt;span style="color:#658b00">document&lt;/span>.getElementById(&lt;span style="color:#cd5555">&amp;#39;container&amp;#39;&lt;/span>);
+camera = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> THREE.PerspectiveCamera(angle, aspect, near, far);
+camera.position.set(&lt;span style="color:#b452cd">0&lt;/span>, &lt;span style="color:#b452cd">0&lt;/span>, &lt;span style="color:#b452cd">0&lt;/span>);
+scene = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> THREE.Scene();
+light = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> THREE.SpotLight(&lt;span style="color:#b452cd">0xFFFFFF&lt;/span>, &lt;span style="color:#b452cd">1&lt;/span>, &lt;span style="color:#b452cd">0&lt;/span>, &lt;span style="color:#658b00">Math&lt;/span>.PI / &lt;span style="color:#b452cd">2&lt;/span>, &lt;span style="color:#b452cd">1&lt;/span>);
+light.position.set(&lt;span style="color:#b452cd">4000&lt;/span>, &lt;span style="color:#b452cd">4000&lt;/span>, &lt;span style="color:#b452cd">1500&lt;/span>);
+light.target.position.set (&lt;span style="color:#b452cd">1000&lt;/span>, &lt;span style="color:#b452cd">3800&lt;/span>, &lt;span style="color:#b452cd">1000&lt;/span>);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>下面是针对上面代码执行情况的描述：&lt;/p>
+&lt;ul>
+&lt;li>在我们的 HTMl 中抓取&lt;strong>container&lt;/strong>对象&lt;/li>
+&lt;li>我们用之前声明的变量设置&lt;strong>camera&lt;/strong>对象（更多关于&lt;strong>cameras&lt;/strong>是如何在 3D 中工作的信息，可以点击&lt;a href="https://www.youtube.com/watch?v=EWY-SaHnxkM">这里&lt;/a>）&lt;/li>
+&lt;li>通过&lt;code>position.set&lt;/code>方法设置&lt;strong>camera&lt;/strong>的位置， 这个方法需要携带一个维度（x, y, z)参数对象, 可能你已经想到了， 我们将会使用这个 camera 去定位我们的 3D 对象，本教程中的 3D 对象就是我们的地球模型。&lt;/li>
+&lt;li>接下来设置我们的 light 对象。如果没有 light 对象做渲染的话，那么整个模型出来的效果将会是一片漆黑，所以我们必须细心的注意这一步骤。Three.js 的&lt;a href="http://threejs.org/docs/#Reference/Lights/SpotLight">SpotLight object&lt;/a>对象拥有与我们的 camera 对象大致相同的参数，只不过这个对象的第一个参数 colour 必须为十六进制的值，然后剩余的其他参数与 camera 基本相同。&lt;/li>
+&lt;li>最后，我们需要设置我们的画布对象 renderer.另外一个需要确保的点则是：我们需要提前将画布对象完整的渲染到了屏幕上，再次强调，如果没有完成这一步，那么整个画布将会什么也看不见，一片漆黑。我们给画布添加了去锯齿效果，并且将这个效果作为 Dom 元素添加到我们的原始容器中。&lt;/li>
+&lt;/ul>
+&lt;p>现在我们需要通过将整个地球粘贴在网上一样的方式来构建自身整个模型。代码如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> earthGeo = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> THREE.SphereGeometry (&lt;span style="color:#b452cd">30&lt;/span>, &lt;span style="color:#b452cd">40&lt;/span>, &lt;span style="color:#b452cd">400&lt;/span>),
+earthMat = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> THREE.MeshPhongMaterial();
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> earthMesh = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> THREE.Mesh(earthGeo, earthMat); earthMesh.position.set(-&lt;span style="color:#b452cd">100&lt;/span>, &lt;span style="color:#b452cd">0&lt;/span>, &lt;span style="color:#b452cd">0&lt;/span>);
+earthMesh.rotation.y=&lt;span style="color:#b452cd">5&lt;/span>;
+scene.add(earthMesh);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在这里我们创建了一个网状（Mesh)对象,这个网状是一种可以被用来装扮并看起来像地球形状的对象，然后给这个对象添加一些几何结构，外观包装，或者一些有质感的材料来包裹这个网状体。我们同样会将这个对象设置适当的在位置，与其他参数对象一样，我们会并且将 Mesh 对象添加到我们的场景（scene）中。&lt;/p>
+&lt;p>如下有个样例。这里面有些额外的渲染效果，稍后我们将会讲解。这个样例看起来离我们想要的越来越近了。&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;h2 id="蓝色星球">蓝色星球&lt;/h2>
+&lt;p>接下来有趣的部分是给这个家伙制作皮肤。首先我们将会使用一张漫反射贴图，它会让这个家伙看起来更像个地图。你可以像下面的方式一样添加：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">// diffuse map
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>earthMat.map = THREE.ImageUtils.loadTexture(&lt;span style="color:#cd5555">&amp;#39;images/earthmap1k.jpg&amp;#39;&lt;/span>);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果你想要质感更好些的话，你可以尝试用&lt;a href="https://github.com/BHouwens/SolarSim/blob/master/images/earthmap1k.jpg">这个&lt;/a>图片，或者你可以去 google 搜索一张你想要的图片都行。高分辨率的图都可以。&lt;/p>
+&lt;p>现在这个模型看起来没那么糟糕了，但是我们仍然可以通过引用一点地形描绘的方式，使整个模型看起来更真实些。这个地球有一些高山，为了确保区分太阳系的其他星球，我们需要使用&lt;a href="https://en.wikipedia.org/wiki/Bump_mapping">凹凸地图（bump map）&lt;/a>, 在 3D 模型中, 凹凸地图是黑白图，使用鲜明的白色去凸显图像凹凸不平的部分（例如我们示例中的：山脉）。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">// bump map
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>earthMat.bumpMap = THREE.ImageUtils.loadTexture(&lt;span style="color:#cd5555">&amp;#39;images/elev_bump_16ka.jpg&amp;#39;&lt;/span>);
+earthMat.bumpScale = &lt;span style="color:#b452cd">8&lt;/span>;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用上面的图片我们差不多达到了效果，再次强调，使用过 Google 搜索“Earth bump map”会获得大量的选择，但是如果你感觉都不好的话，你可以点击这个&lt;a href="https://github.com/BHouwens/SolarSim/blob/master/images/elev_bump_16ka.jpg">连接&lt;/a>。
+运行了以上的代码，我们将会看到如下效果：&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;h2 id="让它转起来">让它转起来&lt;/h2>
+&lt;p>接下来剩余的事情就是我们给这个地球模型添加一些动画效果，为此，我们需要两个新的方法，我们命名为&lt;code>render()&lt;/code>和&lt;code>animate()&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> animate() {
+requestAnimationFrame(animate);
+render();
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们的&lt;code>animate()&lt;/code>方法并不是很复杂，通过自身递归连续的调用&lt;code>requestAnimationFrame()&lt;/code>方法，&lt;code>anmiate()&lt;/code>会请求我们的&lt;code>render()&lt;/code>方法,让我们看看&lt;code>render()&lt;/code>方法的代码：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> render() {
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> clock = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> THREE.Clock(),
+delta = clock.getDelta();
+earthMesh.rotation.y += rotationSpeed * delta;
+renderer.render(scene, camera);
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们看看上面的代码做了些什么工作。每次&lt;code>render()&lt;/code>方法被请求，它便会让地球模型在 y 轴上缓缓的转动起来（此处你可以选择设置任意的转动次数，我们在这里利用&lt;code>getDelta()&lt;/code>方法构建一个时钟对象来控制转动次数，当然你可以不使用这种方法）。然后&lt;code>render()&lt;/code>方法会执行清理画布操作，这是防止画布乱掉很重要的步骤，最后它会渲染我们的场景（以及场景对象中的其他所有对象）和我们的 camera 对象。&lt;/p>
+&lt;h2 id="最后">最后&lt;/h2>
+&lt;p>当然，拥有拖拽操作会让我们的地球模型的体验更好，&lt;a href="https://gist.github.com/mrflix/8351020">OrbitControls.js&lt;/a>是一个可以为我们地球模型提供鼠标驱动旋转效果能力的脚本，并且它为我们的平流层里添加一些星星或者云作为地球模型的背景同样也并不困难，如果你并不嫌麻烦的话，你甚至可以利用 WebGL 的着色器（shaders）为你的星球添加一个平流层。&lt;/p>
+&lt;p>运行代码，你可以看到一个样例，在 CodePen 中最终的 Demo 如下：&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>通过按住鼠标拖动和滚动鼠标滑轮来查看效果（或者点击此处&lt;a href="http://codepen.io/SitePoint/full/wBERzm/">demo&lt;/a>&lt;/p>
+&lt;h2 id="结尾">结尾&lt;/h2>
+&lt;p>WebGL 和 Three.js 变得越发的具有挑战性，因为他们偶尔会要求我们要像 3D 艺术家一样，利用场景，画布，camera 去完成我们的工作，最终的结果就是做出了一些加令人印象深刻的东西。如果你专注于在这个技术上的话，你可以通过在浏览器中使用 3D 特性创造出一些有趣的可能性。如果坚持它，相信不久你就很可能获取一些非凡的成绩。&lt;/p>
+&lt;p>原文地址：&lt;a href="http://www.sitepoint.com/building-earth-with-webgl-javascript/?utm_source=html5weekly&amp;amp;utm_medium=email">Building the Earth with WebGL and JavaScript&lt;/a>&lt;/p>
+- //imziv.com/posts/2015/%E5%88%A9%E7%94%A8javascript%E5%92%8Cwebgl%E7%BB%98%E5%88%B6%E5%9C%B0%E7%90%83-%E7%BF%BB%E8%AF%91/ - 2012-2020 Ziv小威</description></item><item><title>随笔-家</title><link>//imziv.com/posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/</link><pubDate>Sat, 24 Jan 2015 21:56:59 +0000</pubDate><guid>//imziv.com/posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/</guid><description>让美的事情发生 //imziv.com/posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/ -&lt;p>全屏功能是浏览器很早就支持的一项功能了，可以让你页面中的 video, image ,div 等等子元素实现全屏浏览，从而带来更好的视觉体验，来看看怎么使用吧。先来看看有哪些 API 和事件支持。&lt;/p>
+&lt;h3 id="api">API&lt;/h3>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">
+&lt;span style="color:#228b22">// 元素请求全屏显示
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>element.requestFullscreen()
+&lt;span style="color:#228b22">// 检测文档的当前状态是否允许执行全屏操作
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#658b00">document&lt;/span>.fullscreenEnabled()
+&lt;span style="color:#228b22">//当前显示的元素是否处于全屏状态，如果处于，则返回为非空对象，否则返回null
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#658b00">document&lt;/span>.fullscreenElement()
+&lt;span style="color:#228b22">//元素退出全屏显示
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#658b00">document&lt;/span>.exitFullscreen()
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>上面除了&lt;code>RequestFullscreen()&lt;/code>是支持&lt;code>element&lt;/code> 对象以外，其他 3 个都只是支持&lt;code>document&lt;/code>.&lt;/p>
+&lt;h4 id="event">Event&lt;/h4>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">fullscreenchange &lt;span style="color:#228b22">// 全屏状态更改时触发
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>
+fullscreenerror &lt;span style="color:#228b22">// 执行全屏错误时触发
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>由于每个浏览器实现的方式不一样，所以我们实际的调用中还不能直接这样写，需要针对不同的浏览器做支持检测，下面跟着详细的例子看下具体兼容代码。&lt;/p>
+&lt;h5 id="html">html&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">body&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">img&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;imgFS&amp;#34;&lt;/span> &lt;span style="color:#658b00">src&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;&amp;#34;&lt;/span>/&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">a&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;btnFS&amp;#34;&lt;/span> &lt;span style="color:#658b00">href&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;javascript:;&amp;#34;&lt;/span>&amp;gt; FullScreen &amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">a&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">body&lt;/span>&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="javascript">javascript&lt;/h5>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> fullScreen = &lt;span style="color:#658b00">document&lt;/span>.getElementById(&lt;span style="color:#cd5555">&amp;#39;btnFS&amp;#39;&lt;/span>);
+fullScreen.addEventListener(&lt;span style="color:#cd5555">&amp;#34;click&amp;#34;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(){
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> status = &lt;span style="color:#658b00">document&lt;/span>.fullscreenEnabled ||
+&lt;span style="color:#658b00">document&lt;/span>.webkitFullscreenEnabled ||
+&lt;span style="color:#658b00">document&lt;/span>.mozFullscreenEnabled ||
+&lt;span style="color:#658b00">document&lt;/span>.msFullscrrenEnabled;
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (status) {
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> img = &lt;span style="color:#658b00">document&lt;/span>.getElementById(&lt;span style="color:#cd5555">&amp;#34;imgFS&amp;#34;&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (img.requestFullscreen) {
+img.requestFullscreen();
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (img.msRequestFullscreen) { &lt;span style="color:#228b22">// IE
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> img.msRequestFUllscreen();
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (img.mozRequestFullscreen) { &lt;span style="color:#228b22">// Firefox (Gecko)
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> img.mozRequestFullscreen();
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (img.webkitRequestFullscreen) { &lt;span style="color:#228b22">// Webkit
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> img.webkitRequestFullscreen();
+}
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> {
+alert(&lt;span style="color:#cd5555">&amp;#34;The document not allowed to fullscreen.&amp;#34;&lt;/span>);
+}
+});
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上代码针对一个图片元素进行了全屏操作的例子，上文中的全屏触发是通过监听一个按钮来实现的，这个地方需要&lt;strong>注意&lt;/strong>的是，假如你想在页面载入后就触发全屏，这个事件是不会触发执行全屏显示的。只有通过例如&lt;code>click, keydown&lt;/code>等触发事件，才可以启用全屏显示的功能。&lt;/p>
+&lt;h4 id="监听键盘按钮触发">监听键盘按钮触发&lt;/h4>
+&lt;p>下面的代码示例通过按键&lt;strong>F12&lt;/strong>来触发启用或者关闭的操作，主要是利用了&lt;code>element.fullscreenElement&lt;/code> 方法来判断当前的文档状态，来进行切换的，具体代码如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#658b00">document&lt;/span>.addEventListener(&lt;span style="color:#cd5555">&amp;#34;keydown&amp;#34;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(e){
+console.log(e.keyCode);
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (e.keyCode == &lt;span style="color:#b452cd">123&lt;/span>) { &lt;span style="color:#228b22">// keypress fn + F12 for Mac
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> fullscreen();
+}
+});
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> fullscreen() {
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> body = &lt;span style="color:#658b00">document&lt;/span>.body;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> status = !&lt;span style="color:#658b00">document&lt;/span>.fullscreenElement &amp;amp;&amp;amp; &lt;span style="color:#228b22">// get the screen status
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> !&lt;span style="color:#658b00">document&lt;/span>.msFullscreenElement &amp;amp;&amp;amp;
+!&lt;span style="color:#658b00">document&lt;/span>.mozFullscreenElement &amp;amp;&amp;amp;
+!&lt;span style="color:#658b00">document&lt;/span>.webkitFullscreenElement;
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (status) {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (body.requestFullscreen) {
+body.requestFullscreen();
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (body.mozRequestFullscreen) {
+body.mozRequestFullscreen();
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (body.webkitRequestFullscreen) {
+body.webkitRequestFullscreen();
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (body.msRequestFullscreen) {
+body.msRequestFUllscreen();
+}
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (&lt;span style="color:#658b00">document&lt;/span>.exitFullscreen) {
+&lt;span style="color:#658b00">document&lt;/span>.exitFullscreen();
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (&lt;span style="color:#658b00">document&lt;/span>.mozExitFullscreen) {
+&lt;span style="color:#658b00">document&lt;/span>.mozExitFullscreen();
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (&lt;span style="color:#658b00">document&lt;/span>.webkitExitFullscreen) {
+&lt;span style="color:#658b00">document&lt;/span>.webkitExitFullscreen();
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (&lt;span style="color:#658b00">document&lt;/span>.msExitFullscreen) {
+&lt;span style="color:#658b00">document&lt;/span>.msExitFullscreen();
+}
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="全屏样式">全屏样式&lt;/h4>
+&lt;p>全屏效果下，可以启用针对该状态下的特定样式，从而达到更好的浏览效果。样式定义如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-css" data-lang="css">:&lt;span style="color:#707a7c">-webkit-full-screen&lt;/span> { &lt;span style="color:#a61717;background-color:#e3d2d2">//&lt;/span> &lt;span style="color:#a61717;background-color:#e3d2d2">Webkit&lt;/span>
+}
+:&lt;span style="color:#707a7c">-moz-full-screen&lt;/span> { &lt;span style="color:#a61717;background-color:#e3d2d2">//&lt;/span> &lt;span style="color:#a61717;background-color:#e3d2d2">Gecko&lt;/span>
+}
+:&lt;span style="color:#707a7c">-ms-fullscreen&lt;/span> { &lt;span style="color:#a61717;background-color:#e3d2d2">//&lt;/span> &lt;span style="color:#a61717;background-color:#e3d2d2">IE&lt;/span>
+}
+:&lt;span style="color:#707a7c">fullscreen&lt;/span> {
+}
+// &lt;span style="color:#8b008b;font-weight:bold">调用示例&lt;/span>
+#&lt;span style="color:#008b45;text-decoration:underline">elementID&lt;/span> :&lt;span style="color:#707a7c">fullscreen&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">width&lt;/span>:&lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">height&lt;/span>:&lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>;
+}
+:&lt;span style="color:#707a7c">fullscreen&lt;/span>::&lt;span style="color:#707a7c">backdrop&lt;/span> { &lt;span style="color:#a61717;background-color:#e3d2d2">//&lt;/span> &lt;span style="color:#a61717;background-color:#e3d2d2">背光&lt;/span>
+}
+// &lt;span style="color:#8b008b;font-weight:bold">全屏背光&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">，&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">这是一个新的样式属性&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">，&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">但是目前浏览器支持的的都不太好&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">，&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">在IE11中被支持&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">，&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">另外下面提到的Opera12&lt;/span>.&lt;span style="color:#008b45;font-weight:bold">1&lt;/span>,&lt;span style="color:#8b008b;font-weight:bold">使用了&lt;/span>:&lt;span style="color:#707a7c">fullscreen-ancestor&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">，&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">调用方法如下&lt;/span>
+:&lt;span style="color:#707a7c">-ms-fullscreen&lt;/span>::&lt;span style="color:#707a7c">-ms-backdrop&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">background-color&lt;/span>: &lt;span style="color:#b452cd">#000&lt;/span>;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在这个地方需要注意的是，Gecko 和 Webkit 在全屏状态下显示是有差异的，Gecko 会默认把指定的全屏元素进行&lt;code>width:100%;height:100%&lt;/code>,而 Webkit 则是显示一片黑色，所以这个地方就需要针对全屏的元素进行样式调整了，参考以上代码示例。&lt;/p>
+&lt;h4 id="浏览器兼容情况">浏览器兼容情况&lt;/h4>
+&lt;p>参考地址：&lt;a href="http://caniuse.com/#search=fullscreen">Caniuse&lt;/a>&lt;/p>
+&lt;p>另外上面有说道下面几个问题，可以注意下。&lt;/p>
+&lt;ul>
+&lt;li>IE11 全屏状态下是不允许滚动的&lt;/li>
+&lt;li>IE11 并不允许通过&lt;code>keydown or pointerdown&lt;/code>事件来触发&lt;code>msRequestFullscreen()&lt;/code>，&lt;code>keypress 和click&lt;/code>没有问题&lt;/li>
+&lt;li>IE11 对 iframe 中使用全屏支持的并不是很好&lt;/li>
+&lt;li>在全屏模式中 Safari 阻塞了 keyboard 事件（出于安全考虑），&lt;code>但是我上面代码中，在Yosmite中，通过监听F12，Safari是可以正常工作的&lt;/code>&lt;/li>
+&lt;li>Opera 12.1 使用老的标准&lt;code>:fullscreen-ancestor&lt;/code> 伪类替代了 &lt;code>::backdrop&lt;/code> 伪元素&lt;/li>
+&lt;/ul>
+&lt;h4 id="总结">总结&lt;/h4>
+&lt;p>总之全屏是一个非常棒的特性，它可以让我们的 Web 拥有像原生应用一样体验，在以后的项目中会多尝试下这个特性。&lt;/p>
+&lt;h4 id="本文参考">本文参考&lt;/h4>
+&lt;p>&lt;a href="https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Using_full_screen_mode">Using fullscreen mode&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://fullscreen.spec.whatwg.org/">Fullscreen API
+Living Standard&lt;/a>&lt;/p>
+&lt;p>&lt;a href="http://www.sitepoint.com/use-html5-full-screen-api/">How to Use the HTML5 Full-Screen API (Again)&lt;/a>&lt;/p>
+- //imziv.com/posts/2015/html5-%E5%85%A8%E5%B1%8F%E7%89%B9%E6%80%A7/ - 2012-2020 Ziv小威</description></item><item><title>随笔-家</title><link>//imziv.com/posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/</link><pubDate>Mon, 12 Jan 2015 23:07:08 +0000</pubDate><guid>//imziv.com/posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/</guid><description>让美的事情发生 //imziv.com/posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/ -&lt;p>最近大家都又开始在 12306 上面开始抢火车票，不禁又提醒我 2014 年已经恰恰流逝。而春节又马上临近，是时候开始买回家的车票了。&lt;/p>
+&lt;p>突然发觉不知从何时起，我变成了一个不那么爱回家的人了。记得初中那会儿，由于学校离家比较远，我们就开始寄宿学校了，初一初二的时候每周回家 2 次，到初三的时候基本就只能周五回家一次，每次从家补寄下周的粮食。那时候经常和同学下自习 8，9 点后骑自行车回家，穿梭在山边的公路上，伴着一点点月光，虽然路上很漆黑，但是还是会冒着黑夜回家。每次周五放学，都是迫不及待，飞奔着跑向宿舍，拿起行李就跑出了学校。&lt;/p>
+&lt;p>上高中了，这次离家更远了，到了市里的一所高中，每次一个月才能回家一次。前一年我跟初中的时候一样，每逢放假的时候，人都是飞奔出教室的，然后跑进宿舍楼，然后飞出校门，飞进汽车站。后来大二开始，母亲和父亲一同外出打工后，我就开始很少回家了。后来是每次放假，我也不着急了，站在教学楼上看着放假后那些兴奋回家的同学们，直到操场上面寥寥几个人。每次暑假，也就回老家短暂的住上三，二日，便开始了暑假打工的生活。事实上暑期打工从我初中一毕业就开始了，一直到我大学毕业正式参加工作。&lt;/p>
+&lt;p>后来上大学了，相较于那些跨省上学的同学来说，我离家还是比较近的，但是由于父母常年不在老家，所以我也只是像清明节或者其他假期才会回老家住上几晚。这样算下来一年也回不了几次家，算上春节，也就一个月的左右。而每次我发现我对家的依恋的感觉都变得越来越淡。&lt;/p>
+&lt;p>这几年感觉自己就像飘在外面一样，身上染上了很多坏毛病，不喜欢与父母交流，越是亲密的人我可能越是说话刻薄。有时候会很讨厌自己。有时候想改变，但是却不知道怎么改变，想去多关心关心父母，朋友，但是告诫过自己的，临场时确又回到了原点。&lt;/p>
+&lt;p>如今已经离开学校一年左右了，我从一陌生的城市来到了另外一座陌生的城市，曾经有想过回去，但是不知道为什么总有些力量吸引我继续这样的日子，也许是好奇心，也行是我太年轻。&lt;/p>
+- //imziv.com/posts/2015/%E9%9A%8F%E7%AC%94-%E5%AE%B6/ - 2012-2020 Ziv小威</description></item><item><title>NodeJS CSV 导出文件名和内容乱码解决</title><link>//imziv.com/posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/</link><pubDate>Tue, 04 Nov 2014 15:29:19 +0000</pubDate><guid>//imziv.com/posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/</guid><description>让美的事情发生 //imziv.com/posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ -&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">// 解决不同浏览器下载文件名称乱码
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> userAgent = (req.headers[&lt;span style="color:#cd5555">&amp;#39;user-agent&amp;#39;&lt;/span>]||&lt;span style="color:#cd5555">&amp;#39;&amp;#39;&lt;/span>).toLowerCase();
+res.set(&lt;span style="color:#cd5555">&amp;#39;Content-Type&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;application/octet-stream;charset=utf-8&amp;#39;&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(userAgent.indexOf(&lt;span style="color:#cd5555">&amp;#39;msie&amp;#39;&lt;/span>) &amp;gt;= &lt;span style="color:#b452cd">0&lt;/span> || userAgent.indexOf(&lt;span style="color:#cd5555">&amp;#39;chrome&amp;#39;&lt;/span>) &amp;gt;= &lt;span style="color:#b452cd">0&lt;/span>) {
+res.setHeader(&lt;span style="color:#cd5555">&amp;#39;Content-Disposition&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;attachment; filename=&amp;#39;&lt;/span> +
+&lt;span style="color:#658b00">encodeURIComponent&lt;/span>(filename));
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(userAgent.indexOf(&lt;span style="color:#cd5555">&amp;#39;firefox&amp;#39;&lt;/span>) &amp;gt;= &lt;span style="color:#b452cd">0&lt;/span>) {
+res.setHeader(&lt;span style="color:#cd5555">&amp;#39;Content-Disposition&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;attachment; filename*=&amp;#34;utf8\&amp;#39;\&amp;#39;&amp;#39;&lt;/span> +
+&lt;span style="color:#658b00">encodeURIComponent&lt;/span>(filename)+&lt;span style="color:#cd5555">&amp;#39;&amp;#34;&amp;#39;&lt;/span>);
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> {
+res.setHeader(&lt;span style="color:#cd5555">&amp;#39;Content-Disposition&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;attachment; filename=&amp;#39;&lt;/span> +
+&lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Buffer(filename).toString(&lt;span style="color:#cd5555">&amp;#39;binary&amp;#39;&lt;/span>));
+}
+&lt;span style="color:#228b22">// 解决excel打开内容乱码
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> dataBuffer = Buffer.concat([&lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Buffer(&lt;span style="color:#cd5555">&amp;#39;\xEF\xBB\xBF&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;binary&amp;#39;&lt;/span>), &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Buffer(data)]);
+res.send(dataBuffer);
+&lt;/code>&lt;/pre>&lt;/div>- //imziv.com/posts/2014/nodejs-csv%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8C%E5%86%85%E5%AE%B9%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/ - 2012-2020 Ziv小威</description></item></channel></rss>

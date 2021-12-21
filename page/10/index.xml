@@ -1,0 +1,115 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>让美的事情发生</title>
+    <link>//imziv.com/</link>
+    <description>Recent content on 让美的事情发生</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>2012-2020 Ziv小威</copyright>
+    <lastBuildDate>Sat, 21 Nov 2020 04:00:25 +0000</lastBuildDate>
+    
+        <atom:link href="//imziv.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>也许我不是个有天赋的程序员</title>
+        <link>//imziv.com/posts/2012/%E4%B9%9F%E8%AE%B8%E6%88%91%E4%B8%8D%E6%98%AF%E4%B8%AA%E6%9C%89%E5%A4%A9%E8%B5%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/</link>
+        <pubDate>Thu, 06 Sep 2012 11:32:00 +0000</pubDate>
+        
+        <guid>//imziv.com/posts/2012/%E4%B9%9F%E8%AE%B8%E6%88%91%E4%B8%8D%E6%98%AF%E4%B8%AA%E6%9C%89%E5%A4%A9%E8%B5%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2012/%E4%B9%9F%E8%AE%B8%E6%88%91%E4%B8%8D%E6%98%AF%E4%B8%AA%E6%9C%89%E5%A4%A9%E8%B5%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/ -&lt;p&gt;当我刚刚接触到编程这个词汇的时候，经常会听到某某大牛的技术怎么样怎么样，然而当我步入大学后，我决然的选择了我向往已经的专业—软件开发。&lt;/p&gt;
+&lt;p&gt;我一直认为，只要通过自己努力，什么技术的一样我可以学的很好，就算高中的时候数学不好，英语也不是很好，但是我同样可以学习，来填充自己，就算我不是一个在编程方面有特别天赋的人，或者说我可能并不是很适合编程，其实我自己也不知道，可是我知道我自己喜欢编程这件事情。那些技术的大牛就像武侠中的高手，可以深藏不漏的隐居生活，也可以扬名立万，总之技术在我眼里就像武学一样，各种技术就是各种武学。所以，作为男孩子的我，当然向往这种感觉，喜欢做大侠的感觉。我喜欢把自己的各种想法，用自己喜欢的方式做成 web，去实现它，然后和他人分享我的东西，我喜欢这种感觉，我喜欢弄出不一样的东西，用编程做出有创造性的东西是我喜欢它的一个很重要的原因。&lt;/p&gt;
+&lt;p&gt;　　我不得不承认我在数学方面没有太多的天赋，从小学的时候到大学，我的数学就是一般般，可能也是由于自己当时没有认真学习吧，因为我发现我的逻辑思维还是可以的。我一直觉得，我并不想成为编程界的多么有成就的人物，数学不好我可以学，所以这并不能阻挡我成为一个高手的动力。经过了 2 年多的学习，事实证明，我可以完成很多同学都不能完成的作品，或许是他们不愿意学习去做的原因吧，因为我觉得，如果他们愿意，这些同样难倒不了他们。同样我也不断的在学习着英语，因为英语决定了我将来可以站在多高的舞台上面，理所当然我想变的更好。&lt;/p&gt;
+&lt;p&gt;　　也许我不是一个有天赋的程序员，对于某些算法的东西，对于有天赋的人来说，他们可能一个小时就可以搞定，可是我可能需要 2 个小时，或者更久等等，但是我并没有放弃对问题的思索，对答案的渴求。所以我一直觉得只要努力，可能你并不是一个有天赋的程序员，但至少你也可以成为一位优秀的程序员，stay hungry ,stay foolish.&lt;/p&gt;
+&lt;p&gt;　　马上就要毕业了，就要踏上社会，找到适合的工作，可能找到适合自己的工作很难，这仅仅只是一个开始，希望能保持自己的初衷，在这条道路中不断的探索，前进！&lt;/p&gt;
+- //imziv.com/posts/2012/%E4%B9%9F%E8%AE%B8%E6%88%91%E4%B8%8D%E6%98%AF%E4%B8%AA%E6%9C%89%E5%A4%A9%E8%B5%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98/ - 2012-2020 Ziv小威</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>将 mysql 中的 Blob 的图片在 jsp 中显示</title>
+        <link>//imziv.com/posts/2012/%E5%B0%86mysql%E4%B8%AD%E7%9A%84blob%E7%9A%84%E5%9B%BE%E7%89%87%E5%9C%A8jsp%E4%B8%AD%E6%98%BE%E7%A4%BA/</link>
+        <pubDate>Thu, 06 Sep 2012 11:32:00 +0000</pubDate>
+        
+        <guid>//imziv.com/posts/2012/%E5%B0%86mysql%E4%B8%AD%E7%9A%84blob%E7%9A%84%E5%9B%BE%E7%89%87%E5%9C%A8jsp%E4%B8%AD%E6%98%BE%E7%A4%BA/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2012/%E5%B0%86mysql%E4%B8%AD%E7%9A%84blob%E7%9A%84%E5%9B%BE%E7%89%87%E5%9C%A8jsp%E4%B8%AD%E6%98%BE%E7%A4%BA/ -&lt;p&gt;本来我的例子是用 Struts2+Hibernate+Spring 三个框架搭建的，但是没有什么大碍，我们只有知道核心部分在怎么实现的就行。&lt;/p&gt;
+&lt;p&gt;以下是我的 Action 的代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;
+&lt;span style=&#34;color:#228b22&#34;&gt;//show image
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; Image image = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Image();
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; Image &lt;span style=&#34;color:#008b45&#34;&gt;getImage&lt;/span&gt;() {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; image;
+}
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setImage&lt;/span&gt;(Image image) {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;image&lt;/span&gt; = image;
+}
+
+&lt;span style=&#34;color:#228b22&#34;&gt;//imageDao对象我是Spring注入进来的，你可以用new创建
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;showImage&lt;/span&gt;(){
+
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;byte&lt;/span&gt;[] itemImage = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt;;
+
+    HttpServletResponse response = ServletActionContext.&lt;span style=&#34;color:#658b00&#34;&gt;getResponse&lt;/span&gt;();
+    response.&lt;span style=&#34;color:#658b00&#34;&gt;reset&lt;/span&gt;();
+    response.&lt;span style=&#34;color:#658b00&#34;&gt;setContentType&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;image/jpeg&amp;#34;&lt;/span&gt;);
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;try&lt;/span&gt; {
+            image.&lt;span style=&#34;color:#658b00&#34;&gt;setId&lt;/span&gt;(0);
+            &lt;span style=&#34;color:#228b22&#34;&gt;//通过getBytes()方法将获取的Blob类型数据转换
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            itemImage = imageDao.&lt;span style=&#34;color:#658b00&#34;&gt;getImage&lt;/span&gt;(image).
+            getBytes(1, (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;)imageDao.&lt;span style=&#34;color:#658b00&#34;&gt;getImage&lt;/span&gt;(image).&lt;span style=&#34;color:#658b00&#34;&gt;length&lt;/span&gt;());
+            OutputStream out = response.&lt;span style=&#34;color:#658b00&#34;&gt;getOutputStream&lt;/span&gt;();
+            out.&lt;span style=&#34;color:#658b00&#34;&gt;write&lt;/span&gt;(itemImage);
+            out.&lt;span style=&#34;color:#658b00&#34;&gt;flush&lt;/span&gt;();
+            out.&lt;span style=&#34;color:#658b00&#34;&gt;close&lt;/span&gt;();
+    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt; (SQLException e) {
+        &lt;span style=&#34;color:#228b22&#34;&gt;// TODO Auto-generated catch block
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        e.&lt;span style=&#34;color:#658b00&#34;&gt;printStackTrace&lt;/span&gt;();
+    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt; (IOException e) {
+        &lt;span style=&#34;color:#228b22&#34;&gt;// TODO Auto-generated catch block
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        e.&lt;span style=&#34;color:#658b00&#34;&gt;printStackTrace&lt;/span&gt;();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以下是 ImageDAO 的 method&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; Blob &lt;span style=&#34;color:#008b45&#34;&gt;getImage&lt;/span&gt;(Image image) {
+
+        Image img = (Image) template.&lt;span style=&#34;color:#658b00&#34;&gt;get&lt;/span&gt;(Image.&lt;span style=&#34;color:#658b00&#34;&gt;class&lt;/span&gt;, image.&lt;span style=&#34;color:#658b00&#34;&gt;getId&lt;/span&gt;());     &lt;span style=&#34;color:#228b22&#34;&gt;//按指定id获取的image对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+        Blob blob = img.&lt;span style=&#34;color:#658b00&#34;&gt;getImage&lt;/span&gt;();
+
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; blob;                     &lt;span style=&#34;color:#228b22&#34;&gt;//return blob 对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;JSP 的代码为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;   &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;img&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;src&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&amp;lt;http://wewoor.blog.163.com/blog/&amp;lt;s:url&amp;gt; value=&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;show&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&amp;#34;&lt;/span&gt; /&amp;gt;&amp;#34; border=&amp;#34;0&amp;#34; width=&amp;#34;100&amp;#34; height=&amp;#34;100&amp;#34;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- //imziv.com/posts/2012/%E5%B0%86mysql%E4%B8%AD%E7%9A%84blob%E7%9A%84%E5%9B%BE%E7%89%87%E5%9C%A8jsp%E4%B8%AD%E6%98%BE%E7%A4%BA/ - 2012-2020 Ziv小威</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>浅聊这 2 各月的学习</title>
+        <link>//imziv.com/posts/2012/%E6%B5%85%E8%81%8A%E8%BF%992%E5%90%84%E6%9C%88%E7%9A%84%E5%AD%A6%E4%B9%A0/</link>
+        <pubDate>Thu, 06 Sep 2012 11:32:00 +0000</pubDate>
+        
+        <guid>//imziv.com/posts/2012/%E6%B5%85%E8%81%8A%E8%BF%992%E5%90%84%E6%9C%88%E7%9A%84%E5%AD%A6%E4%B9%A0/</guid>
+        <description>让美的事情发生 //imziv.com/posts/2012/%E6%B5%85%E8%81%8A%E8%BF%992%E5%90%84%E6%9C%88%E7%9A%84%E5%AD%A6%E4%B9%A0/ -&lt;p&gt;从今年的 7 月份学校放暑假，到如今马上又要开学，忽然间 2 个月的时间已匆匆过去。这两天也没有做出什么具有效率成果的事情，编写一文章做点总结吧。&lt;/p&gt;
+&lt;p&gt;当暑假即将来临的那会，我已经在着急忙忙的四处寻找能够实习的机会，希望能找到一个能尽快提升自己技术的公司来充实 2 个月的自己，无论工资多少，但我想一 定得在技术上面有一定的突破，这是我最初所期望的。但是事实总是曲折的，在寻找实习期间，遇到大多数的电话都是培训机构的，不过当时海辉当时打电话应聘我 Android 的实习生，但很不幸的是我当时一时的激动还是说错了几个问题，这也让我最终意识到自己的不足。培训机构始终给我的感觉就是如果自己去培训就 是对自己的不肯定、不自信，而我更觉得搞技术还是要靠自己的摸索和自学。培训只不过是给自己的路找个台阶罢了，而我，不需要。我要靠自己。&lt;/p&gt;
+&lt;p&gt;接下来的日子让我意识到了一些问题。首先，对于我这样一位才大二刚刚毕业的学生来讲，企业是不希望招到一位实习玩 2 月的未毕业的学生就开溜大吉的，也不希 望要一位没有生产能力的员工。其次，那个时候的我主要是 java，熟练 js,servlet,jsp,+struts2 框架的开发，在学校中做了很多相关 数据库操作的小型项目的练习（例如：宠物系统、考试系统），其次还会 c#,.net 但后者并不是我的拿手项。其实后来做了几次面试试卷，发现自己在 java 实战开发上确实还是有一定的经验，但 java 基础并没有自己想象的那么牢固，很多 知识我都还是理解的不够深、不够透，比喻一些修饰符的应用，一些包、类的作用，区别，等等。所以我决心利用暑假两个月，好好修炼自己，而地点则是在学校寝 室里面。&lt;/p&gt;
+&lt;p&gt;在放假之前我计划给自己搭建一个博客的，也是自己用 struts2 这么一个框架写的，非常简单的一些功能，例如常见的：分页，相册，和常见的数据增删改查 操作。但并未过多的应用 js+Ajax 技术。大约用了 1 到 2 个星期的时间，我把这个简单的博客给完成了，采用了我一贯喜欢的简洁风格，最后找了一个适用的 Linux 服务器，在上面测试了一段时间，也发现了不少问题，也相继的修复了些 Bug.还是挺有意思的，之后的时间我想把这博客尽量的完善。&lt;/p&gt;
+&lt;p&gt;其次，我发现 Ajax 技术还有 Spring，Hibernate 这几个技术在实际开发中的应用是非常频繁，而且也是非常重要的。Ajax 主要在 Web 页面 的体验上面做出来很好的表现，Spring 的话则主要对整个系统的性能上有很大的改善，而 Hibernate 则让我们对数据库的开发上变的更的心应手。所 以我觉得接下来的时间把这 3 个技术搞定，然后做一些小项目，同时提升自己的实战经验。
+大约花了半个多月的时间，我差不多把 Ajax，Spring,Hibernate 的基本应用给搞清楚了，其中包括 Spring+Hibernate 的整 合，Spring+Struts2 的整合，在网上看了很多人写的博客，最好整合后，自己也写了些自己整合的经验总结。&lt;/p&gt;
+&lt;p&gt;在学完这 2 个框架的基本开发后，我便拿着这两个框架去完成自己脑袋中的一些小小的创想，在实际中完整自己知识，让我对这 2 个框架有更进一步的学习和认识。 我觉得通过这种拿自己的创想去完成一些东西也成为了自己的一种小小动力。项目期间同时也把之前的纯 javascript 用 Jquery 这个技术引入了页面 的开发，渐渐让自己的页面变得更生动，js 代码更加简洁。总之收获很多。&lt;/p&gt;
+&lt;p&gt;在天气晴朗的时候，我也会抽时间晚上去跑步，跑好远好远，一个人可以静静的想通很多问题，也可以想到很多好玩的。不经意的一次发现自己挺喜欢阅读文章，后 来在淘宝上面买了个声卡，和麦，为同学的一个小 FM 网站上面录了文章，感觉还不错，虽然在发音上面还是有很多问题，但我觉得挺好的，在自己写代码累了后， 我便会找几篇文章，尝试找到有感觉的背景音乐，然后尝试去诠释它。真的挺好的一种感觉。&lt;/p&gt;
+&lt;p&gt;暑假过完了，同时也涌现了很多新的方向，新的目标，但这个暑假我觉得过的真的挺不错的，收获很多。同时也想通了很多。以后也会写更多的日志，来总结自己，鞭策自己。&lt;/p&gt;
+- //imziv.com/posts/2012/%E6%B5%85%E8%81%8A%E8%BF%992%E5%90%84%E6%9C%88%E7%9A%84%E5%AD%A6%E4%B9%A0/ - 2012-2020 Ziv小威</description>
+        </item>
+    
+    
+  </channel>
+</rss> 

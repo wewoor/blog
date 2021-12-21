@@ -1,0 +1,480 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>让美的事情发生</title><link>//imziv.com/</link><description>Recent content on 让美的事情发生</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>2012-2020 Ziv小威</copyright><lastBuildDate>Thu, 16 Dec 2021 14:00:00 +0000</lastBuildDate><atom:link href="//imziv.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Java 利用 Axis 远程调用 WebService 接口</title><link>//imziv.com/posts/2014/java%E5%88%A9%E7%94%A8axis%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8webservice%E6%8E%A5%E5%8F%A3-/</link><pubDate>Wed, 26 Mar 2014 17:28:40 +0000</pubDate><guid>//imziv.com/posts/2014/java%E5%88%A9%E7%94%A8axis%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8webservice%E6%8E%A5%E5%8F%A3-/</guid><description>让美的事情发生 //imziv.com/posts/2014/java%E5%88%A9%E7%94%A8axis%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8webservice%E6%8E%A5%E5%8F%A3-/ -&lt;p>准备工作：&lt;/p>
+&lt;p>　　主要依赖的包：&lt;/p>
+&lt;p>　　1.axis.jar&lt;/p>
+&lt;p>　　官网：&lt;a href="http://axis.apache.org/axis/">http://axis.apache.org/axis/&lt;/a>&lt;/p>
+&lt;p>　　2.jaxrpc.jar&lt;/p>
+&lt;p>　　下载地址：&lt;a href="http://www.java2s.com/Code/Jar/j/Downloadjaxrpcjar.htm">http://www.java2s.com/Code/Jar/j/Downloadjaxrpcjar.htm&lt;/a>&lt;/p>
+&lt;p>说明：&lt;/p>
+&lt;p>　　在拿到 wsdl 地址后先分析清楚 xml 文件的一些参数，然后再动手写代码，例如 service 名称，targetNamespace,请求 operation 的名称，要传入的参数类型，返回结果类型等等。具体的代码参考如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">1 &lt;span style="color:#8b008b;font-weight:bold">package&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">com.joysee.account.service.impl&lt;/span>;
+2
+3
+4 &lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.rmi.RemoteException&lt;/span>;
+5
+6 &lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">javax.xml.namespace.QName&lt;/span>;
+7 &lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">javax.xml.rpc.ParameterMode&lt;/span>;
+8 &lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">javax.xml.rpc.ServiceException&lt;/span>;
+9
+10 &lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">org.apache.axis.client.Call&lt;/span>;
+11 &lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">org.apache.axis.client.Service&lt;/span>;
+12
+13
+14 &lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> &lt;span style="color:#008b45;font-weight:bold">Test&lt;/span> {
+15
+16 &lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22">17 * @param args
+&lt;/span>&lt;span style="color:#228b22">18 * @throws ServiceException
+&lt;/span>&lt;span style="color:#228b22">19 * @throws MalformedURLException
+&lt;/span>&lt;span style="color:#228b22">20 * @throws RemoteException
+&lt;/span>&lt;span style="color:#228b22">21 */&lt;/span>
+22 &lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">main&lt;/span>(String[] args) &lt;span style="color:#8b008b;font-weight:bold">throws&lt;/span> ServiceException, RemoteException {
+23
+24 &lt;span style="color:#228b22">//WSDL地址
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>25 String wsdlUrl =&lt;span style="color:#cd5555">&amp;#34;http://IP:PORT/ExampleWebService?wsdl&amp;#34;&lt;/span>;
+26 &lt;span style="color:#228b22">//看具体响应的WSDL中的namespace
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>27 String nameSpaceUri =&lt;span style="color:#cd5555">&amp;#34;http://ws.exmaple.com/&amp;#34;&lt;/span>;
+28
+29 Service service = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Service();
+30
+31 Call call = (Call)service.&lt;span style="color:#658b00">createCall&lt;/span>();
+32 call.&lt;span style="color:#658b00">setTargetEndpointAddress&lt;/span>(wsdlUrl);
+33
+34 &lt;span style="color:#228b22">//设置operation 名称，
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>35 call.&lt;span style="color:#658b00">setOperationName&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> QName(nameSpaceUri, &lt;span style="color:#cd5555">&amp;#34;order&amp;#34;&lt;/span>));
+36
+37 &lt;span style="color:#228b22">//设置账户，注意参数为XSD_STRRING
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>38 call.&lt;span style="color:#658b00">addParameter&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;account&amp;#34;&lt;/span>, org.&lt;span style="color:#658b00">apache&lt;/span>.&lt;span style="color:#658b00">axis&lt;/span>.&lt;span style="color:#658b00">Constants&lt;/span>.&lt;span style="color:#658b00">XSD_STRING&lt;/span>,
+39 ParameterMode.&lt;span style="color:#658b00">IN&lt;/span>);
+40
+41 &lt;span style="color:#228b22">//设置账户，注意参数为XSD_LONG
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>42 call.&lt;span style="color:#658b00">addParameter&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;price&amp;#34;&lt;/span>, org.&lt;span style="color:#658b00">apache&lt;/span>.&lt;span style="color:#658b00">axis&lt;/span>.&lt;span style="color:#658b00">Constants&lt;/span>.&lt;span style="color:#658b00">XSD_LONG&lt;/span>,
+43 ParameterMode.&lt;span style="color:#658b00">IN&lt;/span>);
+44
+45 &lt;span style="color:#228b22">//设置返回类型为对象数组
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>46 call.&lt;span style="color:#658b00">setReturnClass&lt;/span>(Object[].&lt;span style="color:#658b00">class&lt;/span>);
+47
+48 Object[] result = (Object[]) call.&lt;span style="color:#658b00">invoke&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Object[]{&lt;span style="color:#cd5555">&amp;#34;test&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;123456&amp;#34;&lt;/span>});
+49
+50 System.&lt;span style="color:#658b00">out&lt;/span>.&lt;span style="color:#658b00">println&lt;/span>(result[0]);
+51
+52 }
+53
+54 }
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>常见异常：&lt;/p>
+&lt;p>1.org.xml.sax.SAXException: No deserializer for {&lt;a href="http://www.w3.org/2001/XMLSchema%7DanyType">http://www.w3.org/2001/XMLSchema}anyType&lt;/a>&lt;/p>
+&lt;p>　　这个异常需要检查 call.setReturnClass(); 中的类型，或者是 setReturnType()&lt;/p>
+&lt;ol>
+&lt;li>Unexpected wrapper element order found.&lt;/li>
+&lt;/ol>
+&lt;p>　可以检查 setOperationName 中的 QName 参数，其中的 NameSpace 地址是不是有问题，或者 operation 名是否有误&lt;/p>
+- //imziv.com/posts/2014/java%E5%88%A9%E7%94%A8axis%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8webservice%E6%8E%A5%E5%8F%A3-/ - 2012-2020 Ziv小威</description></item><item><title>Java JSON、XML 文件/字符串与 Bean 对象互转解析</title><link>//imziv.com/posts/2014/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8Ebean%E5%AF%B9%E8%B1%A1%E4%BA%92%E8%BD%AC%E8%A7%A3%E6%9E%90/</link><pubDate>Mon, 17 Mar 2014 16:12:00 +0000</pubDate><guid>//imziv.com/posts/2014/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8Ebean%E5%AF%B9%E8%B1%A1%E4%BA%92%E8%BD%AC%E8%A7%A3%E6%9E%90/</guid><description>让美的事情发生 //imziv.com/posts/2014/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8Ebean%E5%AF%B9%E8%B1%A1%E4%BA%92%E8%BD%AC%E8%A7%A3%E6%9E%90/ -&lt;p>前言&lt;/p>
+&lt;p>在做 web 或者其他项目中，JSON 与 XML 格式的数据是大家经常会碰见的 2 种。在与各种平台做数据对接的时候，JSON 与 XML 格式也是基本的数据传递格式，本文主要简单的介绍 JSON/XML 文件的读写操作，以及与 Bean 之间的转换。示例代码都是经过 Demo 测试的，当然也会把代码上传到 GitHub.需要的朋友可以看看。&lt;/p>
+&lt;p>准备工作&lt;/p>
+&lt;p>我这里对 XML 与 JSON 主要依赖以下 2 个开源库，当然像针对 xml 和 JSON 解析的开源库非常的多，下面这 2 个感觉相对用起来比较简单。需要注意的是如果缺少下面 jar 文件中的一个，可能就会出现 ClassNotFound 异常，如果发现使用的方法在当前库中找不到，则可能是库版本不同造成的，可以去官网查阅。&lt;/p>
+&lt;p>1.JSON 解析库：
+Jackson JSON Processor
+官网：&lt;a href="http://jackson.codehaus.org/">http://jackson.codehaus.org/&lt;/a>&lt;/p>
+&lt;p>2.XML 解析库 :
+Simple XML serialization framework
+官网：&lt;a href="http://simple.sourceforge.net/home.php">http://simple.sourceforge.net/home.php&lt;/a>&lt;/p>
+&lt;p>JSON 操作详细代码：
+1.JSON 字符串转换为 Bean&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22"> * JSON字符串转换为对象
+&lt;/span>&lt;span style="color:#228b22"> * @param src JSON字符串
+&lt;/span>&lt;span style="color:#228b22"> * @param target 目标Bean
+&lt;/span>&lt;span style="color:#228b22"> */&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> &amp;lt;T&amp;gt; T &lt;span style="color:#008b45">String2Object&lt;/span>(String src, Class&amp;lt;T&amp;gt; target) &lt;span style="color:#8b008b;font-weight:bold">throws&lt;/span>
+JsonParseException, JsonMappingException, IOException {
+ObjectMapper mapper = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> ObjectMapper();
+&lt;span style="color:#228b22">//配置，允许使用单引号字符的JSON
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> mapper.&lt;span style="color:#658b00">configure&lt;/span>(JsonParser.&lt;span style="color:#658b00">Feature&lt;/span>. ALLOW_SINGLE_QUOTES, &lt;span style="color:#8b008b;font-weight:bold">true&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> mapper.&lt;span style="color:#658b00">readValue&lt;/span>( &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> StringReader(src), target);
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>2.Bean 对象转换为 JSON 字符串&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#228b22">/***
+&lt;/span>&lt;span style="color:#228b22">* 将对象序列化为JSONObject字符串
+&lt;/span>&lt;span style="color:#228b22">* @param object bean对象
+&lt;/span>&lt;span style="color:#228b22">* @return String JSONString
+&lt;/span>&lt;span style="color:#228b22">*/&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> String &lt;span style="color:#008b45">toJSONObjectString&lt;/span>(Object object) {
+JSONObject jsonObject = JSONObject. &lt;span style="color:#008b45">fromObject&lt;/span>(object);
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> jsonObject.&lt;span style="color:#658b00">toString&lt;/span>();
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>3.JSON 字符串转换为 ArrayList&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22">* 字符串转化为目标List列表
+&lt;/span>&lt;span style="color:#228b22">* @param src 源JSON串
+&lt;/span>&lt;span style="color:#228b22">* @param target 目标类型
+&lt;/span>&lt;span style="color:#228b22">* @return 转化后的列表对象
+&lt;/span>&lt;span style="color:#228b22">*/&lt;/span>
+&lt;span style="color:#707a7c">@SuppressWarnings&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;rawtypes&amp;#34;&lt;/span>)
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> List &lt;span style="color:#008b45">String2ObjectsList&lt;/span>(String src, Class target)
+&lt;span style="color:#8b008b;font-weight:bold">throws&lt;/span> Exception {
+ObjectMapper mapper = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> ObjectMapper();
+mapper.&lt;span style="color:#658b00">configure&lt;/span>(JsonParser.&lt;span style="color:#658b00">Feature&lt;/span>. ALLOW_SINGLE_QUOTES, &lt;span style="color:#8b008b;font-weight:bold">true&lt;/span>);
+List result = mapper.&lt;span style="color:#658b00">readValue&lt;/span>( &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> StringReader(src),
+TypeFactory. &lt;span style="color:#008b45">collectionType&lt;/span>(ArrayList.&lt;span style="color:#658b00">class&lt;/span>, target));
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> result;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>4.ArrayList 转换为 JSON 字符串&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22">* 将List对象序列化为JSON文本
+&lt;/span>&lt;span style="color:#228b22">* @param list
+&lt;/span>&lt;span style="color:#228b22">* @return List &amp;lt;T&amp;gt;
+&lt;/span>&lt;span style="color:#228b22">*/&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> &amp;lt;T&amp;gt; String &lt;span style="color:#008b45">toJSONString&lt;/span>(List&amp;lt;T&amp;gt; list) {
+JSONArray jsonArray = JSONArray. &lt;span style="color:#008b45">fromObject&lt;/span>(list);
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> jsonArray.&lt;span style="color:#658b00">toString&lt;/span>();
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>其他的一些复杂的 Bean 转换，就不再多介绍了，主要都是围绕 JSONObject,JSONArray,ObjectMapper 这几个对象操作的，具体可以看看官方文档。&lt;/p>
+&lt;p>XML 操作详细代码：
+Simple 这个库通过对 Bean 对象提前通过添加注解的方式，从而简单易懂的方式来达到 Bean 与 XML 之间的转换&lt;/p>
+&lt;p>Bean Example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">org.simpleframework.xml.Attribute&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">org.simpleframework.xml.Element&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">org.simpleframework.xml.Root&lt;/span>;
+&lt;span style="color:#707a7c">@Root&lt;/span>&lt;span style="color:#228b22">//根节点
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> &lt;span style="color:#008b45;font-weight:bold">User&lt;/span> {
+&lt;span style="color:#707a7c">@Attribute&lt;/span>&lt;span style="color:#228b22">//作为属性
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> Integer id;
+&lt;span style="color:#707a7c">@Element&lt;/span>&lt;span style="color:#228b22">//作为元素
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> String name;
+&lt;span style="color:#707a7c">@Element&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> String email;
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#008b45">User&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">super&lt;/span>();
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#008b45">User&lt;/span>(Integer id, String name, String email) {
+&lt;span style="color:#8b008b;font-weight:bold">super&lt;/span>();
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>. id = id;
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>. name = name;
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>. email = email;
+}
+&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22"> * the below is getter and setter function
+&lt;/span>&lt;span style="color:#228b22"> */&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> Integer &lt;span style="color:#008b45">getId&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> id;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">setId&lt;/span>(Integer id) {
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>. id = id;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> String &lt;span style="color:#008b45">getName&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> name;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">setName&lt;/span>(String name) {
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>. name = name;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> String &lt;span style="color:#008b45">getEmail&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> email;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">setEmail&lt;/span>(String email) {
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>. email = email;
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>1.XML 字符串转换为 Bean 对象&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#228b22">//定义序列化对象
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>Serializer serializer = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Persister();
+User user = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> User(1001,&lt;span style="color:#cd5555">&amp;#34;test&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;wewoor@foxmail.com&amp;#34;&lt;/span> );
+String test = &lt;span style="color:#cd5555">&amp;#34;&amp;lt;user id=&amp;#39;1001&amp;#39;&amp;gt;&amp;lt;name&amp;gt;test12&amp;lt;/name&amp;gt;&amp;lt;email&amp;gt;wewoor@foxmail.com&amp;lt;/email&amp;gt;&amp;lt;/user&amp;gt;&amp;#34;&lt;/span>;
+&lt;span style="color:#228b22">//读取
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>serializer.&lt;span style="color:#658b00">read&lt;/span>(user, test);
+System. out.&lt;span style="color:#658b00">print&lt;/span>(user.&lt;span style="color:#658b00">getId&lt;/span>());
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>2.Bean 对象转换为 XML 字符串&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">User user = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> User(1001,&lt;span style="color:#cd5555">&amp;#34;test&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;wewoor@foxmail.com&amp;#34;&lt;/span> );
+&lt;span style="color:#228b22">//定义序列化对象
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>Serializer serializer = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Persister();
+&lt;span style="color:#228b22">//输出流
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>OutputStream out = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> ByteArrayOutputStream();
+serializer.&lt;span style="color:#658b00">write&lt;/span>(user, out);
+result = out.&lt;span style="color:#658b00">toString&lt;/span>();
+System. out.&lt;span style="color:#658b00">print&lt;/span>(result);
+out.&lt;span style="color:#658b00">close&lt;/span>();
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>3.将 Bean 对象写入 XML 文件&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">file = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> File(&lt;span style="color:#cd5555">&amp;#34;Ziv.xml&amp;#34;&lt;/span>);
+User user = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> User(1001,&lt;span style="color:#cd5555">&amp;#34;test&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;wewoor@foxmail.com&amp;#34;&lt;/span> );
+&lt;span style="color:#228b22">//定义序列化对象
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>Serializer serializer = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Persister();
+&lt;span style="color:#228b22">//将User user 写入ziv.xml
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>serializer.&lt;span style="color:#658b00">write&lt;/span>(user, file);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>4.读取 XML 文件转换为 Bean&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">file = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> File( &lt;span style="color:#cd5555">&amp;#34;Ziv.xml&amp;#34;&lt;/span>);
+User user = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> User();
+&lt;span style="color:#228b22">//定义序列化对象
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>Serializer serializer = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Persister();
+&lt;span style="color:#228b22">//读取ziv.xml到User中
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>serializer.&lt;span style="color:#658b00">read&lt;/span>(user, file);
+&lt;/code>&lt;/pre>&lt;/div>- //imziv.com/posts/2014/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8Ebean%E5%AF%B9%E8%B1%A1%E4%BA%92%E8%BD%AC%E8%A7%A3%E6%9E%90/ - 2012-2020 Ziv小威</description></item><item><title>匿名函数块级作用域以及在 JQuery 中的应用</title><link>//imziv.com/posts/2014/%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%BB%A5%E5%8F%8A%E5%9C%A8jquery%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/</link><pubDate>Fri, 21 Feb 2014 10:59:00 +0000</pubDate><guid>//imziv.com/posts/2014/%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%BB%A5%E5%8F%8A%E5%9C%A8jquery%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/</guid><description>让美的事情发生 //imziv.com/posts/2014/%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%BB%A5%E5%8F%8A%E5%9C%A8jquery%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/ -&lt;p>最近经常回在群里面看到有些朋友问如下这样的 js 写法该如何理解的的问题,虽然可能对匿名函数有些理解，但是有时候看到 JQuery 源码或者其他 JS 库中同样的写法时，就有点不理解了，今天再次分享下这方面的知识点。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">(&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(){
+})(JQuery);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>对以上写法的理解：&lt;/p>
+&lt;p>　　上面的这种写法通常叫做“块级作用域”，块级作用域的好处就是可以将匿名方法内部的变量进行私有化，当程序运行结束之后便将一些变量自动销毁。第一个（）号表示次函数为一个函数表达式，其中包含了一个匿名函数，后面的一个（）则表示执行这个函数表达式中的匿名方法，而 JQuery 则作为这个匿名函数的一个参数。&lt;/p>
+&lt;p>匿名函数&lt;/p>
+&lt;p>　　通常声明一个匿名函数的方法是：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">//匿名函数
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> getPerson = &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() { &lt;span style="color:#228b22">//次方法为函数表达式的声明方法
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>}
+getPerson();&lt;span style="color:#228b22">//调用匿名方法
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>所以大家又可以把上面的代码看成是这样子的：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+}();
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>但是，虽然逻辑上是这么一回事，但是你如果按照上面的这种写法，运行的时候会出现语法错误的问题。所以这个时候利用（）这个分组操作符括起这个函数表达式即可，然后括号（）执行此函数。（关于函数声明的方法以及函数表达是的内容可以参考汤姆大叔的这篇文章&lt;a href="http://www.cnblogs.com/TomXu/archive/2011/12/29/2290308.html">http://www.cnblogs.com/TomXu/archive/2011/12/29/2290308.html&lt;/a>）&lt;/p>
+&lt;p>JQuery 中的应用：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">//此块级作用域中声明了2个参数
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>( &lt;span style="color:#658b00">window&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">undefined&lt;/span> ) {
+&lt;span style="color:#228b22">// Use the correct document accordingly with window argument (sandbox)
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> location = &lt;span style="color:#658b00">window&lt;/span>.location,
+&lt;span style="color:#658b00">document&lt;/span> = &lt;span style="color:#658b00">window&lt;/span>.&lt;span style="color:#658b00">document&lt;/span>,
+docElem = &lt;span style="color:#658b00">document&lt;/span>.documentElement,
+&lt;span style="color:#228b22">// Map over jQuery in case of overwrite
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> _jQuery = &lt;span style="color:#658b00">window&lt;/span>.jQuery,
+&lt;span style="color:#228b22">// Map over the $ in case of overwrite
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> _$ = &lt;span style="color:#658b00">window&lt;/span>.$;
+}( &lt;span style="color:#658b00">window&lt;/span> );&lt;span style="color:#228b22">//将window对象作为参数传入了方法内
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>上面的代码是我截取的 JQuery 源码的一部分。想要了解的朋友可以自己去看。以上就是我对一些理解，有问题的地方或者交流的朋友可以联系我。&lt;/p>
+- //imziv.com/posts/2014/%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%BB%A5%E5%8F%8A%E5%9C%A8jquery%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/ - 2012-2020 Ziv小威</description></item><item><title>对近 2 年来“互联网思维”、“物联网”、“云计算”、“大数据”，“小白用户”等时髦词汇的些思考</title><link>//imziv.com/posts/2014/%E5%AF%B9%E8%BF%912%E5%B9%B4%E6%9D%A5%E4%BA%92%E8%81%94%E7%BD%91%E6%80%9D%E7%BB%B4%E7%89%A9%E8%81%94%E7%BD%91%E4%BA%91%E8%AE%A1%E7%AE%97%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B0%8F%E7%99%BD%E7%94%A8%E6%88%B7%E7%AD%89%E6%97%B6%E9%AB%A6%E8%AF%8D%E6%B1%87%E7%9A%84%E4%BA%9B%E6%80%9D%E8%80%83/</link><pubDate>Sun, 16 Feb 2014 15:41:00 +0000</pubDate><guid>//imziv.com/posts/2014/%E5%AF%B9%E8%BF%912%E5%B9%B4%E6%9D%A5%E4%BA%92%E8%81%94%E7%BD%91%E6%80%9D%E7%BB%B4%E7%89%A9%E8%81%94%E7%BD%91%E4%BA%91%E8%AE%A1%E7%AE%97%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B0%8F%E7%99%BD%E7%94%A8%E6%88%B7%E7%AD%89%E6%97%B6%E9%AB%A6%E8%AF%8D%E6%B1%87%E7%9A%84%E4%BA%9B%E6%80%9D%E8%80%83/</guid><description>让美的事情发生 //imziv.com/posts/2014/%E5%AF%B9%E8%BF%912%E5%B9%B4%E6%9D%A5%E4%BA%92%E8%81%94%E7%BD%91%E6%80%9D%E7%BB%B4%E7%89%A9%E8%81%94%E7%BD%91%E4%BA%91%E8%AE%A1%E7%AE%97%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B0%8F%E7%99%BD%E7%94%A8%E6%88%B7%E7%AD%89%E6%97%B6%E9%AB%A6%E8%AF%8D%E6%B1%87%E7%9A%84%E4%BA%9B%E6%80%9D%E8%80%83/ -&lt;p>平时喜欢关注科技新闻，所以会在经常科技栏目里看到关于什么“互联网思维”，“物联网”，“小白用户”，”云计算“等等这些热词的文章。但是个人觉得很多文章是过度解读，在给读者相应的一些正面信息的同时，感觉更多的是给很多读者造成了一些负面影响。下面谈谈我自己的一些感受。&lt;/p>
+&lt;p>　　互联网思维&lt;/p>
+&lt;p>　　过度解读的典型，弄得过渡的神秘。自从近些年互联网通过自身强大的力量对传统行业造成了巨大影响后，尤其电商更是炒的沸沸扬扬。然后通过几年便成长期了的小米公司更是达到了市值 100 亿美元，更是让很多传统行业者大跌眼镜，“互联网思维”这个词也就不知不觉经常被谁推到了科技新闻栏中。然后对互联网不是很熟悉的人，因为大家知道，或许很多传统行业的人以前可能不怎么太关心互联网络上面的事情，然后当互联网已经开始冲击自身行业的时候，才发现自己对互联网上那么的不熟。例如，很多人甚至没有玩过 QQ，微博微信，贴吧之类的互联网产品，而且这些东西更像是 80，90 后的代名词。甚至生活中年轻人经常嘴里面冒出来的一句话，一个词都是不能理解其中的含义或者笑点。其实说到底，是由于很多传统行业人，或者老一辈人他们没有去拥抱这个时代。当“互联网思维”这个词进入到很多传统行业人的脑海中去的时候，经常会把这个弄的神乎其神，好像“互联网思维”有多么的难，多么的高大上，而且还经常被各种编者来各种过度解读。“互联网思维”无非就是利用互联网“快速，强大的传播力”等特点，何必搞的那么故弄玄虚。&lt;/p>
+&lt;p>　　物联网&lt;/p>
+&lt;p>　　在一家物联网创业公司工作了一年多，也是有些体会。物联网其实属于互联网的一部分，其主思想应该是智能化，自动化。例如现在流行的是医疗，智能家居等。由于物联网这个新兴概念以及更加先进的传感设备的出现，让很多人看到了新的创业机遇，很多从事传统行业的人也是由于互联网的浪潮所吸引，参与到了物联网行业。关键是很多从传统行业转换过来的创业者并没有理解互联网，和物联网，经常做着做着就跑偏了。例如把物联网产品做成了互联网产品，本来是互联网与硬件的紧密结合，最好搞成了什么电子商务，即时通讯的产品。而且部分创业者老是想把什么农业，家居，方方面面都做，导致最后什么都做不好。大家都知道如今物联网本来就是新兴的东西，产品体验一旦差，根本就做不起来。所以入行请慎重，做产品要专一。&lt;/p>
+&lt;p>　　小白用户&lt;/p>
+&lt;p>　　有没有人跟我一样，听到这个词很蛋疼。什么叫小白用户？没上过网的？或者不会上网的？还是会上网玩 QQ 的？个人觉得目前互联网上的产品，用户体验一是对历史产品设计的一种继承，另一种就是对人类行为分析后的创新设计。不管你是什么用户，在我们进行产品设计的时候，无非就是沿袭目前互联网一贯的用户体验设计，要么就是进行创新新的设计，前者学习成本较低，后者学习成本较高而已，但是为了得到更好的体验，学习是必要的。至于那些没上过网的用户，就是非互联网用户，更谈不上小白用户。每当老板拿这个词来形容一些非互联网用户的时候，我就想吵架！例如之前做物联网产品的时候，老板把我们做的产品给一些就不上网的普通百姓看，本来物联网就是一个新兴的概念，那些连互联网都不了解，甚至连 QQ 都没有的用户，基本上看不懂我们的产品。目前我们设计产品的思路是深受互联网产品的影响的，所以一旦很多用户连互联网产品都不怎么用情况下，一些超前的东西你必须使用某些引导手段才行。所以请不要瞎定义小白用户，然后拿这个词说事儿～&lt;/p>
+&lt;p>　　云计算 大数据&lt;/p>
+&lt;p>　　近 2 年也是非常时髦的 2 个词，虽说的确是进入了大数据，云服务时代，但是这东西不是说拿来撑门面的，不是时髦的什么名牌。我发现很多小公司，还没用户就开始什么大数据，产品没出来老板就在外面大谈什么云服务，云计算。云计算和大数据其实是增强互联网产品的使用体验的有效技术手段，不是拿来显前卫，忽悠领导的时髦。建议做产品的还是脚踏实地，真正该采用什么手段的时候就采用。&lt;/p>
+&lt;p>　　结语&lt;/p>
+&lt;p>　　由于互联网给我们生活的影响，给传统行业的冲击，现在很多传统企业都想在互联网上分得一杯美羹，做房地产的，食品，医疗等等的，都在做自己的电商平台啊什么的。预感这 2 年是互联网的一波小高潮。对于我们程序员来说，嘿嘿，应该是很 happy 的。但是转行需谨慎啊，不懂互联网，很容易被技术团队坑的～&lt;/p>
+&lt;p>　（以上纯属个人闲来时的思考）&lt;/p>
+- //imziv.com/posts/2014/%E5%AF%B9%E8%BF%912%E5%B9%B4%E6%9D%A5%E4%BA%92%E8%81%94%E7%BD%91%E6%80%9D%E7%BB%B4%E7%89%A9%E8%81%94%E7%BD%91%E4%BA%91%E8%AE%A1%E7%AE%97%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B0%8F%E7%99%BD%E7%94%A8%E6%88%B7%E7%AD%89%E6%97%B6%E9%AB%A6%E8%AF%8D%E6%B1%87%E7%9A%84%E4%BA%9B%E6%80%9D%E8%80%83/ - 2012-2020 Ziv小威</description></item><item><title>JS 实现星级评价</title><link>//imziv.com/posts/2014/js%E5%AE%9E%E7%8E%B0%E6%98%9F%E7%BA%A7%E8%AF%84%E4%BB%B7/</link><pubDate>Thu, 09 Jan 2014 16:55:00 +0000</pubDate><guid>//imziv.com/posts/2014/js%E5%AE%9E%E7%8E%B0%E6%98%9F%E7%BA%A7%E8%AF%84%E4%BB%B7/</guid><description>让美的事情发生 //imziv.com/posts/2014/js%E5%AE%9E%E7%8E%B0%E6%98%9F%E7%BA%A7%E8%AF%84%E4%BB%B7/ -&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>　　本方法采用了 Jquery 库，暂时检测兼容 IE8 版本。本示例的 2 种颜色的星星都是放入了一张 png 图片当中，当然还有其他的一些实现思路。本示例展示的情况是当前页面只有一个星级评价的情况。&lt;/p>
+&lt;h2 id="思路">思路&lt;/h2>
+&lt;p>　　通过对星级显示元素的，mouseenter,mouseout,click 三个事件的监听，从而星星显示的个数。其中我用了 2 个变量（temp_value,choice_value）来存放当前选定星级的值和当前临时的星级值；&lt;/p>
+&lt;ul>
+&lt;li>temp_value : 临时的星级值；&lt;/li>
+&lt;li>choice_value : 选择的星级值；&lt;/li>
+&lt;li>mouseenter : 鼠标移入，获取当前所在的星星级别赋予 temp_value，调整当前星星的图片颜色；&lt;/li>
+&lt;li>mouseout : 鼠标移除，通过对比 choice_value 值，重新调整星星图片颜色；&lt;/li>
+&lt;li>click : 鼠标单击后，获取当前的星级值，赋值给 choice_value;（注意在 click 前已经进行过 mouseenter 事件了，click 后进行了 mouseout 事件了）&lt;/li>
+&lt;li>当完成选定值后，在需要提交评价值的时候，可以通过 JS 去获取变量 choice_value 的值；&lt;/li>
+&lt;/ul>
+&lt;p>HTML 结构代码：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">h1&lt;/span>&amp;gt;评价：&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">h1&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">ul&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;star&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span> &lt;span style="color:#658b00">title&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;很差&amp;#34;&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;star1&amp;#34;&lt;/span> &lt;span style="color:#658b00">star&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;1&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span> &lt;span style="color:#658b00">title&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;差&amp;#34;&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;star2&amp;#34;&lt;/span> &lt;span style="color:#658b00">star&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;2&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span> &lt;span style="color:#658b00">title&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;一般&amp;#34;&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;star3&amp;#34;&lt;/span> &lt;span style="color:#658b00">star&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;3&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span> &lt;span style="color:#658b00">title&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;好&amp;#34;&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;star4&amp;#34;&lt;/span> &lt;span style="color:#658b00">star&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;4&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span> &lt;span style="color:#658b00">title&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;很好&amp;#34;&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;star5&amp;#34;&lt;/span> &lt;span style="color:#658b00">star&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;5&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">ul&lt;/span>&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>注：如果页面中不止一个星级评价，也就是出现多行的情况，这个时候只需要对 Dom 中 li 的 id 进行一些改造，加上动态的下标，从而区分不同的元素。另外有个点就是，我把选定的星级值放入的是 JS 变量中去了，多个评价值的情况下，建议可以在 Dom 中加上隐藏表单域去存放选定的当前星级值。&lt;/p>
+&lt;p>JS 实现代码：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&amp;lt;script src=&lt;span style="color:#cd5555">&amp;#34;http://code.jquery.com/jquery-latest.js&amp;#34;&lt;/span>&amp;gt;&amp;lt;&lt;span style="color:#a61717;background-color:#e3d2d2">/script&amp;gt;&lt;/span>
+&amp;lt;script type=&lt;span style="color:#cd5555">&amp;#34;text/javascript&amp;#34;&lt;/span>&amp;gt;
+$(&lt;span style="color:#658b00">document&lt;/span>).ready(&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> _temp_value = &lt;span style="color:#b452cd">0&lt;/span>,&lt;span style="color:#228b22">//鼠标hover时的等级value
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> choiceValue = &lt;span style="color:#b452cd">0&lt;/span>;&lt;span style="color:#228b22">//默认选定的等级值为1
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>
+&lt;span style="color:#228b22">//鼠标移入的时候
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> $(&lt;span style="color:#cd5555">&amp;#34;#star li&amp;#34;&lt;/span>).mouseenter(&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#228b22">//获取当前的星级
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> _temp_value = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> &lt;span style="color:#658b00">Number&lt;/span>($(&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>).attr(&lt;span style="color:#cd5555">&amp;#34;star&amp;#34;&lt;/span>));
+showStar();
+&lt;span style="color:#228b22">//鼠标移入的时候
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> }).mouseout(&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(){
+hideStar();
+&lt;span style="color:#228b22">//鼠标移入的时候
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> }).click(&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(){
+&lt;span style="color:#228b22">//单击时，设定当前的选定值
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> choiceValue = _temp_value;　　　　　　　　hideSatr();　　
+});
+&lt;span style="color:#228b22">//星级显示
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> showStar() {
+&lt;span style="color:#8b008b;font-weight:bold">for&lt;/span> (&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> i = &lt;span style="color:#b452cd">1&lt;/span> ; i &amp;lt; _temp_value+&lt;span style="color:#b452cd">1&lt;/span>; ++i) {
+$(&lt;span style="color:#cd5555">&amp;#34;#star&amp;#34;&lt;/span>+i).addClass(&lt;span style="color:#cd5555">&amp;#34;choice&amp;#34;&lt;/span>);
+}
+}
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> hideStar() {
+&lt;span style="color:#8b008b;font-weight:bold">for&lt;/span> (&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> i = &lt;span style="color:#b452cd">5&lt;/span> ; i &amp;gt; choiceValue; --i) {
+$(&lt;span style="color:#cd5555">&amp;#34;#star&amp;#34;&lt;/span>+i).removeClass(&lt;span style="color:#cd5555">&amp;#34;choice&amp;#34;&lt;/span>);
+}
+}
+});
+&amp;lt;&lt;span style="color:#a61717;background-color:#e3d2d2">/script&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如有问题，请联系我！这里是 Demo 地址：http://xiaoweijs.duapp.com/demo/star-level/index.html&lt;/p>
+- //imziv.com/posts/2014/js%E5%AE%9E%E7%8E%B0%E6%98%9F%E7%BA%A7%E8%AF%84%E4%BB%B7/ - 2012-2020 Ziv小威</description></item><item><title>Spring 中@Component 注解,@Controller 注解详解</title><link>//imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/</link><pubDate>Tue, 24 Dec 2013 16:28:00 +0000</pubDate><guid>//imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/</guid><description>让美的事情发生 //imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/ -&lt;p>在使用 Spring 的过程中，为了避免大量使用 Bean 注入的 Xml 配置文件,我们会采用 Spring 提供的自动扫描注入的方式,只需要添加几行自动注入的的配置,便可以完成&lt;/p>
+&lt;p>Service 层,Controller 层等等的注入配置.使用过程中,在 Service 层中的实现类头上加@Compopnet 注解，在 Controller 类头加@Controller 注解，便完成了配置。例如在&lt;/p>
+&lt;p>Controller 中当我们调用某个 Service 时就不需要 Set 方法了，直接通过@Autowried 注解对 Service 对象进行注解即可：例如&lt;/p>
+&lt;p>在 Controller 中：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#707a7c">@Controller@RequestMapping&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;/test&amp;#34;&lt;/span>)
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> &lt;span style="color:#008b45;font-weight:bold">ExampleController&lt;/span> {
+&lt;span style="color:#707a7c">@Autowired&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> ExampleService service;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在 Service 中&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#707a7c">@Component&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> &lt;span style="color:#008b45;font-weight:bold">ExampleServiceImpl&lt;/span> Implements ExampleService {
+&lt;span style="color:#707a7c">@Autowired&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> ExampleDao exampleDao;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Spring 中的 XML 配置：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-xml" data-lang="xml">&lt;span style="color:#228b22">&amp;lt;!-- 自动扫描service,controller组件 --&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;context:component-scan&lt;/span> &lt;span style="color:#658b00">base-package=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;com.example.service.*&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">/&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;context:component-scan&lt;/span> &lt;span style="color:#658b00">base-package=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;com.example.controller.*&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">/&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>通常，在 Bean 为添加@Component 注解的情况下，在启动服务时，服务会提前报出以下代码中这样的异常情况下，此时应该检查相应 Bean 是否正确添加@Component&lt;/p>
+&lt;p>注解，而在 Controller 层中未配置@Controller 的情况，启动时服务可能不会爆出异常，但是你会发现页面请求中的 URL 地址是正确的，当时无论如何也访问不到 Controller 中相&lt;/p>
+&lt;p>对应的方法，这个时候就需要那么需要检查@Controller 注解和@RequestMapping 注解是否已经添加到 Class 上面了。&lt;/p>
+&lt;pre>&lt;code class="language-log" data-lang="log">org.springframework.beans.factory.BeanCreationException:Error creating bean with name 'example'
+No matching bean of type [com.example.ExampleService] found for dependency:
+expected at least 1 bean which qualifies as autowire candidate for this dependency.
+Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+&lt;/code>&lt;/pre>&lt;p>下面就详细介绍下@Component，@Controller 注解：&lt;/p>
+&lt;p>org.springframework.stereotype.Component (implements java.lang.annotation.Annotation)
+　　在自动服务，spring 初始化的时候，spring 会把所有添加@Component 注解的类作为使用自动扫描注入配置路径下的备选对象，同时在初始化 spring@Autowired&lt;/p>
+&lt;p>注解相应的 Bean 时，@Autowired 标签会自动寻找相应的备选对象完成对 bean 的注入工作。&lt;/p>
+&lt;p>org.springframework.stereotype.Controller (implements java.lang.annotation.Annotation)
+　　@Controller 注解是一个特殊的 Component，它允许了实现类可以通过扫描类配置路径的方式完成自动注入，通常@Controller 是结合@RequestMapping 注解一起使用的。&lt;/p>
+&lt;p>结语：&lt;/p>
+&lt;p>　　　通过了解 Spring 的注解可以帮助我们在使用 Spring 开发过程中提高开发效率，同时也加强了我们对 Spring 的认识。在使用 Spring 开发的过程中，我个人更倾向于使用注解的方式，减少配置文件代码。&lt;/p>
+- //imziv.com/posts/2013/spring%E4%B8%ADcomponent%E6%B3%A8%E8%A7%A3controller%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/ - 2012-2020 Ziv小威</description></item><item><title>制作滑动条菜单，如何延时处理滑动效果，避免动画卡顿</title><link>//imziv.com/posts/2013/%E5%88%B6%E4%BD%9C%E6%BB%91%E5%8A%A8%E6%9D%A1%E8%8F%9C%E5%8D%95%E5%A6%82%E4%BD%95%E5%BB%B6%E6%97%B6%E5%A4%84%E7%90%86%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E9%81%BF%E5%85%8D%E5%8A%A8%E7%94%BB%E5%8D%A1%E9%A1%BF/</link><pubDate>Sat, 07 Dec 2013 16:47:00 +0000</pubDate><guid>//imziv.com/posts/2013/%E5%88%B6%E4%BD%9C%E6%BB%91%E5%8A%A8%E6%9D%A1%E8%8F%9C%E5%8D%95%E5%A6%82%E4%BD%95%E5%BB%B6%E6%97%B6%E5%A4%84%E7%90%86%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E9%81%BF%E5%85%8D%E5%8A%A8%E7%94%BB%E5%8D%A1%E9%A1%BF/</guid><description>让美的事情发生 //imziv.com/posts/2013/%E5%88%B6%E4%BD%9C%E6%BB%91%E5%8A%A8%E6%9D%A1%E8%8F%9C%E5%8D%95%E5%A6%82%E4%BD%95%E5%BB%B6%E6%97%B6%E5%A4%84%E7%90%86%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E9%81%BF%E5%85%8D%E5%8A%A8%E7%94%BB%E5%8D%A1%E9%A1%BF/ -&lt;p>前几日在利用 JQuery 做菜单滑动标记这个效果的时候，最后发现滑动条在我用鼠标快速滑动的时候，会出现滑动条延迟滑动，并且有卡顿的现象,相当影响体验感受。不完美～&lt;/p>
+&lt;p>在几番询问下，得到了一个延时处理的解决方案，完美解决了这个问题。&lt;/p>
+&lt;h2 id="思路">思路&lt;/h2>
+&lt;blockquote>
+&lt;p>在鼠标移入目标元素的时候，启用定时操作，我目前设置的为 1/10 秒，也就是说，当鼠标如果在目标元素区域停留了满&amp;gt;足我预设值的时间范围内的话，我就执行动画效果，否则没有达到预设值的时间范围便移出来目标元素的话，便取消延&amp;gt;时执行的操作。简单的说，满足定时条件执行，否则取消操作。&lt;/p>
+&lt;/blockquote>
+&lt;p>具体代码：&lt;/p>
+&lt;p>HTML 部分：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">1: &amp;lt;&lt;span style="color:#8b008b;font-weight:bold">ul&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;nav&amp;#34;&lt;/span>&amp;gt;
+2: 　&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span>&amp;gt;&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">a&lt;/span> &lt;span style="color:#658b00">href&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;#&amp;#34;&lt;/span>&amp;gt;menu1&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">a&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span>&amp;gt;
+3: 　&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span>&amp;gt;&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">a&lt;/span> &lt;span style="color:#658b00">href&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;#&amp;#34;&lt;/span>&amp;gt;menu2&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">a&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span>&amp;gt;
+4: 　&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span>&amp;gt;&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">a&lt;/span> &lt;span style="color:#658b00">href&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;#&amp;#34;&lt;/span>&amp;gt;menu3&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">a&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span>&amp;gt;
+5: 　&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span>&amp;gt;&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">a&lt;/span> &lt;span style="color:#658b00">href&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;#&amp;#34;&lt;/span>&amp;gt;menu4&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">a&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">li&lt;/span>&amp;gt;
+6: 　&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">span&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;slide_1&amp;#34;&lt;/span> &lt;span style="color:#658b00">class&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;slidebar&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">span&lt;/span>&amp;gt;
+7: &amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">ul&lt;/span>&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="未添加延时操作的-js-代码">未添加延时操作的 JS 代码&lt;/h2>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#b452cd">1&lt;/span>:
+&lt;span style="color:#b452cd">2&lt;/span>: &lt;span style="color:#228b22">//导航菜单一监听hover效果
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#b452cd">3&lt;/span>: $(&lt;span style="color:#cd5555">&amp;#34;#nav li a&amp;#34;&lt;/span>).mouseenter(&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#b452cd">4&lt;/span>: $(&lt;span style="color:#cd5555">&amp;#34;#slide_1&amp;#34;&lt;/span>).animate( {
+&lt;span style="color:#b452cd">5&lt;/span>: left : $(&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>).offset().left
+&lt;span style="color:#b452cd">6&lt;/span>: },&lt;span style="color:#b452cd">200&lt;/span>);
+&lt;span style="color:#b452cd">7&lt;/span>: });
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="添加延时操作的-js-代码">添加延时操作的 JS 代码&lt;/h2>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#b452cd">1&lt;/span>: &lt;span style="color:#228b22">//加延迟处理的导航条2
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#b452cd">2&lt;/span>: &lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> tId = &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>,ele;&lt;span style="color:#228b22">//时间ID，当前元素
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#b452cd">3&lt;/span>: $(&lt;span style="color:#cd5555">&amp;#34;#nav1 li a&amp;#34;&lt;/span>).mouseenter(&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#b452cd">4&lt;/span>: ele = $(&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>);
+&lt;span style="color:#b452cd">5&lt;/span>: &lt;span style="color:#228b22">//设置定时操作，并记录时间ID，用于清除定时器
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#b452cd">6&lt;/span>: tId = setTimeout(&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#b452cd">7&lt;/span>: $(&lt;span style="color:#cd5555">&amp;#34;#slide_2&amp;#34;&lt;/span>).animate({left:$(ele).offset().left});
+&lt;span style="color:#b452cd">8&lt;/span>: }, &lt;span style="color:#b452cd">100&lt;/span>);
+&lt;span style="color:#b452cd">9&lt;/span>: }).mouseout(&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#b452cd">10&lt;/span>: &lt;span style="color:#228b22">//当鼠标移出目标元素时，清除定时操作
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#b452cd">11&lt;/span>: clearTimeout(tId);
+&lt;span style="color:#b452cd">12&lt;/span>: });
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Demo 浏览地址：
+&lt;a href="http://xiaoweijs.duapp.com/demo/slidebar.html">http://xiaoweijs.duapp.com/demo/slidebar.html&lt;/a>&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>有时候对于效果过于追求的我们，像遇到了卡顿这种情况，心里难免有些不完美的感觉。以上 demo 和上面的那个例子只是延时处理的一种情况，其实在做很多导航滑动，向下滑动菜单效果，滚动条滑动等等效果的的时候我们经常会遇见，但是解决思路都是相同的。增加延迟处理，终止事件。注意到这里终止事件的关键点在于 clearTimeout 上，先记录定时器 Id,不满足条件则 clear 掉。&lt;/p>
+- //imziv.com/posts/2013/%E5%88%B6%E4%BD%9C%E6%BB%91%E5%8A%A8%E6%9D%A1%E8%8F%9C%E5%8D%95%E5%A6%82%E4%BD%95%E5%BB%B6%E6%97%B6%E5%A4%84%E7%90%86%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E9%81%BF%E5%85%8D%E5%8A%A8%E7%94%BB%E5%8D%A1%E9%A1%BF/ - 2012-2020 Ziv小威</description></item><item><title>SpringMVC 中 HttpMessageConverter 简介和 Http 请求 415 Unsupported Media Type 的问题</title><link>//imziv.com/posts/2013/springmvc-%E4%B8%ADhttpmessageconverter%E7%AE%80%E4%BB%8B%E5%92%8Chttp%E8%AF%B7%E6%B1%82415-unsupported-media-type%E7%9A%84%E9%97%AE%E9%A2%98/</link><pubDate>Thu, 05 Dec 2013 15:12:00 +0000</pubDate><guid>//imziv.com/posts/2013/springmvc-%E4%B8%ADhttpmessageconverter%E7%AE%80%E4%BB%8B%E5%92%8Chttp%E8%AF%B7%E6%B1%82415-unsupported-media-type%E7%9A%84%E9%97%AE%E9%A2%98/</guid><description>让美的事情发生 //imziv.com/posts/2013/springmvc-%E4%B8%ADhttpmessageconverter%E7%AE%80%E4%BB%8B%E5%92%8Chttp%E8%AF%B7%E6%B1%82415-unsupported-media-type%E7%9A%84%E9%97%AE%E9%A2%98/ -&lt;h2 id="一概述">一、概述&lt;/h2>
+&lt;p>　　本文介绍且记录如何解决在 SpringMVC 中遇到 415 Unsupported Media Type 的问题，并且顺便介绍 Spring MVC 的 HTTP 请求信息转换器 HttpMessageConverter。&lt;/p>
+&lt;h2 id="二问题描述">二、问题描述&lt;/h2>
+&lt;p>　　在 SprinvMVC 的 Web 程序中，我在页面发送 Ajax 的 POST 请求，然后在服务器端利用@requestBody 接收请求 body 中的参数，当时运行过程中，我想服务器发送 Ajax 请求，浏览器一直反馈 415 Unsupported Media Type 或者 400 的状态码，以为是 Ajax 写的有问题。便查找了半天资料，才发现 spring-mvc.config 文件的配置中少了东西，当然也有可能是你真的在 Ajax 中缺少了对 Content-Type 参数的设置。分析后应该是我 springMVC-config.xml 文件配置有问题。&lt;/p>
+&lt;p>（注）：400：（错误请求） 服务器不理解请求的语法。 415：（不支持的媒体类型） 请求的格式不受请求页面的支持。&lt;/p>
+&lt;h2 id="三解决方法">三、解决方法&lt;/h2>
+&lt;p>　　在 springMVC-config.xml 文件中，增加了一个 StringHttpMessageConverter 请求信息转换器，配置片段如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-xml" data-lang="xml">&lt;span style="color:#228b22">&amp;lt;!--- StringHttpMessageConverter bean --&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt; bean&lt;/span> &lt;span style="color:#658b00">id =&lt;/span> &lt;span style="color:#cd5555">&amp;#34;stringHttpMessageConverter&amp;#34;&lt;/span> &lt;span style="color:#658b00">class =&lt;/span> &lt;span style="color:#cd5555">&amp;#34;org.springframework.http.converter.StringHttpMessageConverter&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">/&amp;gt;&lt;/span>
+&lt;span style="color:#228b22">&amp;lt;!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 --&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt; bean&lt;/span> &lt;span style="color:#658b00">class =&lt;/span>&lt;span style="color:#cd5555">&amp;#34;org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter&amp;#34;&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt; property&lt;/span> &lt;span style="color:#658b00">name=&lt;/span> &lt;span style="color:#cd5555">&amp;#34;messageConverters&amp;#34;&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt; list&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt; ref&lt;/span> &lt;span style="color:#658b00">bean=&lt;/span> &lt;span style="color:#cd5555">&amp;#34;mappingJacksonHttpMessageConverter&amp;#34;&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">/&amp;gt;&lt;/span>
+&lt;span style="color:#228b22">&amp;lt;!-- 新增的StringMessageConverter bean--&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt; ref&lt;/span> &lt;span style="color:#658b00">bean=&lt;/span> &lt;span style="color:#cd5555">&amp;#34;stringHttpMessageConverter&amp;#34;&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">/&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt; ref&lt;/span> &lt;span style="color:#658b00">bean=&lt;/span> &lt;span style="color:#cd5555">&amp;#34;jsonHttpMessageConverter&amp;#34;&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">/&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt; ref&lt;/span> &lt;span style="color:#658b00">bean=&lt;/span> &lt;span style="color:#cd5555">&amp;#34;formHttpMessageConverter&amp;#34;&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">/&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/ list&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/ property&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/ bean&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="四httpmessageconverter-请求信息转换器简介">四、HttpMessageConverter 请求信息转换器简介&lt;/h2>
+&lt;p>HttpMessageConverter 接口指定了一个可以把 Http request 信息和 Http response 信息进行格式转换的转换器。通常实现 HttpMessageConverter 接口的转换器有以下几种：&lt;/p>
+&lt;ul>
+&lt;li>ByteArrayHttpMessageConverter: 负责读取二进制格式的数据和写出二进制格式的数据；&lt;/li>
+&lt;li>StringHttpMessageConverter：负责读取字符串格式的数据和写出二进制格式的数据；&lt;/li>
+&lt;li>ResourceHttpMessageConverter：负责读取资源文件和写出资源文件数据；&lt;/li>
+&lt;li>FormHttpMessageConverter：负责读取 form 提交的数据（能读取的数据格式为 application/x-www-form-urlencoded，不能读取 multipart/form-data 格式数据）；负责写入 application/x-www-from-urlencoded 和 multipart/form-data 格式的数据；&lt;/li>
+&lt;li>MappingJacksonHttpMessageConverter: 负责读取和写入 json 格式的数据；&lt;/li>
+&lt;li>SourceHttpMessageConverter：负责读取和写入 xml 中 javax.xml.transform.Source 定义的数据；&lt;/li>
+&lt;li>Jaxb2RootElementHttpMessageConverter: 负责读取和写入 xml 标签格式的数据；&lt;/li>
+&lt;li>AtomFeedHttpMessageConverter: 负责读取和写入 Atom 格式的数据；&lt;/li>
+&lt;li>RssChannelHttpMessageConverter: 负责读取和写入 RSS 格式的数据；&lt;/li>
+&lt;/ul>
+&lt;p>（注）更多关于 HttpMessageConverter 的信息请看：&lt;a href="http://docs.spring.io/spring/docs/3.0.x/api/org/springframework/http/converter/HttpMessageConverter.html">http://docs.spring.io/spring/docs/3.0.x/api/org/springframework/http/converter/HttpMessageConverter.html&lt;/a>&lt;/p>
+&lt;h2 id="五httpmessageconverter-请求信息转换器执行流程">五、HttpMessageConverter 请求信息转换器执行流程&lt;/h2>
+&lt;p>当用户发送请求后，@Requestbody 注解会读取请求 body 中的数据，默认的请求转换器 HttpMessageConverter 通过获取请求头 Header 中的 Content-Type 来确认请求头的数据格式，从而来为请求数据适配合适的转换器。例如 contentType:applicatin/json，那么转换器会适配 MappingJacksonHttpMessageConverter。响应时候的时候同理，@Responsebody 注解会启用 HttpMessageConverter，通过检测 Header 中 Accept 属性来适配的响应的转换器。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>　　当在使用 SpringMVC 做服务器数据接收时，尤其是在做 Ajax 请求的时候，尤其要注意 contentType 属性，和 accepte 属性的设置，在 springmvc-config.xml 中配置好相应的转换器。当我们在用 SpringMVC 做 Ajax 请求的时候，有的做法用 response.getWriter().print()的方法，还有更好的方法就是添加@Responsebody 注解，直接返回 Map 类型的数据，转换器自动转换为 JSON 数据类型。&lt;/p>
+- //imziv.com/posts/2013/springmvc-%E4%B8%ADhttpmessageconverter%E7%AE%80%E4%BB%8B%E5%92%8Chttp%E8%AF%B7%E6%B1%82415-unsupported-media-type%E7%9A%84%E9%97%AE%E9%A2%98/ - 2012-2020 Ziv小威</description></item><item><title>一个可以模拟 GET，POST，PUT，DELET 请求的 HTTP 在线工具</title><link>//imziv.com/posts/2013/%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%A8%A1%E6%8B%9Fgetpostputdelet%E8%AF%B7%E6%B1%82%E7%9A%84http%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/</link><pubDate>Tue, 03 Dec 2013 19:02:00 +0000</pubDate><guid>//imziv.com/posts/2013/%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%A8%A1%E6%8B%9Fgetpostputdelet%E8%AF%B7%E6%B1%82%E7%9A%84http%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/</guid><description>让美的事情发生 //imziv.com/posts/2013/%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%A8%A1%E6%8B%9Fgetpostputdelet%E8%AF%B7%E6%B1%82%E7%9A%84http%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/ -&lt;p>一个简陋的 HTTP 请求工具，UI 比较丑陋。0.0，可以用于接口调试。&lt;/p>
+&lt;p>　　之前在调试公司的远程接口的时候用的是 curl,后来也在网上找到几种 Http 请求模拟的客户端程序。当时后来发现 google app 里面有很多在线版的模拟工具，觉得很不错。后来自己也想做一个在线版便动手做的，有问题可以联系我，欢迎交流。&lt;/p>
+&lt;p>访问地址：&lt;a href="http://httptool.duapp.com/">http://httptool.duapp.com/&lt;/a>&lt;/p>
+&lt;p>首先温习一下 Http 请求的内容（内容来自于互联网），标准 Http 协议支持六种请求方法：&lt;/p>
+&lt;p>GET：GET 可以说是最常见的了，它本质就是发送一个请求来取得服务器上的某一资源。资源通过一组 HTTP 头和呈现数据（如 HTML 文本，或者图片或者视频等）返回给客户端。GET 请求中，永远不会包含呈现数据；&lt;/p>
+&lt;p>HEAD：HEAD 和 GET 本质是一样的，区别在于 HEAD 不含有呈现数据，而仅仅是 HTTP 头信息。有的人可能觉得这个方法没什么用，其实不是这样的。想象一个业务情景：欲判断某个资源是否存在，我们通常使用 GET，但这里用 HEAD 则意义更加明确；&lt;/p>
+&lt;p>PUT：这个方法比较少见。HTML 表单也不支持这个。本质上来讲， PUT 和 POST 极为相似，都是向服务器发送数据，但它们之间有一个重要区别，PUT 通常指定了资源的存放位置，而 POST 则没有，POST 的数据存放位置由服务器自己决定。举个例子：如一个用于提交博文的 URL，/addBlog。如果用 PUT，则提交的 URL 会是像这样的”/addBlog/abc123”，其中 abc123 就是这个博文的地址。而如果用 POST，则这个地址会在提交后由服务器告知客户端。目前大部分博客都是这样的。显然，PUT 和 POST 用途是不一样的。具体用哪个还取决于当前的业务场景；&lt;/p>
+&lt;p>DELETE：删除某一个资源。基本上这个也很少见，不过还是有一些地方比如 amazon 的 S3 云服务里面就用的这个方法来删除资源；&lt;/p>
+&lt;p>POST：向服务器提交数据。这个方法用途广泛，几乎目前所有的提交操作都是靠这个完成；&lt;/p>
+&lt;p>OPTIONS：它用于获取当前 URL 所支持的方法。若请求成功，则它会在 HTTP 头中包含一个名为“Allow”的头，值是所支持的方法，如“GET, POST”。&lt;/p>
+&lt;p>通常我们会利用 GET，PUT，POST，DELETE 几个请求去模拟服务器对数据库的增删改查操作：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>POST：create(添加）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>DELETE：delete（删除）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>PUT ： update(更新）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>GET ：select（查询）&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>HTTP_TOOL 模拟了以上 HTTP 的这 4 个基本请求。&lt;/p>
+&lt;p>项目 GitHub 地址：&lt;a href="https://github.com/wewoor/HTTP_TOOL">https://github.com/wewoor/HTTP_TOOL&lt;/a>&lt;/p>
+- //imziv.com/posts/2013/%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%A8%A1%E6%8B%9Fgetpostputdelet%E8%AF%B7%E6%B1%82%E7%9A%84http%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/ - 2012-2020 Ziv小威</description></item><item><title>利用 link 标签的 disabed 属性大面积的对其他标签元素的 CSS 样式进行替换操作</title><link>//imziv.com/posts/2013/%E5%88%A9%E7%94%A8link%E6%A0%87%E7%AD%BE%E7%9A%84disabed%E5%B1%9E%E6%80%A7%E5%A4%A7%E9%9D%A2%E7%A7%AF%E7%9A%84%E5%AF%B9%E5%85%B6%E4%BB%96%E6%A0%87%E7%AD%BE%E5%85%83%E7%B4%A0%E7%9A%84css%E6%A0%B7%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C/</link><pubDate>Sat, 23 Nov 2013 11:50:00 +0000</pubDate><guid>//imziv.com/posts/2013/%E5%88%A9%E7%94%A8link%E6%A0%87%E7%AD%BE%E7%9A%84disabed%E5%B1%9E%E6%80%A7%E5%A4%A7%E9%9D%A2%E7%A7%AF%E7%9A%84%E5%AF%B9%E5%85%B6%E4%BB%96%E6%A0%87%E7%AD%BE%E5%85%83%E7%B4%A0%E7%9A%84css%E6%A0%B7%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C/</guid><description>让美的事情发生 //imziv.com/posts/2013/%E5%88%A9%E7%94%A8link%E6%A0%87%E7%AD%BE%E7%9A%84disabed%E5%B1%9E%E6%80%A7%E5%A4%A7%E9%9D%A2%E7%A7%AF%E7%9A%84%E5%AF%B9%E5%85%B6%E4%BB%96%E6%A0%87%E7%AD%BE%E5%85%83%E7%B4%A0%E7%9A%84css%E6%A0%B7%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C/ -&lt;p>由于平时对元素样式的控制基本上只是 3，4 个，所以一般用 Jquery 的时候直接使用$(element).css();这个方法，或者使用$(element).addClass()方法完成样式操作。对于小范围元素的操作来说，这是非常方便的。但是当针对众多元素同时进行操作的时候呢，这 2 个方法让代码看起来就比较重量级了，代码的可读性也比较小。&lt;/p>
+&lt;p>　　过程起初，我先尝试了一种方式，就是在 JS 代码中动态插入 link 标签，引入新的样式文，但是很遗憾的是根本就不起作用，因为那个时候浏览器已经把样式渲染到页面元素了，新引入的样式文件根本就不会被浏览器执行渲染。所以我选择了另外一种方式，就是把 2 个样式文件同时先加载完毕，然后先禁用其中一个文件，等到在需要出现的时候，利用 JS 代码控制其启用，从而达到整体控制。&lt;/p>
+&lt;p>HTML 代码片段：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">link&lt;/span>
+&lt;span style="color:#658b00">href&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;/public/stylesheets/page/application/first.css&amp;#34;&lt;/span>
+&lt;span style="color:#658b00">rel&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;stylesheet&amp;#34;&lt;/span>
+&lt;span style="color:#658b00">type&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;text/css&amp;#34;&lt;/span>
+&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">link&lt;/span>
+&lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;second_css&amp;#34;&lt;/span> &lt;span style="color:#658b00">disabled&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#658b00">href&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;/public/stylesheets/page/application/second.css&amp;#34;&lt;/span>
+&lt;span style="color:#658b00">rel&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;stylesheet&amp;#34;&lt;/span>
+&lt;span style="color:#658b00">type&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;text/css&amp;#34;&lt;/span>
+&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>代码中我用了 2 个 link 标签，注意看到第二个 link 标签中我添加了 ID 属性和 disabled 这 2 个属性。ID 当时是用于 JS 便于操控，disabled 用于在需要的时候取消禁用，需要的时候启动禁用，从而覆盖原有样式。由于在实际开发中，我的第一个样式文件中包含了其他许多不需要被大面积操作元素的样式，所以在操作的时候我并没有采用这种思路：&lt;/p>
+&lt;p>&lt;strong>采用 first.css 文件 —&amp;gt;禁用 second.css 文件&lt;/strong>
+&lt;strong>或者&lt;/strong>
+&lt;strong>采用 second.css 文件—&amp;gt;禁用 first.css 文件&lt;/strong>
+&lt;strong>而是&lt;/strong>&lt;/p>
+&lt;p>　　我在 second.css 文件中，把样式属性值都添加了!important 属性值，从而增加其显示的优先级，达到覆盖 first.css 文件中的样式。也就是单独的只对 second.css 的样式文件进行操作，当然你也可以纯粹的对 2 个文件进行直接操作，不需要在第二个样式文件中添加!important 达到覆盖，&lt;/p>
+&lt;p>second.css 代码片段：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-css" data-lang="css">.&lt;span style="color:#008b45;font-weight:bold">top&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">position&lt;/span>: &lt;span style="color:#8b008b;font-weight:bold">fixed&lt;/span> &lt;span style="color:#1e889b">!important&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">background&lt;/span>: &lt;span style="color:#b452cd">#FFF&lt;/span> &lt;span style="color:#1e889b">!important&lt;/span>;
+}
+.&lt;span style="color:#008b45;font-weight:bold">logo&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">background&lt;/span>:&lt;span style="color:#658b00">url&lt;/span>(&lt;span style="color:#cb6c20">/public/images/page/index/mini_logo.png&lt;/span>) &lt;span style="color:#1e889b">!important&lt;/span>;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>下面看看 JS 代码片段：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">//禁用样式文件
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>$(element).attr(&lt;span style="color:#cd5555">&amp;#34;disabled&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;true&amp;#34;&lt;/span>);
+&lt;span style="color:#228b22">//启用样式文件
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>$(element).attr(&lt;span style="color:#cd5555">&amp;#34;disabled&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;false&amp;#34;&lt;/span>);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上方法我在 IE8 和 chrome 测试通过。下图是一张 disabled 属性在浏览器中的支持情况：&lt;/p>
+&lt;p>结语：以上是我操作样式的一种思路，当然还有其他方法，欢迎大家交流。更多关于 disabled 的知识可以查看一下链接：&lt;/p>
+&lt;p>&lt;a href="http://www.ibm.com/developerworks/cn/web/1309_hanjz_htmldisable/">http://www.ibm.com/developerworks/cn/web/1309_hanjz_htmldisable/&lt;/a>&lt;/p>
+- //imziv.com/posts/2013/%E5%88%A9%E7%94%A8link%E6%A0%87%E7%AD%BE%E7%9A%84disabed%E5%B1%9E%E6%80%A7%E5%A4%A7%E9%9D%A2%E7%A7%AF%E7%9A%84%E5%AF%B9%E5%85%B6%E4%BB%96%E6%A0%87%E7%AD%BE%E5%85%83%E7%B4%A0%E7%9A%84css%E6%A0%B7%E5%BC%8F%E8%BF%9B%E8%A1%8C%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C/ - 2012-2020 Ziv小威</description></item></channel></rss>

@@ -1,0 +1,671 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>让美的事情发生</title><link>//imziv.com/</link><description>Recent content on 让美的事情发生</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>2012-2020 Ziv小威</copyright><lastBuildDate>Thu, 16 Dec 2021 14:00:00 +0000</lastBuildDate><atom:link href="//imziv.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Hybird App ( 混合模式移动应用)开发初体验</title><link>//imziv.com/posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/</link><pubDate>Tue, 28 Oct 2014 18:27:06 +0000</pubDate><guid>//imziv.com/posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/</guid><description>让美的事情发生 //imziv.com/posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/ -&lt;p>最近 1，2 个月一直都尝试开发一款 hybird app，遇到了很多问题，谈谈自己的体会。&lt;/p>
+&lt;p>Hybird app (混合模式移动应用），它利用例如安卓端 webview 组件+HTML5 内嵌的方式混合的方式开发的移动应用，
+好处显而易见，由于内嵌的是 Html5, 所以跨平台，扩展性，开发成本都是很不错的优势。&lt;/p>
+&lt;p>Hybird App 拥有很多从开发工具到打包发布的解决方案，比较出名的是来自 Adobe 的 phonegap, 国内有 AppCan,这 2 种解决方案都有比较好的工具平台。这次我采用的的是 Appcan, 需要注意的是 Appcan 的开发工具只有 windows 平台的，另外不得不吐槽的是，方案里面集成的 js 插件脚本，bug 很多。&lt;/p>
+&lt;p>我采用的技术架构，如图：&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2014/img/hybird.png" alt="hybird">&lt;/p>
+&lt;p>其中利用 Appcan 作为应用的打包平台，通过其内置的 JS 组件进行数据请求，请求得到的数据利用 JS 做些业务逻辑处理后，使用 Angular 进行绑定渲染，UI 组件的东西则用的 GMU.js,而 gmu 内置了 zepto.js 和 scroll.js 等等, 页面则是 h5+css3。可以看到的是与传统的 web 相比，其中多了不少 js 框架和库的应用，毕竟把数据的调用和业务处理都移到了 JS 端，所以在这里提醒大家，可以考虑加入 js 模块管理的框架，例如 seajs。数据绑定这块感觉 Angular 真的很棒，写好绑定后，只需要专注后端 JS 数据的业务处理即可，提升了不少开发效率。&lt;/p>
+&lt;p>在编码阶段遇到了不少问题，例如并不能利用 url 像平时那样进行参数传递，发现抓取不到页面跳转后的参数。为了减少请求次数，也尝试采用 LocalStorage 缓存 json。通过 Manifest cache 缓存 html,css,js 文件，来提升界面的响应速度。通过 css3 替代 js 做动画效果，但是效果并不理想，感觉还是没有 js 来的流畅。页面跳转白屏，数据加载的延迟等等状况，加载动画体验需要做的更好，而且尽量减少页面的跳转，把一些功能集中到单个 html 文件。&lt;/p>
+&lt;p>总而言之，采取了很多优化方法，但是显然这种 hybird app 在性能体验等方面还是问题很多，但是例如一些交互简单的 app 话，用这种方案还是可以考虑的。&lt;/p>
+- //imziv.com/posts/2014/hybird-app-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/ - 2012-2020 Ziv小威</description></item><item><title>NodeJs 按行读取文件</title><link>//imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/</link><pubDate>Tue, 02 Sep 2014 15:56:41 +0000</pubDate><guid>//imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/</guid><description>让美的事情发生 //imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/ -&lt;p>次中方法非依赖第三方 package, 当然你可以用。&lt;/p>
+&lt;ul>
+&lt;li>line-reader&lt;/li>
+&lt;/ul>
+&lt;p>直接上代码：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> fs = require(&lt;span style="color:#cd5555">&amp;#39;fs&amp;#39;&lt;/span>),
+readline = require(&lt;span style="color:#cd5555">&amp;#39;readline&amp;#39;&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> rd = readline.createInterface({
+input: fs.createReadStream(&lt;span style="color:#cd5555">&amp;#39;./test.txt&amp;#39;&lt;/span>),
+output: process.stdout,
+terminal: &lt;span style="color:#8b008b;font-weight:bold">false&lt;/span>
+});
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> i = &lt;span style="color:#b452cd">1&lt;/span>;
+rd.on(&lt;span style="color:#cd5555">&amp;#39;line&amp;#39;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(line) {
+console.log(&lt;span style="color:#cd5555">&amp;#39;第&amp;#39;&lt;/span>+ i +&lt;span style="color:#cd5555">&amp;#39;行：&amp;#39;&lt;/span>+ line);
+write(line);
+i++;
+});
+&lt;/code>&lt;/pre>&lt;/div>- //imziv.com/posts/2014/nodejs-%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/ - 2012-2020 Ziv小威</description></item><item><title>2014 年 8 月 9 日我离开了南京</title><link>//imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/</link><pubDate>Sat, 23 Aug 2014 14:53:16 +0000</pubDate><guid>//imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/</guid><description>让美的事情发生 //imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/ -&lt;p>2012 年 11 月份，我一人来到了南京这座陌生的城市。&lt;/p>
+&lt;p>2014 年 8 月 9 日，我离开了这座美丽的城市，只身来到杭州。&lt;/p>
+&lt;p>i love you more when i&amp;rsquo;m missing you.&lt;/p>
+- //imziv.com/posts/2014/2014%E5%B9%B48%E6%9C%889%E6%97%A5%E6%88%91%E7%A6%BB%E5%BC%80%E4%BA%86%E5%8D%97%E4%BA%AC/ - 2012-2020 Ziv小威</description></item><item><title>细说 static 关键字及其应用</title><link>//imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</link><pubDate>Sat, 19 Jul 2014 12:59:48 +0000</pubDate><guid>//imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</guid><description>让美的事情发生 //imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/ -&lt;h2 id="场景">场景&lt;/h2>
+&lt;p>先看段代码，考虑以下场景，其运行结果是什么？&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> &lt;span style="color:#008b45;font-weight:bold">Test&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> &lt;span style="color:#00688b;font-weight:bold">int&lt;/span> i = 8;
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">printI&lt;/span>() {
+&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> i = 88;
+System.&lt;span style="color:#658b00">out&lt;/span>.&lt;span style="color:#658b00">println&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.&lt;span style="color:#658b00">i&lt;/span>);
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">main&lt;/span>(String arg[]) {
+Test t = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Test();
+t.&lt;span style="color:#658b00">printI&lt;/span>();
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>最后的运行结果是：8&lt;/p>
+&lt;p>如果把 this 关键字去掉的话，则结果是 88 ，当然这里有一些对关于 this 关键字的考察。&lt;/p>
+&lt;h2 id="static-关键字">static 关键字&lt;/h2>
+&lt;p>包含了使用 static 关键字声明的变量或者方法与包含它的类实例对象是没有关联的。因为静态化的域或者方法在类实例化前就已经加载入内存当中了，而并非是需要实例化该类声明的对象后，内存中才会为其分配内存。让我们再看看下面的代码：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> &lt;span style="color:#008b45;font-weight:bold">Test&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> &lt;span style="color:#00688b;font-weight:bold">int&lt;/span> i = 8;
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">printI&lt;/span>() {
+System.&lt;span style="color:#658b00">out&lt;/span>.&lt;span style="color:#658b00">println&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;i:&amp;#34;&lt;/span>+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.&lt;span style="color:#658b00">i&lt;/span>);
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">main&lt;/span>(String arg[]) {
+System.&lt;span style="color:#658b00">out&lt;/span>.&lt;span style="color:#658b00">println&lt;/span>(Test.&lt;span style="color:#658b00">i&lt;/span>);
+Test.&lt;span style="color:#658b00">test&lt;/span>();
+Test.&lt;span style="color:#658b00">i&lt;/span>++; &lt;span style="color:#228b22">// 自增i
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> Test a = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Test(); &lt;span style="color:#228b22">//声明测试对象a
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> a.&lt;span style="color:#658b00">printI&lt;/span>();
+a.&lt;span style="color:#658b00">i&lt;/span>++; &lt;span style="color:#228b22">// 自增i
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>
+Test b = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Test();&lt;span style="color:#228b22">//声明测试对象b
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> b.&lt;span style="color:#658b00">printI&lt;/span>();
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行结果：&lt;/p>
+&lt;p>8&lt;/p>
+&lt;p>i:9&lt;/p>
+&lt;p>i:10&lt;/p>
+&lt;p>正如上面所说的，变量 i 脱离于对象实例化而存在，即使我们在分别声明对象 a 和对象 b ,当我们对 a 对象的 i 进行自增操作后，后面的 b 对象却打印 9，因为对象 a 和 b 是共用变量 i 的。&lt;/p>
+&lt;h2 id="静态方法">静态方法&lt;/h2>
+&lt;p>静态方法不可以调用非静态的方法或者变量，反之非静态方法是可以调用静态方法的。例如：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> j = 10;
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">test&lt;/span>() {
+System.&lt;span style="color:#658b00">out&lt;/span>.&lt;span style="color:#658b00">println&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;j：&amp;#34;&lt;/span>+ j);
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>会发现编译器提示这样的错误：Cannot make a static reference to the non-static field j 而我们很容易写出这样的代码。显然静态方法给我们编写代码时带来了非常大的便利，我们无须在调用其方法时需要实例化其对象，我们在封装我们的 Utils 工具类时经常这样做，因为这样做既方便又可提升程序的性能。《Effective Java》中有详细讲到 static 工厂方法。&lt;/p>
+&lt;h2 id="static-之单例应用">static 之单例应用&lt;/h2>
+&lt;p>正如上面代码片段 2 中所看到的实例一样，静态变量无须实例化便可调用，且被修饰的域是静态处于内存中的，所以对于那些被频繁实例化的对象，为了避免多次重复的实例化，我们可以通过静态化该对象，从而实现对程序的性能优化。例如我们经常会在 Web 项目里面静态化 JDBC 链接对象，或者业务逻辑层 中的对象,，或者封装工厂方法，然后写个工厂单例类。当然我们已经有了 Spring ，通过利用反射机制，统一管理这些 Bean 对象，实现自动的按需注入。在 Playframework 这个快速开发 Web 的框架中，其 Controller 中的方法都被声明为了静态方法。声明单例的方法有很多种，请看下面的代码：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> &lt;span style="color:#008b45;font-weight:bold">Singleton&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">final&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> Singleton INSTANCE = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Singleton();
+&lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> &lt;span style="color:#008b45">Singleton&lt;/span>() {}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> Singleton &lt;span style="color:#008b45">getInstance&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> INSTANCE;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">test&lt;/span>() {
+System.&lt;span style="color:#658b00">out&lt;/span>.&lt;span style="color:#658b00">println&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;this is a test method.&amp;#34;&lt;/span>);
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>该类的构造方法被 private 关键字修饰，意味着该对象不可用 new 关键字进行实例化了，当然我们已经在此类中提供了静态方法 getInstance 通过这个方法获取该类的静态实例对象。由于该对象实例后被保存在了静态变量 INSTANCE 中，所以调用者每次调用的都是这个实例对象。调用示例：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">Singleton c = Singleton.&lt;span style="color:#658b00">getInstance&lt;/span>();
+c.&lt;span style="color:#658b00">test&lt;/span>(); &lt;span style="color:#228b22">// 调用test方法
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>- //imziv.com/posts/2014/%E7%BB%86%E8%AF%B4static%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/ - 2012-2020 Ziv小威</description></item><item><title>利用 JS 跨域做一个简单的页面访问统计系统</title><link>//imziv.com/posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/</link><pubDate>Mon, 30 Jun 2014 14:48:56 +0000</pubDate><guid>//imziv.com/posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/</guid><description>让美的事情发生 //imziv.com/posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/ -&lt;p>其实在大部分互联网 web 产品中，我们通常会用百度统计或者谷歌统计分析系统，通过在程序中引入特定的 JS 脚本，然后便可以在这些统计系统中看到自己网站页面具体的访问情况。但是有些时候，由于一些特殊情况，我们需要自己来设计统计系统。由于前段时间公司的业务需求，我也是自己尝试了下，本文提供的是一个基本思路，统计系统也比较简单。&lt;/p>
+&lt;p>几个基本统计需求：
+1.统计 web 每个页面用户访问量
+2.统计用户访问者的和 IP 地址信息
+3.页面之间的跳转情况
+4.访问高峰时间段&lt;/p>
+&lt;p>服务器结构：
+&lt;img src="//imziv.com/posts/2014/img/statistic-system.png" alt="statistic-system">
+数据库表设计：&lt;/p>
+&lt;p>以上只是我简单列举的需求，这边简单的就一张统计表，而这张统计表能满足的需求是不仅仅只是上面四个基本的需求的，可以看需求情况再做相应的业务处理。&lt;/p>
+&lt;p>tb_visit_count_log&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>ID&lt;/th>
+&lt;th>ip (varchar)&lt;/th>
+&lt;th>IP 地址&lt;/th>
+&lt;th>title（varchar）标题&lt;/th>
+&lt;th>cur_page(varchar) 当前页面&lt;/th>
+&lt;th>from_page(varchar) 源页面&lt;/th>
+&lt;th>time（datetime）日期时间&lt;/th>
+&lt;th>app(varchar) 应用&lt;/th>
+&lt;th>&lt;/th>
+&lt;th>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;/table>
+&lt;p>数据采集:&lt;/p>
+&lt;p>我们提交编写一个 JS 脚本，用来抓取当前页面中我们需要的数据，然后通过跨域请求道我们的 Statistics Server 进行存储，便于之后的统计分析业务的操作。&lt;/p>
+&lt;p>JS 跨域：&lt;/p>
+&lt;p>我们都知道在开发 web 应用的时候，我们经常利用&lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted -->去请求其它服务器内的脚本资源，src 是 source 的缩写，指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置。所以利用这一点，我们可以通过 JS 动态创建&lt;!-- raw HTML omitted -->标签，并抓取页面相关的信息后，设置该标签 src 地址为远程 Statistics 服务器地址，将其添加到当前文档中，该标签便会自动将请求发送到指定服务器，而服务器便可解析改请求中的参数和请求信息，将其存储入库。
+　　
+示例代码：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">(&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> title = &lt;span style="color:#658b00">document&lt;/span>.getElementsByTagName(&lt;span style="color:#cd5555">&amp;#34;title&amp;#34;&lt;/span>)[&lt;span style="color:#b452cd">0&lt;/span>].innerHTML, &lt;span style="color:#228b22">// 页面标题
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> url = &lt;span style="color:#658b00">window&lt;/span>.location.href, &lt;span style="color:#228b22">// 当前请求路径名称
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> site = &lt;span style="color:#658b00">window&lt;/span>.location.host, &lt;span style="color:#228b22">// 站点host
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#228b22">// 此处为从header获取 Refere参数，具体获取看当前的web程序
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> ref = &lt;span style="color:#cd5555">&amp;#39; &amp;lt;%=request.getHeader( &amp;#34;Referer&amp;#34;) %&amp;gt;&amp;#39;&lt;/span>,
+param = &lt;span style="color:#cd5555">&amp;#34;?title=&amp;#34;&lt;/span>+title+&lt;span style="color:#cd5555">&amp;#34; &amp;amp;url=&amp;#34;&lt;/span>+url+&lt;span style="color:#cd5555">&amp;#34; &amp;amp;ref=&amp;#34;&lt;/span>+ref , &lt;span style="color:#228b22">// 引用页地址
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> script = &lt;span style="color:#658b00">document&lt;/span>.createElement(&lt;span style="color:#cd5555">&amp;#34;script&amp;#34;&lt;/span>);
+script.src = &lt;span style="color:#cd5555">&amp;#34;http://example.com/analysis&amp;#34;&lt;/span>+param;
+&lt;span style="color:#658b00">document&lt;/span>.getElementsByTagName(&lt;span style="color:#cd5555">&amp;#34;head&amp;#34;&lt;/span>)[&lt;span style="color:#b452cd">0&lt;/span>].appendChild(script);
+})();
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意：上示例代码中用了一个 JSP 标签，从 header 中获取了 Referer 参数。&lt;/p>
+&lt;p>服务器端：
+本示例服务器框架采用的是 SpringMVC，但是获取参数都是一样的。获取参数：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22">* 记录站点统计信息
+&lt;/span>&lt;span style="color:#228b22">* @param request
+&lt;/span>&lt;span style="color:#228b22">*/&lt;/span>
+&lt;span style="color:#707a7c">@RequestMapping&lt;/span>( &lt;span style="color:#cd5555">&amp;#34;/analysis&amp;#34;&lt;/span>)
+&lt;span style="color:#707a7c">@ResponseBody&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">visitorLogger&lt;/span>(HttpServletRequest request) {
+&lt;span style="color:#8b008b;font-weight:bold">try&lt;/span> {
+WebsiteVisitCount visitor = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> WebsiteVisitCount();
+visitor.&lt;span style="color:#658b00">setUrl&lt;/span>(request.&lt;span style="color:#658b00">getParameter&lt;/span>( &lt;span style="color:#cd5555">&amp;#34;url&amp;#34;&lt;/span>));
+String title = request.&lt;span style="color:#658b00">getParameter&lt;/span>( &lt;span style="color:#cd5555">&amp;#34;title&amp;#34;&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (title != &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>) {
+visitor.&lt;span style="color:#658b00">setTitle&lt;/span>( &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> String(title.&lt;span style="color:#658b00">getBytes&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;ISO-8859-1&amp;#34;&lt;/span> ),
+&lt;span style="color:#cd5555">&amp;#34;utf-8&amp;#34;&lt;/span>));
+}
+&lt;span style="color:#228b22">// 用户IP
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> visitor.&lt;span style="color:#658b00">setFromUrl&lt;/span>(request.&lt;span style="color:#658b00">getParameter&lt;/span>( &lt;span style="color:#cd5555">&amp;#34;ref&amp;#34;&lt;/span>));
+visitor.&lt;span style="color:#658b00">setUserIp&lt;/span>(getRemortIP(request));
+visitor.&lt;span style="color:#658b00">setApp&lt;/span>(request.&lt;span style="color:#658b00">getParameter&lt;/span>( &lt;span style="color:#cd5555">&amp;#34;site&amp;#34;&lt;/span>));
+&lt;span style="color:#228b22">// 存储数据
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> websiteVisitCountService.&lt;span style="color:#658b00">addVisitor&lt;/span>(visitor);
+} &lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span> (Exception e) {
+LOGGER.&lt;span style="color:#658b00">error&lt;/span>( &lt;span style="color:#cd5555">&amp;#34;WebsiteVisitCountController.visitorLogger():&amp;#34;&lt;/span>
++request.&lt;span style="color:#658b00">getRequestURI&lt;/span>(), e.&lt;span style="color:#658b00">getMessage&lt;/span>());
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上代码中并没有响应给客户端任何可执行的 JS 脚本，当然如果需要，这个是完全没有问题的，在跨域其他需求的时候，完全可以响应服务器 JS 执行脚本。&lt;/p>
+&lt;p>获取访问 IP：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22">* 获取客户端IP地址
+&lt;/span>&lt;span style="color:#228b22">* @param request
+&lt;/span>&lt;span style="color:#228b22">* @return
+&lt;/span>&lt;span style="color:#228b22">*/&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> String &lt;span style="color:#008b45">getRemortIP&lt;/span>(HttpServletRequest request) {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (request.&lt;span style="color:#658b00">getHeader&lt;/span>( &lt;span style="color:#cd5555">&amp;#34;x-forwarded-for&amp;#34;&lt;/span> ) == &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span> ) {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> request.&lt;span style="color:#658b00">getRemoteAddr&lt;/span>();
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> request.&lt;span style="color:#658b00">getHeader&lt;/span>( &lt;span style="color:#cd5555">&amp;#34;x-forwarded-for&amp;#34;&lt;/span> );
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上则是统计的核心代码部分，数据入库后便可以对其进行相应业务上的处理，获取想了解的数据。部署时只需要把 JS 采集脚本添加到要监控的页面即可。&lt;/p>
+- //imziv.com/posts/2014/%E5%88%A9%E7%94%A8js%E8%B7%A8%E5%9F%9F%E5%81%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E7%BB%9F%E8%AE%A1%E7%B3%BB%E7%BB%9F/ - 2012-2020 Ziv小威</description></item><item><title>HTML5 实现图片文件异步上传</title><link>//imziv.com/posts/2014/html5%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/</link><pubDate>Mon, 26 May 2014 15:31:58 +0000</pubDate><guid>//imziv.com/posts/2014/html5%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/</guid><description>让美的事情发生 //imziv.com/posts/2014/html5%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/ -&lt;p>利用 HTML5 的新特点做文件异步上传非常简单方便，本文主要展示 JS 部分，html 结构。下面的代码并未使用第三发库，如果有参照，请注意一些未展现出来的代码片段。我这边的效果预览：&lt;/p>
+&lt;p>1.文件未选择 2.文件已选择&lt;/p>
+&lt;p>&lt;img src="//imziv.com/content/posts/2014/img/html5-upload.png" alt="html5-upload">
+&lt;img src="//imziv.com/content/posts/2014/img/html5-upload2.png" alt="html5-upload2">&lt;/p>
+&lt;p>HTML 代码部分：
+　　思路：下面代码中我利用 css 的 z-index 属性将 input=&amp;quot;file”标签隐藏在了 id=btnSelect 元素下面，通过触发 a 标签的点击后，弹出文件选择框。下面的 masklayer 用于点击确认按钮后的弹出层，避免用户重复点击确认按钮。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-xml" data-lang="xml">&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;div&lt;/span> &lt;span style="color:#658b00">id=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;wp&amp;#34;&lt;/span> &lt;span style="color:#658b00">class=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;warpper&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;a&lt;/span> &lt;span style="color:#658b00">id=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;btnSelect&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&lt;/span>单击选择要上传的照片&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/a&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;input&lt;/span> &lt;span style="color:#658b00">id=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;uploadFile&amp;#34;&lt;/span> &lt;span style="color:#658b00">type=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;file&amp;#34;&lt;/span> &lt;span style="color:#658b00">name=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;myPhoto&amp;#34;&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">/&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;button&lt;/span> &lt;span style="color:#658b00">id=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;btnConfirm&amp;#34;&lt;/span> &lt;span style="color:#658b00">class=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;btn&amp;#34;&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&lt;/span>确认上传&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/button&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/div&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;div&lt;/span> &lt;span style="color:#658b00">id=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;maskLayer&amp;#34;&lt;/span> &lt;span style="color:#658b00">class=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;mask-layer&amp;#34;&lt;/span> &lt;span style="color:#658b00">style=&lt;/span>&lt;span style="color:#cd5555">&amp;#34;display:none;&amp;#34;&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;p&amp;gt;&lt;/span>图片正在上传中...&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/p&amp;gt;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">&amp;lt;/div&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>JS 图片文件验证部分：&lt;/p>
+&lt;p>验证部分为：大小，是否已经选择，文件的类型 三个部分。第一个 createObject 方法为创建本地图片文件的预览路径，依次验证是否为空，文件类型以及文件大小，不满足条件则一律返回&lt;/p>
+&lt;p>false,满足以上 3 个条件后，在 dom 中生成图片预览，添加 img 元素，然后利用 createObjectURL()方法获取预览路径。&lt;/p>
+&lt;p>代码：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">//获取数据的URL地址
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> createObjectURL(blob) {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (&lt;span style="color:#658b00">window&lt;/span>.URL) {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#658b00">window&lt;/span>.URL.createObjectURL(blob);
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (&lt;span style="color:#658b00">window&lt;/span>.webkitURL) {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#658b00">window&lt;/span>.webkitURL.createObjectURL(blob);
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>;
+}
+}
+&lt;span style="color:#228b22">//文件检测
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> checkFile() {
+&lt;span style="color:#228b22">//获取文件
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> file = $$(&lt;span style="color:#cd5555">&amp;#34;uploadFile&amp;#34;&lt;/span>).files[&lt;span style="color:#b452cd">0&lt;/span>];
+&lt;span style="color:#228b22">//文件为空判断
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (file === &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span> || file === &lt;span style="color:#8b008b;font-weight:bold">undefined&lt;/span>) {
+alert(&lt;span style="color:#cd5555">&amp;#34;请选择您要上传的文件！&amp;#34;&lt;/span>);
+$$(&lt;span style="color:#cd5555">&amp;#34;btnSelect&amp;#34;&lt;/span>).innerHTML = &lt;span style="color:#cd5555">&amp;#34;单击选择要上传的照片&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">false&lt;/span>;
+}
+&lt;span style="color:#228b22">//检测文件类型
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(file.type.indexOf(&lt;span style="color:#cd5555">&amp;#39;image&amp;#39;&lt;/span>) === -&lt;span style="color:#b452cd">1&lt;/span>) {
+alert(&lt;span style="color:#cd5555">&amp;#34;请选择图片文件！&amp;#34;&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">false&lt;/span>;
+}
+&lt;span style="color:#228b22">//计算文件大小
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> size = &lt;span style="color:#658b00">Math&lt;/span>.floor(file.size/&lt;span style="color:#b452cd">1024&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (size &amp;gt; &lt;span style="color:#b452cd">5000&lt;/span>) {
+alert(&lt;span style="color:#cd5555">&amp;#34;上传文件不得超过5M!&amp;#34;&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">false&lt;/span>;
+};
+&lt;span style="color:#228b22">//添加预览图片
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> $$(&lt;span style="color:#cd5555">&amp;#34;btnSelect&amp;#34;&lt;/span>).innerHTML = &lt;span style="color:#cd5555">&amp;#34;&amp;lt;img class=\&amp;#34;photo\&amp;#34; src=\&amp;#34;&amp;#34;&lt;/span>+createObjectURL(file)+&lt;span style="color:#cd5555">&amp;#34;\&amp;#34;/&amp;gt;&amp;#34;&lt;/span>;
+};
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>JS Ajax 请求部分：&lt;/p>
+&lt;p>说明：第一个监听文件选择更改事件，满足验证条件后则执行预览，第二个事件监听为监听单击 btnSelect 时弹出窗口的响应，下面的则是确认上传按钮的事件监听，开始发送 Ajax 请求。此处的 createXHR()方法为创建 XMLHttpRequest 对象，代码我并未贴出，包括 addEventListener()方法，这 2 个部分可以参考其他文章。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">//监听图片URL地址更改
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>addEventListener($$(&lt;span style="color:#cd5555">&amp;#34;uploadFile&amp;#34;&lt;/span>), &lt;span style="color:#cd5555">&amp;#34;change&amp;#34;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+checkFile();
+});
+&lt;span style="color:#228b22">//监听单击文件选择按钮
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>addEventListener($$(&lt;span style="color:#cd5555">&amp;#34;btnSelect&amp;#34;&lt;/span>), &lt;span style="color:#cd5555">&amp;#34;click&amp;#34;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#228b22">//弹出文件选择框
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> $$(&lt;span style="color:#cd5555">&amp;#34;uploadFile&amp;#34;&lt;/span>).click();
+});
+&lt;span style="color:#228b22">//监听确认上传按钮的点击事件
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>addEventListener($$(&lt;span style="color:#cd5555">&amp;#34;btnConfirm&amp;#34;&lt;/span>), &lt;span style="color:#cd5555">&amp;#34;click&amp;#34;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(e) {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (checkFile()) {
+&lt;span style="color:#8b008b;font-weight:bold">try&lt;/span> {
+&lt;span style="color:#228b22">//执行上传操作var xhr = createXHR();
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> $$(&lt;span style="color:#cd5555">&amp;#34;maskLayer&amp;#34;&lt;/span>).style.display = &lt;span style="color:#cd5555">&amp;#34;block&amp;#34;&lt;/span>;
+xhr.open(&lt;span style="color:#cd5555">&amp;#34;post&amp;#34;&lt;/span>,&lt;span style="color:#cd5555">&amp;#34;/uploadPhoto.action&amp;#34;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">true&lt;/span>);
+xhr.setRequestHeader(&lt;span style="color:#cd5555">&amp;#34;X-Requested-With&amp;#34;&lt;/span>, &lt;span style="color:#cd5555">&amp;#34;XMLHttpRequest&amp;#34;&lt;/span>);
+xhr.onreadystatechange = &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>() {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (xhr.readyState == &lt;span style="color:#b452cd">4&lt;/span>) {
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> flag = xhr.responseText;
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (flag == &lt;span style="color:#cd5555">&amp;#34;success&amp;#34;&lt;/span>) {
+alert(&lt;span style="color:#cd5555">&amp;#34;图片上传成功！&amp;#34;&lt;/span>);
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> {
+alert(&lt;span style="color:#cd5555">&amp;#34;图片上传成功！&amp;#34;&lt;/span>);
+};
+$$(&lt;span style="color:#cd5555">&amp;#34;maskLayer&amp;#34;&lt;/span>).style.display = &lt;span style="color:#cd5555">&amp;#34;none&amp;#34;&lt;/span>;
+};
+};
+&lt;span style="color:#228b22">//表单数据
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> fd = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> FormData();
+fd.append(&lt;span style="color:#cd5555">&amp;#34;myPhoto&amp;#34;&lt;/span>, $$(&lt;span style="color:#cd5555">&amp;#34;uploadFile&amp;#34;&lt;/span>).files[&lt;span style="color:#b452cd">0&lt;/span>]);
+&lt;span style="color:#228b22">//执行发送
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> xhr.send(fd);
+} &lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span> (e) {
+console.log(e);
+}
+}
+});
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上则为全部主要代码部分，如果有什么问题可以联系我，欢迎交流。&lt;/p>
+- //imziv.com/posts/2014/html5%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/ - 2012-2020 Ziv小威</description></item><item><title>Mysql 编写定时任务事件</title><link>//imziv.com/posts/2014/mysql%E7%BC%96%E5%86%99%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E4%BA%8B%E4%BB%B6/</link><pubDate>Tue, 13 May 2014 18:26:26 +0000</pubDate><guid>//imziv.com/posts/2014/mysql%E7%BC%96%E5%86%99%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E4%BA%8B%E4%BB%B6/</guid><description>让美的事情发生 //imziv.com/posts/2014/mysql%E7%BC%96%E5%86%99%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E4%BA%8B%E4%BB%B6/ -&lt;p>场景：&lt;/p>
+&lt;p>　　例如：某系统，用户每天只能拥有一次的抽奖机会，抽过后当天就不可再抽，但是过了 24：00 点后用户就重新拥有一次抽奖机会。像这种需要数据库定时对某个字段进行更新操作的任务，完全可以通过数据库本身的事件机制进行操作，而服务器端也不需要用额外的代码进行这种监控定时的操作。&lt;/p>
+&lt;p>Mysql:&lt;/p>
+&lt;p>　　本文讨论的是 Mysql 数据库，Event Scheduler 事件调度器应该是在 Mysql5.1 引入的，所以使用定时任务调度时，请注意查看你的 Mysql 版本。&lt;/p>
+&lt;p>创建事件调度的语法：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sql" data-lang="sql">&lt;span style="color:#228b22">/*创建事件event_name*/&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">DELIMITER&lt;/span> &lt;span style="color:#a61717;background-color:#e3d2d2">$$&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">CREATE&lt;/span> event &lt;span style="color:#8b008b;font-weight:bold">IF&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">NOT&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">EXISTS&lt;/span> event_name
+&lt;span style="color:#8b008b;font-weight:bold">ON&lt;/span> SCHEDULE &lt;span style="color:#a61717;background-color:#e3d2d2">任务条件&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">ON&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">COMPLETION&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">PRESERVE&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">DO&lt;/span> SQL操作
+&lt;span style="color:#8b008b;font-weight:bold">DELIMITER&lt;/span> ;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>实例情景：每半个小时更新统计字段 count 为 0，&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sql" data-lang="sql">&lt;span style="color:#228b22">/*创建定时定时更新count字段事件*/&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">DELIMITER&lt;/span> &lt;span style="color:#a61717;background-color:#e3d2d2">$$&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">CREATE&lt;/span> event &lt;span style="color:#8b008b;font-weight:bold">IF&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">NOT&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">EXISTS&lt;/span> update_count
+&lt;span style="color:#8b008b;font-weight:bold">ON&lt;/span> SCHEDULE &lt;span style="color:#8b008b;font-weight:bold">EVERY&lt;/span> &lt;span style="color:#b452cd">30&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">MINUTE&lt;/span> &lt;span style="color:#228b22">/*MYSQL注意时区设置，默认非中国时区*/&lt;/span>STARTS &lt;span style="color:#8b008b;font-weight:bold">TIMESTAMP&lt;/span> &lt;span style="color:#cd5555">&amp;#39;2009-12-18 02:58:00&amp;#39;&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">ON&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">COMPLETION&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">PRESERVE&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">DO&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">update&lt;/span> tb_count &lt;span style="color:#8b008b;font-weight:bold">set&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">count&lt;/span>=&lt;span style="color:#b452cd">0&lt;/span> &lt;span style="color:#a61717;background-color:#e3d2d2">$$&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">DELIMITER&lt;/span> ;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如上，创建了一个名叫 update_count 的事件，执行条件则为每 30 分钟执行一次，(EVERY 30 MINUTE)，执行 Sql 为(update tb_count set count=0)， 当然你可能会按天执行，所以你也可以写(EVERY 1 DAY)，&lt;/p>
+&lt;p>如果执行的任务 Sql 复杂，我们可以写触发器，直接看示例代码：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sql" data-lang="sql">&lt;span style="color:#8b008b;font-weight:bold">DELIMITER&lt;/span> &lt;span style="color:#a61717;background-color:#e3d2d2">$$&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">DROP&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">PROCEDURE&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">IF&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">EXISTS&lt;/span> update_count$$
+&lt;span style="color:#8b008b;font-weight:bold">CREATE&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">PROCEDURE&lt;/span> update_count()
+&lt;span style="color:#8b008b;font-weight:bold">BEGIN&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">UPDATE&lt;/span> tb_count &lt;span style="color:#8b008b;font-weight:bold">SET&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">count&lt;/span>=&lt;span style="color:#b452cd">0&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">END&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">$$&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">DELIMITER&lt;/span> ;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上为创建一个存储过程 update_count,执行对 tb_count 中 count 字段的更新。任务中代码中 do 字段后则改为（&lt;strong>call update_count() $$&lt;/strong>)。当然你可能会更复杂的需求。&lt;/p>
+&lt;p>添加完 event 后，还需要查看 event_scheduler 是否开启，否则添加的 event 不会执行，移步下面的代码：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sql" data-lang="sql">&lt;span style="color:#228b22">/*查看event是否开启*/&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">SHOW&lt;/span> VARIABLES &lt;span style="color:#8b008b;font-weight:bold">LIKE&lt;/span> &lt;span style="color:#cd5555">&amp;#39;%sche%&amp;#39;&lt;/span>;
+&lt;span style="color:#228b22">/*开启event*/&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">SET&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">GLOBAL&lt;/span> event_scheduler=&lt;span style="color:#b452cd">1&lt;/span>;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>查看和关闭你所添加的 event:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sql" data-lang="sql">&lt;span style="color:#228b22">/*关闭 event */&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">ALTER&lt;/span> event update_count &lt;span style="color:#8b008b;font-weight:bold">ON&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">COMPLETION&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">PRESERVE&lt;/span> DISABLE;
+&lt;span style="color:#228b22">/*启用 event */&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">ALTER&lt;/span> event update_count &lt;span style="color:#8b008b;font-weight:bold">ON&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">COMPLETION&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">PRESERVE&lt;/span> ENABLE;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>更多 MySql 语法可查看：&lt;a href="http://dev.mysql.com/doc/refman/5.1/zh/sql-syntax.html">http://dev.mysql.com/doc/refman/5.1/zh/sql-syntax.html&lt;/a>&lt;/p>
+- //imziv.com/posts/2014/mysql%E7%BC%96%E5%86%99%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E4%BA%8B%E4%BB%B6/ - 2012-2020 Ziv小威</description></item><item><title>为自己尝试写点东西吧，程序员们！</title><link>//imziv.com/posts/2014/%E4%B8%BA%E8%87%AA%E5%B7%B1%E5%B0%9D%E8%AF%95%E5%86%99%E7%82%B9%E4%B8%9C%E8%A5%BF%E5%90%A7%E7%A8%8B%E5%BA%8F%E5%91%98%E4%BB%AC/</link><pubDate>Thu, 01 May 2014 14:11:03 +0000</pubDate><guid>//imziv.com/posts/2014/%E4%B8%BA%E8%87%AA%E5%B7%B1%E5%B0%9D%E8%AF%95%E5%86%99%E7%82%B9%E4%B8%9C%E8%A5%BF%E5%90%A7%E7%A8%8B%E5%BA%8F%E5%91%98%E4%BB%AC/</guid><description>让美的事情发生 //imziv.com/posts/2014/%E4%B8%BA%E8%87%AA%E5%B7%B1%E5%B0%9D%E8%AF%95%E5%86%99%E7%82%B9%E4%B8%9C%E8%A5%BF%E5%90%A7%E7%A8%8B%E5%BA%8F%E5%91%98%E4%BB%AC/ -&lt;p>2012 年秋季，正是大伙急于找实习工作的时候。尝试出去找过很多实习单位，但是基本上都是不靠谱，然后就是我自己能力的不足。所以找工作之路也是异常艰辛和曲折。&lt;/p>
+&lt;p>学了那么久的 Java，做过那么多的小练习，但是说实话，感觉没有一个作品或者成功是相对完整的，无论是在 UI 界面，功能完善上都是如此。原因大多是心态上比较敷衍，人比较懒惰，没有把东西当作真正的作品。那个时候看过很多大神写的博客系统，自己也玩过 wordpress,所以一直想给自己写一个博客系统，这一次决心做的像样些，要来的专业些。那个时候也是没有犹豫，便动手起来。&lt;/p>
+&lt;p>从前端 UI 的设计，到数据库后台的设计，差不多花了我将近半个月的时间，做出来一个看起来外观还行的博客系统，但是那个时候连后台也没有。只有基本的博文展示功能，太过于简洁，只不过前台看起来还行。所以那个时候我自己花钱买域名，买服务器，把它给放到网上，然后跟很多小伙伴分享了下自己的作品，也是收到了不少鼓励，然后还有很多有用的建议。也是这次动手认真的作品所带来的鼓励，在那段找工作艰难的时期，我一个人决定离开武汉，我要主动出击！果不其然，由于这件小作品，给我在后来很多次的面试中带来了更多的机会和肯定。&lt;/p>
+&lt;p>经过一年多的工作，一年多依然是学习了更多的知识，而回头看看曾经做过的小博客系统，里面凌乱的代码，和粗糙的细节处理等等让我又是动了重构它的心情。是的，我觉得让他更完整写，要做的更像样子些，我不仅要写的自己用的时候感觉像个系统，我还要让别人用的时候感觉爽，程序员做的产品不应该就是这样么，我们应该把自己当作真正的“工程师&amp;quot;看待，从码农到工程师是非常艰巨的一步，是一种巨的跨越！&lt;/p>
+&lt;p>仔细整理了一些，发现缺乏的功能太多，连个后台都没有！文章显示的排版也是很随意，每次写的文章需要预先排版后才放入数据库，是的，这就是我当时认为还可以的作品！！列举里下功能项，数据库不得不重新设计，需要新增很多表，为了避免自己在设计上的短板，我决定加入 Bootstrap 这个东西，看起来应该会更好些。服务器端依然用 Java 代码，但是这次换了我更加偏爱的框架 SpringMvc+Mybatis，开始的一周基本上原先的东西基本上全部作废了，重构基本上变成了重写 0.0。&lt;/p>
+&lt;p>我在代码里面添加了更多的注释，排版上也尽量让自己看起来舒服，我发现我有些小小的强迫症的倾向，现在工作当中对代码的要求也是越是如此。本来预先设计的数据表，在真正写功能的时候忽然发现很多地方并没有满足需求，所以也是会反复的增加或者修改字段，包括字段的长度或者类型等等。这也是让我更加意识到数据库的预先设计上是一件很麻烦的事情，需要考虑的足够周到。&lt;/p>
+&lt;p>当博客的界面第一次出来后，我发现不是很满意，无论是布局的高宽，色调的搭配我是反反复复改了好多遍，最后还是改的非常简洁的黑白，当时考虑到技术博客的目的，所以并未想要做出怎样炫酷的效果。自己更倾向那种持久耐看，简洁风的东西。这一次没有产品经理，也没有设计师的督促，每一个像素，每一个 div 都是自己要求自己做到相对满意。当然，可能有 PM，和设计师可能会产生更好的效果。&lt;/p>
+&lt;p>利用上班业余的时间去做额外的东西，有时候的确是相当累的一件事情，但是当你看到你的作品从你脑袋里面的想象慢慢被编织成一行行代码，最后运行到你眼前的时候，一种无形的力量推动着你一步步往前走。我知道一个博客系统没有什么特别的技术，对于很多人来说应该很简单，但是当你一个人想去把一件事情做好的时候，事实上再简单的事情也变得不简单，总会有些你意想不到的东西，总有些你没有能考虑到的事情出现，你需要一步一步慢慢的去完成它，收获的不仅仅是一份作品，更是一种心态。&lt;/p>
+&lt;p>园子里面也经常有朋友分享他们的作品，相信他们与我一样收获很多，如果你热爱创造，热爱编程，那么就去用代码去实现你脑袋里面的想法吧，无论别人做过没有做过，都应该去尝试，享受编程真正带来的乐趣!最后分享下作品的地址，当然还有很多地方不够完善，以后慢慢去改善，就像创造了生命，然后慢慢培养成长一样！各位五一快乐！&lt;/p>
+&lt;p>ZBLOG：&lt;a href="http://imziv.com/">http://imziv.com/&lt;/a>&lt;/p>
+- //imziv.com/posts/2014/%E4%B8%BA%E8%87%AA%E5%B7%B1%E5%B0%9D%E8%AF%95%E5%86%99%E7%82%B9%E4%B8%9C%E8%A5%BF%E5%90%A7%E7%A8%8B%E5%BA%8F%E5%91%98%E4%BB%AC/ - 2012-2020 Ziv小威</description></item><item><title>从文件导数据到数据库的性能优化思路（笔记）</title><link>//imziv.com/posts/2014/%E4%BB%8E%E6%96%87%E4%BB%B6%E5%AF%BC%E6%95%B0%E6%8D%AE%E5%88%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%80%9D%E8%B7%AF%E7%AC%94%E8%AE%B0-/</link><pubDate>Fri, 25 Apr 2014 14:12:51 +0000</pubDate><guid>//imziv.com/posts/2014/%E4%BB%8E%E6%96%87%E4%BB%B6%E5%AF%BC%E6%95%B0%E6%8D%AE%E5%88%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%80%9D%E8%B7%AF%E7%AC%94%E8%AE%B0-/</guid><description>让美的事情发生 //imziv.com/posts/2014/%E4%BB%8E%E6%96%87%E4%BB%B6%E5%AF%BC%E6%95%B0%E6%8D%AE%E5%88%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%80%9D%E8%B7%AF%E7%AC%94%E8%AE%B0-/ -&lt;h2 id="概述">概述&lt;/h2>
+&lt;p>最近公司一.NET 项目需要对其日志 Log 入数据库统计，写这个脚本导入的任务便落到我身上了。采用了熟练的 Java,这个日志也不是很大，一个文件大概几兆，有上万条数据，一天大概有 7,8 个文件需要这样的导入处理。由于之前写 Web 没有这么去批处理这么多数据，所以没有太注意性能，第一个版本程序导入速度慢的吓人，一个文件导完可能需要 10 多分钟，也就是说如果把每天的文件导完可能需要 2 个多小时的时间，听听就很蛋疼，最终经过优化后，一个文件导入也就几秒，甚至可以更短。目标日志文件的信息都是按行存储，所以程序中按行读取后，然后进行相应的字符串截取入库。下面则为思路分享以及主要代码的分享。&lt;/p>
+&lt;h2 id="优化思路">优化思路&lt;/h2>
+&lt;p>1.程序流程：
+程序先读取本地的文件到内存，然后把内存的数据批量 Insert 到数据库。
+2.归纳：可以看出首先程序需要进行文件 IO 操作，然后则是数据 JDBC 操作，所以优化方向大致可以是以下几个：
+a.文件 IO 优化
+b.JDBC 操作优化
+c.使用多线程并行 JDBC 操作&lt;/p>
+&lt;h2 id="文件常见-io-简介">文件常见 IO 简介&lt;/h2>
+&lt;p>Java 的文件读写操作大概有这么几种方式，但是我们应该注意几种文件操作方式的区别，哪些操作方式适合不同的数据文件对象。
+1.（InputStream/OutputStream) 为字节输入/输出流，这种读写方式都是按一定字节量读取数据。
+2. （FileInputStream/FileOutputStream) 此方法继承自上面的（InputStream/OutpustStream）,同样按字节流输入/输出，用于读取图像之类的原始字节流
+3.（FileReader/FileWriter) 此方法适用于按字符流的文件操作
+4. （BufferedReader/BufferedWriter) 从字符输入流中读取文本，缓冲各个字符，从而实现字符、数组和行的高效读取。&lt;/p>
+&lt;p>注：更详细的 IO 操作说明，请查看具体的 JDK 文档。
+此处我采用的 BufferedReader 按行读取，效率比较好
+代码片段：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> List&amp;lt;String&amp;gt; &lt;span style="color:#008b45">getLogLinesByBuf&lt;/span>(String filePath){
+List&amp;lt;String&amp;gt; items = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> ArrayList&amp;lt;String&amp;gt;();
+File file = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> File(filePath);
+BufferedReader reader;
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (file.&lt;span style="color:#658b00">exists&lt;/span>()) {
+&lt;span style="color:#8b008b;font-weight:bold">try&lt;/span> {
+reader = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> BufferedReader(&lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> FileReader(file));
+String temp = &lt;span style="color:#cd5555">&amp;#34;&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">while&lt;/span>((temp = reader.&lt;span style="color:#658b00">readLine&lt;/span>()) != &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>) {
+items.&lt;span style="color:#658b00">add&lt;/span>(temp);
+}
+&lt;span style="color:#228b22">//close
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> reader.&lt;span style="color:#658b00">close&lt;/span>();
+} &lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span> (Exception e) {
+e.&lt;span style="color:#658b00">printStackTrace&lt;/span>();
+}
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> {
+System.&lt;span style="color:#658b00">out&lt;/span>.&lt;span style="color:#658b00">println&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;该路径文件不存在.&amp;#34;&lt;/span>);
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> items;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="jdbc-批处理preparedstatement-和-statement">JDBC 批处理,PreparedStatement 和 Statement&lt;/h2>
+&lt;p>JDBC 操作我们经常会用到 PreparedStatement 和 Statement,PreparedStatement 相对 Statement 来讲，PreparedStatement 拥有预编译能力，性能更好，2 者其它的优缺点比较可以查看相关的资料。另外，平常我们插入数据都是一条，2 条，当完成成千上万条数据插入操作的时候，你会看到性能是直线下降的，所以这里会采用 sql 批处理。&lt;/p>
+&lt;p>代码片段：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">insertLogInfo&lt;/span>(List&amp;lt;String&amp;gt; data) {
+String sql = &lt;span style="color:#cd5555">&amp;#34;INSERT INTO log_info(
+&lt;/span>&lt;span style="color:#cd5555"> date_time,s_sitename,
+&lt;/span>&lt;span style="color:#cd5555"> s_ip,cs_method,cs_uri_stem
+&lt;/span>&lt;span style="color:#cd5555"> ,cs_uri_query,&amp;#34;&lt;/span>
++ &lt;span style="color:#cd5555">&amp;#34;s_port,cs_username,
+&lt;/span>&lt;span style="color:#cd5555"> c_ip,cs_user_agent,sc_status,
+&lt;/span>&lt;span style="color:#cd5555"> sc_substatus,sc_win32_status&amp;#34;&lt;/span>
++ &lt;span style="color:#cd5555">&amp;#34;) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)&amp;#34;&lt;/span>;
+Connection conn = DBSource.&lt;span style="color:#658b00">getConnection&lt;/span>();
+&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> count = 0;
+&lt;span style="color:#8b008b;font-weight:bold">try&lt;/span> {
+conn.&lt;span style="color:#658b00">setAutoCommit&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">false&lt;/span>);
+PreparedStatement prest = conn.&lt;span style="color:#658b00">prepareStatement&lt;/span>(sql);
+&lt;span style="color:#8b008b;font-weight:bold">for&lt;/span>(String str : data) {
+String[] arr = str.&lt;span style="color:#658b00">split&lt;/span>(&lt;span style="color:#cd5555">&amp;#34; &amp;#34;&lt;/span>);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(1, arr[0]+&lt;span style="color:#cd5555">&amp;#34; &amp;#34;&lt;/span>+arr[1]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(2, arr[2]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(3, arr[3]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(4, arr[4]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(5, arr[5]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(6, arr[6]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(7, arr[7]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(8, arr[8]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(9, arr[9]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(10, arr[10]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(11, arr[11]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(12, arr[12]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(13, arr[13]);
+&lt;span style="color:#228b22">//添加到批处理
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> prest.&lt;span style="color:#658b00">addBatch&lt;/span>();
+}
+&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> [] intarr = prest.&lt;span style="color:#658b00">executeBatch&lt;/span>();
+conn.&lt;span style="color:#658b00">commit&lt;/span>();
+prest.&lt;span style="color:#658b00">clearBatch&lt;/span>();
+prest.&lt;span style="color:#658b00">close&lt;/span>();
+conn.&lt;span style="color:#658b00">close&lt;/span>();
+&lt;span style="color:#8b008b;font-weight:bold">for&lt;/span> (&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> j = 0 ; j &amp;lt; intarr.&lt;span style="color:#658b00">length&lt;/span>; j++) {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (intarr[j] &amp;gt; 0) {
+count +=1;
+}
+}
+} &lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span> (Exception e) {
+System.&lt;span style="color:#658b00">out&lt;/span>.&lt;span style="color:#658b00">println&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Date().&lt;span style="color:#658b00">toLocaleString&lt;/span>()+&lt;span style="color:#cd5555">&amp;#34;:数据库插入操作失败&amp;#34;&lt;/span>+e.&lt;span style="color:#658b00">getMessage&lt;/span>());
+}
+System.&lt;span style="color:#658b00">out&lt;/span>.&lt;span style="color:#658b00">println&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;本次操作成功插入&amp;#34;&lt;/span>+count+&lt;span style="color:#cd5555">&amp;#34;行数据&amp;#34;&lt;/span>);
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>采用多线程并行处理&lt;/p>
+&lt;p>例如本来 1 万条数据是一个线程进行 JDBC 批量提交，现在启用 5 个线程并行处理，每个线程 2000 条数据，甚至你可以根据数据量来分配更多线程来完成同步提交，性能提升会比较明显。&lt;/p>
+&lt;p>代码片段：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#8b008b;font-weight:bold">package&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">com.xj.dbsource&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.io.File&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.sql.Connection&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.sql.DriverManager&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.sql.PreparedStatement&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.sql.SQLException&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.sql.Statement&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.util.Date&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">java.util.List&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">com.json.utils.JsonFileUtils&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#008b45;text-decoration:underline">com.xj.iislog.bean.JDBCInfo&lt;/span>;
+&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22"> *
+&lt;/span>&lt;span style="color:#228b22"> * @author Ziv
+&lt;/span>&lt;span style="color:#228b22"> * 数据操作源
+&lt;/span>&lt;span style="color:#228b22"> */&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> &lt;span style="color:#008b45;font-weight:bold">DBSource&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">extends&lt;/span> Thread {
+&lt;span style="color:#228b22">//声明对象
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> Statement statement;
+&lt;span style="color:#228b22">//连接对象
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> Connection conn;
+&lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> List&amp;lt;String&amp;gt; data;
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#008b45">DBSource&lt;/span>(List&amp;lt;String&amp;gt; data) {
+&lt;span style="color:#8b008b;font-weight:bold">super&lt;/span>();
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.&lt;span style="color:#658b00">data&lt;/span> = data;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">run&lt;/span>(){
+System.&lt;span style="color:#658b00">out&lt;/span>.&lt;span style="color:#658b00">println&lt;/span>(System.&lt;span style="color:#658b00">currentTimeMillis&lt;/span>());
+DBSource.&lt;span style="color:#658b00">insertLogInfo&lt;/span>(data);
+System.&lt;span style="color:#658b00">out&lt;/span>.&lt;span style="color:#658b00">println&lt;/span>(System.&lt;span style="color:#658b00">currentTimeMillis&lt;/span>());
+}
+&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22"> *
+&lt;/span>&lt;span style="color:#228b22"> * @param sql
+&lt;/span>&lt;span style="color:#228b22"> * @return int
+&lt;/span>&lt;span style="color:#228b22"> */&lt;/span>
+&lt;span style="color:#707a7c">@SuppressWarnings&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;deprecation&amp;#34;&lt;/span>)
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#00688b;font-weight:bold">int&lt;/span> &lt;span style="color:#008b45">insert&lt;/span>(String sql) {
+&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> result = 0;
+&lt;span style="color:#8b008b;font-weight:bold">try&lt;/span> {
+conn = getConnection();
+statement = conn.&lt;span style="color:#658b00">createStatement&lt;/span>();
+result = statement.&lt;span style="color:#658b00">executeUpdate&lt;/span>(sql);
+&lt;span style="color:#228b22">//关闭连接
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> conn.&lt;span style="color:#658b00">close&lt;/span>();
+} &lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span> (SQLException e) {
+System.&lt;span style="color:#658b00">out&lt;/span>.&lt;span style="color:#658b00">println&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Date().&lt;span style="color:#658b00">toLocaleString&lt;/span>()+&lt;span style="color:#cd5555">&amp;#34;:数据库插入操作失败&amp;#34;&lt;/span> +e.&lt;span style="color:#658b00">getMessage&lt;/span>());
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> result;
+}
+&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22"> * prepared方式入库
+&lt;/span>&lt;span style="color:#228b22"> * @param arr
+&lt;/span>&lt;span style="color:#228b22"> * @return
+&lt;/span>&lt;span style="color:#228b22"> * @throws SQLException
+&lt;/span>&lt;span style="color:#228b22"> */&lt;/span>
+&lt;span style="color:#707a7c">@SuppressWarnings&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;deprecation&amp;#34;&lt;/span>)
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">insertLogInfo&lt;/span>(List&amp;lt;String&amp;gt; data) {
+String sql = &lt;span style="color:#cd5555">&amp;#34;INSERT INTO log_info(
+&lt;/span>&lt;span style="color:#cd5555"> date_time,s_sitename,s_ip,
+&lt;/span>&lt;span style="color:#cd5555"> cs_method,cs_uri_stem,cs_uri_query,&amp;#34;&lt;/span>
++ &lt;span style="color:#cd5555">&amp;#34;s_port,cs_username,c_ip,cs_user_agent,
+&lt;/span>&lt;span style="color:#cd5555"> sc_status,sc_substatus,sc_win32_status&amp;#34;&lt;/span>
++ &lt;span style="color:#cd5555">&amp;#34;) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)&amp;#34;&lt;/span>;
+Connection conn = DBSource.&lt;span style="color:#658b00">getConnection&lt;/span>();
+&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> count = 0;
+&lt;span style="color:#8b008b;font-weight:bold">try&lt;/span> {
+conn.&lt;span style="color:#658b00">setAutoCommit&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">false&lt;/span>);
+PreparedStatement prest = conn.&lt;span style="color:#658b00">prepareStatement&lt;/span>(sql);
+&lt;span style="color:#8b008b;font-weight:bold">for&lt;/span>(String str : data) {
+String[] arr = str.&lt;span style="color:#658b00">split&lt;/span>(&lt;span style="color:#cd5555">&amp;#34; &amp;#34;&lt;/span>);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(1, arr[0]+&lt;span style="color:#cd5555">&amp;#34; &amp;#34;&lt;/span>+arr[1]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(2, arr[2]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(3, arr[3]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(4, arr[4]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(5, arr[5]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(6, arr[6]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(7, arr[7]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(8, arr[8]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(9, arr[9]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(10, arr[10]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(11, arr[11]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(12, arr[12]);
+prest.&lt;span style="color:#658b00">setString&lt;/span>(13, arr[13]);
+&lt;span style="color:#228b22">//添加到批处理
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> prest.&lt;span style="color:#658b00">addBatch&lt;/span>();
+}
+&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> [] intarr = prest.&lt;span style="color:#658b00">executeBatch&lt;/span>();
+conn.&lt;span style="color:#658b00">commit&lt;/span>();
+prest.&lt;span style="color:#658b00">clearBatch&lt;/span>();
+prest.&lt;span style="color:#658b00">close&lt;/span>();
+conn.&lt;span style="color:#658b00">close&lt;/span>();
+&lt;span style="color:#8b008b;font-weight:bold">for&lt;/span> (&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> j = 0 ; j &amp;lt; intarr.&lt;span style="color:#658b00">length&lt;/span>; j++) {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (intarr[j] &amp;gt; 0) {
+count +=1;
+}
+}
+} &lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span> (Exception e) {
+System.&lt;span style="color:#658b00">out&lt;/span>.&lt;span style="color:#658b00">println&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> Date().&lt;span style="color:#658b00">toLocaleString&lt;/span>()+&lt;span style="color:#cd5555">&amp;#34;:数据库插入操作失败&amp;#34;&lt;/span>+e.&lt;span style="color:#658b00">getMessage&lt;/span>());
+}
+System.&lt;span style="color:#658b00">out&lt;/span>.&lt;span style="color:#658b00">println&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;本次操作成功插入&amp;#34;&lt;/span>+count+&lt;span style="color:#cd5555">&amp;#34;行数据&amp;#34;&lt;/span>);
+}
+&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22"> * 创建连接池
+&lt;/span>&lt;span style="color:#228b22"> * @return Connection
+&lt;/span>&lt;span style="color:#228b22"> */&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> Connection &lt;span style="color:#008b45">getConnection&lt;/span>() {
+Connection con = &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">try&lt;/span> {
+&lt;span style="color:#228b22">//从配置文件中获取jdbc config
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> JDBCInfo jdbc = JsonFileUtils.&lt;span style="color:#658b00">readJsonFile&lt;/span>(
+&lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> File(&lt;span style="color:#cd5555">&amp;#34;resource/config.json&amp;#34;&lt;/span>), JDBCInfo.&lt;span style="color:#658b00">class&lt;/span>
+);
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (jdbc != &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>) {
+&lt;span style="color:#228b22">//mysql驱动加载
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> Class.&lt;span style="color:#658b00">forName&lt;/span>(jdbc.&lt;span style="color:#658b00">getDriver&lt;/span>());
+con = DriverManager.&lt;span style="color:#658b00">getConnection&lt;/span>(jdbc.&lt;span style="color:#658b00">getUrl&lt;/span>(),
+jdbc.&lt;span style="color:#658b00">getUser&lt;/span>(), jdbc.&lt;span style="color:#658b00">getPassword&lt;/span>());
+}
+} &lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span> (Exception e) {
+System.&lt;span style="color:#658b00">out&lt;/span>.&lt;span style="color:#658b00">println&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;数据库连接失败&amp;#34;&lt;/span> +e.&lt;span style="color:#658b00">getMessage&lt;/span>());
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> con;
+}
+&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22"> * 获取Sql
+&lt;/span>&lt;span style="color:#228b22"> * @param arr
+&lt;/span>&lt;span style="color:#228b22"> * @return
+&lt;/span>&lt;span style="color:#228b22"> */&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> String &lt;span style="color:#008b45">getSql&lt;/span>(String[] arr) {
+StringBuffer sql = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> StringBuffer(&lt;span style="color:#cd5555">&amp;#34;INSERT INTO log_info (&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;date_time,&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;s_sitename,&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;s_ip,&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;cs_method,&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;cs_uri_stem,&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;cs_uri_query,&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;s_port,&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;cs_username,&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;c_ip,&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;cs_user_agent,&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;sc_status,&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;sc_substatus,&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;sc_win32_status&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;) VALUES (&amp;#39;&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(arr[0]+&lt;span style="color:#cd5555">&amp;#34; &amp;#34;&lt;/span>+arr[1]);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;&amp;#39;,&amp;#39;&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(arr[2]);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;&amp;#39;,&amp;#39;&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(arr[3]);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;&amp;#39;,&amp;#39;&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(arr[4]);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;&amp;#39;,&amp;#39;&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(arr[5]);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;&amp;#39;,&amp;#39;&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(arr[6]);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;&amp;#39;,&amp;#39;&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(arr[7]);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;&amp;#39;,&amp;#39;&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(arr[8]);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;&amp;#39;,&amp;#39;&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(arr[9]);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;&amp;#39;,&amp;#39;&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(arr[10]);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;&amp;#39;,&amp;#39;&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(arr[11]);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;&amp;#39;,&amp;#39;&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(arr[12]);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;&amp;#39;,&amp;#39;&amp;#34;&lt;/span>);
+sql.&lt;span style="color:#658b00">append&lt;/span>(arr[13]);
+sql.&lt;span style="color:#658b00">append&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;&amp;#39;)&amp;#34;&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> sql.&lt;span style="color:#658b00">toString&lt;/span>();
+}
+}
+　　调用代码&lt;span style="color:#a61717;background-color:#e3d2d2">：&lt;/span>
+&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22"> * 此方法采用递归操作，直至数据全部入库写入完毕
+&lt;/span>&lt;span style="color:#228b22"> * 同时调用5个线程进行入库操作
+&lt;/span>&lt;span style="color:#228b22"> * @param data
+&lt;/span>&lt;span style="color:#228b22"> * @param start
+&lt;/span>&lt;span style="color:#228b22"> * @param end
+&lt;/span>&lt;span style="color:#228b22"> */&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> &lt;span style="color:#00688b;font-weight:bold">void&lt;/span> &lt;span style="color:#008b45">threadsHandle&lt;/span>(List&amp;lt;String&amp;gt; data, &lt;span style="color:#00688b;font-weight:bold">int&lt;/span> start, &lt;span style="color:#00688b;font-weight:bold">int&lt;/span> end) {
+&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> total = data.&lt;span style="color:#658b00">size&lt;/span>();
+&lt;span style="color:#00688b;font-weight:bold">int&lt;/span> size = (&lt;span style="color:#00688b;font-weight:bold">int&lt;/span>)data.&lt;span style="color:#658b00">size&lt;/span>()/5;
+&lt;span style="color:#228b22">//数据不越界
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (start &amp;lt; total) {
+List&amp;lt;String&amp;gt; temp = &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (end &amp;lt; total) {
+temp = data.&lt;span style="color:#658b00">subList&lt;/span>(start, end);
+} &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (end &amp;gt;= total) {
+temp = data.&lt;span style="color:#658b00">subList&lt;/span>(start, total);
+}
+&lt;span style="color:#228b22">//执行数据写入
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> DBSource thread = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> DBSource(temp);
+thread.&lt;span style="color:#658b00">start&lt;/span>();
+start = end;
+end = start+size;
+threadsHandle(data, start, end);
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="最终结果">最终结果&lt;/h2>
+&lt;p>原来的 12 分钟，变成了 6 秒左右，效率大了一大截。其他朋友如果有更好的建议，可以跟我交流下 0.0。下次再把数据弄的更大些。&lt;/p>
+- //imziv.com/posts/2014/%E4%BB%8E%E6%96%87%E4%BB%B6%E5%AF%BC%E6%95%B0%E6%8D%AE%E5%88%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%80%9D%E8%B7%AF%E7%AC%94%E8%AE%B0-/ - 2012-2020 Ziv小威</description></item><item><title>NodeJS 示例异步式(Asynchronous)IO 与同步式 Synchronous)IO</title><link>//imziv.com/posts/2014/nodejs%E7%A4%BA%E4%BE%8B%E5%BC%82%E6%AD%A5%E5%BC%8Fasynchronousio%E4%B8%8E%E5%90%8C%E6%AD%A5%E5%BC%8Fsynchronousio/</link><pubDate>Sat, 29 Mar 2014 14:21:07 +0000</pubDate><guid>//imziv.com/posts/2014/nodejs%E7%A4%BA%E4%BE%8B%E5%BC%82%E6%AD%A5%E5%BC%8Fasynchronousio%E4%B8%8E%E5%90%8C%E6%AD%A5%E5%BC%8Fsynchronousio/</guid><description>让美的事情发生 //imziv.com/posts/2014/nodejs%E7%A4%BA%E4%BE%8B%E5%BC%82%E6%AD%A5%E5%BC%8Fasynchronousio%E4%B8%8E%E5%90%8C%E6%AD%A5%E5%BC%8Fsynchronousio/ -&lt;p>理解 IO&lt;/p>
+&lt;p>IO（Input/Output）通常是指计算机线程进行慈磁盘读写或者网络通信时的一种行为。&lt;/p>
+&lt;p>同步式（Synchronous)IO 和异步式(Asynchronous )IO&lt;/p>
+&lt;p>同步式：当计算机调度线程进行 I/O 操作命令后，由于文件的读写或者网络通信需要较长的操作时间，操作系统为了充分利用 cpu，此时会暂停到当前的 I/O 线程对 CPU 的控制（故又称同步式为阻塞式 I/O），把 cup 资源然给其他的线程资源，当 I/O 线程完成了操作时，此时操作系统会恢复此时的 I/O 线程，从而当前 I/O 线程重新获得了 cup 的的控制权，继续完成其他操作。
+NodeJs 让很多前端开发者利用 JS 开发服务器变得异常的简单，而异步式 I/O 则是 NodeJs 的一大特点。
+异步式：异步式 IO 又称非阻塞式 I/O，异步式与同步式不同的是，当线程进行 IO 操作时，操作系统并不是暂停当前的线程操作，而是执行完 I/O 指令后，操作系统继续让当前线程执行下一条指令，当 I/O 操作完成后，会通过事件（event)通知 I/O 线程，而线程在接收到通知后，会处理响应事件。
+简单的说，同步式是让通过多个线程完成多个任务，而异步式则是通过一个线程完成多个任务，遇到 I/O 操作时，依然让线程继续执行其他指令，只是在 I/O 完成后通知线程调度响应事件即可。&lt;/p>
+&lt;p>图解：&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2014/img/async-io.png" alt="async-io">&lt;/p>
+&lt;p>示例代码：&lt;/p>
+&lt;p>异步式：
+注意这里的异步式执行结果是，控制台会先打印 read over,然后才打印 package.json 文件中的内容，也就是说，线程执行文件 IO 时，继续先执行了 console.log(&amp;lsquo;read over&amp;rsquo;); 待读取操作结束后通知线程响应此时的回调函数，执行了结果打印操作。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#b452cd">1&lt;/span> &lt;span style="color:#228b22">/*
+&lt;/span>&lt;span style="color:#228b22"> 2 * 异步式（Asynchronous） I/O Example. 7 */&lt;/span>
+&lt;span style="color:#b452cd">8&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> file = require(&lt;span style="color:#cd5555">&amp;#39;fs&amp;#39;&lt;/span>);&lt;span style="color:#228b22">//声明对象
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#b452cd">9&lt;/span> &lt;span style="color:#228b22">//异步式读取
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#b452cd">10&lt;/span> file.readFile(&lt;span style="color:#cd5555">&amp;#39;file.json&amp;#39;&lt;/span>,&lt;span style="color:#cd5555">&amp;#39;utf-8&amp;#39;&lt;/span>, &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(error,data) {
+&lt;span style="color:#b452cd">11&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (error) {
+&lt;span style="color:#b452cd">12&lt;/span> console.error(error);
+&lt;span style="color:#b452cd">13&lt;/span> } &lt;span style="color:#8b008b;font-weight:bold">else&lt;/span> {
+&lt;span style="color:#b452cd">14&lt;/span> console.log(data);
+&lt;span style="color:#b452cd">15&lt;/span> }
+&lt;span style="color:#b452cd">16&lt;/span> });
+&lt;span style="color:#b452cd">17&lt;/span> &lt;span style="color:#228b22">//读取结束
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#b452cd">18&lt;/span> console.log(&lt;span style="color:#cd5555">&amp;#34;read over.&amp;#34;&lt;/span>);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行结果：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#b452cd">1&lt;/span> &amp;gt;node readfile.js
+&lt;span style="color:#b452cd">2&lt;/span> &amp;gt;read over.
+&lt;span style="color:#b452cd">3&lt;/span> &amp;gt;{
+&lt;span style="color:#b452cd">4&lt;/span> &lt;span style="color:#cd5555">&amp;#34;description&amp;#34;&lt;/span> : &lt;span style="color:#cd5555">&amp;#34;this is Synchronous I/O and Aynchronous I/O test.&amp;#34;&lt;/span>
+&lt;span style="color:#b452cd">5&lt;/span> }
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>同步式：&lt;/p>
+&lt;p>此次执行的结果则是先读取完 package.json 文件的内容并打印， 然后打印 read over.&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#b452cd">1&lt;/span> &lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22"> 2 * 同步式（Synchronous） I/O Example.
+&lt;/span>&lt;span style="color:#228b22"> 3 */&lt;/span>
+&lt;span style="color:#b452cd">6&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> file = require(&lt;span style="color:#cd5555">&amp;#39;fs&amp;#39;&lt;/span>);&lt;span style="color:#228b22">//声明对象
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#b452cd">7&lt;/span> &lt;span style="color:#228b22">//readFileSync()方法为NodeJs官方提供的同步式文件读取方法，
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#b452cd">8&lt;/span> &lt;span style="color:#228b22">//但是官方并不推荐。
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#b452cd">9&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> data = file.readFileSync(&lt;span style="color:#cd5555">&amp;#39;file.json&amp;#39;&lt;/span>, &lt;span style="color:#cd5555">&amp;#39;utf-8&amp;#39;&lt;/span>);
+&lt;span style="color:#b452cd">10&lt;/span> console.log(data);
+&lt;span style="color:#b452cd">11&lt;/span> &lt;span style="color:#228b22">//读取结束
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#b452cd">12&lt;/span> console.log(&lt;span style="color:#cd5555">&amp;#34;read over.&amp;#34;&lt;/span>);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行结果：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#b452cd">1&lt;/span> &amp;gt;node readfile.js
+&lt;span style="color:#b452cd">2&lt;/span> &amp;gt;{
+&lt;span style="color:#b452cd">3&lt;/span> &lt;span style="color:#cd5555">&amp;#34;description&amp;#34;&lt;/span> : &lt;span style="color:#cd5555">&amp;#34;this is Synchronous I/O and Aynchronous I/O test.&amp;#34;&lt;/span>
+&lt;span style="color:#b452cd">4&lt;/span> }
+&lt;span style="color:#b452cd">5&lt;/span> &amp;gt;read over.
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>结语：
+通过这 2 段代码的运行结果，相信大家对同步于异步的理解应该更加一目了然了。初次接触 Node 的朋友可以去官网查看教程，安装 NodeJs，
+亲手尝试尝试 NodeJs 的异步编程~。如有任何疑问或者问题，欢迎联系我。&lt;/p>
+&lt;p>注：参考《NodeJs 开发指南》&lt;/p>
+- //imziv.com/posts/2014/nodejs%E7%A4%BA%E4%BE%8B%E5%BC%82%E6%AD%A5%E5%BC%8Fasynchronousio%E4%B8%8E%E5%90%8C%E6%AD%A5%E5%BC%8Fsynchronousio/ - 2012-2020 Ziv小威</description></item></channel></rss>

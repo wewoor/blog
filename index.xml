@@ -1,0 +1,512 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>让美的事情发生</title><link>//imziv.com/</link><description>Recent content on 让美的事情发生</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>2012-2020 Ziv小威</copyright><lastBuildDate>Thu, 16 Dec 2021 14:00:00 +0000</lastBuildDate><atom:link href="//imziv.com/index.xml" rel="self" type="application/rss+xml"/><item><title>我们开源了一个轻量的 Web IDE UI 框架 - Molecule</title><link>//imziv.com/posts/2021/%E6%88%91%E4%BB%AC%E5%BC%80%E6%BA%90%E4%BA%86%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%9A%84-web-ide-ui-%E6%A1%86%E6%9E%B6/</link><pubDate>Thu, 16 Dec 2021 14:00:00 +0000</pubDate><guid>//imziv.com/posts/2021/%E6%88%91%E4%BB%AC%E5%BC%80%E6%BA%90%E4%BA%86%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%9A%84-web-ide-ui-%E6%A1%86%E6%9E%B6/</guid><description>让美的事情发生 //imziv.com/posts/2021/%E6%88%91%E4%BB%AC%E5%BC%80%E6%BA%90%E4%BA%86%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%9A%84-web-ide-ui-%E6%A1%86%E6%9E%B6/ -&lt;h1 id="molecule">Molecule&lt;/h1>
+&lt;p>&lt;img src="./img/intro-molecule/logo1x.png" alt="logo@1x.png">&lt;/p>
+&lt;blockquote>
+&lt;p>一个轻量的 Web IDE UI 框架&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="简介">简介&lt;/h2>
+&lt;p>&lt;a href="https://github.com/DTStack/molecule">Molecule&lt;/a> 是一个受 &lt;a href="https://github.com/microsoft/vscode">VS Code&lt;/a> 启发，使用 &lt;a href="https://reactjs.org/">React.js&lt;/a> 构建的 &lt;strong>Web IDE UI&lt;/strong> 框架。通过一种类似 VS Code 扩展机制（Extension），可快速、轻松搭建一个高度抽象的 &lt;strong>Web IDE UI&lt;/strong> 系统。同时基于 Monaco Editor，内置集成了 QuickAccess 和 Keybinding 等功能，并提供了简单的 API 以供使用。&lt;/p>
+&lt;p>得益于&lt;strong>扩展机制&lt;/strong>和 &lt;strong>React 组件化&lt;/strong>技术，Molecule 可以针对例如 &lt;strong>Workbench UI、&lt;/strong> &lt;strong>ColorTheme&lt;/strong> 、&lt;strong>自定义热键&lt;/strong>、&lt;strong>快捷访问&lt;/strong>等功能进行自定义扩展。另外，开发者可将&lt;strong>业务代码&lt;/strong>和 IDE UI 架构&lt;strong>解耦&lt;/strong>，在保持业务高速迭代的同时，&lt;strong>产品交互体验&lt;/strong>依然保持良好的&lt;strong>可持续进化能力。&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="./img/intro-molecule//workbench.png" alt="workbench.png">&lt;/p>
+&lt;h2 id="动机">动机&lt;/h2>
+&lt;p>&lt;a href="https://www.dtstack.com/dtinsight/">数栈（DTInsight）&lt;/a> 中例如&lt;strong>离线、实时任务开发，算法开发&lt;/strong>等产品，它们的直接使用人员大部分都是&lt;strong>开发者，&lt;strong>需要在 Web 上完成&lt;/strong>代码编写，调试&lt;/strong>等工作。所以，我们也希望给开发人员创造一个良好的在线 IDE 开发体验。&lt;/p>
+&lt;p>&lt;img src="./img/intro-molecule/ide-v3.png" alt="ide-v3.png">&lt;/p>
+&lt;p>&lt;em>早期的&lt;/em>数栈开发平台&lt;/p>
+&lt;p>上图中的 RD-OS 是我们数栈开发平台早期的版本，当时产品功能本身比较简单。前端在初期的实现上，基于 React + Ant Design + Codemirror 来搭建的整个 IDE UI 界面。另外，由于当时我们多个产品都有这个 Workbench 的场景，我们还抽象了一个简单且单纯 的 IDE Workbench UI 的 React 组件，以供其他产品复用。&lt;/p>
+&lt;p>&lt;img src="./img/intro-molecule/ide-v4.png" alt="ide-v4.png">&lt;/p>
+&lt;p>&lt;em>当前的 Web IDE 版本&lt;/em>&lt;/p>
+&lt;p>随着业务发展，产品不断的迭代，整个页面的功能也变得十分&lt;strong>密集和复杂。&lt;strong>产品布局、视觉、交互等一直在更新和变化，上图已经是我们最新的版本设计。然而，在面对这些新的&lt;/strong>交互、视觉&lt;/strong>上的诉求时，早期&lt;strong>简单堆叠&lt;/strong>的技术架构就会显得有些捉襟见肘了。设计师新出的方案，由于&lt;strong>改造成本&lt;/strong>很高，比较难以实施。&lt;/p>
+&lt;p>大约 2019 年左右，团队和产品交流了市面上做的比较好的 Web IDE 产品，如 &lt;a href="https://github.com/c9">Cloud9 IDE&lt;/a>、&lt;a href="https://github.com/microsoft/vscode">VS Code&lt;/a>、&lt;a href="https://github.com/eclipse-theia/theia">Eclipse Theia&lt;/a> 等。这些产品都有非常好的 UI 抽象，扩展性很好，定制主题等功能也比较方便。但是这些产品功能比较完整的 IDE，应用到我们产品，就显得有点重，而且对团队技术挑战较大，最重要的是技术&lt;strong>迁移成本&lt;/strong>也比较高，自定义 UI 也不够灵活。&lt;/p>
+&lt;p>基于这些问题的考虑，团队试图寻找出一种平衡方案。我们希望这个方案有很好的 &lt;strong>UI 抽象便于新增功能、UI 可&lt;/strong>自定义、定制 ColorTheme 简单、React 项目无缝衔接，让产品交互有比较方便的持续进化能力。在对 VS Code 源码研究了一番之后，我们便萌生了 Molecule 这个项目的想法。&lt;/p>
+&lt;h2 id="核心功能">核心功能&lt;/h2>
+&lt;p>我们参考了 VS Code 的设计，对 UI 抽象、编辑器、颜色主题等等重新进行了梳理，Molecule 目前的核心功能如下：&lt;/p>
+&lt;ul>
+&lt;li>内置 React 版本的 Visual Studio Code &lt;strong>Workbench&lt;/strong> UI&lt;/li>
+&lt;li>基本兼容 Visual Studio Code 的 &lt;strong>ColorTheme&lt;/strong>&lt;/li>
+&lt;li>支持使用 React 组件自定义 &lt;strong>Workbench&lt;/strong> UI 样式&lt;/li>
+&lt;li>内置 Monaco Editor &lt;strong>Command Palette&lt;/strong>、&lt;strong>Keybinding&lt;/strong>等模块，并支持扩展&lt;/li>
+&lt;li>支持 &lt;strong>i18n&lt;/strong>，内置简体中文、English 等两种语言&lt;/li>
+&lt;li>内置一个简单的 &lt;strong>Settings&lt;/strong> 模块，支持在线编辑修改以及扩展&lt;/li>
+&lt;li>内置默认的 &lt;strong>Explorer&lt;/strong>, &lt;strong>Search&lt;/strong> 等组件，并支持扩展&lt;/li>
+&lt;li>Typescript&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="img/intro-molecule/layout.png" alt="Workbench Parts">&lt;/p>
+&lt;p>上图是重新抽象的 Workbench UI。基于一个简单的扩展（Extension），如 &lt;strong>Workbench&lt;/strong>、&lt;strong>ColorTheme&lt;/strong>、&lt;strong>QuickAccess&lt;/strong>、&lt;strong>Keybinding&lt;/strong>、&lt;strong>i18n&lt;/strong>、&lt;strong>Settings&lt;/strong> 等等功能，通过 Molecule 内置的服务，可以轻松的使用和扩展。&lt;/p>
+&lt;h2 id="与其他开源的-web-ide-的区别">与其他开源的 Web IDE 的区别？&lt;/h2>
+&lt;ul>
+&lt;li>React.js 应用无缝接入&lt;/li>
+&lt;li>基于 React.js 的组件库，更好的 &lt;strong>UI 自定义&lt;/strong>能力&lt;/li>
+&lt;li>基本兼容了 VS Code 上千种 ColorTheme 扩展&lt;/li>
+&lt;li>Molecule 只是一个单纯的 &lt;strong>Web IDE&lt;/strong> &lt;strong>UI 交互&lt;/strong>框架，不涉及例如&lt;strong>文件系统&lt;/strong>、&lt;strong>版本管理&lt;/strong>、 &lt;strong>LSP、DAP&lt;/strong>、&lt;strong>Terminal&lt;/strong> 等更复杂的 IDE 功能，需要开发者自己手动实现。&lt;/li>
+&lt;/ul>
+&lt;h2 id="如何使用">如何使用?&lt;/h2>
+&lt;p>请阅读&lt;a href="https://dtstack.github.io/molecule/docs/quick-start">快速开始&lt;/a>文档。&lt;/p>
+&lt;h2 id="接下来的规划">接下来的规划&lt;/h2>
+&lt;p>Molecule 当前还是一个 &lt;strong>Beta&lt;/strong> 版本，很多 API 还不够稳定。早期参考了一些 VS Code 的设计概念，API 设计不够简单；目前默认的 Workbench 是 VS Code 版本的布局，后期会考虑丰富布局（Layout）系统；Color Theme 交互还有很多细节需要优化。&lt;/p>
+- //imziv.com/posts/2021/%E6%88%91%E4%BB%AC%E5%BC%80%E6%BA%90%E4%BA%86%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%9A%84-web-ide-ui-%E6%A1%86%E6%9E%B6/ - 2012-2020 Ziv小威</description></item><item><title>十月的青海之旅</title><link>//imziv.com/posts/2020/10%E6%9C%88%E9%9D%92%E6%B5%B7%E4%B9%8B%E6%97%85/</link><pubDate>Sat, 21 Nov 2020 04:00:25 +0000</pubDate><guid>//imziv.com/posts/2020/10%E6%9C%88%E9%9D%92%E6%B5%B7%E4%B9%8B%E6%97%85/</guid><description>让美的事情发生 //imziv.com/posts/2020/10%E6%9C%88%E9%9D%92%E6%B5%B7%E4%B9%8B%E6%97%85/ -&lt;h2 id="西宁市">西宁市&lt;/h2>
+&lt;p>从曹家堡机场出来后，我顺利的联系上了旅行社安排的接机师傅。10 月的西宁还是比我想象的还是要冷些，一件 T 恤和衬衫还是有些单薄，冻得我一出机场便直奔
+太阳底下，去等接我的司机师傅。曹家堡机场到西宁市很近，开车也就 30 来分钟。整个西宁市依一条狭窄的河谷而建，而两边大都是植被稀少的山坡。&lt;/p>
+&lt;p>从酒店睡了一觉醒来，便准备去市区觅食。掏出手机，我在某众上搜出了某热门推荐的餐馆，打了辆出租车便直奔目的地了。载我的师傅是个有意思的人，说他整个
+家族都跟开车相关的产业离不开关系。最先是他舅舅来的西宁开车，然后带他爸爸，再到他现在他自己(中国这种靠亲戚朋友传带，从农村
+走出来的情况还是非常普遍的)。旅游旺季的时候就去给游客开车，淡季就市区开开出租车。&lt;/p>
+&lt;p>青海省接壤甘肃，新疆，西藏，很多著名的西北旅游线路（敦煌北环线，可可西里）西宁是很重要的一个起始地点。虽然西宁市是青海省的省会城市，但产业还是很单薄的，主要就是旅游业了，所以街道大都很整洁和干净。不过觅食让我过于意外的是，这么小众和偏僻的一个店，竟然到晚上 8，9 点还在排队，都是从大众寻过来的（互联网很神奇啊）。&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/1011605945517_.pic.jpg" alt="面馆">&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/1071605948119_.pic_hd.jpg" alt="美食城">
+美食城，都是肉~&lt;/p>
+&lt;h2 id="青海湖">青海湖&lt;/h2>
+&lt;p>10 月份的青海湖显的就比较荒凉了，湖边的草地已经都是一片枯黄，索性的是还有零星的几片油菜地。&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/1151605960245_.pic.jpg" alt="油菜地">&lt;/p>
+&lt;p>需要提一嘴的是，青海湖边吃饭的地方还是很容易被坑的，饭馆里的食物大多不够新鲜，但是又很贵。&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/1141605959917_.pic.jpg" alt="油菜地">&lt;/p>
+&lt;p>吃过午饭，我们驱车来到离青海湖不远处的一个山谷&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/1001605945516_.pic.jpg" alt="山谷-1">&lt;/p>
+&lt;p>在这里, 还是很容易感受到时间留下的痕迹的&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/1161605960610_.pic.jpg" alt="山谷-2">&lt;/p>
+&lt;h2 id="都兰县">都兰县&lt;/h2>
+&lt;p>热水古墓群，离都兰县 30 多公里，属于唐朝时期的吐蕃墓葬群，有 200 多座。墓群周边装满了探头，旁边就是科考站。曲折的是一大早上，我们走了很多冤枉路，在寻得这个地方。很难想象古人，竟找了这么个偏远的地方。&lt;/p>
+&lt;p>九层妖楼，地人对这“血渭一号大墓”的俗称，据说这是九层妖塔的原型。&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/991605945515_.pic.jpg" alt="热水古墓群">&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/1171605962205_.pic.jpg" alt="旁边的科考站">&lt;/p>
+&lt;p>途径一个当地小的藏传寺院，阳光、草地、僧侣、小孩和狗&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/961605944358_.pic_hd.jpg" alt="藏传寺院">&lt;/p>
+&lt;p>藏民家的小姑娘
+&lt;img src="//imziv.com/posts/2020/img/qinghai/1021605945518_.pic.jpg" alt="小姑娘">&lt;/p>
+&lt;h2 id="可可西里">可可西里&lt;/h2>
+&lt;p>去可可西里，需要先途径&lt;code>格尔木市&lt;/code>，格尔木作为青海第二大的城市，比我想象中要小的多。整个城市就一条稍繁华的街道，
+晚上 8 点多，街上就已经没什么人了，或许因为是秋天比较冷的原因。&lt;/p>
+&lt;p>这里比较常见的碗茶，五颜六色，各种果干的搭配，去油解腻
+&lt;img src="//imziv.com/posts/2020/img/qinghai/971605945513_.pic.jpg" alt="碗茶">&lt;/p>
+&lt;p>由于近几年可可西里景区每年出事的人很多，所以当地政府管的比较严格，个人不得进入可可西里景区，其他旅行社团队必须提前到当地公安报备。所以在可可西里入口检查站，必须进行严格的个人信息登记，连往返车辆时间都是有要求的。&lt;/p>
+&lt;p>可可西里垭口，排队拍照纪念的游客
+&lt;img src="//imziv.com/posts/2020/img/qinghai/1031605945519_.pic.jpg" alt="可可西里垭口">&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/921605944353_.pic_hd.jpg" alt="远处的藏羚羊">&lt;/p>
+&lt;p>可可西里深处，远处正在搞基建的工程队。不得不佩服我们国家搞基建的，来可可西里途中的青藏高速，
+到这里无人区修管道的工程队。还有就是我们熟知的青藏铁路，穿过整个昆仑山脉，可可西里无人区。&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/911605944352_.pic_hd.jpg" alt="可可西里垭口">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;h2 id="茫崖市">茫崖市&lt;/h2>
+&lt;p>之前从未听过的一个地方。茫崖市在青海省的最西面，省边界线边上，临近新疆。去茫崖整个途中都是无人荒漠，盐碱地，非常荒凉。但为什么会来这里呢，因为这里有丰富的石油、盐田。&lt;/p>
+&lt;p>途中休息，这几位在马路中间拍照玩的很嗨&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/881605944348_.pic_hd.jpg" alt="茫崖市">&lt;/p>
+&lt;p>大片的盐田，翡翠湖&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/1201605964584_.pic.jpg" alt="翡翠湖">&lt;/p>
+&lt;p>昔日的石油城&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/931605944354_.pic_hd.jpg" alt="昔日的石油城">&lt;/p>
+&lt;p>驱车 2 个多小时&lt;code>盐碱地&lt;/code>追寻的&lt;code>恶魔之眼&lt;/code>&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/1211605964971_.pic.jpg" alt="恶魔之眼">&lt;/p>
+&lt;p>恶魔之眼倒是都让大家失望，不过回程途中夕阳下的马车，大家倒是玩的很 High&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/1221605965164_.pic.jpg" alt="夕阳下的马车">&lt;/p>
+&lt;h2 id="荒芜之境">荒芜之境&lt;/h2>
+&lt;p>从茫崖往大柴旦方向走的 &lt;code>G315&lt;/code> 国道，一路的无人区，盐碱地，沙漠，雅丹地貌&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/1221605965164_.pic.jpg" alt="夕阳下的马车">&lt;/p>
+&lt;p>火星一号公路。据说是个北京到此一游，后来开发的旅游项目，也是够勇敢的&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/951605944356_.pic_hd.jpg" alt="火星一号公路">&lt;/p>
+&lt;p>火星一号公路周边，我想&lt;code>火星也不过如此&lt;/code>吧。&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/1231605965322_.pic.jpg" alt="火星一号公路">&lt;/p>
+&lt;p>雅丹地貌&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/1241605965679_.pic.jpg" alt="雅丹地貌">&lt;/p>
+&lt;h2 id="天空之镜---茶卡">天空之镜 - 茶卡&lt;/h2>
+&lt;p>名为天空之镜，果然名不虚传。如今的茶卡是个商业化比较成熟的景区，但是仍然是很值得花门票来游玩的地方，尤其是不要忘记购买
+能体验湖边小火车的乘车票。&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/1051605945521_.pic.jpg" alt="小火车">&lt;/p>
+&lt;p>整个湖面就是一面&lt;code>天镜&lt;/code>&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/1251605966086_.pic.jpg" alt="镜子">&lt;/p>
+&lt;p>远处湖边的小火车，和比比皆是的拍照旅客&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2020/img/qinghai/1261605966131_.pic.jpg" alt="镜子">&lt;/p>
+&lt;p>最后，附上个茶卡随时拍摄的视频&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+- //imziv.com/posts/2020/10%E6%9C%88%E9%9D%92%E6%B5%B7%E4%B9%8B%E6%97%85/ - 2012-2020 Ziv小威</description></item><item><title>《组织能力建设的杨三角》- 读后感</title><link>//imziv.com/posts/2020/%E6%9D%A8%E4%B8%89%E8%A7%92/</link><pubDate>Sat, 31 Oct 2020 22:17:51 +0000</pubDate><guid>//imziv.com/posts/2020/%E6%9D%A8%E4%B8%89%E8%A7%92/</guid><description>让美的事情发生 //imziv.com/posts/2020/%E6%9D%A8%E4%B8%89%E8%A7%92/ -&lt;h2 id="组织能力建设的杨三角--读后感">《组织能力建设的杨三角》- 读后感&lt;/h2>
+&lt;p>廉价、低端、山寨的标签过去一直是中国企业以及产品很难抹去的标签。另外近几年东南亚、印度等国家逐步开始在很多领域侵蚀
+中国制造业份的份额，不少外企处于成本考虑，开始迁移工厂。2020 美国对中国华为、字节等科技企业实行打压，更是让中国企业
+清醒认识到我们与发达国家企业的差距。&lt;/p>
+&lt;p>种种背景下，不断在提醒我们的是，中国过去大多数作坊式、粗放式、不科学的管理方法，已无法满足中国企业未来在产业、品牌、全球化竞争等各方面的需求。&lt;/p>
+&lt;p>作者经过多年的分析，把企业成功的管理方法归纳为了如下公式：&lt;/p>
+&lt;blockquote>
+&lt;p>企业的成功 = 战略 × 组织能力&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="世界上唯一不变的就是变化">世界上唯一不变的就是“变化”&lt;/h2>
+&lt;p>看到这里突然想起一句话：“选择比努力重要”。当然这句话只是是单方面强调”选择“的重要性。书中“企业成功” 的公式作者的想表达是，如果想要到达成功，选择和组织能力 2 者是缺一不可的。其实严格来讲公式应该是：&lt;code>企业的成功 = 正确的战略 × 组织能力&lt;/code>。然而“正确的战略”最大的挑战，就是来自周围一切的变化莫测（就如 2020 年的这场“疫情”），
+所以企业这周跟随环境变化进行调整，适应的能力是我们能否做出“正确的战略”的关键。&lt;/p>
+&lt;h2 id="第二关键组织能力">第二关键：组织能力&lt;/h2>
+&lt;p>有了 “正确的战略” 作为前提前提，那么“组织能力”则是企业成功第二关键因素了。其实我这里私以为“组织能力”又可称之为“团队能力”更容易理解一些。作者把组织能力划为 3 个部分组成：&lt;/p>
+&lt;p>1.员工能力
+这里泛指员工的招聘、培养、激励、淘汰、可持续的员工能力打造机制等等方面的内容。&lt;/p>
+&lt;p>2.员工思维
+作者明确指出 —— 切勿形式主义：&lt;/p>
+&lt;blockquote>
+&lt;p>员工思维模式指的是员工每天工作时心中所真正关心的、追求的、重视的事情，而不是放在公司网站、贴在公司墙上或者印在员工手册上的标语口号！
+3.员工治理&lt;/p>
+&lt;/blockquote>
+&lt;p>员工治理的包括的 3 个主要方面：权责、信息和流程。
+而真正有效的种治理方法，适合自己的治理方法，比简单的照搬、拿来主义更重要。&lt;/p>
+&lt;p>另外，组织能力的建设的一大误区就是，这都是&lt;strong>行政部门&lt;/strong>应该负责的工作。其实作者在书中已经明确指出：&lt;/p>
+&lt;blockquote>
+&lt;p>组织能力的打造是一个长期的过程，需要多年的努力，更需要整个企业从上到下的认同和努力，特别是需要企业“三群人”的共同承诺和积极投入，这样才能高效而成功地建立组织能力&lt;/p>
+&lt;/blockquote>
+&lt;p>所谓的“三群人”，即是：&lt;strong>CEO&lt;/strong>， &lt;strong>人力资源团队&lt;/strong>，&lt;strong>直线主管&lt;/strong>。其实私以为，&lt;strong>员工&lt;/strong>也是参与组织能力打造的重要组成部分。&lt;/p>
+&lt;h2 id="最后">最后&lt;/h2>
+&lt;p>需要提醒我们自己的是，企业的成功不是目的。找到真正能为社会、他人创造价值的事情，寻找、建设一支认同这些有意义事情的人，持续坚持努力，我想最终结果一定不会太差。&lt;/p>
+- //imziv.com/posts/2020/%E6%9D%A8%E4%B8%89%E8%A7%92/ - 2012-2020 Ziv小威</description></item><item><title>《海底捞你学不会》之”流程“和”制度“的弊端</title><link>//imziv.com/posts/2020/%E6%B5%B7%E5%BA%95%E6%8D%9E%E4%BD%A0%E5%AD%A6%E4%B8%8D%E4%BC%9A%E4%B9%8B%E6%B5%81%E7%A8%8B%E5%92%8C%E5%88%B6%E5%BA%A6%E7%9A%84%E5%BC%8A%E7%AB%AF/</link><pubDate>Tue, 14 Jan 2020 10:28:51 +0000</pubDate><guid>//imziv.com/posts/2020/%E6%B5%B7%E5%BA%95%E6%8D%9E%E4%BD%A0%E5%AD%A6%E4%B8%8D%E4%BC%9A%E4%B9%8B%E6%B5%81%E7%A8%8B%E5%92%8C%E5%88%B6%E5%BA%A6%E7%9A%84%E5%BC%8A%E7%AB%AF/</guid><description>让美的事情发生 //imziv.com/posts/2020/%E6%B5%B7%E5%BA%95%E6%8D%9E%E4%BD%A0%E5%AD%A6%E4%B8%8D%E4%BC%9A%E4%B9%8B%E6%B5%81%E7%A8%8B%E5%92%8C%E5%88%B6%E5%BA%A6%E7%9A%84%E5%BC%8A%E7%AB%AF/ -&lt;p>在杭州吃过《海底捞》的朋友应该很清楚，排个号是有多辛苦。《海底捞你学不会》是一本揭秘《海底捞》是如何
+从中国一个四线城市，杀到北上广，乃至成为目前中国餐饮的一张名片的书籍。印象中做餐饮的大部分都是亏本的，管理是十分复杂的，看到这本书里面介绍其流程和指定的内容时，比较好奇。&lt;/p>
+&lt;h3 id="海底捞师徒制">海底捞师徒制&lt;/h3>
+&lt;p>海底捞有自己的师徒制（有点类似我们的师兄制）。师徒制的优点在于容易发现同类，容易彼此理解和欣赏，并且传递简单。但是缺点就是容易”走形“，且可复制性极差。像海底捞在全国这种连锁规模的情况下，极易造成店与店之间的服务质量差距。这里提到主要依靠流程和制度来做管理的“麦当劳”做对比，而其在全球有 3 万多家连锁店。&lt;/p>
+&lt;h3 id="流程和制度的弊端">流程“和”制度“的弊端&lt;/h3>
+&lt;p>”不在过程中生存，就在过程中死亡“。真正有效的流程和制度绝对不可能事先设计好，而是不断实践与修正的结果。
+海底捞请世界一流的咨询公司帮忙开发和研究火锅餐厅的管理流程和制度，但是作为世界独有的存在，目前没有任何一家公司能解决海底捞需要的流程和制度。&lt;/p>
+&lt;p>流程和制度真正的难点在于，将人、流程和制度、与所要解决问题做到精确的匹配。没有有效的监管，其很容易流于“形式主义”，而过于的监管，却又容易把人变成了机器。这对于强调”温度“、”服务“的海底捞无疑是很难的。&lt;/p>
+&lt;h3 id="真实的世界是灰色的">真实的世界是灰色的&lt;/h3>
+&lt;p>真实的世界是灰色的，没有任何一种流程和制度，是能完全覆盖到所有需要解决的问题上的。海底捞为了让客户满意，会临时去买一些礼物送给他们的顾客，因为满意度是他们很重要的一个考核指标。还有些员工容易服务过度，反而给顾客造成了很多困扰。像这种流程和制度很难把控的细节，在餐饮服务行业有很多，其实是非常考验员工的综合能力的。&lt;/p>
+- //imziv.com/posts/2020/%E6%B5%B7%E5%BA%95%E6%8D%9E%E4%BD%A0%E5%AD%A6%E4%B8%8D%E4%BC%9A%E4%B9%8B%E6%B5%81%E7%A8%8B%E5%92%8C%E5%88%B6%E5%BA%A6%E7%9A%84%E5%BC%8A%E7%AB%AF/ - 2012-2020 Ziv小威</description></item><item><title>「 摩登情爱. S01 」</title><link>//imziv.com/posts/2019/-%E6%91%A9%E7%99%BB%E6%83%85%E7%88%B1.-s01-/</link><pubDate>Tue, 03 Dec 2019 23:19:32 +0000</pubDate><guid>//imziv.com/posts/2019/-%E6%91%A9%E7%99%BB%E6%83%85%E7%88%B1.-s01-/</guid><description>让美的事情发生 //imziv.com/posts/2019/-%E6%91%A9%E7%99%BB%E6%83%85%E7%88%B1.-s01-/ -&lt;p>米切尔是一位生活在纽约的独立女性，博士毕业后便搬到现在的这座酒店公寓独自生活。古滋敏是一位在劳改营长大的阿尔巴尼亚人，父母是政治家，如今在这座酒店公寓做门卫，按他自己的话，他喜欢这份工作。&lt;/p>
+&lt;p>米切尔经常把一些约会的对象带回公寓，他们大都长相英俊，身材匀称。不过古滋敏都不喜欢米切尔的那些约会对象，而且经常告诉米切尔，这些人并不适合她。后来，似乎能否通过古滋敏的测试，已经成为了米切尔相处对象重要的标尺。&lt;/p>
+&lt;p>古滋敏对米切尔每次约会对象最后的结局的预判出奇的准确，这让米切尔开始在意古滋敏对她约会对象的看法。&lt;/p>
+&lt;p>米切尔还是不小心，怀上了一位英俊却不愿承担责任的英国人的孩子。得知消息当晚不知所措，在这种万般无助的情况下，他找到古滋敏，古滋敏鼓励她，「如果可以，那就生下孩子」。&lt;/p>
+&lt;p>就这样，米切尔最终在古滋敏的帮助下，生下了一位可爱的小女孩。而由于工作的原因，米切尔不得不把女儿经常拜托给每天值班的古滋敏照看，古滋敏也十分耐心接受，并且十分享受。古滋敏实则是一位很有学识的人，经常带小姑娘了解大自然，博物馆方面的知识。&lt;/p>
+&lt;p>米切尔突然得到了一份自己理想工作的邀请，不过远在洛杉矶。不过面对未知的生活，孩子的问题，和现有生活的不舍，米切尔十分犹豫，哦，不舍的还有古滋敏。在征询古滋敏一番后，古滋敏豪不犹豫的鼓励她，应该去施展自己的才华。&lt;/p>
+&lt;p>5 年后，米切尔带着女儿和新的男友，来看望古滋敏，这一次终于得到了他的认可。古滋敏告诉米切尔，「其实每次看对方是否适合你，并不是从约会对象上得出的，而且从米切尔自己的眼睛中得到的答案」。&lt;/p>
+&lt;p>而故事的最后，古滋敏带着米切尔和女孩，三人手拉手一起逛自然博物馆，看到这个镜头的时候，不知为何一种幸福感涌上心头。&lt;/p>
+- //imziv.com/posts/2019/-%E6%91%A9%E7%99%BB%E6%83%85%E7%88%B1.-s01-/ - 2012-2020 Ziv小威</description></item><item><title>游日本</title><link>//imziv.com/posts/2019/%E6%B8%B8%E6%97%A5%E6%9C%AC/</link><pubDate>Sat, 28 Sep 2019 18:52:25 +0000</pubDate><guid>//imziv.com/posts/2019/%E6%B8%B8%E6%97%A5%E6%9C%AC/</guid><description>让美的事情发生 //imziv.com/posts/2019/%E6%B8%B8%E6%97%A5%E6%9C%AC/ -&lt;p>飞机抵达成田机场时，当地时间已经是差不多晚上 6 点了，东京时间比较国内稍早 1 个小时左右。下了飞机，我便给手机换上了在萧山机场，花了 60 块购买的流量卡。一切还算顺利，不过还是因为没经验，在填写入境卡的时候稍稍给耽误了。&lt;/p>
+&lt;p>我们的地接导游是个在日的 80 后上海人，本人留有一头的长发，带着一款黑色的铁发箍（实话，挺像小时候我见我奶奶用过的那种），右手夹个皮包，脚穿着双皮鞋，这哪是导游，根本就是个老板。他说，像他这样的中国留学生很多。&lt;/p>
+&lt;p>按照规划的行程，抵达当晚，我们住进了机场旁边的一家酒店，而第二天我们将会直接乘大巴车去镰仓和富士山。&lt;/p>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEBd230d361a16fcc1d30b0b469fe2b9e7f?method=download&amp;amp;shareKey=714c5295fc5fa88b03a0f7ea02a4fe96" alt="hotel">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>镰仓和富士山都位于东京的西面。从千叶县大巴去镰仓，大概花了 2 个小时左右。镰仓高校前站，来这里打卡的大多数中国人，基本都是冲着《灌篮高手》来的。不过说回来，镰仓那地方看海也不错，可以看到不少人在海边冲浪。&lt;/p>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEB950ac778ae0dd1f09be1a40590267c0c?method=download&amp;amp;shareKey=c01079911bf2f30ac8b257dd65e01149" alt="hotel">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>从镰仓继续向东， 大约一个小时就到富士山了。这个季节的富士山顶周边都是光秃秃的黑土，而不是印象里面的雪山，而从山顶再往下则是茂密的原始森林。大巴车沿着上盘山公路，盘山路两旁尽是原始森林。随着海拔的缓缓上升，车外就能看到云海了，蓝天白云，通透的空气、山脚零落的村庄，给人很安宁的感觉，让人竟忘了这是座海拔 3775 米的活火山。我们的大巴车一直到开到海拔 2000 米左右的富士山观景台，这里是富士山观光集散地，有来自世界各地的人。&lt;/p>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEB69b0d378b0ef8592e29e74eaab015778?method=download&amp;amp;shareKey=80c4dc55379aa14481535ad765e2210d" alt="">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEBef86de4c4104d8c3961cf986e86f2371?method=download&amp;amp;shareKey=7898814197cb16fa0064b01ecf7d282e" alt="">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEB916a0a0cc7442898410343b1e6cd0d7f?method=download&amp;amp;shareKey=a420999faf540c1ec971e929b24e4a45" alt="">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEB94bbcb5bc7b3a5b9e88eff6c0156c6f0?method=download&amp;amp;shareKey=9479d368b95d26bbf170b6beb131e41c" alt="">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>往后的两日，则主要就是被在东京市区活动，参观神社，逛六本木，银座购物。话说好像 Facebook, Google 都在六本木办公。
+说起购物，我深觉国人的购买力之强。也不知道是不是带去的场所的原因，
+感觉买东西的大都是国人，什么化妆品，药妆店，中古店（第一次听说，就是二手奢侈品商店）。&lt;/p>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEBec8fcdff8b07d8d8bc8ab345514d911d?method=download&amp;amp;shareKey=e252d39d54d83491483402cf5b01a754" alt="">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEB19d343cef31fb3ce0f611a59960b9d25?method=download&amp;amp;shareKey=5cca8c6b6caf4034889e8b1176a4fa29" alt="">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEB0c841b0938b3918fdae9aec8e5c9dcc4?method=download&amp;amp;shareKey=9559c57a05f30521f8cdbcd661d1047e" alt="">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>这次出行最意外的事情就是撞上台风天气了。原本计划 9 月 10 日早晨，大巴车从东京市区出发去成田机场的行程，由于台风天气早晨千叶县不少高速路段收到一定的破坏，造成去机场的整个高速路段严重堵塞，而且机场已经造成严重的旅客滞留情况，很多人在机场走不了也出不来。导游不得不半夜 2，3 点就把我们从东京市区拉往机场了，担心堵车而造成误机。所幸的是，凌晨 12 点以后，交通得已修复，我们抵达机场也就正常的 1 个小时左右。&lt;/p>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEB03fa4be82150df310015ae4c225a0b30?method=download&amp;amp;shareKey=40dda064e38b1a04d86494b3c94b24c5" alt="">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEBf666a6204ad42447fe066df0ef2720fa?method=download&amp;amp;shareKey=bdb367cb076b33ab1374559d870cb5ac" alt="">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>第二天一大早，就开始排起了常常的检票长队，人山人海不夸张，好几个队伍都差点干起来了。我们的航班确实延机了，不过所幸并未太久。
+北京时间 2 点左右，我们顺利抵达了萧山机场，终于回来了~&lt;/p>
+- //imziv.com/posts/2019/%E6%B8%B8%E6%97%A5%E6%9C%AC/ - 2012-2020 Ziv小威</description></item><item><title>清醒思考的艺术</title><link>//imziv.com/posts/2019/%E6%B8%85%E9%86%92%E6%80%9D%E8%80%83%E7%9A%84%E8%89%BA%E6%9C%AF/</link><pubDate>Mon, 02 Sep 2019 10:19:55 +0000</pubDate><guid>//imziv.com/posts/2019/%E6%B8%85%E9%86%92%E6%80%9D%E8%80%83%E7%9A%84%E8%89%BA%E6%9C%AF/</guid><description>让美的事情发生 //imziv.com/posts/2019/%E6%B8%85%E9%86%92%E6%80%9D%E8%80%83%E7%9A%84%E8%89%BA%E6%9C%AF/ -&lt;p>书中提到的很多观点是生活我们常常陷入的问题，而作者给出了很多不同的思考和见地，比较有启迪意义。&lt;/p>
+&lt;blockquote>
+&lt;p>完美的预设是不存在的&lt;/p>
+&lt;/blockquote>
+&lt;p>作者认为，“计划” 在实际情况中&lt;code>几乎是永远也不会实现的&lt;/code>, 而是我们需要在过程中不断反思，调整，从而来拿到结果的。正如我们常常会苦恼于这样一种情况：我们为一个目标制定了“完美”计划，然而实现过程和结果往往是在计划之外。作者用驾驶飞机，婚姻，国家宪法来做了例子说明了后期调整的重要性。所以作者主张：&lt;/p>
+&lt;ol>
+&lt;li>应降低自己对计划的预期，&lt;/li>
+&lt;li>行动中积极调整&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>过度的真诚是不可取的。我们还是会期待一定程度的体面、礼节和自控，即一种属于文明社会的伪装&lt;/p>
+&lt;/blockquote>
+&lt;p>与我们很多地方看到“真诚待人”比较相左的观点，作者认为我们需要面对不同的情况做合适伪装，并且鼓励我们发展“第二重人格”，以此来应对复杂的人际关系，社会角色等。这里我姑且理解这为“情商”的一种体现，作者并未写太多的篇章，但我觉得这个部分就足以写本书的了。&lt;/p>
+&lt;blockquote>
+&lt;p>如果书中的内容绝大多数都已被遗忘，那我们读这本书还有什么意义呢？&lt;/p>
+&lt;/blockquote>
+&lt;p>这是一个很有意思的问题，偶尔自己也会回想曾经阅读过的书籍，几乎都想不起什么内容。
+作者说他图书馆里面放有 3000 多本书，其中阅读过的只有 1/3，所以作者在反思中发出了上文中提到的关于“阅读意义“的疑问。最终作者得出”选择过于宽泛，而阅读不够彻底“这种阅读方式是错误的的结论。当然结论仍是可以讨论的。 所以对于这个问题，作者给出了几点建议：&lt;/p>
+&lt;ol>
+&lt;li>如果一本书没能产生深刻印象，就不用再继续浪费时间了&lt;/li>
+&lt;li>侦探类这种不会反复阅读的书不值得出现在我们的书票中&lt;/li>
+&lt;li>经历有限，所以我们应该减量，挑一些值得反复阅读的书籍&lt;/li>
+&lt;li>如果你年轻，应该尽可能吞下尽可能的书&lt;/li>
+&lt;/ol>
+&lt;p>上面的观点是作者不同人生阶段的建议，不尽然适合所有人。我们每个人对阅读都有不同的诉求，如果我只是为了从阅读中获取一些简单的快乐，看看”小人书“也未尝不可。&lt;/p>
+&lt;blockquote>
+&lt;p>不要痴迷于“伟人理论”&lt;/p>
+&lt;/blockquote>
+&lt;p>作者认为“个体改变世界”是 21 世纪影响力最大的意识形态之一，而这只是一个巨大的幻想。每个历史事件，“伟人”都是时代产物，大都包含了“偶然因素”。其实作者想说的是，大家不必太看轻自己，也不必太过仰望那些“伟人”。&lt;/p>
+- //imziv.com/posts/2019/%E6%B8%85%E9%86%92%E6%80%9D%E8%80%83%E7%9A%84%E8%89%BA%E6%9C%AF/ - 2012-2020 Ziv小威</description></item><item><title>了解和实践 Typescript 的泛型 （Generics）</title><link>//imziv.com/posts/2019/%E4%BA%86%E8%A7%A3%E5%92%8C%E5%AE%9E%E8%B7%B5-typescript-%E7%9A%84%E6%B3%9B%E5%9E%8B-generics/</link><pubDate>Thu, 25 Jul 2019 21:51:40 +0000</pubDate><guid>//imziv.com/posts/2019/%E4%BA%86%E8%A7%A3%E5%92%8C%E5%AE%9E%E8%B7%B5-typescript-%E7%9A%84%E6%B3%9B%E5%9E%8B-generics/</guid><description>让美的事情发生 //imziv.com/posts/2019/%E4%BA%86%E8%A7%A3%E5%92%8C%E5%AE%9E%E8%B7%B5-typescript-%E7%9A%84%E6%B3%9B%E5%9E%8B-generics/ -&lt;h2 id="考虑如下场景">考虑如下场景&lt;/h2>
+&lt;p>我们现在自己封装了一个 &lt;code>Table&lt;/code> 组件，该组件提供 &lt;code>data&lt;/code> 和 &lt;code>columns&lt;/code> 两个属性，我们希望用户在使用组件时，编辑器能针对
+&lt;code>data&lt;/code>与&lt;code>column&lt;/code>的值类型进行约束，而不是任意的一个值, 如下图所示：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-typescript" data-lang="typescript">
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> render() {
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> users = [{ name: &lt;span style="color:#cd5555">&amp;#39;ziv&amp;#39;&lt;/span>, birth: &lt;span style="color:#cd5555">&amp;#34;1991&amp;#34;&lt;/span> }];
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> columns = [
+{ Key: &lt;span style="color:#cd5555">&amp;#34;id&amp;#34;&lt;/span>, name: &lt;span style="color:#cd5555">&amp;#34;ID&amp;#34;&lt;/span>, dataIndex: &lt;span style="color:#cd5555">&amp;#34;id&amp;#34;&lt;/span> },
+{ key: &lt;span style="color:#cd5555">&amp;#34;name&amp;#34;&lt;/span>, name: &lt;span style="color:#cd5555">&amp;#34;姓名&amp;#34;&lt;/span>, dataIndex: &lt;span style="color:#cd5555">&amp;#34;name&amp;#34;&lt;/span> },
+];
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> (
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">Table&lt;/span> &lt;span style="color:#658b00">data&lt;/span>={users} &lt;span style="color:#658b00">columns&lt;/span>={columns}/&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span>&amp;gt;
+);
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>正如上图所示，我&lt;code>columns&lt;/code>中取数据的&lt;code>dataIndex&lt;/code>字段，在传入的 &lt;code>users&lt;/code>列表中是不存在的，所以结果是数据无法正常获取。
+那么有没有办法在代码执行前就检测出这个问题呢？让我们看看用泛型如何解决这个问题。&lt;/p>
+&lt;h2 id="泛型的基本语法">泛型的基本语法&lt;/h2>
+&lt;p>&lt;code>泛型（Generic）&lt;/code>提供了一种在消费&lt;code>API对象&lt;/code>时按需添加&lt;code>约束类型&lt;/code>的能力，从而不必固定在某个&lt;code>单一&lt;/code>的类型约束上，而是按使用的实际情况时&lt;code>具体约束&lt;/code>。&lt;/p>
+&lt;p>基本用法如下：&lt;/p>
+&lt;h4 id="函数function">函数（function)&lt;/h4>
+&lt;p>语法&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> A&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&amp;gt; {}
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> B&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span>&lt;span style="color:#658b00">K&lt;/span>&amp;gt; {}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> getProperty&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span> &lt;span style="color:#658b00">K&lt;/span> &lt;span style="color:#658b00">extends&lt;/span> &lt;span style="color:#658b00">keyof&lt;/span> &lt;span style="color:#658b00">T&lt;/span>&amp;gt;(obj: &lt;span style="color:#00688b;font-weight:bold">T&lt;/span>, key: &lt;span style="color:#00688b;font-weight:bold">K&lt;/span>) {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> obj[key];
+}
+&lt;span style="color:#8b008b;font-weight:bold">let&lt;/span> x = { a: &lt;span style="color:#00688b;font-weight:bold">1&lt;/span>, b: &lt;span style="color:#00688b;font-weight:bold">2&lt;/span>, c: &lt;span style="color:#00688b;font-weight:bold">3&lt;/span>, d: &lt;span style="color:#00688b;font-weight:bold">4&lt;/span> };
+getProperty(x, &lt;span style="color:#cd5555">&amp;#34;a&amp;#34;&lt;/span>); &lt;span style="color:#228b22">// okay
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>getProperty(x, &lt;span style="color:#cd5555">&amp;#34;m&amp;#34;&lt;/span>); &lt;span style="color:#228b22">// error: Argument of type &amp;#39;m&amp;#39; isn&amp;#39;t assignable to &amp;#39;a&amp;#39; | &amp;#39;b&amp;#39; | &amp;#39;c&amp;#39; | &amp;#39;d&amp;#39;.
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="接口interface--type">接口（interface &amp;amp; type）&lt;/h4>
+&lt;p>语法：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="color:#228b22">// interface
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">interface&lt;/span> A&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&amp;gt; {}
+&lt;span style="color:#8b008b;font-weight:bold">interface&lt;/span> B&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span>&lt;span style="color:#658b00">K&lt;/span>&amp;gt; {}
+&lt;span style="color:#228b22">// type
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>type A&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&amp;gt; = {}
+type B&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span> &lt;span style="color:#658b00">K&lt;/span>&amp;gt; = {};
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="color:#8b008b;font-weight:bold">export&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">interface&lt;/span> ColumnProps&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&amp;gt; { &lt;span style="color:#228b22">// 声明泛型 T
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> key: &lt;span style="color:#00688b;font-weight:bold">number&lt;/span>|&lt;span style="color:#00688b;font-weight:bold">string&lt;/span>;
+name: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>;
+dataIndex: &lt;span style="color:#00688b;font-weight:bold">keyof&lt;/span> T; &lt;span style="color:#228b22">// 约束 dataIndex 值需为引用泛型 T 中的属性
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="类class">类（class)&lt;/h4>
+&lt;p>语法：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> A&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&amp;gt; {}
+&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> B&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span> &lt;span style="color:#658b00">K&lt;/span>&amp;gt; {};
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> GenericNumber&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&amp;gt; {
+zeroValue: &lt;span style="color:#00688b;font-weight:bold">T&lt;/span>;
+add: (x: &lt;span style="color:#00688b;font-weight:bold">T&lt;/span>, y: &lt;span style="color:#00688b;font-weight:bold">T&lt;/span>) =&amp;gt; T;
+}
+&lt;span style="color:#8b008b;font-weight:bold">let&lt;/span> myGenericNumber = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> GenericNumber&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">number&lt;/span>&amp;gt;();
+myGenericNumber.zeroValue = &lt;span style="color:#b452cd">0&lt;/span>;
+myGenericNumber.add = &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(x, y) { &lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> x + y; };
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="接上文中的场景">接上文中的场景&lt;/h2>
+&lt;p>回到刚才我们封装的 &lt;code>Table&lt;/code> 这个示例中，我们针对&lt;code>column&lt;/code>与&lt;code>data&lt;/code>添加泛型约束，我们看看具体如何使用：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> * &lt;span style="color:#8b008b;font-weight:bold">as&lt;/span> React from &lt;span style="color:#cd5555">&amp;#34;react&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">export&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">interface&lt;/span> ColumnProps&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&amp;gt; { &lt;span style="color:#228b22">// 声明泛型 T
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> key: &lt;span style="color:#00688b;font-weight:bold">number&lt;/span>|&lt;span style="color:#00688b;font-weight:bold">string&lt;/span>;
+name: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>;
+dataIndex: &lt;span style="color:#00688b;font-weight:bold">keyof&lt;/span> T; &lt;span style="color:#228b22">// 约束 dataIndex 值需为引用泛型 T 中的属性
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>}
+&lt;span style="color:#8b008b;font-weight:bold">interface&lt;/span> TableProps&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&amp;gt; { &lt;span style="color:#228b22">// 声明泛型 T
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> data: &lt;span style="color:#00688b;font-weight:bold">T&lt;/span>[]; &lt;span style="color:#228b22">// 约束 data 数组为 T 类型数组
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> columns: &lt;span style="color:#00688b;font-weight:bold">Array&lt;/span>&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">ColumnProps&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;lt;&lt;/span>&lt;span style="color:#658b00">T&lt;/span>&amp;gt;&amp;gt; ; &lt;span style="color:#228b22">// dataIndex 应该是泛型 T 中的属性
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>}
+&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> Table&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&amp;gt; &lt;span style="color:#8b008b;font-weight:bold">extends&lt;/span> React.Component&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">TableProps&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;lt;&lt;/span>&lt;span style="color:#658b00">T&lt;/span>&amp;gt;, any&amp;gt; { &lt;span style="color:#228b22">// 声明泛型 T，TableProps 引用 T
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> render() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> (
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">table&lt;/span>&amp;gt;
+{&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.renderHeader()}
+{&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.renderBody()}
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">table&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span>&amp;gt;
+);
+}
+&lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> renderHeader = () =&amp;gt; {
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> { columns } = &lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.props;
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> (
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">thead&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">tr&lt;/span>&amp;gt;
+{columns.map((col: &lt;span style="color:#00688b;font-weight:bold">ColumnProps&lt;/span>&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&amp;gt;) =&amp;gt; &amp;lt;&lt;span style="color:#8b008b;font-weight:bold">th&lt;/span> &lt;span style="color:#658b00">key&lt;/span>={col.key}&amp;gt;{col.name}&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">th&lt;/span>&amp;gt;)}
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">tr&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">thead&lt;/span>&amp;gt;
+);
+}
+&lt;span style="color:#8b008b;font-weight:bold">private&lt;/span> renderBody = () =&amp;gt; {
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> { data, columns } = &lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.props;
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> getTd = (item: &lt;span style="color:#00688b;font-weight:bold">T&lt;/span>) =&amp;gt; { &lt;span style="color:#228b22">// item 的类型应该为T
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#228b22">// dataIndex 应该是泛型 T 中的属性
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> columns.map((col: &lt;span style="color:#00688b;font-weight:bold">ColumnProps&lt;/span>&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&amp;gt;, index: &lt;span style="color:#00688b;font-weight:bold">number&lt;/span>) =&amp;gt; (
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">td&lt;/span> &lt;span style="color:#658b00">key&lt;/span>={&lt;span style="color:#cd5555">`&lt;/span>&lt;span style="color:#cd5555">${&lt;/span>index&lt;span style="color:#cd5555">}&lt;/span>&lt;span style="color:#cd5555">-&lt;/span>&lt;span style="color:#cd5555">${&lt;/span>col.dataIndex&lt;span style="color:#cd5555">}&lt;/span>&lt;span style="color:#cd5555">`&lt;/span>}&amp;gt;{item[col.dataIndex]}&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">td&lt;/span>&amp;gt;
+));
+};
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> (
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">tbody&lt;/span>&amp;gt;
+{data.map((item: &lt;span style="color:#00688b;font-weight:bold">T&lt;/span>, index: &lt;span style="color:#00688b;font-weight:bold">number&lt;/span>) =&amp;gt; (&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">tr&lt;/span> &lt;span style="color:#658b00">key&lt;/span>={&lt;span style="color:#cd5555">`&lt;/span>&lt;span style="color:#cd5555">${&lt;/span>index&lt;span style="color:#cd5555">}&lt;/span>&lt;span style="color:#cd5555">`&lt;/span>}&amp;gt;{getTd(item)}&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">tr&lt;/span>&amp;gt;))}
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">tbody&lt;/span>&amp;gt;
+);
+}
+}
+&lt;span style="color:#8b008b;font-weight:bold">export&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">default&lt;/span> Table;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用时大致如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> Table, { ColumnProps } from &lt;span style="color:#cd5555">&amp;#34;../components/table&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">export&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">interface&lt;/span> User {
+id?: &lt;span style="color:#00688b;font-weight:bold">number&lt;/span> | &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>;
+username?: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>;
+password?: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>;
+email?: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>;
+gender?: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>;
+age?: &lt;span style="color:#00688b;font-weight:bold">number&lt;/span>;
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> render() {
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> users = [{ name: &lt;span style="color:#cd5555">&amp;#34;ziv&amp;#34;&lt;/span>, birth: &lt;span style="color:#cd5555">&amp;#39;1991&amp;#39;&lt;/span> }];
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> columns: &lt;span style="color:#00688b;font-weight:bold">Array&lt;/span>&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">ColumnProps&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;lt;&lt;/span>&lt;span style="color:#658b00">User&lt;/span>&amp;gt;&amp;gt; = [
+{ Key: &lt;span style="color:#cd5555">&amp;#34;id&amp;#34;&lt;/span>, name: &lt;span style="color:#cd5555">&amp;#34;ID&amp;#34;&lt;/span>, dataIndex: &lt;span style="color:#cd5555">&amp;#34;id&amp;#34;&lt;/span> }, &lt;span style="color:#228b22">// invalid, Key 并属于 ColumnProps 类型, 应该是 key
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> { key: &lt;span style="color:#cd5555">&amp;#34;name&amp;#34;&lt;/span>, name: &lt;span style="color:#cd5555">&amp;#34;姓名&amp;#34;&lt;/span>, dataIndex: &lt;span style="color:#cd5555">&amp;#34;sex&amp;#34;&lt;/span> }, &lt;span style="color:#228b22">// invalid, sex 属性并不存在于 User 类型,
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> ];
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> (
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">Table&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;lt;&lt;/span>&lt;span style="color:#658b00">User&lt;/span>&amp;gt; data={users} columns={columns}/&amp;gt; &lt;span style="color:#228b22">// invalid, 数组对象 users 并不是于 User 数组类型
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span>&amp;gt;
+);
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>很显然上面的&lt;code>data&lt;/code>和&lt;code>column&lt;/code>需要按&lt;code>User&lt;/code>和&lt;code>ColumnProps&lt;/code>的约束来传值，否则编译器就会抛出&lt;code>类型错误。&lt;/code>&lt;/p>
+&lt;h2 id="再看一个栗子使用泛型-封装个-http-工具类">再看一个栗子，使用泛型 封装个 HTTP 工具类&lt;/h2>
+&lt;p>首先，我们声明一个 Http 接口类型&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-typescript" data-lang="typescript">
+&lt;span style="color:#8b008b;font-weight:bold">export&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">default&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">interface&lt;/span> HttpInterface {
+&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22"> * HTTP Get method
+&lt;/span>&lt;span style="color:#228b22"> * @param url request URL
+&lt;/span>&lt;span style="color:#228b22"> * @param params request Parameter
+&lt;/span>&lt;span style="color:#228b22"> */&lt;/span>
+get&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span> &lt;span style="color:#658b00">P &lt;/span>= {}&amp;gt;(url: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>, params?: &lt;span style="color:#00688b;font-weight:bold">P&lt;/span>): Promise&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt;;
+&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22"> * HTTP Post method
+&lt;/span>&lt;span style="color:#228b22"> * @param url request URL
+&lt;/span>&lt;span style="color:#228b22"> * @param body request body object
+&lt;/span>&lt;span style="color:#228b22"> */&lt;/span>
+post&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span> &lt;span style="color:#658b00">P &lt;/span>= {}&amp;gt;(url: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>, body?: &lt;span style="color:#00688b;font-weight:bold">P&lt;/span>): Promise&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt;;
+&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22"> * Post an object as a formData object
+&lt;/span>&lt;span style="color:#228b22"> * @param url request URL
+&lt;/span>&lt;span style="color:#228b22"> * @param params the params object that wait to convert to formData
+&lt;/span>&lt;span style="color:#228b22"> */&lt;/span>
+postAsFormData&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span> &lt;span style="color:#658b00">P &lt;/span>= {}&amp;gt;(url: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>, params?: &lt;span style="color:#00688b;font-weight:bold">P&lt;/span>): Promise&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt;;
+&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22"> * Post a form element
+&lt;/span>&lt;span style="color:#228b22"> * @param url request URL
+&lt;/span>&lt;span style="color:#228b22"> * @param form HTML Form element
+&lt;/span>&lt;span style="color:#228b22"> */&lt;/span>
+postForm&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt;(url: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>, form: &lt;span style="color:#00688b;font-weight:bold">HTMLElement&lt;/span>): Promise&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt;;
+&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22"> * Http request
+&lt;/span>&lt;span style="color:#228b22"> * @param url request URL
+&lt;/span>&lt;span style="color:#228b22"> * @param options request options
+&lt;/span>&lt;span style="color:#228b22"> */&lt;/span>
+request&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt;(url: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>, options?: &lt;span style="color:#00688b;font-weight:bold">RequestInit&lt;/span>): Promise&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt;;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后用一个类（class）实现 Http 接口:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-typescript" data-lang="typescript">
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> &lt;span style="color:#cd5555">&amp;#34;whatwg-fetch&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> HttpInterface from &lt;span style="color:#cd5555">&amp;#34;./interface&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">class&lt;/span> Http &lt;span style="color:#8b008b;font-weight:bold">implements&lt;/span> HttpInterface {
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> get&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span> &lt;span style="color:#658b00">P &lt;/span>= {}&amp;gt;(url: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>, params?: &lt;span style="color:#00688b;font-weight:bold">P&lt;/span>): Promise&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt; {
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> newUrl: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span> = params ? &lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.build(url, params) : url;
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.request&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt;(newUrl, {
+method: &lt;span style="color:#cd5555">&amp;#34;GET&amp;#34;&lt;/span>,
+});
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> post&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span> &lt;span style="color:#658b00">P &lt;/span>= {}&amp;gt;(url: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>, body?: &lt;span style="color:#00688b;font-weight:bold">P&lt;/span>): Promise&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt; {
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> options: &lt;span style="color:#00688b;font-weight:bold">RequestInit&lt;/span> = { method: &lt;span style="color:#cd5555">&amp;#34;POST&amp;#34;&lt;/span> };
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (body) {
+options.body = JSON.stringify(body);
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.request&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt;(url, options);
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> postAsFormData&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span> &lt;span style="color:#658b00">P &lt;/span>= {}&amp;gt;(url: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>, params?: &lt;span style="color:#00688b;font-weight:bold">P&lt;/span>): Promise&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt; {
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> options: &lt;span style="color:#00688b;font-weight:bold">RequestInit&lt;/span> = { method: &lt;span style="color:#cd5555">&amp;#34;POST&amp;#34;&lt;/span> };
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (params) {
+options.body = &lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.buildFormData(params);
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.request&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt;(url, options);
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> postForm&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt;(url: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>, form: &lt;span style="color:#00688b;font-weight:bold">HTMLFormElement&lt;/span>): Promise&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt; {
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> options: &lt;span style="color:#00688b;font-weight:bold">RequestInit&lt;/span> = { method: &lt;span style="color:#cd5555">&amp;#34;POST&amp;#34;&lt;/span> };
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (form) {
+options.body = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> FormData(form);
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.request&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt;(url, options);
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> request&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt;(url: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>, options?: &lt;span style="color:#00688b;font-weight:bold">RequestInit&lt;/span>): Promise&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt; {
+options.credentials = &lt;span style="color:#cd5555">&amp;#34;same-origin&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> fetch(url, options)
+.then&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">R&lt;/span>&amp;gt;((response) =&amp;gt; {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> response.json();
+})
+.&lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span>( (err) =&amp;gt; {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> err;
+});
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> build(url: &lt;span style="color:#00688b;font-weight:bold">string&lt;/span>, params: &lt;span style="color:#00688b;font-weight:bold">any&lt;/span>) {
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> ps = [];
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (params) {
+&lt;span style="color:#8b008b;font-weight:bold">for&lt;/span> (&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> p &lt;span style="color:#8b008b;font-weight:bold">in&lt;/span> params) {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (p) {
+ps.push(p + &lt;span style="color:#cd5555">&amp;#34;=&amp;#34;&lt;/span> + &lt;span style="color:#658b00">encodeURIComponent&lt;/span>(params[p]));
+}
+}
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> url + &lt;span style="color:#cd5555">&amp;#34;?&amp;#34;&lt;/span> + ps.join(&lt;span style="color:#cd5555">&amp;#34;&amp;amp;&amp;#34;&lt;/span>);
+}
+&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> buildFormData(params: &lt;span style="color:#00688b;font-weight:bold">any&lt;/span>) {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (params) {
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> data = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> FormData();
+&lt;span style="color:#8b008b;font-weight:bold">for&lt;/span> (&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> p &lt;span style="color:#8b008b;font-weight:bold">in&lt;/span> params) {
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span> (p) {
+data.append(p, params[p]);
+}
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> data;
+}
+}
+}
+&lt;span style="color:#8b008b;font-weight:bold">export&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">default&lt;/span> Http;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>代码中，我们分别使用泛型&lt;code>R&lt;/code>和&lt;code>P&lt;/code>分别来约束请求&lt;code>返回数据&lt;/code>类型和&lt;code>请求参数&lt;/code>类型，
+所以当我们在调用时便可以按我们约定的类型来返回数据：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> HttpImpl from &lt;span style="color:#cd5555">&amp;#34;../utils/http&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">const&lt;/span> Http = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> HttpImpl();
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> getUsers() {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> Http.get&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">User&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">[]&lt;/span>&amp;gt;(&lt;span style="color:#cd5555">&amp;#34;/user&amp;#34;&lt;/span>); &lt;span style="color:#228b22">// 返回 Promise&amp;lt;User[]&amp;gt;
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>}
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> updateUser(user: &lt;span style="color:#00688b;font-weight:bold">User&lt;/span>) {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> Http.post&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">User&lt;/span>&amp;gt;(&lt;span style="color:#cd5555">&amp;#34;/user/login&amp;#34;&lt;/span>, user); &lt;span style="color:#228b22">// Promise&amp;lt;User&amp;gt;
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="一些使用技巧tips">一些使用技巧（Tips)&lt;/h2>
+&lt;ul>
+&lt;li>泛型继承&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> merge&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span> &lt;span style="color:#658b00">extends&lt;/span> &lt;span style="color:#658b00">object&lt;/span>&amp;gt;(obj: &lt;span style="color:#00688b;font-weight:bold">T&lt;/span>) {}
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>继承某个泛型对象的属性&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> getProperty&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">,&lt;/span> &lt;span style="color:#658b00">K&lt;/span> &lt;span style="color:#658b00">extends&lt;/span> &lt;span style="color:#658b00">keyof&lt;/span> &lt;span style="color:#658b00">T&lt;/span>&amp;gt;(obj: &lt;span style="color:#00688b;font-weight:bold">T&lt;/span>, key: &lt;span style="color:#00688b;font-weight:bold">K&lt;/span>) {
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> obj[key];
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>设置默认泛型值&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-typescript" data-lang="typescript">&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> func&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">=&lt;/span>&lt;span style="color:#658b00">string&lt;/span>&amp;gt;(obj: &lt;span style="color:#00688b;font-weight:bold">T&lt;/span>) {}
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> func&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">T&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">=&lt;/span>&lt;span style="color:#658b00">User&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">&amp;amp;&lt;/span>{ &lt;span style="color:#658b00">name&lt;/span>&lt;span style="color:#a61717;background-color:#e3d2d2">:&lt;/span> &lt;span style="color:#658b00">string&lt;/span> }&amp;gt;(obj: &lt;span style="color:#00688b;font-weight:bold">T&lt;/span>) {}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="最后">最后&lt;/h2>
+&lt;p>使用泛型（Generics）显然对我们的一些通用的对象或者组件提供了一种非常灵活的类型约束方式，某些情况下&lt;code>明确的类型&lt;/code>(甚至使用 any )约束可能会是更好的选择，在实际应用中我们更多的是需要站在使用&lt;code>API使用者&lt;/code>的角度来设计这些类型约束。&lt;/p>
+- //imziv.com/posts/2019/%E4%BA%86%E8%A7%A3%E5%92%8C%E5%AE%9E%E8%B7%B5-typescript-%E7%9A%84%E6%B3%9B%E5%9E%8B-generics/ - 2012-2020 Ziv小威</description></item><item><title>测试不该是软件构建质量唯一的防线</title><link>//imziv.com/posts/2019/%E6%B5%8B%E8%AF%95%E4%B8%8D%E8%AF%A5%E6%98%AF%E8%BD%AF%E4%BB%B6%E6%9E%84%E5%BB%BA%E8%B4%A8%E9%87%8F%E5%94%AF%E4%B8%80%E7%9A%84%E9%98%B2%E7%BA%BF/</link><pubDate>Thu, 04 Jul 2019 14:10:51 +0000</pubDate><guid>//imziv.com/posts/2019/%E6%B5%8B%E8%AF%95%E4%B8%8D%E8%AF%A5%E6%98%AF%E8%BD%AF%E4%BB%B6%E6%9E%84%E5%BB%BA%E8%B4%A8%E9%87%8F%E5%94%AF%E4%B8%80%E7%9A%84%E9%98%B2%E7%BA%BF/</guid><description>让美的事情发生 //imziv.com/posts/2019/%E6%B5%8B%E8%AF%95%E4%B8%8D%E8%AF%A5%E6%98%AF%E8%BD%AF%E4%BB%B6%E6%9E%84%E5%BB%BA%E8%B4%A8%E9%87%8F%E5%94%AF%E4%B8%80%E7%9A%84%E9%98%B2%E7%BA%BF/ -&lt;p>在实际项目开发过程中，我们经常会看到一个现象，很多团队把产品质量全押宝在测试环节上，这显然是不够科学的。测试只是发现问题的一种手段，而本身不能解决问题。而产品质量问题是个体系问题，体系问题则需要系统的解决方法，所以押宝在任一环节都不足以达到我们所期望的结果。开发团队陷入这种思维的原因，往往还是构建环节上的问题，而对”软件工程“的理解决定了我们所采用的构建方法。采用什么样的态度与方法，很大程度上是取决于我们如何看待”软件开发“这件事情。&lt;/p>
+&lt;p>用生活中的&lt;code>意象&lt;/code>来描述软件开发中的问题是一种非常方便的帮助我们理解软件开发中的概念和问题的方法，例如我们用 Bug 这个单词表示软件&lt;code>缺陷&lt;/code>。不同的意象决定了我们对待其构建的方法，而不同的构建方法决定了我们项目的成败和质量。如果你把软件开发理解为”写作“，那么可能就偏随性一些，想到哪写到哪，如果你理解为软件开发为盖间房子或者一大栋房子，那么我们采取的方法自然就是千差万别。很显然，实际的项目复杂度和工程量是千差万别的，要求也可能不尽相同，不同的情况我们需要采取相对应的开发方法，更有利于我们按时，按质量的完成开发目标。&lt;/p>
+&lt;h4 id="不同构建环节的缺陷检测率">不同构建环节的缺陷检测率&lt;/h4>
+&lt;p>我都熟悉软件开发的一些主要环节（详细设计、编码、调试、集成、开发者测试), 而其中开发者测试又分单元测试，集成测试等部分。可想而知，软件开发包含如此多的活动，而且各个环节都需要不同的人员进行相互配合，遵循木桶原理，任何环节的短缺都不足以早出质量过硬的产品。下图展示了各个开发环节对软件缺陷检测率的影响情况：&lt;/p>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEB070c733c59fdd2c58edecbf7c68cf3a9?method=download&amp;amp;shareKey=044bc0a6a10604d0882629a4a2ebc0be" alt="the check rate of bugs">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>上图的数据还是比较有意思的。如果不算上大规模 Beta 测试，在所有检错措施中，最低检出率最高的是正式代码检查阶段，为 45%，典型检出率最高则为建立模型或者原型 65%，最好检出率则仍然是建立模型或者原型这一措施。从整个检错措施中我们可以看出，无论是哪一项措施都无法到达足够的检出率，所以现实开发中，往往是会结合多个措施作用到项目上，才能达到比较好的结果。&lt;/p>
+&lt;p>现实中的软件开发工作比较复杂，受限于例如人员、时间、团队等资源因素的限制，所以并不是所有的构建方法都会使用这种构建组合，而是适当的根据自己的情况做一些调整。下图是极限编程（Extreme Programming）缺陷检出率的一份评估表：&lt;/p>
+&lt;p>&lt;img src="https://note.youdao.com/yws/api/personal/file/WEB7b3504466a04258139ff9d846556ea7f?method=download&amp;amp;shareKey=521d536996dacb471ef30496c2ae0c6f" alt="极限编程">&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>极限编程是一种轻量级的软件工程方法，其提倡对需求能做快速响应。所以在整个构建活动上也是有所缩减。目前很多小型团队都是采用这种软件工程的方法论。&lt;/p>
+&lt;h4 id="形成合适团队的构建方法">形成合适团队的构建方法&lt;/h4>
+&lt;p>很显然没有完美的构建方法，受限于业务模式，团队，时间等各种因素的制约，我们很难按照一些软件工程的方法论进行全面实践，需要适当的对一些环节进行裁剪和调整。《代码大全》在书中推荐了一种基本的构建质量的组合：&lt;/p>
+&lt;ol>
+&lt;li>对所有的需求，架构，系统关键部分的设计进行正式检查&lt;/li>
+&lt;li>建模或者创建原型 (原型评审，设计检查)&lt;/li>
+&lt;li>代码阅读或者检查&lt;/li>
+&lt;li>执行测试（单元测试，集成测试，回归测试）&lt;/li>
+&lt;/ol>
+&lt;p>即使缩短到这么几个构建环节，很多团队都做不好，或者是做不了，例如在实际工作中，我发现很多团队原型评审上很粗糙，没有代码审查，测试只有基本的功能测试，对于一个想挣钱的商业项目来讲，这显然是不够可靠的。&lt;/p>
+&lt;p>至此，在给产品做质量体系建立工作的时候，越早设立质量目标，且越早做规划越好。测试显然是非常重要的一环，不过想要达到更高的质量目标，我们应该尽量使用组合拳。&lt;/p>
+- //imziv.com/posts/2019/%E6%B5%8B%E8%AF%95%E4%B8%8D%E8%AF%A5%E6%98%AF%E8%BD%AF%E4%BB%B6%E6%9E%84%E5%BB%BA%E8%B4%A8%E9%87%8F%E5%94%AF%E4%B8%80%E7%9A%84%E9%98%B2%E7%BA%BF/ - 2012-2020 Ziv小威</description></item><item><title>再看《千与千寻》</title><link>//imziv.com/posts/2019/%E5%86%8D%E7%9C%8B%E5%8D%83%E4%B8%8E%E5%8D%83%E5%AF%BB/</link><pubDate>Sun, 30 Jun 2019 23:19:32 +0000</pubDate><guid>//imziv.com/posts/2019/%E5%86%8D%E7%9C%8B%E5%8D%83%E4%B8%8E%E5%8D%83%E5%AF%BB/</guid><description>让美的事情发生 //imziv.com/posts/2019/%E5%86%8D%E7%9C%8B%E5%8D%83%E4%B8%8E%E5%8D%83%E5%AF%BB/ -&lt;p>最早看《千与千寻》这部动画片应该是在大学的时候, 可过了好些年，一时真是想不起电影的剧情了，印象比较深的有的只是&lt;code>无脸男&lt;/code>，&lt;code>海上列车&lt;/code>这些经典形象。&lt;/p>
+&lt;p>老爷子电影的角色大多都是善良的，对社会传达的更多的也是积极的一面。误入陌生世界的千寻，幸好他先遇见了白龙，而后的&lt;code>锅炉爷爷&lt;/code>、&lt;code>小玲&lt;/code>对千寻也是照顾有加。即使像&lt;code>钱婆婆&lt;/code>这种眼里只知道钱，把不工作的人都变成了畜牲，而工作的视作挣钱机器的冷血之人最终还是答应给了千寻一份工作。而刚刚开始学会工作的千寻，迎来泡浴的的却是所有人都避之无不及的&lt;code>腐烂神&lt;/code>。没有退缩的千寻却不知他帮助的并不是什么&lt;code>腐烂神&lt;/code>, 而是被太多垃圾折磨的&lt;code>河神&lt;/code>。幸运的是帮助&lt;code>河神&lt;/code>解脱后，从它那里获得了一枚至关重要的丹药 —— 帮助一家人最终回到人类社会。&lt;/p>
+&lt;p>《千与千寻》是 1998 年宫崎骏拍完《幽灵公主》开始企划的作品，本身是想传达年轻少女面对这样一个复杂的社会，只要努力，勇敢面对，一样可以应付这样的生活。比较有意思的是，宫崎骏几乎所有的作品的主角都是少女形象。像《魔女宅急便》独自修行的&lt;code>小魔女琪琪&lt;/code>，《侧耳倾听》喜欢看书的女孩&lt;code>月岛滴滴&lt;/code>，《天空之城》的&lt;code>公主希达&lt;/code>等等&amp;hellip; 她们大都塑造的是善良，勇敢，努力，坚强的少女形象。 仔细想来，宫崎骏老爷子是个少女控呀~&lt;/p>
+- //imziv.com/posts/2019/%E5%86%8D%E7%9C%8B%E5%8D%83%E4%B8%8E%E5%8D%83%E5%AF%BB/ - 2012-2020 Ziv小威</description></item></channel></rss>

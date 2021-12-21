@@ -1,0 +1,483 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>让美的事情发生</title><link>//imziv.com/</link><description>Recent content on 让美的事情发生</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>2012-2020 Ziv小威</copyright><lastBuildDate>Thu, 16 Dec 2021 14:00:00 +0000</lastBuildDate><atom:link href="//imziv.com/index.xml" rel="self" type="application/rss+xml"/><item><title>作为 WEB 工程师，我们是不是应该积极的推进一下用户浏览器的使用体验？</title><link>//imziv.com/posts/2013/%E4%BD%9C%E4%B8%BAweb%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%91%E4%BB%AC%E6%98%AF%E4%B8%8D%E6%98%AF%E5%BA%94%E8%AF%A5%E7%A7%AF%E6%9E%81%E7%9A%84%E6%8E%A8%E8%BF%9B%E4%B8%80%E4%B8%8B%E7%94%A8%E6%88%B7%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</link><pubDate>Thu, 14 Nov 2013 15:24:00 +0000</pubDate><guid>//imziv.com/posts/2013/%E4%BD%9C%E4%B8%BAweb%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%91%E4%BB%AC%E6%98%AF%E4%B8%8D%E6%98%AF%E5%BA%94%E8%AF%A5%E7%A7%AF%E6%9E%81%E7%9A%84%E6%8E%A8%E8%BF%9B%E4%B8%80%E4%B8%8B%E7%94%A8%E6%88%B7%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</guid><description>让美的事情发生 //imziv.com/posts/2013/%E4%BD%9C%E4%B8%BAweb%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%91%E4%BB%AC%E6%98%AF%E4%B8%8D%E6%98%AF%E5%BA%94%E8%AF%A5%E7%A7%AF%E6%9E%81%E7%9A%84%E6%8E%A8%E8%BF%9B%E4%B8%80%E4%B8%8B%E7%94%A8%E6%88%B7%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/ -&lt;p>为什么会写这篇文章，其实是有原因的。目前我工作的公司的 Web 网站仅支持 IE8 以上的版本，然后我们经常接到客户的反馈，说为什么在他浏览器当中 flash 怎么显示不了，或者为什么在他浏览器中有这样那样的问题。有时候的确是一件很恼怒的事情。&lt;/p>
+&lt;p>　　我很想知道为什么在中国，使用 IE6 浏览器的人为什么还有这么多，为什么用户不愿意升级到体验更好，使用更方便的浏览器当中。其实我仔细想想，&lt;strong>毕竟用户打交道的 web 都是出自我们之手&lt;/strong>，虽然很多用户对有些互联网产品并不了解，但是我们作为开发者是可以比较好的去引导用户去提升使用体验。这无论是对用户，产品，开发者来说都是有益的。下图是 13 年 CNZZ 关于浏览器使用的一个统计：
+&lt;img src="//imziv.com/posts/2013/img/browser.jpg" alt="browser">&lt;/p>
+&lt;p>　　老版本的浏览器在体验上并不好，而且漏洞又多，对于这个鱼龙混杂的互联网时代来说，对自己隐私，财产也是有不小的安全隐患，同时无论是对于用户，产品，开发者来说这都是一件不好的事情。尤其是还有很多用户停留在的 IE6 浏览器。无论其加载速度，渲染效果，还是对 css3 和 HTML5 等等新特性的支持上都不好，然后这些新特性，在新版本的浏览器中都得到了实现，其用户体验是老版本 IE 所不能比的。所以从用户体验的角度而言，作为开发者本身就是为用户服务的，我们更应该促使用户去升级浏览器，去增强体验和用户感受。当时据我观察，我们大部分 web 工程师并没有这样干，或者说干的并不好。&lt;/p>
+&lt;p>　　通常我们针对 IE6 就是这样处理的：&lt;/p>
+&lt;p>　　1.兼容到 IE8，放弃 IE6；（我目前的做法）&lt;/p>
+&lt;p>　 2.兼容 IE6，并没有引导用户升级；&lt;/p>
+&lt;p>　　3.做到兼容，并且引导用户升级或者更换其他更好体验的浏览器。（这样做的目前我见到的网站很少）&lt;/p>
+&lt;p>　　总结：&lt;/p>
+&lt;p>　　很明显，如果我们开发人员能在开发产品的时候，去引导用户升级体验的话，我相信可以帮助很多用户获取更好的体验，从而提升产品的体验。这同时也能减轻开发者处理兼容性问题的负担。由于很多中国互联网用户在浏览器产品上面缺乏一定的常识，所以很多人不知道也不会如何升级产品，如果我们能做出更人性化的引导，我相信至少还是有些作用的。&lt;/p>
+- //imziv.com/posts/2013/%E4%BD%9C%E4%B8%BAweb%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%91%E4%BB%AC%E6%98%AF%E4%B8%8D%E6%98%AF%E5%BA%94%E8%AF%A5%E7%A7%AF%E6%9E%81%E7%9A%84%E6%8E%A8%E8%BF%9B%E4%B8%80%E4%B8%8B%E7%94%A8%E6%88%B7%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/ - 2012-2020 Ziv小威</description></item><item><title>我快成为了我一直讨厌的那种人（说好的回来好好做人呢？）</title><link>//imziv.com/posts/2013/%E6%88%91%E5%BF%AB%E6%88%90%E4%B8%BA%E4%BA%86%E6%88%91%E4%B8%80%E7%9B%B4%E8%AE%A8%E5%8E%8C%E7%9A%84%E9%82%A3%E7%A7%8D%E4%BA%BA%E8%AF%B4%E5%A5%BD%E7%9A%84%E5%9B%9E%E6%9D%A5%E5%A5%BD%E5%A5%BD%E5%81%9A%E4%BA%BA%E5%91%A2/</link><pubDate>Mon, 28 Oct 2013 19:41:00 +0000</pubDate><guid>//imziv.com/posts/2013/%E6%88%91%E5%BF%AB%E6%88%90%E4%B8%BA%E4%BA%86%E6%88%91%E4%B8%80%E7%9B%B4%E8%AE%A8%E5%8E%8C%E7%9A%84%E9%82%A3%E7%A7%8D%E4%BA%BA%E8%AF%B4%E5%A5%BD%E7%9A%84%E5%9B%9E%E6%9D%A5%E5%A5%BD%E5%A5%BD%E5%81%9A%E4%BA%BA%E5%91%A2/</guid><description>让美的事情发生 //imziv.com/posts/2013/%E6%88%91%E5%BF%AB%E6%88%90%E4%B8%BA%E4%BA%86%E6%88%91%E4%B8%80%E7%9B%B4%E8%AE%A8%E5%8E%8C%E7%9A%84%E9%82%A3%E7%A7%8D%E4%BA%BA%E8%AF%B4%E5%A5%BD%E7%9A%84%E5%9B%9E%E6%9D%A5%E5%A5%BD%E5%A5%BD%E5%81%9A%E4%BA%BA%E5%91%A2/ -&lt;p>　文章使用这个标题别无他意，主要是本身对自己当前的学习和生活状态非常的不满，算是自嘲且提醒勉励自己。计划的生活，从来没有按计划去实施过，马上快工作一年了，除了刚开始的几个月进步比较快，但如今却感觉自己好像遇到了瓶颈，技术学习上一直没有太多的进步。下面来看看我是怎么计划好自己每周学习计划的：&lt;/p>
+&lt;p>周一至周五：除去每天白天的正常上班时间，完成自己的份内的工作外，且在工作中记录一些典型的问题。晚上回家阅读有关技术方面的书籍，包括算法，操作系统，javascript,java 等基础的内容；
+周六：我会根据平时工作内容的记录，做相应的学习总结，然后记录博文，也就是说一星期起码有一篇总结性的文章。另外我会尝试去翻译国外大牛的博文或者其他开源技术的教程，学习增加英文水平。其他时间我会去写写自己的小工具，尝试写小的 js 插件什么的；
+周日：由于个人比较喜欢音乐，由于之前不久买了一把吉他，所以想好好学习一下这个乐器，另外一值也想学习几首英语歌曲，一是为学习英语增加兴趣，另一点也是因为喜欢音乐，个人也比较喜欢看电影，偶尔去影院看场电影，略作点评。
+　　上面的计划看起来很美好对不对？我也觉得很美好，但是！我基本没有做好任何一件事情！针对以上简略的学习计划，我买了一本 Javascript 书籍，然后从同事那边借来了各种设计模式等等计算机的书，浏览器也收藏了各种技术博客，开源网站。买的那本 JS 书籍本来一个月就可以看完的，我却迟迟到 9 月底才看完。好吧，看看我是怎么完成计划的吧：&lt;/p>
+&lt;p>周一～周五：工作基本上是完成了，但是效率相比以前降低了不少，具体原因在此不做分析。至于工作记录，做过，但是很少，且并没有做整理和分析。书籍，晚上偶尔看几页书，坚持不了很久就睡觉。然后大部分时间就是看电视剧或者看别人打游戏，好吧，电视剧是我曾经鄙视别人看的那些（不过没有神马偶像剧！），游戏自己不玩，但是喜欢看别人打，这就更可悲了～不谈了，太惨淡了。
+周六：赫赫～早上起来的比较晚，基本上洗刷完就差不多得去买菜，然后回来做饭吃饭，上午的时间就没有了。下午有时候犯困，接着睡～博文周六很少写，偶尔会去看看博文，逛逛一些技术社区。然后继续看电视剧。差不多一天就又这样过去了。翻译目前我就翻译了 2 篇，而且很短的那种。尝试写很多工具，插件，但是都是开了头，没有过程，更谈不上结尾～shit!
+周日：除了近期有好电影回去观看以外，。其他时间与周日差不多，其他除了认识了几根弦，手指怎么拨，便没有什么进展了。英语歌尝试过，但是没有坚持，至今很多只会一句 2 句，还是高潮部分。shit! shit!
+　　今天为什么会这样吐槽自己，实在是有些忍受不了自己了。说好走完 318 回来好好做人的。。。。&lt;/p>
+&lt;p>　 也是由于今天巧合的看到了一些同行，同龄人的博客，看到了他们记录自己的人生和故事，我更是忍受不了当今自己的行径，跟他们比，我完全差的太远了。本身感觉自己最近一直没有太多的进步，生活乏味，没有目标，尤其是对 js 的学习产生兴趣后，便发现这就像是一个无底洞～各种各样的开源框架，先不说早期的 Jquery，dojo 什么的，什么 AngularJS，Nodejs,backbone,乱七八糟，今天想学这个，明天想学那个，搞了这么久，都是仅仅做了一个了解，连个皮毛都算不上。所以最近的学习也是相当的彷徨～&lt;/p>
+&lt;p>　　想起自己大一刚入学那个时候，当时那个学习状态时相当的疯狂，每天写代码，看书。记得大一春节那会回家，带了一本 java 基础的书，由于条件原因，我每天拿着本子超代码，吃完饭就回房间看书超代码。爸妈也不知道我在干什么，反正我不想任何人打扰我，那个时候在学校整体混迹于各种论坛，看到各种牛人和技术，觉得自己太弱太弱了，觉得自己有学不完的东西，所以也是相当的卖力，想追赶，想去学习各种高端的技术。回到学校每天也是写 C 语言，练习数据结构和算法，有时候在路上走路，脑袋还会想一些算法问题。可是到大二的时候情况又有些变化，那会和同学一起玩上了英雄联盟，所以写代码，看书也就没有以前那么多了，&lt;strong>不过我每天还是在坚持&lt;/strong>。但是明显进步速度下降了一大截。后来当大二要结束的时候，出去找实习工作期间，才发现自己各种不足。后来利用一个暑假，恶补了一些技术漏洞，最后才顺利找到工作。&lt;/p>
+&lt;p>　　工作了将近一年，发现自己并没有太多的进步，看看自己以前有过的疯狂学习劲头，看看如今自己的低靡颓废，有点过于安于现状，安于生活了。今天看到同样的一名 90 后，通过自己的努力，大学期间在 google,微软实习过，毕业后拿到 twitter 和 facebook 的 offer，看到他博客中记录自己从中学到大学的学习经历，觉得自己简直弱爆了，太弱了，视野太狭隘了，真的，太狭隘了。有兴趣的同学可以点击进去看看： &lt;a href="https://www.byvoid.com/zhs/blog/my-highschool-1">https://www.byvoid.com/zhs/blog/my-highschool-1&lt;/a>。&lt;/p>
+&lt;p>　　尤其今天看了很多前辈的博文，写记录自己过去一路走来的文章，然后看到这位同样 90 后的同行，看看现在自己的生活，看看自己曾经美好的计划，我就对自己喊了，shit~!真心讨厌现在的自己。简直看不下去。也许我有些激进了，但自己的确太差了。。。&lt;/p>
+&lt;p>　　吐槽的文字就先写到这吧，多余的不说了，有和我同样境况的同学一起加油吧～也欢迎和我交流。&lt;/p>
+- //imziv.com/posts/2013/%E6%88%91%E5%BF%AB%E6%88%90%E4%B8%BA%E4%BA%86%E6%88%91%E4%B8%80%E7%9B%B4%E8%AE%A8%E5%8E%8C%E7%9A%84%E9%82%A3%E7%A7%8D%E4%BA%BA%E8%AF%B4%E5%A5%BD%E7%9A%84%E5%9B%9E%E6%9D%A5%E5%A5%BD%E5%A5%BD%E5%81%9A%E4%BA%BA%E5%91%A2/ - 2012-2020 Ziv小威</description></item><item><title>程序员的 318 骑行之旅</title><link>//imziv.com/posts/2013/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84318%E9%AA%91%E8%A1%8C%E4%B9%8B%E6%97%85/</link><pubDate>Tue, 15 Oct 2013 10:39:00 +0000</pubDate><guid>//imziv.com/posts/2013/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84318%E9%AA%91%E8%A1%8C%E4%B9%8B%E6%97%85/</guid><description>让美的事情发生 //imziv.com/posts/2013/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84318%E9%AA%91%E8%A1%8C%E4%B9%8B%E6%97%85/ -&lt;p>马上到十一月了，算上实习的时段，即是我踏上社会工作一年时间了。今年 6 月份还回到母校拿去了我的毕业证，便依依不舍得继续回到了工作的岗位，继续码农的日子。拿毕业证期间，总共也就请了 3 天假，从南京回到武汉，想在毕业的时候好好玩一下，可是却什么也没有做，只是和同学吃了吃饭，叙叙旧，然后大家就各奔东西了。&lt;/p>
+&lt;p>大概 8 月份的时候，在网上看到了一朋友的召集帖，关于 9 月中旬骑行 318 国道去拉萨的信息。那段时间工作状态实属不好，效率也不高。想想今年自己刚刚毕业，说了好多次要疯狂一把却一直没有去实现，大学有时间的时候那会没钱，毕业工作有点钱却没有时间，确实是一件很纠结的事情。不过仔细研究了下 9 月份的时间，正是中秋和国庆假期在一起的时间，心中便盘算请半个月假，加上这些假期便刚刚够骑行 318 整个行程了。是的，我联系朋友了，决定加入这次旅行了～！大概在出发前半个月，我向老板提出了请假的请求，其实当时心中很忐忑，不知道老板会不会答应，不过最终老板同意了我的请假，当时也是非常大高兴，再次感谢老板的支持，让我拥有了这次刺激，欢乐，无数美景相伴的 318 骑行之旅～&lt;/p>
+&lt;p>　　9 月 12 号，我坐上了去成都的火车，在车上满满想的是对这次旅程的幻想。其实在这次骑行之前好多年我没怎么骑自行车了，大概大学的时候偶尔和同学出去骑骑自行车玩玩，然后就是在出发前一个月每晚尽量出去骑 15 公里左右，最远的估计也就是 20 多公里而已。当时骑行 318 国道从成都到拉萨，总路程是 2100 公里左右，平均每天 100 公里左右，攻略骑行周期是 24 天，其中翻越 4000 海拔以上的山峰有 12 座，包括 2 座 5000 海拔的山。有些路段的路都是泥浆，还伴随这滑坡，而旁边就是峭壁与大河。&lt;/p>
+&lt;p>　　在 9 月 13 号我已是到达了这座天府之城—成都。在成都简略的修整，然后做了些最后的准备，补给了一些装备，买了些保暖的衣物。在成都遇见些从拉萨过来的驴友，说那边天气有点冷，所以要准备些保暖的装备。9 月 15 号是我们出发的日子，浩浩荡荡的 15 个人便从成都出发，第一程 150 公里到雅安。那天早晨在成都买了 4 个包子，吃了一口实在难吃，我便全部扔了，这一顿早餐不吃，害的我一整天吃尽了亏，也是给我后来的行程上了一课！整个路程中队伍保持每小时 25 公里的时速，大约到中午的时候，骑行了将近 60 公里左右，离中午补给点还有 20 公里左右的时候，体力出现严重下滑，肚子相当空虚，任凭我怎么打起精神，就是没劲，怎么怎么就是踩不动，之后被大部队甩开了 10 公里左右，没办法，在后面我只能慢慢踩，后来发现一些被我们超越的队伍也是骑上来了，还有女汉子，对我我加油，当时心里难受的很，竟然被女汉子给超越了！只好停下车吃了吃随带的饼干，当时貌似并没有起太大的作用，当我骑到补给点的时候，大部队的午饭已经吃完了，我炒了一个餐，猛猛的吃了几碗饭，吃完大约调整了下，下午的 80 公里就又开始了。&lt;/p>
+&lt;p>　　吃完饭果然还是不一样，不过大概骑了 40 公里左右的时候，体力又出现下滑，还伴随着拉肚子，一路上不断的吃，喝红牛（大家都说只能是心理作用）。在离雅安市还有几公里，爬最后一个山坡的时候，已经 8 点钟了，队伍大部分人已经到了，而那个时候天已经黑了，我一个在后面拼命的爬那个坡，这个坡我骑上去，掉下来，骑上去，掉下来了我自己记不得有多少次，当时心里太难受了，想到了为什么没有人来帮我，想到了父母，真的，心里相当的难受，很无助。当时自己可能心有点太急了，因为比较晚了，天也黑了，人生地不熟，最后慢慢的终于推了上去，当看到最后几公里都是下坡的时候，一阵轻松，下去的时候连刹车也是没有带，一口气下去了。住到旅社的时候，下了驮包，人胃不知为何有点恶心想吐的感觉，找了张床，一动不动的躺了半个多小时，然后去洗澡，洗衣服，吃完饭就立马躺下休息了，那一夜下了一晚的大雨。&lt;/p>
+&lt;p>整个旅途中第一天是我最吃苦的一天，虽然后面的路程中要翻越很多大山，当时基本上低着头慢慢的踩，虽然呼吸的节奏连狗都不如，不过人那个时候也是有体力的。整个 318 专制平时失眠和各种挑食的患者，因为你不用担心你睡不着，你也不用担心你不吃，因为不吃的后果很严重。整个旅途基本每天都要翻越一座 4000 以上海拔的上，不断的上然后下，挺折腾人的。途中在芒康这个地方的那一晚竟然出现了高反，头疼的难受，当时海拔才 3900，因为那天才从 4000 多的山上下来，也没反应，下来后才有的反应，幸好老板那边有氧气，找人借了个氧气袋充了点养吸完睡了一觉后便好了。最后的一天里程数 174 公里，翻越一座 5000 多海拔的米拉雪山，从居住点到达垭口是 28 公里，爬山垭口我那天才用了 3 个半小时，天还没亮我们就出发了，那天连星星也没有，路上还下起了蒙蒙的雪花。由于在山顶逗留的时间比较久，中 12 点多才从山顶下来，那时候距离拉萨还有 140 多公里。一路下来是相当的冷，途中还遇到了冰雹，看着一阵大风过来，把我和自行车差点吹倒了，幸好当时离藏民的家不远，便躲了进去。谢谢那个藏族老奶奶，为我们开门，与藏族老奶奶交流时，发现老奶奶听不懂我说的什么，便没有多说什么。休息了半个多小时，冰雹和雨终于停了，然后继续上路。到拉萨的时候已经晚上 8 点钟了，竟然也没有太多的激动，想着太晚，便先找了一处青旅先住下了，改天去布达拉门前合影。&lt;/p>
+&lt;p>　　据说来骑行 318 中，有失恋患者，有失业患者，有创业失败患者，有学生党，当然也有我这种想完成毕业之旅的热血青年。其实挺好的，一路上景色非常美，与蓝天白云作伴，晚上还有非常多的星星，除了海拔高点，呼吸急促了些，的确是一件转移集中注意力的好去处～很多时候，我们都会觉得自己是神经病，因为脑袋发热才会爬这种几十公里的长坡，累的连狗都不如（自嘲一下）。不过爬坡让我也是总结了一点：人一生很多时候会遇见一个个很长的坡，你得慢慢的爬，你不知道你需要多久才能爬上去，每当你看到仿佛无穷无尽的折和坡的时候，你的心就有些害怕自己爬不上去，觉得自己不行。但是你要做的是，低头看自己脚下，一步一步走就好，不要看前面那么多的长坡，只要你有目标，你总会爬到山顶的~&lt;/p>
+&lt;p>　　最后非常怀恋和感谢一路陪伴的好伙伴们，好兄弟～相互帮忙，相互鼓励，感谢一路上碰到的对我们喊加油的大人，小孩，男人和女人们～！下面分享下路上美景的照片～&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2013/img/318.jpg" alt="318">&lt;/p>
+- //imziv.com/posts/2013/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84318%E9%AA%91%E8%A1%8C%E4%B9%8B%E6%97%85/ - 2012-2020 Ziv小威</description></item><item><title>简谈“开放平台”设计中的一些感悟</title><link>//imziv.com/posts/2013/%E7%AE%80%E8%B0%88%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/</link><pubDate>Wed, 28 Aug 2013 14:21:00 +0000</pubDate><guid>//imziv.com/posts/2013/%E7%AE%80%E8%B0%88%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/</guid><description>让美的事情发生 //imziv.com/posts/2013/%E7%AE%80%E8%B0%88%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/ -&lt;p>从 2012 年 11 月份实习开始，到现在 2013 年 9 月已经算是工作将近一年时间了,个人是从工作中学到了不少东西的。刚进公司的时候主要是负责平台服务器开发，后来由于我对前端的一些偏向，所有年后不久就转到公司前台业务的 Web 开发。因为我从公司开放平台服务的开发，然后到公司 web 产品的开发这 2 个部分都有参与，所以自己对公司的这个架构设计上和业务层面的一些设计也是有了自己比较深刻的感受。其中开发过程中发现公司开发平台设计中，由于一些不合理的设计，造成了公司之后的一些依赖开放平台服务器的项目的开发成本严重的增加，并影响了整个开放平台的生态和布局。仅此写文总结，并无他意，希望对自己之后的工作有帮助。下面让我细细讲解我的一些理解。&lt;/p>
+&lt;h2 id="开放平台的理解">开放平台的理解　　&lt;/h2>
+&lt;p>　　开放平台简而言之即是一个可提供数据接口的服务器，什么样的数据就要根据具体的业务了。如今各大公司都有自己相应的开放平台，例如新浪微博的开放平台，百度开放平台等等。开放平台主要是给开发者提供了丰富的数据接口，让开发者在利用已有的开放平台的基础上可以轻松的开发出满足自己业务设计的程序。所有一个开放平台的设计如果不合理会直接导致开发者的开发成本直接翻倍。开放平台本身是为了简化并降低开发者的开发成本的，如果由于设计的不合理，返回会造成帮倒忙情况。&lt;/p>
+&lt;h2 id="公司的开放平台的现状">公司的开放平台的现状&lt;/h2>
+&lt;p>　　公司开放平台的主要功能是为开发者和公司用户提供数据支持，其中主要存贮处理的是从远程硬件设备上面采集过来的传感器数据，并支持对相应的设备进行远程控制。当然，平台支持开发者注册接入自己的传感器和控制设备的，并提供公司项目和产品的支持。起初，这个平台包含的内容比较少，只是对简单的传感器，控制设备进行的管理和数据处理。后来由于公司在开发一些项目时候，由于业务的需求，逐渐抽象了一些新的概念，例如：场景，权限。当时平台团队为了适应更多的项目，并且为了满足公司 web 项目组和手机项目组的接口需求，在没有慎重考虑的情况下，决定把业务性的东西给设计到了开发平台当中，但是当时只是迎合了当前的项目，对广泛的需求欠缺了考虑。而后果是可想而知的。下面是平台对外数据支持的一个结构图：&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2013/img/platform.png" alt="platform">&lt;/p>
+&lt;p>　　 在平台为了适应项目上的一些需求的同时，由于融入了相应的业务概念后，当为了满足公司移动端和 web 产品更多的项目开发需要的时候，平台组不得不为了不断的需求变动对平台的设计再三的更改，同时也需要提供越来越多的接口。由于平台在业务上过多的设计，导致的一个很明显的结果就是，发现开放平台总是不能满足新项目的需求，而平台开发团队老是要重新的设计和开发。具体后遗症我总结的有下面几条：&lt;/p>
+&lt;p>开放平台由于不小心融入了过度的业务性设计，开放平台一点都不开放！有强烈的业务定制化性质！
+平台陷入了重新设计开发的恶性循环，增加了平台团队后期的开发成本和维护成本
+开发者发现开放平台并不能满足自己项目的业务需求
+公司 web 项目组每次的开发周期并未得到缩短，反而由于每次项目上的问题，在平台接口上花费了大量的精力
+开放平台丢失了为开发者提供开放接口的本质
+　　由于整个平台支撑着公司所有产品与项目的运营，同时目标是对外开放，所有由于这些设计上的失误，对公司的整个产品线的影响是相当大的。个人体会是前期对这种开发平台的设计时一定要慎重考虑，不然后果是相当的麻烦的。&lt;/p>
+- //imziv.com/posts/2013/%E7%AE%80%E8%B0%88%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/ - 2012-2020 Ziv小威</description></item><item><title>jquery 实现文件异步上传</title><link>//imziv.com/posts/2013/jquery%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/</link><pubDate>Wed, 07 Aug 2013 18:18:00 +0000</pubDate><guid>//imziv.com/posts/2013/jquery%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/</guid><description>让美的事情发生 //imziv.com/posts/2013/jquery%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/ -&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>这里用了 2 个 JS 插件，一个是 Jquery 原生 js，我的版本是 jquery-1.7.2.min.js，另一个是 jquery.form.js。这个 form.js 是关键，不可少哦。另外，&lt;/p>
+&lt;p>我的服务器端用的是 Play Framework,版本是 2.1。下面是代码部分，贴出的是关键部分：&lt;/p>
+&lt;ul>
+&lt;li>前端代码
+html:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">form&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;form1&amp;#34;&lt;/span> &lt;span style="color:#658b00">method&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;POST&amp;#34;&lt;/span> &lt;span style="color:#658b00">action&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;/image/upload&amp;#34;&lt;/span> &lt;span style="color:#658b00">ENCTYPE&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;multipart/form-data&amp;#34;&lt;/span>&amp;gt;
+　　&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">input&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;uploadFile&amp;#34;&lt;/span> &lt;span style="color:#658b00">type&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;file&amp;#34;&lt;/span> &lt;span style="color:#658b00">name&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;myfile&amp;#34;&lt;/span> /&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">from&lt;/span>&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Javascript:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">$(&amp;#34;#uploadFile&amp;#34;).change(function(){
+var message = &amp;#34;t&amp;#34;;
+$(&amp;#34;#form1&amp;#34;).ajaxSubmit({
+method : &amp;#34;POST&amp;#34;,
+success : function(data){
+//成功　　　　　　　　　　　　　　　 if(data == &amp;#34;ok&amp;#34;){
+　　　　　　　　　　alert(&amp;#34;上传成功&amp;#34;)
+　　　　　　　　}else{　　　　　　　　　　alert(&amp;#34;上传失败&amp;#34;);　　　　　　　　}
+},
+error : function(){
+alert(&amp;#34;网络错误，请稍后重新尝试！&amp;#34;);
+}
+});
+});
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>服务端代码&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">void&lt;/span> upload(File myfile){
+&lt;span style="color:#658b00">String&lt;/span> msg = &lt;span style="color:#cd5555">&amp;#34;fail&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">try&lt;/span>{
+&lt;span style="color:#228b22">//图片写入路径,此处我的位置是项目的根目录
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> File temp = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> File(myfile.getName());
+&lt;span style="color:#228b22">//输入文件流
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> FileInputStream input = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> FileInputStream(myfile);
+&lt;span style="color:#228b22">//输出文件流
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> FileOutputStream out = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> FileOutputStream(temp);
+&lt;span style="color:#228b22">//每次写入的字节的大小
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">byte&lt;/span> [] b = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">byte&lt;/span>[&lt;span style="color:#b452cd">1024&lt;/span>];
+&lt;span style="color:#228b22">//文件长度
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">int&lt;/span> n;
+&lt;span style="color:#8b008b;font-weight:bold">while&lt;/span>((n=input.read(b)) != -&lt;span style="color:#b452cd">1&lt;/span>){
+&lt;span style="color:#228b22">//写入字节
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> out.write(b, &lt;span style="color:#b452cd">0&lt;/span>, n);
+}
+input.close();
+out.flush();
+out.close();
+msg = &lt;span style="color:#cd5555">&amp;#34;ok&amp;#34;&lt;/span>;
+}&lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span>(Exception e){
+Logger.error(&lt;span style="color:#cd5555">&amp;#34;Image.upload()&amp;#34;&lt;/span>, e.getMessage());
+}
+renderJSON(msg);
+}
+&lt;/code>&lt;/pre>&lt;/div>- //imziv.com/posts/2013/jquery%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0/ - 2012-2020 Ziv小威</description></item><item><title>Httpclient 实现带参文件上传</title><link>//imziv.com/posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</link><pubDate>Wed, 07 Aug 2013 17:13:00 +0000</pubDate><guid>//imziv.com/posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</guid><description>让美的事情发生 //imziv.com/posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/ -&lt;p>这里直接贴出的是我封装好的 doPostFile 方法,httpclient 的版本是 3.1。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">static&lt;/span> String &lt;span style="color:#008b45">doPostFile&lt;/span>(String url, Part[] parts){
+String response = &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>;
+PostMethod postMethod = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> PostMethod(url);
+&lt;span style="color:#8b008b;font-weight:bold">try&lt;/span>{
+&lt;span style="color:#228b22">//设置请求实体
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> postMethod.&lt;span style="color:#658b00">setRequestEntity&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> MultipartRequestEntity(parts,postMethod.&lt;span style="color:#658b00">getParams&lt;/span>()));
+HttpClient client = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> HttpClient();
+&lt;span style="color:#228b22">//设置连接超时限度
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> client.&lt;span style="color:#658b00">getHttpConnectionManager&lt;/span>().&lt;span style="color:#658b00">getParams&lt;/span>().&lt;span style="color:#658b00">setConnectionTimeout&lt;/span>(5000);
+client.&lt;span style="color:#658b00">executeMethod&lt;/span>(postMethod);
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(postMethod.&lt;span style="color:#658b00">getStatusCode&lt;/span>() == HttpStatus.&lt;span style="color:#658b00">SC_OK&lt;/span>){
+response = &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> String(postMethod.&lt;span style="color:#658b00">getResponseBodyAsString&lt;/span>().&lt;span style="color:#658b00">getBytes&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;utf-8&amp;#34;&lt;/span>));
+}
+} &lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span>(Exception e){
+LOGGER.&lt;span style="color:#658b00">error&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;HttpServiceSender.doPostFile()&amp;#34;&lt;/span>,e.&lt;span style="color:#658b00">getMessage&lt;/span>());
+} &lt;span style="color:#8b008b;font-weight:bold">finally&lt;/span> {
+postMethod.&lt;span style="color:#658b00">releaseConnection&lt;/span>();
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> response;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>调用此方法的代码，注意参数的传递方式&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#8b008b;font-weight:bold">public&lt;/span> String &lt;span style="color:#008b45">uploadImage&lt;/span>(File file,String id,String name){
+String result = &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">try&lt;/span>{
+&lt;span style="color:#228b22">//文件part,new FilePart添加的是File类型的文件，后面StringPart则为字符串参数
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> Part[] parts = { &lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> FilePart(&lt;span style="color:#cd5555">&amp;#34;file&amp;#34;&lt;/span>, file),
+&lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> StringPart(&lt;span style="color:#cd5555">&amp;#34;id&amp;#34;&lt;/span>, id),
+&lt;span style="color:#8b008b;font-weight:bold">new&lt;/span> StringPart(&lt;span style="color:#cd5555">&amp;#34;id&amp;#34;&lt;/span>,name)};
+result = HttpServiceSender.&lt;span style="color:#658b00">doPostFile&lt;/span>(SERVER+&lt;span style="color:#cd5555">&amp;#34;service/resource/upload&amp;#34;&lt;/span>,parts);
+}&lt;span style="color:#8b008b;font-weight:bold">catch&lt;/span>(Exception e){
+Logger.&lt;span style="color:#658b00">error&lt;/span>(&lt;span style="color:#cd5555">&amp;#34;ImageService.uploadImage()&amp;#34;&lt;/span>, e.&lt;span style="color:#658b00">getMessage&lt;/span>());
+}
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> result;
+}
+&lt;/code>&lt;/pre>&lt;/div>- //imziv.com/posts/2013/httpclient-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/ - 2012-2020 Ziv小威</description></item><item><title>Javascript 的字面量对象以及如何拆解字面量对象</title><link>//imziv.com/posts/2013/javascript%E7%9A%84%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E6%8B%86%E8%A7%A3%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1/</link><pubDate>Thu, 18 Jul 2013 14:28:00 +0000</pubDate><guid>//imziv.com/posts/2013/javascript%E7%9A%84%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E6%8B%86%E8%A7%A3%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1/</guid><description>让美的事情发生 //imziv.com/posts/2013/javascript%E7%9A%84%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E6%8B%86%E8%A7%A3%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1/ -&lt;p>简单的说，字面量对象提供了一直非常方便构建新对象的方式，它的格式非常简单且容易阅读。是大多数前端程序员在构建对象时比较推崇的一种方式。&lt;/p>
+&lt;h2 id="格式">格式&lt;/h2>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> person = {
+name : &lt;span style="color:#cd5555">&amp;#34;ziv&amp;#34;&lt;/span>,
+sex : &lt;span style="color:#cd5555">&amp;#34;男&amp;#34;&lt;/span>,
+age : &lt;span style="color:#cd5555">&amp;#34;22&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意字面量对象最后一个属性是不需要逗号的&lt;/p>
+&lt;h2 id="访问字面量对象的属性值">访问字面量对象的属性值&lt;/h2>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">person.name
+&lt;span style="color:#228b22">//或者采用数组形式传入属性的key取得value
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>person[name]
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>获取字面量对象的所有 key 值的集合：
+获取子字面量对象的所有 key 值，通常可以调用 Object 对象的 getOwnPropertyNames();这个方法，示例如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> arr = &lt;span style="color:#658b00">Object&lt;/span>.getOwnPropertyNames(literals);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>arr 为一个数组对象，取得 name 的值 arr[index];&lt;/p>
+&lt;h2 id="如何遍历字面量对象">如何遍历字面量对象&lt;/h2>
+&lt;p>方法一，也是推荐的一种方法，for&amp;hellip;in 循环&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> style = &lt;span style="color:#cd5555">&amp;#34;&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">for&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> property &lt;span style="color:#8b008b;font-weight:bold">in&lt;/span> literals){
+console.log(property); &lt;span style="color:#228b22">//属性值
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> console.log(literals[property]); &lt;span style="color:#228b22">//key值
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> style = style+property+&lt;span style="color:#cd5555">&amp;#34;:&amp;#34;&lt;/span>+literals[property]+&lt;span style="color:#cd5555">&amp;#34;;&amp;#34;&lt;/span>;
+}
+console.log(style); &lt;span style="color:#228b22">//组合成一个样式串
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>方法二，比较笨，可以先获取 property 集合值，然后通过遍历 property 获取 key 的值&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> propertys = &lt;span style="color:#658b00">Object&lt;/span>.getOwnPropertyNames(literals); &lt;span style="color:#228b22">//通过getOwnPropertyNames获取
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> style = &lt;span style="color:#cd5555">&amp;#34;&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">for&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> i = &lt;span style="color:#b452cd">0&lt;/span> ; i &amp;lt; propertys.length ; i++){
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> property = propertys[i];
+console.log(propertys[i]+&lt;span style="color:#cd5555">&amp;#34;:&amp;#34;&lt;/span>+literals[property]);
+style = style+propertys[i]+&lt;span style="color:#cd5555">&amp;#34;:&amp;#34;&lt;/span>+literals[property]+&lt;span style="color:#cd5555">&amp;#34;;&amp;#34;&lt;/span>;
+}
+console.log(style);
+&lt;/code>&lt;/pre>&lt;/div>- //imziv.com/posts/2013/javascript%E7%9A%84%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E6%8B%86%E8%A7%A3%E5%AD%97%E9%9D%A2%E9%87%8F%E5%AF%B9%E8%B1%A1/ - 2012-2020 Ziv小威</description></item><item><title>什么是 CouchDB？</title><link>//imziv.com/posts/2013/%E4%BB%80%E4%B9%88%E6%98%AFcouchdb/</link><pubDate>Fri, 05 Jul 2013 11:16:00 +0000</pubDate><guid>//imziv.com/posts/2013/%E4%BB%80%E4%B9%88%E6%98%AFcouchdb/</guid><description>让美的事情发生 //imziv.com/posts/2013/%E4%BB%80%E4%B9%88%E6%98%AFcouchdb/ -&lt;p>本文对 CouchDB 的解释是来自 Apache CouchDB 的官网的译文，如果有什么问题，请指正。&lt;/p>
+&lt;p>1.CouchDB 简介&lt;/p>
+&lt;p>CouchDB 是一种利用 JSON 文件，javascript 作为 MapReduce 查询，以及常规 HTTP 作为 API 的一种数据库系统。&lt;/p>
+&lt;p>2.CouchDB，一个为 Web 而生的数据库&lt;/p>
+&lt;p>CouchDB 是一个完全为了 web 而生的数据库，它利用了 JSON 文件来存贮数据。CouchDB 利用你的 web 浏览器，通过 HTTP，查询，结合来处理这些 JSON 文件，并且利用 Javascript 来传输这些数据。CouchDB 在现代浏览器以及移动浏览器上面的支持是非常好的，你甚至可以直接利用 CouchDB 来服务于你的 web 应用。你可以有效的利用 CouchDB 的增量复制特性去分发你的数据或者你的应用。CouchDB 利用了自动冲突检测功能，支持 master-master 的安装。&lt;/p>
+&lt;p>CouchDB 另外附增了一系列的特性，例如动态的文档转换，和实时的变更通知，CouchDB 的这些特性掀起了一股 web 应用开发的小风波。CouchDB 甚至携有一种简单的使用 web 管理控制的方式。这种特性直接由 CouchDB 提供。我们担心着大量的分布式扩展，CouchDB 是高可用性和分区容忍的，同时也是保持最终一致性的。我们一值都大量的关心着用户的数据。CouchDB 拥有着一个容错引擎，它将把你数据的安全始终放在第一位的。&lt;/p>
+&lt;p>※更多关于 CouchDB 请访问 Apach CouchDB 官网，此文意在简单介绍 CouchDB，一个利用了现代 web 的技术。&lt;a href="http://couchdb.apache.org/">http://couchdb.apache.org/&lt;/a>&lt;/p>
+- //imziv.com/posts/2013/%E4%BB%80%E4%B9%88%E6%98%AFcouchdb/ - 2012-2020 Ziv小威</description></item><item><title>JS 模拟 Alert 与 Confirm 对话框</title><link>//imziv.com/posts/2013/js%E6%A8%A1%E6%8B%9Falert%E4%B8%8Econfirm%E5%AF%B9%E8%AF%9D%E6%A1%86/</link><pubDate>Sun, 09 Jun 2013 13:09:00 +0000</pubDate><guid>//imziv.com/posts/2013/js%E6%A8%A1%E6%8B%9Falert%E4%B8%8Econfirm%E5%AF%B9%E8%AF%9D%E6%A1%86/</guid><description>让美的事情发生 //imziv.com/posts/2013/js%E6%A8%A1%E6%8B%9Falert%E4%B8%8Econfirm%E5%AF%B9%E8%AF%9D%E6%A1%86/ -&lt;p>这 2 个例子都是用原生 JS 写的，主要是用 JS 拼接了界面，并未做过多的事件监听。，样式用了 Css3 的一些特性。&lt;/p>
+&lt;p>调用方式则为：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">//Alert
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> Alert.show(&lt;span style="color:#cd5555">&amp;#39;我警告你哦~&amp;#39;&lt;/span>);
+&lt;span style="color:#228b22">//Confirm
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> Confirm.show(&lt;span style="color:#cd5555">&amp;#39;我是确认对话框&amp;#39;&lt;/span>,&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(){
+doSomething();
+});
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>组件详情看下面的具体代码：&lt;/p>
+&lt;p>1.CSS 样式&lt;/p>
+&lt;p>由于这 2 个组件的样式差不多，所用共用了一样的 css，样式代码如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-css" data-lang="css">&lt;span style="color:#228b22">/**
+&lt;/span>&lt;span style="color:#228b22"> * dialog
+&lt;/span>&lt;span style="color:#228b22"> */&lt;/span>
+.&lt;span style="color:#008b45;font-weight:bold">dialog&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">top&lt;/span>:&lt;span style="color:#b452cd">40&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">left&lt;/span>:&lt;span style="color:#b452cd">40&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">width&lt;/span>: &lt;span style="color:#b452cd">250&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">min-height&lt;/span>: &lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">position&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">fixed&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">z-index&lt;/span>:&lt;span style="color:#b452cd">9999&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">text-align&lt;/span>: &lt;span style="color:#8b008b;font-weight:bold">center&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">padding&lt;/span>:&lt;span style="color:#b452cd">10&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">border&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">solid&lt;/span> &lt;span style="color:#b452cd">#bcc5c1&lt;/span> &lt;span style="color:#b452cd">1&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">background&lt;/span>:&lt;span style="color:#b452cd">#FFF&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">border-radius&lt;/span>:&lt;span style="color:#b452cd">3&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">-moz-&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">border-radius&lt;/span>:&lt;span style="color:#b452cd">3&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">-webkit-&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">border-radius&lt;/span>:&lt;span style="color:#b452cd">3&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">padding&lt;/span>:&lt;span style="color:#b452cd">0&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+behavior: &lt;span style="color:#658b00">url&lt;/span>(&lt;span style="color:#cb6c20">PIE.htc&lt;/span>);
+}
+.&lt;span style="color:#008b45;font-weight:bold">dialog&lt;/span> .&lt;span style="color:#008b45;font-weight:bold">dialog-header&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">position&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">relative&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">width&lt;/span>:&lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">height&lt;/span>:&lt;span style="color:#b452cd">30&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">margin&lt;/span>:&lt;span style="color:#b452cd">0&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">background&lt;/span>:&lt;span style="color:#b452cd">#0CF&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">background&lt;/span>:&lt;span style="color:#658b00">linear-gradient&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">top&lt;/span>,&lt;span style="color:#b452cd">#d1d4d3&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>,&lt;span style="color:#b452cd">#c4c7c8&lt;/span> &lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">background&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">-webkit-&lt;/span>&lt;span style="color:#658b00">linear-gradient&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">top&lt;/span>,&lt;span style="color:#b452cd">#d1d4d3&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>,&lt;span style="color:#b452cd">#c4c7c8&lt;/span> &lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">background&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">-moz-&lt;/span>&lt;span style="color:#658b00">linear-gradient&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">top&lt;/span>,&lt;span style="color:#b452cd">#d1d4d3&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>,&lt;span style="color:#b452cd">#c4c7c8&lt;/span> &lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">border-radius&lt;/span>:&lt;span style="color:#b452cd">3&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span> &lt;span style="color:#b452cd">3&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">-moz-&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">border-radius&lt;/span>:&lt;span style="color:#b452cd">3&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span> &lt;span style="color:#b452cd">3&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">-webkit-&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">border-radius&lt;/span>:&lt;span style="color:#b452cd">3&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span> &lt;span style="color:#b452cd">3&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+behavior: &lt;span style="color:#658b00">url&lt;/span>(&lt;span style="color:#cb6c20">PIE.htc&lt;/span>);
+}
+.&lt;span style="color:#008b45;font-weight:bold">dialog-header&lt;/span> .&lt;span style="color:#008b45;font-weight:bold">header-left&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">width&lt;/span>: &lt;span style="color:#8b008b;font-weight:bold">auto&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">height&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">auto&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">float&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">left&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">margin&lt;/span>:&lt;span style="color:#b452cd">7&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+}
+.&lt;span style="color:#008b45;font-weight:bold">dialog-header&lt;/span> .&lt;span style="color:#008b45;font-weight:bold">header-right&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">width&lt;/span>: &lt;span style="color:#8b008b;font-weight:bold">auto&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">height&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">auto&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">float&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">right&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">margin&lt;/span>:&lt;span style="color:#b452cd">7&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+}
+.&lt;span style="color:#008b45;font-weight:bold">dialog&lt;/span> .&lt;span style="color:#008b45;font-weight:bold">dialog-content&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">font-size&lt;/span>:&lt;span style="color:#b452cd">14&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">height&lt;/span>:&lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">width&lt;/span>:&lt;span style="color:#b452cd">96&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">float&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">left&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">font-family&lt;/span>:&lt;span style="color:#cd5555">&amp;#34;Helvetica Neue&amp;#34;&lt;/span>, Helvetica, Arial, &lt;span style="color:#8b008b;font-weight:bold">sans-serif&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">color&lt;/span>:&lt;span style="color:#b452cd">#424242&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">padding&lt;/span>:&lt;span style="color:#b452cd">5&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+}
+.&lt;span style="color:#008b45;font-weight:bold">dialog-content&lt;/span> .&lt;span style="color:#008b45;font-weight:bold">content-main&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">width&lt;/span>: &lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">min-height&lt;/span>: &lt;span style="color:#b452cd">40&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">line-height&lt;/span>:&lt;span style="color:#b452cd">25&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">float&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">left&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">white-space&lt;/span>: &lt;span style="color:#8b008b;font-weight:bold">normal&lt;/span>;
+}
+.&lt;span style="color:#008b45;font-weight:bold">dialog-content&lt;/span> .&lt;span style="color:#008b45;font-weight:bold">content-btn&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">float&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">left&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">width&lt;/span>:&lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">height&lt;/span>:&lt;span style="color:#b452cd">28&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">margin-top&lt;/span>:&lt;span style="color:#b452cd">10&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+}
+.&lt;span style="color:#008b45;font-weight:bold">btn&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">font-family&lt;/span>:Arial, Helvetica, &lt;span style="color:#8b008b;font-weight:bold">sans-serif&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">font-size&lt;/span>:&lt;span style="color:#b452cd">12&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">text-align&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">center&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">vertical-align&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">middle&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">margin-right&lt;/span>:&lt;span style="color:#b452cd">5&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">padding&lt;/span>:&lt;span style="color:#b452cd">5&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span> &lt;span style="color:#b452cd">20&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span> &lt;span style="color:#b452cd">5&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span> &lt;span style="color:#b452cd">20&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">text-decoration&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">none&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">border&lt;/span>:&lt;span style="color:#b452cd">#c4c7c8&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">solid&lt;/span> &lt;span style="color:#b452cd">1&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">border-radius&lt;/span>:&lt;span style="color:#b452cd">3&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">background&lt;/span>:&lt;span style="color:#b452cd">#d1d4d3&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">background&lt;/span>:&lt;span style="color:#658b00">linear-gradient&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">top&lt;/span>,&lt;span style="color:#b452cd">#d1d4d3&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>,&lt;span style="color:#b452cd">#c4c7c8&lt;/span> &lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">background&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">-webkit-&lt;/span>&lt;span style="color:#658b00">linear-gradient&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">top&lt;/span>,&lt;span style="color:#b452cd">#d1d4d3&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>,&lt;span style="color:#b452cd">#c4c7c8&lt;/span> &lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">background&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">-moz-&lt;/span>&lt;span style="color:#658b00">linear-gradient&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">top&lt;/span>,&lt;span style="color:#b452cd">#d1d4d3&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>,&lt;span style="color:#b452cd">#c4c7c8&lt;/span> &lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">color&lt;/span>:&lt;span style="color:#b452cd">#111c24&lt;/span>;
+}
+.&lt;span style="color:#008b45;font-weight:bold">btn&lt;/span>:&lt;span style="color:#707a7c">hover&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">background&lt;/span>:&lt;span style="color:#b452cd">#d1d4d3&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">background&lt;/span>:&lt;span style="color:#658b00">linear-gradient&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">top&lt;/span>,&lt;span style="color:#b452cd">#c4c7c8&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>,&lt;span style="color:#b452cd">#d1d4d3&lt;/span> &lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">background&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">-webkit-&lt;/span>&lt;span style="color:#658b00">linear-gradient&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">top&lt;/span>,&lt;span style="color:#b452cd">#c4c7c8&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>,&lt;span style="color:#b452cd">#d1d4d3&lt;/span> &lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">background&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">-moz-&lt;/span>&lt;span style="color:#658b00">linear-gradient&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">top&lt;/span>,&lt;span style="color:#b452cd">#c4c7c8&lt;/span> &lt;span style="color:#b452cd">0&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>,&lt;span style="color:#b452cd">#d1d4d3&lt;/span> &lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>);
+&lt;span style="color:#8b008b;font-weight:bold">color&lt;/span>:&lt;span style="color:#b452cd">#111c24&lt;/span>;
+}
+.&lt;span style="color:#008b45;font-weight:bold">alert-content&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">text-align&lt;/span>: &lt;span style="color:#8b008b;font-weight:bold">left&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">text-indent&lt;/span>: &lt;span style="color:#b452cd">20&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+}
+.&lt;span style="color:#008b45;font-weight:bold">alert&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">margin-left&lt;/span>:&lt;span style="color:#b452cd">140&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>2.Alert&lt;/p>
+&lt;p>Alert 主要是模拟了界面，并显示提示信息。JS 代码.Demo 可查看：&lt;a href="http://wewoor.github.io/CNUI/document.html">http://wewoor.github.io/CNUI/document.html&lt;/a> 。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">//Alert
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> Alert = {
+func : &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(){},
+name : &lt;span style="color:#cd5555">&amp;#34;dialog&amp;#34;&lt;/span>,
+show : &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(msg){ &lt;span style="color:#228b22">//show function
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> confirm = &lt;span style="color:#658b00">document&lt;/span>.createElement(&lt;span style="color:#cd5555">&amp;#34;div&amp;#34;&lt;/span>);
+confirm.className = &lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.name;
+confirm.id = &lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.name;;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> confirmHeader = &lt;span style="color:#658b00">document&lt;/span>.createElement(&lt;span style="color:#cd5555">&amp;#34;div&amp;#34;&lt;/span>);
+confirmHeader.className = &lt;span style="color:#cd5555">&amp;#34;dialog-header&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> headerSpan = &lt;span style="color:#658b00">document&lt;/span>.createElement(&lt;span style="color:#cd5555">&amp;#34;span&amp;#34;&lt;/span>);
+headerSpan.className = &lt;span style="color:#cd5555">&amp;#34;dialog-title&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> confirmContent = &lt;span style="color:#658b00">document&lt;/span>.createElement(&lt;span style="color:#cd5555">&amp;#34;div&amp;#34;&lt;/span>);
+confirmContent.className = &lt;span style="color:#cd5555">&amp;#34;dialog-content&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> contentSpan = &lt;span style="color:#658b00">document&lt;/span>.createElement(&lt;span style="color:#cd5555">&amp;#34;span&amp;#34;&lt;/span>);
+contentSpan.className = &lt;span style="color:#cd5555">&amp;#34;content-main alert-content&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> contentBtnDiv = &lt;span style="color:#658b00">document&lt;/span>.createElement(&lt;span style="color:#cd5555">&amp;#34;div&amp;#34;&lt;/span>);
+contentBtnDiv.className=&lt;span style="color:#cd5555">&amp;#34;content-btn&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> btnConfirm = &lt;span style="color:#658b00">document&lt;/span>.createElement(&lt;span style="color:#cd5555">&amp;#34;a&amp;#34;&lt;/span>); &lt;span style="color:#228b22">//确认按钮
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> btnConfirm.href = &lt;span style="color:#cd5555">&amp;#34;javascript:Alert.hide()&amp;#34;&lt;/span>;
+btnConfirm.className = &lt;span style="color:#cd5555">&amp;#34;btn alert&amp;#34;&lt;/span>;
+&lt;span style="color:#228b22">//按钮添加
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> contentBtnDiv.appendChild(btnConfirm);
+confirmContent.appendChild(contentSpan);
+confirmContent.appendChild(contentBtnDiv);
+confirmHeader.appendChild(headerSpan);
+confirm.appendChild(confirmHeader);
+confirm.appendChild(confirmContent);
+&lt;span style="color:#228b22">//default button
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> headerSpan.innerHTML = &lt;span style="color:#cd5555">&amp;#34;警示框！&amp;#34;&lt;/span>;
+btnConfirm.innerHTML = &lt;span style="color:#cd5555">&amp;#34;确认&amp;#34;&lt;/span>;
+contentSpan.innerHTML = &lt;span style="color:#cd5555">&amp;#34;这是一个警示框！&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(msg != &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span> &amp;amp;&amp;amp; msg != &lt;span style="color:#8b008b;font-weight:bold">undefined&lt;/span>){
+contentSpan.innerHTML = msg;
+}
+&lt;span style="color:#658b00">document&lt;/span>.body.appendChild(confirm);
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> confirm;
+},
+hide : &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(){
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> confirm = &lt;span style="color:#658b00">document&lt;/span>.getElementById(&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.name);
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(confirm != &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span> &amp;amp;&amp;amp; confirm != &lt;span style="color:#8b008b;font-weight:bold">undefined&lt;/span>){
+&lt;span style="color:#658b00">document&lt;/span>.body.removeChild(confirm);
+}
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>3.Confirm 组件&lt;/p>
+&lt;p>confirm 对话框并没有像原生的 confirm 组件返回 true 或者 false，而是点击确认按钮后执行了传入的回调函数，点击取消按钮则移除了这个组件。demo 请看：&lt;a href="http://wewoor.github.io/CNUI/document.html">http://wewoor.github.io/CNUI/document.html&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#228b22">//Confirm
+&lt;/span>&lt;span style="color:#228b22">&lt;/span>&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> Confirm = {
+func : &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(){},
+name : &lt;span style="color:#cd5555">&amp;#34;dialog&amp;#34;&lt;/span>,
+show : &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(msg,call){ &lt;span style="color:#228b22">//show function
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> confirm = &lt;span style="color:#658b00">document&lt;/span>.createElement(&lt;span style="color:#cd5555">&amp;#34;div&amp;#34;&lt;/span>);
+confirm.className = &lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.name;
+confirm.id = &lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.name;;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> confirmHeader = &lt;span style="color:#658b00">document&lt;/span>.createElement(&lt;span style="color:#cd5555">&amp;#34;div&amp;#34;&lt;/span>);
+confirmHeader.className = &lt;span style="color:#cd5555">&amp;#34;dialog-header&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> headerSpan = &lt;span style="color:#658b00">document&lt;/span>.createElement(&lt;span style="color:#cd5555">&amp;#34;span&amp;#34;&lt;/span>);
+headerSpan.className = &lt;span style="color:#cd5555">&amp;#34;dialog-title&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> confirmContent = &lt;span style="color:#658b00">document&lt;/span>.createElement(&lt;span style="color:#cd5555">&amp;#34;div&amp;#34;&lt;/span>);
+confirmContent.className = &lt;span style="color:#cd5555">&amp;#34;dialog-content&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> contentSpan = &lt;span style="color:#658b00">document&lt;/span>.createElement(&lt;span style="color:#cd5555">&amp;#34;span&amp;#34;&lt;/span>);
+contentSpan.className = &lt;span style="color:#cd5555">&amp;#34;content-main&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> contentBtnDiv = &lt;span style="color:#658b00">document&lt;/span>.createElement(&lt;span style="color:#cd5555">&amp;#34;div&amp;#34;&lt;/span>);
+contentBtnDiv.className=&lt;span style="color:#cd5555">&amp;#34;content-btn&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> btnConfirm = &lt;span style="color:#658b00">document&lt;/span>.createElement(&lt;span style="color:#cd5555">&amp;#34;a&amp;#34;&lt;/span>); &lt;span style="color:#228b22">//确认按钮
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> btnConfirm.href = &lt;span style="color:#cd5555">&amp;#34;javascript:Confirm.callback()&amp;#34;&lt;/span>;
+btnConfirm.className = &lt;span style="color:#cd5555">&amp;#34;btn&amp;#34;&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> btnCancle = &lt;span style="color:#658b00">document&lt;/span>.createElement(&lt;span style="color:#cd5555">&amp;#34;a&amp;#34;&lt;/span>); &lt;span style="color:#228b22">//取消按钮
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> btnCancle.className = &lt;span style="color:#cd5555">&amp;#34;btn&amp;#34;&lt;/span>;
+btnCancle.href = &lt;span style="color:#cd5555">&amp;#34;javascript:Confirm.hide()&amp;#34;&lt;/span>;
+&lt;span style="color:#228b22">//按钮添加
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> contentBtnDiv.appendChild(btnConfirm);
+contentBtnDiv.appendChild(btnCancle);
+confirmContent.appendChild(contentSpan);
+confirmContent.appendChild(contentBtnDiv);
+confirmHeader.appendChild(headerSpan);
+confirm.appendChild(confirmHeader);
+confirm.appendChild(confirmContent);
+&lt;span style="color:#228b22">//default style
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> headerSpan.innerHTML = &lt;span style="color:#cd5555">&amp;#34;对话框&amp;#34;&lt;/span>;
+contentSpan.innerHTML = &lt;span style="color:#cd5555">&amp;#34;这是确认对话框？&amp;#34;&lt;/span>;
+btnConfirm.innerHTML = &lt;span style="color:#cd5555">&amp;#34;确认&amp;#34;&lt;/span>;
+btnCancle.innerHTML = &lt;span style="color:#cd5555">&amp;#34;取消&amp;#34;&lt;/span>;
+&lt;span style="color:#228b22">//if the property html is not null and not undefined
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#228b22">//just set this property.
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(msg != &lt;span style="color:#8b008b;font-weight:bold">undefined&lt;/span>){
+contentSpan.innerHTML = msg;
+}
+&lt;span style="color:#228b22">//set callback
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(call != &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span> &amp;amp;&amp;amp; call != &lt;span style="color:#8b008b;font-weight:bold">undefined&lt;/span>){
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">typeof&lt;/span>(call) == &lt;span style="color:#cd5555">&amp;#34;function&amp;#34;&lt;/span>){
+&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.func = call;
+}
+}
+&lt;span style="color:#658b00">document&lt;/span>.body.appendChild(confirm);
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> confirm;
+},
+hide : &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(){
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> confirm = &lt;span style="color:#658b00">document&lt;/span>.getElementById(&lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.name);
+&lt;span style="color:#8b008b;font-weight:bold">if&lt;/span>(confirm != &lt;span style="color:#8b008b;font-weight:bold">null&lt;/span> &amp;amp;&amp;amp; confirm != &lt;span style="color:#8b008b;font-weight:bold">undefined&lt;/span>){
+&lt;span style="color:#658b00">document&lt;/span>.body.removeChild(confirm);
+}
+},
+callback : &lt;span style="color:#8b008b;font-weight:bold">function&lt;/span>(){
+&lt;span style="color:#228b22">//执行call回调方法
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.func();
+&lt;span style="color:#228b22">//隐藏confirm对象
+&lt;/span>&lt;span style="color:#228b22">&lt;/span> &lt;span style="color:#8b008b;font-weight:bold">this&lt;/span>.hide();
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>- //imziv.com/posts/2013/js%E6%A8%A1%E6%8B%9Falert%E4%B8%8Econfirm%E5%AF%B9%E8%AF%9D%E6%A1%86/ - 2012-2020 Ziv小威</description></item><item><title>详解 CSS 样式的 position 属性</title><link>//imziv.com/posts/2013/%E8%AF%A6%E8%A7%A3css%E6%A0%B7%E5%BC%8F%E7%9A%84position%E5%B1%9E%E6%80%A7/</link><pubDate>Sun, 09 Jun 2013 13:09:00 +0000</pubDate><guid>//imziv.com/posts/2013/%E8%AF%A6%E8%A7%A3css%E6%A0%B7%E5%BC%8F%E7%9A%84position%E5%B1%9E%E6%80%A7/</guid><description>让美的事情发生 //imziv.com/posts/2013/%E8%AF%A6%E8%A7%A3css%E6%A0%B7%E5%BC%8F%E7%9A%84position%E5%B1%9E%E6%80%A7/ -&lt;p>平时在写 css 样式的时候 position 是我们比较常用的一个属性。有时候会弄不清其几个属性值的真正区别。不过用的时间久了，也就慢慢的明白了。不过其实想用好 position 有时候还是需要些技巧的。写篇博文总结下自己。&lt;/p>
+&lt;p>position 的作用：用于设置对 html 元素的定位方式　　
+position 属性的值：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>值名称&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>static&lt;/td>
+&lt;td>position 的默认值，设置此属性时，元素按照正常的流式布局往下排列&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>inherit&lt;/td>
+&lt;td>继承父元素的 position 值&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>relative&lt;/td>
+&lt;td>相对于其他元素的定位&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>absolute&lt;/td>
+&lt;td>相对于采用 static 定位的父元素的绝对定位&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>fixed&lt;/td>
+&lt;td>相对于浏览器的绝对定位&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>备注：如果给元素才用了 top,left 等定位属性时，只有 relative,absolute,fixed 才会有效果。&lt;/p>
+&lt;p>3.应用实例&lt;/p>
+&lt;p>　　　这里主要记录是 absolute 和 fixed 属性值。absolute 与 fixed 的好处主要就是它的定位不拘束于其它同级元素，不想其它几种布局自己的定位会被其它元素所影响。所以像做一些动画效果，div 浮动效果的时候，这个两个属性值就尤为适合了。&lt;/p>
+&lt;p>　　结合 z-index 的使用&lt;/p>
+&lt;p>　　　　z-index 用于控制元素在页面中层级的位置，就跟高楼大厦的楼层一样，z-index 则可用于控制所在的楼层。absolute 与 fixed 都支持 z-index 属性。所以当几个元素采用 absolute 或者 fixed 属性时，为了达到层次显示的效果，z-index 属性就很方便了。&lt;/p>
+&lt;p>　　示例：&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">html&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">title&lt;/span>&amp;gt;Position&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">title&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">head&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">meta&lt;/span> &lt;span style="color:#658b00">http-equiv&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;Content-Type&amp;#34;&lt;/span> &lt;span style="color:#658b00">content&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;text/html; charset=utf-8&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">style&lt;/span> &lt;span style="color:#658b00">type&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;text/css&amp;#34;&lt;/span>&amp;gt;
+#&lt;span style="color:#008b45;text-decoration:underline">container&lt;/span>{
+&lt;span style="color:#8b008b;font-weight:bold">height&lt;/span>:&lt;span style="color:#b452cd">1000&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">width&lt;/span>: &lt;span style="color:#b452cd">960&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">margin&lt;/span>: &lt;span style="color:#8b008b;font-weight:bold">auto&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">background-color&lt;/span>: &lt;span style="color:#8b008b;font-weight:bold">blue&lt;/span>;
+}
+#&lt;span style="color:#008b45;text-decoration:underline">roll-top&lt;/span> {
+&lt;span style="color:#8b008b;font-weight:bold">padding&lt;/span>:&lt;span style="color:#b452cd">20&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">background-color&lt;/span>:&lt;span style="color:#b452cd">#525252&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">cursor&lt;/span>: &lt;span style="color:#8b008b;font-weight:bold">pointer&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">right&lt;/span>:&lt;span style="color:#b452cd">10&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+}
+#&lt;span style="color:#008b45;text-decoration:underline">roll-top&lt;/span>,#&lt;span style="color:#008b45;text-decoration:underline">below&lt;/span>{
+&lt;span style="color:#8b008b;font-weight:bold">position&lt;/span>:&lt;span style="color:#8b008b;font-weight:bold">fixed&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">top&lt;/span>:&lt;span style="color:#b452cd">85&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">font-size&lt;/span>:&lt;span style="color:#b452cd">12&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">color&lt;/span>:&lt;span style="color:#b452cd">#FFFFFF&lt;/span>;
+}
+#&lt;span style="color:#008b45;text-decoration:underline">below&lt;/span>{
+&lt;span style="color:#8b008b;font-weight:bold">width&lt;/span>:&lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">%&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">height&lt;/span>:&lt;span style="color:#b452cd">100&lt;/span>&lt;span style="color:#00688b;font-weight:bold">px&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">background-color&lt;/span>:&lt;span style="color:#b452cd">#757575&lt;/span>;
+&lt;span style="color:#8b008b;font-weight:bold">z-index&lt;/span>: &lt;span style="color:#b452cd">-1&lt;/span>;
+}
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">style&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">script&lt;/span> &lt;span style="color:#658b00">type&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;text/javascript&amp;#34;&lt;/span>&amp;gt;
+&lt;span style="color:#8b008b;font-weight:bold">function&lt;/span> rollbackTop(){
+&lt;span style="color:#658b00">window&lt;/span>.scrollTo(&lt;span style="color:#b452cd">0&lt;/span>);
+}
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">script&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">head&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">body&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;container&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;roll-top&amp;#34;&lt;/span> &lt;span style="color:#658b00">onclick&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;rollbackTop()&amp;#34;&lt;/span>&amp;gt;返回顶部&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span> &lt;span style="color:#658b00">id&lt;/span>=&lt;span style="color:#cd5555">&amp;#34;below&amp;#34;&lt;/span>&amp;gt;我在下面&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">div&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">body&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#8b008b;font-weight:bold">script&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">script&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#8b008b;font-weight:bold">html&lt;/span>&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>像利用 absolute 做动画效果的例子在 JQuery 官方上面的例子还是比较多。再次就不做详解了。&lt;/p>
+- //imziv.com/posts/2013/%E8%AF%A6%E8%A7%A3css%E6%A0%B7%E5%BC%8F%E7%9A%84position%E5%B1%9E%E6%80%A7/ - 2012-2020 Ziv小威</description></item></channel></rss>
