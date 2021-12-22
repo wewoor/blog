@@ -1,18 +1,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>让美的事情发生</title><link>//imziv.com/</link><description>Recent content on 让美的事情发生</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>2012-2020 Ziv小威</copyright><lastBuildDate>Thu, 16 Dec 2021 14:00:00 +0000</lastBuildDate><atom:link href="//imziv.com/index.xml" rel="self" type="application/rss+xml"/><item><title>我们开源了一个轻量的 Web IDE UI 框架 - Molecule</title><link>//imziv.com/posts/2021/%E6%88%91%E4%BB%AC%E5%BC%80%E6%BA%90%E4%BA%86%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%9A%84-web-ide-ui-%E6%A1%86%E6%9E%B6/</link><pubDate>Thu, 16 Dec 2021 14:00:00 +0000</pubDate><guid>//imziv.com/posts/2021/%E6%88%91%E4%BB%AC%E5%BC%80%E6%BA%90%E4%BA%86%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%9A%84-web-ide-ui-%E6%A1%86%E6%9E%B6/</guid><description>让美的事情发生 //imziv.com/posts/2021/%E6%88%91%E4%BB%AC%E5%BC%80%E6%BA%90%E4%BA%86%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E7%9A%84-web-ide-ui-%E6%A1%86%E6%9E%B6/ -&lt;h1 id="molecule">Molecule&lt;/h1>
-&lt;p>&lt;img src="./img/intro-molecule/logo1x.png" alt="logo@1x.png">&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2021/img/intro-molecule/logo1x.png" alt="logo@1x.png">&lt;/p>
 &lt;blockquote>
 &lt;p>一个轻量的 Web IDE UI 框架&lt;/p>
 &lt;/blockquote>
 &lt;h2 id="简介">简介&lt;/h2>
 &lt;p>&lt;a href="https://github.com/DTStack/molecule">Molecule&lt;/a> 是一个受 &lt;a href="https://github.com/microsoft/vscode">VS Code&lt;/a> 启发，使用 &lt;a href="https://reactjs.org/">React.js&lt;/a> 构建的 &lt;strong>Web IDE UI&lt;/strong> 框架。通过一种类似 VS Code 扩展机制（Extension），可快速、轻松搭建一个高度抽象的 &lt;strong>Web IDE UI&lt;/strong> 系统。同时基于 Monaco Editor，内置集成了 QuickAccess 和 Keybinding 等功能，并提供了简单的 API 以供使用。&lt;/p>
 &lt;p>得益于&lt;strong>扩展机制&lt;/strong>和 &lt;strong>React 组件化&lt;/strong>技术，Molecule 可以针对例如 &lt;strong>Workbench UI、&lt;/strong> &lt;strong>ColorTheme&lt;/strong> 、&lt;strong>自定义热键&lt;/strong>、&lt;strong>快捷访问&lt;/strong>等功能进行自定义扩展。另外，开发者可将&lt;strong>业务代码&lt;/strong>和 IDE UI 架构&lt;strong>解耦&lt;/strong>，在保持业务高速迭代的同时，&lt;strong>产品交互体验&lt;/strong>依然保持良好的&lt;strong>可持续进化能力。&lt;/strong>&lt;/p>
-&lt;p>&lt;img src="./img/intro-molecule//workbench.png" alt="workbench.png">&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2021/img/intro-molecule/workbench.png" alt="workbench.png">&lt;/p>
 &lt;h2 id="动机">动机&lt;/h2>
 &lt;p>&lt;a href="https://www.dtstack.com/dtinsight/">数栈（DTInsight）&lt;/a> 中例如&lt;strong>离线、实时任务开发，算法开发&lt;/strong>等产品，它们的直接使用人员大部分都是&lt;strong>开发者，&lt;strong>需要在 Web 上完成&lt;/strong>代码编写，调试&lt;/strong>等工作。所以，我们也希望给开发人员创造一个良好的在线 IDE 开发体验。&lt;/p>
-&lt;p>&lt;img src="./img/intro-molecule/ide-v3.png" alt="ide-v3.png">&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2021/img/intro-molecule/ide-v3.png" alt="ide-v3.png">&lt;/p>
 &lt;p>&lt;em>早期的&lt;/em>数栈开发平台&lt;/p>
 &lt;p>上图中的 RD-OS 是我们数栈开发平台早期的版本，当时产品功能本身比较简单。前端在初期的实现上，基于 React + Ant Design + Codemirror 来搭建的整个 IDE UI 界面。另外，由于当时我们多个产品都有这个 Workbench 的场景，我们还抽象了一个简单且单纯 的 IDE Workbench UI 的 React 组件，以供其他产品复用。&lt;/p>
-&lt;p>&lt;img src="./img/intro-molecule/ide-v4.png" alt="ide-v4.png">&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2021/img/intro-molecule/ide-v4.png" alt="ide-v4.png">&lt;/p>
 &lt;p>&lt;em>当前的 Web IDE 版本&lt;/em>&lt;/p>
 &lt;p>随着业务发展，产品不断的迭代，整个页面的功能也变得十分&lt;strong>密集和复杂。&lt;strong>产品布局、视觉、交互等一直在更新和变化，上图已经是我们最新的版本设计。然而，在面对这些新的&lt;/strong>交互、视觉&lt;/strong>上的诉求时，早期&lt;strong>简单堆叠&lt;/strong>的技术架构就会显得有些捉襟见肘了。设计师新出的方案，由于&lt;strong>改造成本&lt;/strong>很高，比较难以实施。&lt;/p>
 &lt;p>大约 2019 年左右，团队和产品交流了市面上做的比较好的 Web IDE 产品，如 &lt;a href="https://github.com/c9">Cloud9 IDE&lt;/a>、&lt;a href="https://github.com/microsoft/vscode">VS Code&lt;/a>、&lt;a href="https://github.com/eclipse-theia/theia">Eclipse Theia&lt;/a> 等。这些产品都有非常好的 UI 抽象，扩展性很好，定制主题等功能也比较方便。但是这些产品功能比较完整的 IDE，应用到我们产品，就显得有点重，而且对团队技术挑战较大，最重要的是技术&lt;strong>迁移成本&lt;/strong>也比较高，自定义 UI 也不够灵活。&lt;/p>
@@ -29,7 +29,7 @@
 &lt;li>内置默认的 &lt;strong>Explorer&lt;/strong>, &lt;strong>Search&lt;/strong> 等组件，并支持扩展&lt;/li>
 &lt;li>Typescript&lt;/li>
 &lt;/ul>
-&lt;p>&lt;img src="img/intro-molecule/layout.png" alt="Workbench Parts">&lt;/p>
+&lt;p>&lt;img src="//imziv.com/posts/2021/img/intro-molecule/layout.png" alt="Workbench Parts">&lt;/p>
 &lt;p>上图是重新抽象的 Workbench UI。基于一个简单的扩展（Extension），如 &lt;strong>Workbench&lt;/strong>、&lt;strong>ColorTheme&lt;/strong>、&lt;strong>QuickAccess&lt;/strong>、&lt;strong>Keybinding&lt;/strong>、&lt;strong>i18n&lt;/strong>、&lt;strong>Settings&lt;/strong> 等等功能，通过 Molecule 内置的服务，可以轻松的使用和扩展。&lt;/p>
 &lt;h2 id="与其他开源的-web-ide-的区别">与其他开源的 Web IDE 的区别？&lt;/h2>
 &lt;ul>
